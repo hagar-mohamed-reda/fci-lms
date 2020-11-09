@@ -50,12 +50,23 @@
                             </div>
 
 
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label>@lang('site.active')*</label>
                                 <select name="active" class="form-control">
                                     <option value="1" {{$doctor->active == 1? 'selected': '' }}>@lang('site.is_active')</option>
                                     <option value="0" {{$doctor->active == 0? 'selected': '' }}>@lang('site.not_active')</option>
                                 </select>
+                            </div> --}}
+
+                            <input type="hidden" name="active" value="0">
+
+                            <div class="form-group">
+                                <label>@lang('site.active')*</label>
+                                <div class="custom-control custom-switch material-switch">
+                                        <input type="checkbox" name="active" class="custom-control-input" id="doctorSwitch{{$doctor->id}}"
+                                        onchange="this.checked? this.value = 1 : this.value = 0" {{ $doctor->active == 1? 'checked' : ''}} >
+                                        <label class="custom-control-label" for="doctorSwitch{{$doctor->id}}"></label>
+                                </div>
                             </div>
 
 
