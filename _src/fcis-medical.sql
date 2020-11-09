@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 09, 2020 at 10:37 AM
+-- Generation Time: Nov 09, 2020 at 11:12 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.33
 
@@ -172,7 +172,8 @@ CREATE TABLE `lessons` (
 --
 
 INSERT INTO `lessons` (`id`, `sbj_id`, `doc_id`, `name`, `date`, `pdf_file`, `mp4_file`, `pptx_file`, `youtube_link`, `created_at`, `updated_at`) VALUES
-(16, 28, 40, 'test lesson', '2020-11-09', '1604914371.pdf', '1604914371.mp4', '1604914371.pptx', 'https://youtu.be/0JiP8jSFT3E', '2020-11-09 07:32:51', '2020-11-09 07:32:51');
+(16, 28, 40, 'test lesson', '2020-11-09', '1604914371.pdf', '1604914371.mp4', '1604914371.pptx', 'https://youtu.be/0JiP8jSFT3E', '2020-11-09 07:32:51', '2020-11-09 07:32:51'),
+(17, 39, 51, 'test lesson', '2020-11-09', '1604916647.pdf', '1604916647.mp4', '1604916647.pptx', 'https://www.youtube.com/watch?v=FR7hXG-Vlz4', '2020-11-09 08:10:47', '2020-11-09 08:10:47');
 
 -- --------------------------------------------------------
 
@@ -332,7 +333,10 @@ INSERT INTO `login_histories` (`id`, `ip`, `phone_details`, `user_id`, `created_
 (108, '127.0.0.1', 'Chrome/86.0.4240.183', 1533, '2020-11-07 07:13:10', '2020-11-07 07:13:10'),
 (109, '127.0.0.1', 'Chrome/86.0.4240.183', 1, '2020-11-07 07:24:53', '2020-11-07 07:24:53'),
 (110, '127.0.0.1', 'Chrome/86.0.4240.183', 1, '2020-11-09 07:18:49', '2020-11-09 07:18:49'),
-(111, '127.0.0.1', 'Chrome/86.0.4240.183', 1513, '2020-11-09 07:28:01', '2020-11-09 07:28:01');
+(111, '127.0.0.1', 'Chrome/86.0.4240.183', 1513, '2020-11-09 07:28:01', '2020-11-09 07:28:01'),
+(112, '127.0.0.1', 'Chrome/86.0.4240.183', 1, '2020-11-09 08:05:13', '2020-11-09 08:05:13'),
+(113, '127.0.0.1', 'Chrome/86.0.4240.183', 1524, '2020-11-09 08:09:01', '2020-11-09 08:09:01'),
+(114, '127.0.0.1', 'Chrome/86.0.4240.183', 51, '2020-11-09 08:11:28', '2020-11-09 08:11:28');
 
 -- --------------------------------------------------------
 
@@ -1505,7 +1509,7 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `name`, `username`, `email`, `phone`, `level_id`, `department_id`, `code`, `password`, `active`, `account_confirm`, `set_number`, `national_id`, `graduated`, `can_see_result`, `created_at`, `updated_at`) VALUES
-(73, 'احمد محمد عبد القادر عبدالجواد', '30302082201514', '30302082201514', '30302082201514', 1, NULL, '2', '$2y$10$sj6A7WV/AV3n.Ida4h6hlO3FhBCiiWFHVnqrBV9J/O7TbHNgw9iK6', 1, 0, 2, '30302082201514', 0, 0, '2020-11-02 07:38:25', '2020-11-02 07:38:25'),
+(73, 'احمد محمد عبد القادر عبدالجواد', '30302082201514', '30302082201514', '30302082201514', 1, NULL, '2', '$2y$10$sj6A7WV/AV3n.Ida4h6hlO3FhBCiiWFHVnqrBV9J/O7TbHNgw9iK6', 1, 0, 2, '30302082201514', 0, 0, '2020-11-02 07:38:25', '2020-11-09 08:06:08'),
 (74, 'اسماء هشام كمال ابراهيم', '30206232201381', '30206232201381', '30206232201381', 1, NULL, '3', '$2y$10$5wtBDnww5nwVgJwYsKJ6a.39JnEBbJh8GMxlW5m.BAfnH1GGthzbq', 1, 0, 3, '30206232201381', 0, 0, '2020-11-02 07:38:26', '2020-11-02 07:38:26'),
 (75, 'اهله باسم  محمد حسن', '30208082201461', '30208082201461', '30208082201461', 1, NULL, '4', '$2y$10$OOZOHphA9Luas7MhrFdJpOmYhSvudlvEGVZWK4VaDQQDxAHtoGie.', 1, 0, 4, '30208082201461', 0, 0, '2020-11-02 07:38:26', '2020-11-02 07:38:26'),
 (76, 'اية  اشرف يوسف فتح الله', '30109222200225', '30109222200225', '30109222200225', 1, NULL, '5', '$2y$10$IE1ZTmhip3FXIPWBYw0f7.Dtu1siKnpBUjNFNfZswkWKtRt4q8Lni', 1, 0, 5, '30109222200225', 0, 0, '2020-11-02 07:38:27', '2020-11-02 07:38:27'),
@@ -5810,7 +5814,7 @@ ALTER TABLE `doctors`
 -- AUTO_INCREMENT for table `lessons`
 --
 ALTER TABLE `lessons`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `levels`
@@ -5822,7 +5826,7 @@ ALTER TABLE `levels`
 -- AUTO_INCREMENT for table `login_histories`
 --
 ALTER TABLE `login_histories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
 -- AUTO_INCREMENT for table `migrations`
