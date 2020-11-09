@@ -187,7 +187,8 @@
 
         });
 
-        $('.checkinp').on('change', function(){
+
+            $('.checkinp').on('change', function (){
             //e.preventDefault();
 
             var sid = $(this).attr('sid');
@@ -235,6 +236,60 @@
             });
         });//end function
 
+
+
+        var table = $('#studenttable').DataTable();
+            table.on( 'draw', function(){
+                $('.checkinp').on('change', function (){
+                    //e.preventDefault();
+
+                    var sid = $(this).attr('sid');
+                    var val = $(this).val();
+                    var token = $('meta[name="csrf-token"]').attr('content');
+
+                    $.ajax({
+                        header:{'X-CSRF-TOKEN': token},
+                        url : "{{ url('std/changeActive').'/'}}" + sid,
+                        type : 'post',
+                        //data : val,
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            "active": val
+                        },
+                        dataType : 'json',
+                        success : function(data){
+                                if(data.errors){
+                                    //alert('Data errorsss');
+                                    iziToast.error({
+                                        timeout: 6000,
+                                        title: 'Error', message: data.errors,
+                                        position:'topCenter',
+                                    });
+                                    //$('#chphoneform')[0].reset();
+                                };
+                                if(data.success){
+                                    iziToast.success({
+                                        timeout: 6000, icon: 'fa fa-check-circle',
+                                        title: 'Success', message: 'Data updated Successfully',
+                                        position: 'topCenter',
+                                    });
+                                    //$('#chphoneform')[0].reset();
+                                }
+                        },
+                        error : function(){
+                                //alert('Error Data');
+                                iziToast.error({
+                                        timeout: 6000,
+                                        title: 'Error', message: 'Error Data',
+                                        position:'topCenter',
+                                    });
+                                    //$('#chphoneform')[0].reset();
+                        }
+                    });
+                });//end functio
+            });
+
+        //end of on draw
         /*
         function changeActive($id){
             $.ajax({
