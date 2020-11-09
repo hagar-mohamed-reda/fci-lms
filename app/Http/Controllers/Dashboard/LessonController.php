@@ -137,6 +137,15 @@ class LessonController extends Controller
             $destinationPath = public_path('uploads/lessons');
             $pdf_file->move($destinationPath,$pdf_filename);
             }
+            if($request->hasFile('mp4_file')){
+                $mp4_file = $request->file('mp4_file');
+                $mp4_filename=time().'.'.$mp4_file->getClientOriginalExtension();
+
+                $request_data['mp4_file'] = $mp4_filename;
+
+                $destinationPath = public_path('uploads/lessons');
+                $mp4_file->move($destinationPath,$mp4_filename);
+                }
             /*if($pdf_file->move($destinationPath,$pdf_filename)){
                 $less = new Lesson();
                 $less->pdf_file = $pdf_filename;
@@ -226,13 +235,21 @@ class LessonController extends Controller
 
         if($request->hasFile('pptx_file')){
 
-            $pdf_file = $request->file('pdf_file');
-            $pdf_filename=time().'.'.$pdf_file->getClientOriginalExtension();
+            if($request->hasFile('pdf_file')){
+                $pdf_file = $request->file('pdf_file');
+                $pdf_filename=time().'.'.$pdf_file->getClientOriginalExtension();
+                $request_data['pdf_file'] = $pdf_filename;
+                $destinationPath = public_path('uploads/lessons');
+                $pdf_file->move($destinationPath,$pdf_filename);
+            }
 
-            $request_data['pdf_file'] = $pdf_filename;
-
-            $destinationPath = public_path('uploads/lessons');
-            $pdf_file->move($destinationPath,$pdf_filename);
+            if($request->hasFile('mp4_file')){
+                $mp4_file = $request->file('mp4_file');
+                $mp4_filename=time().'.'.$mp4_file->getClientOriginalExtension();
+                $request_data['mp4_file'] = $mp4_filename;
+                $destinationPath = public_path('uploads/lessons');
+                $mp4_file->move($destinationPath,$mp4_filename);
+            }
 
             $pptx_file = $request->file('pptx_file');
             $pptx_filename=time().'.'.$pptx_file->getClientOriginalExtension();

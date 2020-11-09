@@ -42,21 +42,25 @@
                             </div>
 
                             <div class="form-group">
-                                <label><i class="fa fa-paperclip fa-lg" aria-hidden="true"></i> @lang('site.pptx_file')*</label>
+                                <label><i class="fa fa-paperclip fa-lg" aria-hidden="true"></i> @lang('site.file_one')*</label>
                                 <input type="file" name="pptx_file" class="form-control" value="{{old('pptx_file')}}">
                                 <!--input type="submit" value="upload"-->
                             </div>
 
                                 <div class="form-group">
-                                    <label><i class="fa fa-paperclip fa-lg" aria-hidden="true"></i> @lang('site.pdf_file')</label>
+                                    <label><i class="fa fa-paperclip fa-lg" aria-hidden="true"></i> @lang('site.file_two')</label>
                                     <input type="file" name="pdf_file" class="form-control" value="{{old('pdf_file')}}">
                                     <!--input type="submit" value="upload"-->
                                 </div>
 
-
+                                <div class="form-group">
+                                    <label><i class="fa fa-paperclip fa-lg" aria-hidden="true"></i> @lang('site.upload_pc_video')</label>
+                                    <input type="file" name="mp4_file" class="form-control" value="{{old('mp4_file')}}">
+                                    <!--input type="submit" value="upload"-->
+                                </div>
 
                                 <div class="form-group">
-                                    <label>@lang('site.youtube_link')</label>
+                                    <label>@lang('site.youtube_link_video')</label>
                                     <input type="text" name="youtube_link" class="form-control" value="{{old('youtube_link')}}">
                                 </div>
 

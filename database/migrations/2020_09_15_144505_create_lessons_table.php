@@ -20,6 +20,7 @@ class CreateLessonsTable extends Migration
             $table->string('name');
             $table->date('date');
             $table->string('pdf_file')->nullable();
+            $table->string('mp4_file')->nullable();
             $table->string('pptx_file');
             $table->string('youtube_link')->nullable();
             $table->timestamps();
