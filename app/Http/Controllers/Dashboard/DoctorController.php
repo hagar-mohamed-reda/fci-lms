@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 use DataTables;
+use Yajra\DataTables\Facades\DataTables as FacadesDataTables;
 
 class DoctorController extends Controller
 {
@@ -53,7 +54,7 @@ class DoctorController extends Controller
     public function getDocData(){
         $doctors = Doctor::query();
 
-            return DataTables::eloquent($doctors)
+            return FacadesDataTables::eloquent($doctors)
             ->addColumn('subjects', function(Doctor $doctor){
                 return Subject::where('doc_id', $doctor->id )->count();
 

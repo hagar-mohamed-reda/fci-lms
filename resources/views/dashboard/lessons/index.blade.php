@@ -282,6 +282,11 @@
 
     $('#lessonTable').DataTable({
             "pageLength": 5,
+            /*"ajax" : {
+                    "url" : "{{ url('dashboard/lessons/index') }}",
+                    "type": "PUT",
+                    data: {'_token':$('input[name=_token]').val()}
+                },*/
         });
 </script>
 @endsection

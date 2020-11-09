@@ -180,11 +180,15 @@
     //     });
         $(function() {
             $('#doctortable').DataTable({
-                processing: true,
-                serverSide: true,
+                "processing" : true,
+                "serverSide ": true,
                 "sorting": [0, 'DESC'],
-                ajax: "{{ route('dashboard.doctors.data') }}",
-                columns: [
+                "ajax" : {
+                    "url" : "{{ route('dashboard.doctors.data') }}",
+                    "type": "POST",
+                    data: {'_token':$('input[name=_token]').val()}
+                },
+                "columns" : [
                     { data: 'id', name: 'id' },
                     { data: 'name', name: 'name' },
                     { data: 'email', name: 'email' },
@@ -195,6 +199,8 @@
                     { data: 'action', name: 'action' },
                 ]
             });
+
+            $.fn.dataTable.ext.errMode = 'throw';
         });
 </script>
 @endsection
