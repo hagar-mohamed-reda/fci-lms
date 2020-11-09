@@ -220,9 +220,16 @@ class StudentController extends Controller
     public function changeActive(Request $request,$id){
         $std = Student::find($id);
 
-        $form_data = array(
-            'active' => $request->active,
-        );
-        $std->update($form_data);
+        $std->update([
+            "active" => $request->active
+        ]);
+
+       /* if($error->fails()){
+            return response()->json(['errors' => $error->errors()->all()]);
+        }*/
+
+        return response()->json(['success'=>'Data Updated Succefully']);
+
+        //return [1, "done"];
     }
 }
