@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 07, 2020 at 10:17 AM
+-- Generation Time: Nov 09, 2020 at 10:37 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.33
 
@@ -68,18 +68,6 @@ CREATE TABLE `assignments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `assignments`
---
-
-INSERT INTO `assignments` (`id`, `lesson_id`, `sbj_id`, `doc_id`, `name`, `start_date`, `end_date`, `pdf_quest`, `pdf_anss`, `created_at`, `updated_at`) VALUES
-(6, 10, 28, 40, 'fis test assign', '2020-11-02', '2020-11-09', '1604336143.pdf', NULL, '2020-11-02 14:55:43', '2020-11-02 14:55:43'),
-(7, 11, 32, 44, 'SP test assign', '2020-11-02', '2020-11-09', '1604336299.pdf', NULL, '2020-11-02 14:58:19', '2020-11-02 14:58:19'),
-(8, 12, 39, 51, 'DS L1 Assign test', '2020-11-02', '2020-11-09', '1604336444.pdf', NULL, '2020-11-02 15:00:44', '2020-11-02 15:00:44'),
-(9, 13, 42, 53, 'DC L1 Assign test', '2020-11-02', '2020-11-09', '1604336566.pdf', NULL, '2020-11-02 15:02:46', '2020-11-02 15:02:46'),
-(10, 14, 44, 55, 'IP L1 Assign test', '2020-11-02', '2020-11-09', '1604336905.pdf', NULL, '2020-11-02 15:08:25', '2020-11-02 15:08:25'),
-(11, 15, 48, 59, 'SA L1 assign test', '2020-11-02', '2020-11-09', '1604337060.pdf', NULL, '2020-11-02 15:11:00', '2020-11-02 15:11:00');
 
 -- --------------------------------------------------------
 
@@ -172,6 +160,7 @@ CREATE TABLE `lessons` (
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date` date NOT NULL,
   `pdf_file` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mp4_file` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `pptx_file` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `youtube_link` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -182,13 +171,8 @@ CREATE TABLE `lessons` (
 -- Dumping data for table `lessons`
 --
 
-INSERT INTO `lessons` (`id`, `sbj_id`, `doc_id`, `name`, `date`, `pdf_file`, `pptx_file`, `youtube_link`, `created_at`, `updated_at`) VALUES
-(10, 28, 40, 'fis test less1', '2020-11-02', '1604336086.pdf', '1604336086.pptx', 'https://youtu.be/0JiP8jSFT3E', '2020-11-02 14:54:46', '2020-11-02 14:54:46'),
-(11, 32, 44, 'SP lesson 1 test', '2020-11-02', '1604336251.pdf', '1604336251.pptx', 'https://youtu.be/0JiP8jSFT3E', '2020-11-02 14:57:31', '2020-11-02 14:57:31'),
-(12, 39, 51, 'DS Test lesson', '2020-11-02', '1604336404.pdf', '1604336404.pptx', 'https://youtu.be/0JiP8jSFT3E', '2020-11-02 15:00:04', '2020-11-02 15:00:04'),
-(13, 42, 53, 'DC Lesson1 test', '2020-11-02', '1604336537.pdf', '1604336537.pptx', 'https://youtu.be/0JiP8jSFT3E', '2020-11-02 15:02:17', '2020-11-02 15:02:17'),
-(14, 44, 55, 'IP Lesson1 test', '2020-11-02', '1604336831.pdf', '1604336831.pptx', 'https://youtu.be/0JiP8jSFT3E', '2020-11-02 15:07:11', '2020-11-02 15:07:11'),
-(15, 48, 59, 'SA Lesson 1 test', '2020-11-02', '1604336990.pdf', '1604336990.pptx', 'https://youtu.be/0JiP8jSFT3E', '2020-11-02 15:09:50', '2020-11-02 15:09:50');
+INSERT INTO `lessons` (`id`, `sbj_id`, `doc_id`, `name`, `date`, `pdf_file`, `mp4_file`, `pptx_file`, `youtube_link`, `created_at`, `updated_at`) VALUES
+(16, 28, 40, 'test lesson', '2020-11-09', '1604914371.pdf', '1604914371.mp4', '1604914371.pptx', 'https://youtu.be/0JiP8jSFT3E', '2020-11-09 07:32:51', '2020-11-09 07:32:51');
 
 -- --------------------------------------------------------
 
@@ -345,7 +329,10 @@ INSERT INTO `login_histories` (`id`, `ip`, `phone_details`, `user_id`, `created_
 (105, '127.0.0.1', 'Chrome/86.0.4240.183', 1, '2020-11-07 04:49:31', '2020-11-07 04:49:31'),
 (106, '127.0.0.1', 'Chrome/86.0.4240.183', 1538, '2020-11-07 04:50:24', '2020-11-07 04:50:24'),
 (107, '127.0.0.1', 'Chrome/86.0.4240.183', 1, '2020-11-07 04:52:32', '2020-11-07 04:52:32'),
-(108, '127.0.0.1', 'Chrome/86.0.4240.183', 1533, '2020-11-07 07:13:10', '2020-11-07 07:13:10');
+(108, '127.0.0.1', 'Chrome/86.0.4240.183', 1533, '2020-11-07 07:13:10', '2020-11-07 07:13:10'),
+(109, '127.0.0.1', 'Chrome/86.0.4240.183', 1, '2020-11-07 07:24:53', '2020-11-07 07:24:53'),
+(110, '127.0.0.1', 'Chrome/86.0.4240.183', 1, '2020-11-09 07:18:49', '2020-11-09 07:18:49'),
+(111, '127.0.0.1', 'Chrome/86.0.4240.183', 1513, '2020-11-09 07:28:01', '2020-11-09 07:28:01');
 
 -- --------------------------------------------------------
 
@@ -1934,16 +1921,6 @@ CREATE TABLE `student_assignments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `student_assignments`
---
-
-INSERT INTO `student_assignments` (`id`, `student_id`, `assign_id`, `pdf_anss`, `lesson_id`, `sbj_id`, `doc_id`, `created_at`, `updated_at`) VALUES
-(5, 1446, 10, '1604337459.pdf', '14', '44', '55', '2020-11-02 15:17:39', '2020-11-02 15:17:39'),
-(6, 1446, 11, '1604337475.pdf', '15', '48', '59', '2020-11-02 15:17:55', '2020-11-02 15:17:55'),
-(7, 1310, 8, '1604337628.pdf', '12', '39', '51', '2020-11-02 15:20:28', '2020-11-02 15:20:28'),
-(8, 1310, 9, '1604337646.pdf', '13', '42', '53', '2020-11-02 15:20:46', '2020-11-02 15:20:46');
 
 -- --------------------------------------------------------
 
@@ -5833,7 +5810,7 @@ ALTER TABLE `doctors`
 -- AUTO_INCREMENT for table `lessons`
 --
 ALTER TABLE `lessons`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `levels`
@@ -5845,7 +5822,7 @@ ALTER TABLE `levels`
 -- AUTO_INCREMENT for table `login_histories`
 --
 ALTER TABLE `login_histories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 
 --
 -- AUTO_INCREMENT for table `migrations`
