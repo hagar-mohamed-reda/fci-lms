@@ -229,6 +229,25 @@
     </div>
 
     {{--model dailog--}}
+    <div class="modal fade" id="showvideo" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title text-center">@lang('site.video')</h4>
+            </div>
+            <div class="modal-body">
+
+                <video class="lessonVideo" width="850" height="500" controls controlslist="nodownload">
+                    <source src="" type="video/mp4">
+                </video>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+    </div>
 
     {{--
     <!-- Modal -->
@@ -255,6 +274,12 @@
 @endsection
 @section('scripts')
 <script>
+    function showView(src){
+        $('#showvideo video').attr('src', src);
+    }
+
+    $('.lessonVideo').bind('contextmenu',function() { return false; });//to privent click right on video
+
     $('#lessonTable').DataTable({
             "pageLength": 5,
         });

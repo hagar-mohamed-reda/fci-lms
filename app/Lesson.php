@@ -9,7 +9,7 @@ class Lesson extends Model
     protected $guarded = [];
 
     protected $fillable = [
-        'name', 'date','sbj_id','youtube_link', 'pdf_file', 'pptx_file','doc_id'
+        'name', 'date','sbj_id','youtube_link', 'pdf_file', 'mp4_file','pptx_file','doc_id'
     ];
 
     public function subject(){

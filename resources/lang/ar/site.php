@@ -109,6 +109,7 @@ return [
     "show_lesson_assignments"        => 'عرض مهمات الدرس',
     "youtube_link"        => 'فيديو يوتيوب',
     "youtube_link_video"        => 'رابط فيديو على يوتيوب',
+    "upload_pc_video"        => 'رفع فيديو من الجهاز',
     "video"        => 'فيديو',
     "pdf_file"        => 'ملف pdf',
     "pptx_file"        => 'ملف بوربوينت',

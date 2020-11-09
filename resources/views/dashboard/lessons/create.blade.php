@@ -64,11 +64,7 @@
                                     <input type="text" name="youtube_link" class="form-control" value="{{old('youtube_link')}}">
                                 </div>
 
-                                <div class="form-group">
-                                    <label><i class="fa fa-paperclip fa-lg" aria-hidden="true"></i> @lang('site.upload_pc_video')</label>
-                                    <input type="file" name="mp4_file" class="form-control" value="{{old('mp4_file')}}">
-                                    <!--input type="submit" value="upload"-->
-                                </div>
+
 
                                 {{--<div class="form-group">
                                     <label>@lang('site.doc_id')</label>
