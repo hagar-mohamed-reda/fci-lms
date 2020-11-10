@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- <title>{{ config('app.name', @lang('site.msa')) }}</title> --}}
-<title>{{ trans('المعهد العالي للعلوم الإدارية ببني سويف') }}</title>
+<title>{{ trans('كلية الحاسبات والذكاء الإصطناعي') }}</title>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
 
