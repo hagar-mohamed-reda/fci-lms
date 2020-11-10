@@ -54,7 +54,7 @@ class StudentSubjectController extends Controller
         })->when($request->sbj_id, function ($q) use ($request){
           return $q->where('subject_id', 'like', '%'. $request->sbj_id . '%');
 
-        })->latest()->paginate(6);
+        })->latest()->get();
 
         return view('dashboard.student_subjects.index', compact('subjects','stdSubjects', 'students'));
     }

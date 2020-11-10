@@ -52,7 +52,7 @@
 
                     <div class="box-body">
                         @if ($stdSubjects->count() > 0)
-                            <table class="table table-hover">
+                            <table class="table table-hover" id="stdSbjTable">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -75,6 +75,7 @@
                                                     <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#sbjTable">@lang('site.show_subj_table')</button>
                                                     {{--<a href="{{ asset('dashboard/files/myposProject.pdf') }}">@lang('site.show_subj_table')</a>}}
                                                 </td>--}}
+                                                @if(auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin'))
                                                 <td>
                                                     {{--@if (auth()->user()->hasPermission('update_regist'))
                                                         <a href=" {{ route('dashboard.student_subjects.edit', $stdSubject->id)}}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
@@ -88,6 +89,7 @@
                                                     @endif
 
                                                 </td>
+                                                @endif
                                             </tr>
                                             @endif
                                         @endforeach
@@ -118,7 +120,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{$stdSubjects->appends(request()->query())->links()}}
+                            {{-- {{$stdSubjects->appends(request()->query())->links()}} --}}
                         @else
                             <h2>@lang('site.no_data_found')</h2>
                         @endif
@@ -186,3 +188,13 @@
 
 @endsection
 
+@section('scripts')
+<script>
+    $(function(){
+        $('#stdSbjTable').DataTable({
+            'order': [[ 1, 'desc' ]],
+        });
+    });
+
+</script>
+@endsection
