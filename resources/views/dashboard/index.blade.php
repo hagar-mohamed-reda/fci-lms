@@ -13,8 +13,8 @@
                 <li class="active"><i class="fa fa-dashboard"></i>@lang('site.users')</li>
             </ol> -->
             <ol class="breadcrumb">
-                <li class="active"><i class="fa fa-dashboard"></i>@lang('site.profile')</li>
-                <li><a href="{{route('dashboard.users.index')}}">@lang('site.users')</a></li>
+                <li class="active"><i class="fa fa-dashboard"></i>@lang('site.dashboard')</li>
+                <li><a href="{{route('dashboard.index')}}">@lang('site.profile')</a></li>
             </ol>
 
         </section>
