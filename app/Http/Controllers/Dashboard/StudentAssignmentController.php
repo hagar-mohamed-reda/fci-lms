@@ -42,7 +42,7 @@ class StudentAssignmentController extends Controller
             })->when($request->doc_id, function ($q) use ($request){
                 return $q->where('doc_id', 'like', '%'. $request->doc_id . '%');
 
-                })->latest()->paginate(6);
+                })->latest()->get();
 
         return view('dashboard.student_assignments.index', compact('assignments','stdAssignments', 'students', 'subjects', 'lessons', 'doctors'));
     }
