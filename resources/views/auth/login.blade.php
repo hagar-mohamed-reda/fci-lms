@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="login-box" style="width: 360px; margin: 7% auto; margin-top: 10px;">
                 <div class="login-logo" style="text-align: center;">
-                    <img src="{{ asset('dashboard/images/login/159102060235552.png') }}" class="w3-center w3-round"  width="90px" >
+                    <img style="border-radius: 45px" src="{{ asset('dashboard/images/login/22222222222.png') }}" class="w3-center w3-round"  width="90px" >
                     <br>
                     <h1 style="color: #fff"  class="w3-text-white" ><b> @lang('site.fcis-medical')  </b></h1>
                 </div>

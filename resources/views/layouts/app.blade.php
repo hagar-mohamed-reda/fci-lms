@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- <title>{{ config('app.name', @lang('site.msa')) }}</title> --}}
-<title>{{ trans(' كلية الحاسبات والذكاء الإصطناعي المعلوماتية الطبية') }}</title>
+<title>{{ trans(' كلية الحاسبات والذكاء الإصطناعي - المعلوماتية الطبية') }}</title>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
 
@@ -49,7 +49,7 @@
     </style>
 </head>
 <body style="
-            background-image: url({{ asset('dashboard/images/login/159102063738642.jpg') }});
+            background-image: url({{ asset('dashboard/images/login/1398313.jpg') }});
             background-size: cover!important;
             background-repeat: no-repeat!important;
             ">
