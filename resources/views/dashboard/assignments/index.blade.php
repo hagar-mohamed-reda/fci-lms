@@ -187,7 +187,7 @@
                                 </tbody>
                             </table>
                         </div>
-                            {{$assignments->appends(request()->query())->links()}}
+                            {{-- {{$assignments->appends(request()->query())->links()}} --}}
                         @else
                             <h2>@lang('site.no_data_found')</h2>
                         @endif
