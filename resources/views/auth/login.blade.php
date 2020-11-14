@@ -8,7 +8,7 @@
                 <div class="login-logo" style="text-align: center;">
                     <img src="{{ asset('dashboard/images/login/159102060235552.png') }}" class="w3-center w3-round"  width="90px" >
                     <br>
-                    <h1 style="color: #fff"  class="w3-text-white" ><b> @lang('site.hioac')  </b></h1>
+                    <h1 style="color: #fff"  class="w3-text-white" ><b> @lang('site.fcis-medical')  </b></h1>
                 </div>
 
                 <div class="login-box">

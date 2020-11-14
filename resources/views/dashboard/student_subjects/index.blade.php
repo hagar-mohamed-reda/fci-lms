@@ -52,6 +52,7 @@
 
                     <div class="box-body">
                         @if ($stdSubjects->count() > 0)
+                        <div class="table-responsive">
                             <table class="table table-hover" id="stdSbjTable">
                                 <thead>
                                     <tr>
@@ -120,6 +121,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                        </div>
                             {{-- {{$stdSubjects->appends(request()->query())->links()}} --}}
                         @else
                             <h2>@lang('site.no_data_found')</h2>

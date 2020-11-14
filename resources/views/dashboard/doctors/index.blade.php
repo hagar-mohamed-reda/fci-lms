@@ -43,6 +43,7 @@
 
 
                         @if ($doctors->count() > 0)
+                        <div class="table-responsive">
                             <table class="table table-hover" id="doctortable">
                                 <thead>
                                     <tr>
@@ -105,6 +106,7 @@
                                 </tbody>
 
                             </table>
+                        </div>
                             {{-- {{ $doctors->appends(request()->query())->links() }} --}}
                         @else
                             <h2>@lang('site.no_data_found')</h2>
