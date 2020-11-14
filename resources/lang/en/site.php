@@ -158,6 +158,9 @@ return [
     "new_password"        => 'New Password',
     "new_phone"        => 'New Phone',
     "assign_doc"        => 'Assign Subject to Doctor',
+    "file_one"        => 'File One',
+    "file_two"        => 'File Two',
+    "video"        => 'Video',
 
     ////////////////////the new words////////////////////
 

@@ -26,7 +26,8 @@
                     <div class="col-md-9">
                         <div class="nav-tabs-custom">
                           <ul class="nav nav-tabs">
-                            <li class="active"><a href="#activity" data-toggle="tab">@lang('site.activity')</a></li>
+                            <li class="active"><a href="#dash" data-toggle="tab">@lang('site.dashboard')</a></li>
+                            <li><a href="#activity" data-toggle="tab">@lang('site.activity')</a></li>
                             <li><a href="#loginHistory" data-toggle="tab">@lang('site.login_proccess')</a></li>
                             <li><a href="#settings" data-toggle="tab">@lang('site.settings')</a></li>
                             <li><a href="#password" data-toggle="tab">@lang('site.change_password')</a></li>
@@ -34,7 +35,171 @@
                           </ul>
                           <div class="tab-content">
 
-                            <div class="tab-pane" id="loginHistory">
+                            <div class="active tab-pane" id="dash">
+                                <div class="row">
+
+                                    {{-- subjects--}}
+                                    <div class="col-lg-4 col-xs-12">
+                                        <div class="small-box bg-aqua">
+                                            <div class="inner">
+                                                {{-- <h3>
+                                                    @if (auth()->user()->type == 'doctor')
+                                                     {{auth()->user()->toDoctor()->subjects->count()}}
+                                                    @endif
+                                                    @if (auth()->user()->type == 'student')
+                                                     {{auth()->user()->toStudent()->stdSbjs->count()}}
+                                                    @endif
+                                                </h3> --}}
+                                                <h4>@lang('site.subjects')</h4>
+                                            </div>
+                                            <div class="icon">
+                                                {{-- <i class="ion ion-bag"></i> --}}
+                                                <i class="fa fa-graduation-cap"></i>
+                                            </div>
+                                            <a href="{{ route('dashboard.subjects.index') }}" class="small-box-footer">@lang('site.read') <i class="fa fa-arrow-circle-right"></i></a>
+                                        </div>
+                                    </div>
+
+                                    {{--lessons--}}
+                                    <div class="col-lg-4 col-xs-12">
+                                        <div class="small-box bg-green">
+                                            <div class="inner">
+                                                {{-- <h3>
+                                                    @if (auth()->user()->type == 'doctor')
+                                                     {{auth()->user()->toDoctor()->lessons->count()}}
+                                                    @endif
+                                                    @if (auth()->user()->type == 'student')
+                                                    {{--   {{auth()->user()->toStudent()->stdSbjs()->subjects()->lessons->count()}} --}
+                                                    @endif
+                                                </h3> --}}
+
+                                                <h4>@lang('site.lessons')</h4>
+                                            </div>
+                                            <div class="icon">
+                                                {{-- <i class="ion ion-stats-bars"></i> --}}
+                                                <i class="fa fa-list-alt"></i>
+                                            </div>
+                                            <a href="{{ route('dashboard.lessons.index') }}" class="small-box-footer">@lang('site.read') <i class="fa fa-arrow-circle-right"></i></a>
+                                        </div>
+                                    </div>
+
+                                    {{--assginments--}}
+                                    <div class="col-lg-4 col-xs-12">
+                                        <div class="small-box bg-red">
+                                            <div class="inner">
+                                                {{-- <h3>
+                                                    @if (auth()->user()->type == 'doctor')
+                                                     {{auth()->user()->toDoctor()->assignments->count()}}
+                                                    @endif
+                                                </h3> --}}
+                                                <h4>@lang('site.assignments')</h4>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="fa fa-user"></i>
+                                            </div>
+                                            <a href="{{ route('dashboard.assignments.index') }}" class="small-box-footer">@lang('site.read') <i class="fa fa-arrow-circle-right"></i></a>
+                                        </div>
+                                    </div>
+
+
+                                </div><!-- end of row -->
+
+                            </div>
+
+                            <div class="tab-pane" id="activity">
+                                <!-- The timeline -->
+                                <ul class="timeline timeline-inverse">
+                                  <!-- timeline time label -->
+                                  <li class="time-label">
+                                        <span class="bg-red">
+                                          2020-08-09
+                                        </span>
+                                  </li>
+                                  <!-- /.timeline-label -->
+                                  <!-- timeline item -->
+                                  <li>
+                                    <i class="fa fa-envelope bg-blue"></i>
+
+                                    <div class="timeline-item">
+                                      <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+
+                                      <h3 class="timeline-header"><a href="#">Notification 1</a> </h3>
+
+                                      <div class="timeline-body">
+                                        Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
+                                        weebly ning heekya handango imeem plugg dopplr jibjab, movity.
+                                      </div>
+
+                                    </div>
+                                  </li>
+                                  <!-- END timeline item -->
+                                  <!-- timeline item -->
+                                  <li>
+                                    <i class="fa fa-user bg-aqua"></i>
+
+                                    <div class="timeline-item">
+                                      <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+
+                                      <h3 class="timeline-header"><a href="#">Notification 2 </a> </h3>
+
+                                      <div class="timeline-body">
+                                        Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
+                                        weebly ning heekya handango imeem plugg dopplr jibjab, movity.
+                                      </div>
+
+                                    </div>
+                                  </li>
+                                  <!-- END timeline item -->
+                                  <!-- timeline item -->
+                                  <li>
+                                    <i class="fa fa-comments bg-yellow"></i>
+
+                                    <div class="timeline-item">
+                                      <span class="time"><i class="fa fa-clock-o"></i> 08:05</span>
+
+                                      <h3 class="timeline-header"><a href="#">Notification 3</a> </h3>
+
+                                      <div class="timeline-body">
+                                        Take me to your leader!
+                                        Switzerland is small and neutral!
+                                        We are more like Germany, ambitious and misunderstood!
+                                      </div>
+
+                                    </div>
+                                  </li>
+                                  <!-- END timeline item -->
+                                  <!-- timeline time label -->
+                                  <li class="time-label">
+                                        <span class="bg-green">
+                                          2020-07-5
+                                        </span>
+                                  </li>
+                                  <!-- /.timeline-label -->
+                                  <!-- timeline item -->
+                                  <li>
+                                    <i class="fa fa-camera bg-purple"></i>
+
+                                    <div class="timeline-item">
+                                      <span class="time"><i class="fa fa-clock-o"></i> 10:30</span>
+
+                                      <h3 class="timeline-header"><a href="#">Notification 4</a> </h3>
+
+                                      <div class="timeline-body">
+                                          Take me to your leader!
+                                          Switzerland is small and neutral!
+                                          We are more like Germany, ambitious and misunderstood!
+                                      </div>
+                                    </div>
+                                  </li>
+                                  <!-- END timeline item -->
+                                  <li>
+                                    <i class="fa fa-clock-o bg-gray"></i>
+                                  </li>
+                                </ul>
+                            </div>
+                            <!-- /.tab-pane -->
+
+                            <div class="tab-pane table-responsive" id="loginHistory">
                                 <!-- The timeline -->
                                 <table class="table table-border" id="table" >
                                     <thead>
@@ -54,100 +219,9 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                              </div>
-                            <!-- /.tab-pane -->
-                            <div class="active tab-pane" id="activity">
-                              <!-- The timeline -->
-                              <ul class="timeline timeline-inverse">
-                                <!-- timeline time label -->
-                                <li class="time-label">
-                                      <span class="bg-red">
-                                        2020-08-09
-                                      </span>
-                                </li>
-                                <!-- /.timeline-label -->
-                                <!-- timeline item -->
-                                <li>
-                                  <i class="fa fa-envelope bg-blue"></i>
-
-                                  <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-                                    <h3 class="timeline-header"><a href="#">Notification 1</a> </h3>
-
-                                    <div class="timeline-body">
-                                      Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                                      weebly ning heekya handango imeem plugg dopplr jibjab, movity.
-                                    </div>
-
-                                  </div>
-                                </li>
-                                <!-- END timeline item -->
-                                <!-- timeline item -->
-                                <li>
-                                  <i class="fa fa-user bg-aqua"></i>
-
-                                  <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-                                    <h3 class="timeline-header"><a href="#">Notification 2 </a> </h3>
-
-                                    <div class="timeline-body">
-                                      Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                                      weebly ning heekya handango imeem plugg dopplr jibjab, movity.
-                                    </div>
-
-                                  </div>
-                                </li>
-                                <!-- END timeline item -->
-                                <!-- timeline item -->
-                                <li>
-                                  <i class="fa fa-comments bg-yellow"></i>
-
-                                  <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> 08:05</span>
-
-                                    <h3 class="timeline-header"><a href="#">Notification 3</a> </h3>
-
-                                    <div class="timeline-body">
-                                      Take me to your leader!
-                                      Switzerland is small and neutral!
-                                      We are more like Germany, ambitious and misunderstood!
-                                    </div>
-
-                                  </div>
-                                </li>
-                                <!-- END timeline item -->
-                                <!-- timeline time label -->
-                                <li class="time-label">
-                                      <span class="bg-green">
-                                        2020-07-5
-                                      </span>
-                                </li>
-                                <!-- /.timeline-label -->
-                                <!-- timeline item -->
-                                <li>
-                                  <i class="fa fa-camera bg-purple"></i>
-
-                                  <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> 10:30</span>
-
-                                    <h3 class="timeline-header"><a href="#">Notification 4</a> </h3>
-
-                                    <div class="timeline-body">
-                                        Take me to your leader!
-                                        Switzerland is small and neutral!
-                                        We are more like Germany, ambitious and misunderstood!
-                                    </div>
-                                  </div>
-                                </li>
-                                <!-- END timeline item -->
-                                <li>
-                                  <i class="fa fa-clock-o bg-gray"></i>
-                                </li>
-                              </ul>
                             </div>
                             <!-- /.tab-pane -->
+
 
                             <div class="tab-pane" id="settings">
 
@@ -276,13 +350,28 @@
                         @if (auth()->user()->type == 'student' || auth()->user()->type == 'doctor')
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                <b>@lang('site.subjects')</b> <a class="float-right">  2</a>
+                                <b>@lang('site.subjects')</b>
+                                    @if (auth()->user()->type == 'doctor')
+                                    <a class="float-right">  {{auth()->user()->toDoctor()->subjects->count()}}</a>
+                                    @endif
+                                    @if (auth()->user()->type == 'student')
+                                    <a class="float-right">  {{auth()->user()->toStudent()->stdSbjs->count()}}</a>
+                                    @endif
                                 </li>
                                 <li class="list-group-item">
-                                <b>@lang('site.lessons')</b> <a class="float-right"> 3</a>
+                                <b>@lang('site.lessons')</b>
+                                    @if (auth()->user()->type == 'doctor')
+                                    <a class="float-right"> {{auth()->user()->toDoctor()->lessons->count()}}</a>
+                                    @endif
+                                    @if (auth()->user()->type == 'student')
+                                    {{-- <a class="float-right">  {{auth()->user()->toStudent()->stdSbjs()->subjects()->lessons->count()}}</a> --}}
+                                    @endif
                                 </li>
                                 <li class="list-group-item">
-                                <b>@lang('site.assignments')</b> <a class="float-right"> 2</a>
+                                <b>@lang('site.assignments')</b>
+                                    @if (auth()->user()->type == 'doctor')
+                                    <a class="float-right"> {{auth()->user()->toDoctor()->assignments->count()}}</a>
+                                    @endif
                                 </li>
                             </ul>
                         @endif

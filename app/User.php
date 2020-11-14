@@ -60,7 +60,7 @@ class User extends Authenticatable
     }
 
     public function toDoctor() {
-        return Doctor::find($this->id);
+        return Doctor::find($this->fid);
     }
 
     public function loginHistories() {
@@ -68,6 +68,6 @@ class User extends Authenticatable
     }
 
     public function toStudent() {
-        return Student::find($this->id);
+        return Student::find($this->fid);
     }
 }

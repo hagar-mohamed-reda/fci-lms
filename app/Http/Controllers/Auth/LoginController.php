@@ -47,6 +47,11 @@ class LoginController extends Controller
 
         //$this->sendLoginResponse()
     }
+    /*public function login(Request $request)
+    {
+        return view('dashboard.index');
+
+    }*/
 
     // function login(Request $request) {
 

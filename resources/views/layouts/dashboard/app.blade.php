@@ -68,6 +68,10 @@
                 padding: 2px 12px !important;
             }
 
+            .small-box>.inner {
+                padding: 30px;
+            }
+
             /* Safari */
             @-webkit-keyframes spin {
                 0% {
