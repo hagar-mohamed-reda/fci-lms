@@ -161,6 +161,8 @@ return [
     "file_one"        => 'File One',
     "file_two"        => 'File Two',
     "video"        => 'Video',
+    "youtube_link_video"        => 'Link of youtube video',
+    "upload_pc_video"        => 'Upload video from pc',
 
     ////////////////////the new words////////////////////
 
