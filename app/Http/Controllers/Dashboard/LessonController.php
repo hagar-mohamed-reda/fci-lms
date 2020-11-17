@@ -122,6 +122,7 @@ class LessonController extends Controller
             'doc_id'        => 'required',
             'pdf_file'      => 'nullable',
             'pptx_file'     => 'required',
+            'mp4_file'     => 'nullable',
         ]);
 
         $request_data = $request->except(['pdf_file', 'pptx_file']);
@@ -229,6 +230,7 @@ class LessonController extends Controller
             'sbj_id'        => 'required',
             'pdf_file'      => 'nullable',
             'pptx_file'     => 'required',
+            'pdf_file'     => 'nullable',
         ]);
 
         $request_data = $request->except(['pdf_file', 'pptx_file']);
