@@ -30,6 +30,14 @@
             body, h1, h2, h3, h4, h5, h6{
               font-family: 'Cairo', sans-serif !important;
             }
+            body, html {
+                overflow: auto!important;
+            }
+            body {
+                background-image: url('{{ asset("dashboard/images/login/1398313.jpg") }}')!important;
+                background-size: cover!important;
+                background-repeat: no-repeat!important;
+            }
           </style>
         @else
           <link rel="stylesheet" href="{{ asset('dashboard/css/AdminLTE.min.css') }}">
@@ -48,11 +56,12 @@
         }
     </style>
 </head>
-<body style="
-            background-image: url({{ asset('dashboard/images/login/1398313.jpg') }});
-            background-size: cover!important;
-            background-repeat: no-repeat!important;
-            ">
+{{--
+    background-image: url({{ asset('dashboard/images/login/1398313.jpg') }});
+    background-size: cover!important;
+    background-repeat: no-repeat!important;
+    --}}
+<body style="overflow: auto!important">
         {{--<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">

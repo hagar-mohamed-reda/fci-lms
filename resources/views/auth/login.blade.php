@@ -3,8 +3,8 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="login-box" style="width: 360px; margin: 7% auto; margin-top: 10px;">
+        <div>
+            <div class="login-box">
                 <div class="login-logo" style="text-align: center;">
                     <img style="border-radius: 45px" src="{{ asset('dashboard/images/login/22222222222.png') }}" class="w3-center w3-round"  width="90px" >
                     <br>
@@ -33,7 +33,7 @@
                                 @csrf
 
                                     <div class="form-group has-feedback">
-                                        <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="@lang('site.phone-or-email-or-username')">
+                                        <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="@lang('site.phone')">
                                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
