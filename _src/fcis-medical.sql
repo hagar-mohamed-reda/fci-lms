@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2020 at 02:48 AM
+-- Generation Time: Nov 23, 2020 at 10:24 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.33
 
@@ -355,7 +355,9 @@ INSERT INTO `login_histories` (`id`, `ip`, `phone_details`, `user_id`, `created_
 (131, '127.0.0.1', 'Chrome/86.0.4240.193', 51, '2020-11-14 10:34:09', '2020-11-14 10:34:09'),
 (132, '127.0.0.1', 'Chrome/86.0.4240.193', 1, '2020-11-14 11:21:31', '2020-11-14 11:21:31'),
 (133, '127.0.0.1', 'Chrome/86.0.4240.193', 1513, '2020-11-14 11:44:18', '2020-11-14 11:44:18'),
-(134, '127.0.0.1', 'Chrome/86.0.4240.193', 51, '2020-11-14 11:46:55', '2020-11-14 11:46:55');
+(134, '127.0.0.1', 'Chrome/86.0.4240.193', 51, '2020-11-14 11:46:55', '2020-11-14 11:46:55'),
+(135, '127.0.0.1', 'Chrome/87.0.4280.66', 1513, '2020-11-23 06:40:44', '2020-11-23 06:40:44'),
+(136, '127.0.0.1', 'Chrome/87.0.4280.66', 1, '2020-11-23 06:55:31', '2020-11-23 06:55:31');
 
 -- --------------------------------------------------------
 
@@ -5845,7 +5847,7 @@ ALTER TABLE `levels`
 -- AUTO_INCREMENT for table `login_histories`
 --
 ALTER TABLE `login_histories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
 
 --
 -- AUTO_INCREMENT for table `migrations`
