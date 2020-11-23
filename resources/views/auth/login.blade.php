@@ -13,7 +13,7 @@
 
                 <div class="login-box">
 
-                    <div class="login-box-body">
+                    <div class="login-box-body" style="padding: 16px;">
 
                             <p class="login-box-msg">@lang('site.regist-on-your-dashboard')</p>
                             <br>

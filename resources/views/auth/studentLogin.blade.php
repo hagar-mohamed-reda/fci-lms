@@ -25,7 +25,7 @@
                                 @csrf
 
                                     <div class="form-group has-feedback">
-                                        <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="@lang('site.phone')">
+                                        <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="@lang('site.national_id')">
                                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
