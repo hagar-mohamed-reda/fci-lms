@@ -18,7 +18,9 @@
     <link rel="stylesheet" href="{{ asset('dashboard/css/skin-blue.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dashboard/datatable/dataTables.bootstrap.min.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    {{-- <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet" /> --}}
     <link href="{{ asset('css/iziToast.css') }}" rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css" rel="stylesheet" />
     {{-- <link rel="stylesheet" href="{{ asset('dashboard/datatable/dataTables.material.min.css') }}"> --}}
     {{-- <link rel="stylesheet" href="{{ asset('dashboard/datatable/bootstrap.min.css') }}"> --}}
     {{-- <link rel="stylesheet" href="{{ asset('dashboard/datatable/buttons.dataTables.min.css') }}"> --}}
@@ -342,6 +344,10 @@ desired effect
       <script src="{{ asset('dashboard/js/bootstrap.bundle.min.js')}}"></script>
       <script src="{{ asset('dashboard/datatable/jquery.dataTables.min.js')}}"></script>
             <script src="{{ asset('dashboard/datatable/dataTables.bootstrap4.min.js')}}"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.18/pdfmake.min.js"></script>
+        <script type="text/javascript" src="{{ asset('dashboard/datatable/vfs_fonts.js')}}"></script>
+        <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.js"></script>
+        <script src="{{ asset('dashboard/datatable/jszip.min.js')}}"></script>
       {{-- <script src="{{ asset('dashboard/datatable/jquery.dataTables.min_1.js')}}"></script> --}}
 
        <!-- AdminLTE App -->
@@ -365,6 +371,10 @@ desired effect
     <script src="{{ asset('dashboard/plugins/morris/morris.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <script src="{{ asset('js/iziToast.js') }}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.bootstrap.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script>
     @include('vendor.lara-izitoast.toast')
 
 @yield('scripts')

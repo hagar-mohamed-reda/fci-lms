@@ -186,7 +186,10 @@
 
         $('#studenttable').DataTable({
          "pageLength": 10,
-
+         "dom" : 'lBfrtip',
+         "buttons" : [
+            'copy', 'csv', 'excel', 'pdf','print',
+            ]
         });
 
 

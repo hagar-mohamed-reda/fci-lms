@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '050c6ffa7b8c61c668acd312bc2c7d1823c5e51b',
+    'reference' => '912b3e95007229cd96b170e5f22665a884c0e451',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -388,7 +388,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '050c6ffa7b8c61c668acd312bc2c7d1823c5e51b',
+      'reference' => '912b3e95007229cd96b170e5f22665a884c0e451',
     ),
     'laravel/tinker' => 
     array (
@@ -398,6 +398,15 @@
       array (
       ),
       'reference' => 'ad571aacbac1539c30d480908f9d0c9614eaf1a7',
+    ),
+    'laravelcollective/html' => 
+    array (
+      'pretty_version' => 'v5.8.1',
+      'version' => '5.8.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '3a1c9974ea629eed96e101a24e3852ced382eb29',
     ),
     'league/flysystem' => 
     array (
@@ -1158,6 +1167,24 @@
       array (
       ),
       'reference' => 'bafc69caeb4d49c39fd0779086c03a3738cbb389',
+    ),
+    'yajra/laravel-datatables-buttons' => 
+    array (
+      'pretty_version' => 'v4.10.0',
+      'version' => '4.10.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'de06c1fedd84d86360d61a71ebf5bfcb43e95176',
+    ),
+    'yajra/laravel-datatables-html' => 
+    array (
+      'pretty_version' => 'v4.36.0',
+      'version' => '4.36.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'b51c7a6e036ea685b292e8fe92138cbc2ecc28cc',
     ),
     'yajra/laravel-datatables-oracle' => 
     array (

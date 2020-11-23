@@ -195,6 +195,10 @@
     $(function(){
         $('#stdSbjTable').DataTable({
             'order': [[ 1, 'desc' ]],
+            "dom" : 'lBfrtip',
+         "buttons" : [
+            'copy', 'csv', 'excel', 'pdf','print',
+            ]
         });
     });
 

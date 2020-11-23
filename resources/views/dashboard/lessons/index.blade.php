@@ -284,6 +284,10 @@
 
     $('#lessonTable').DataTable({
             "pageLength": 5,
+            "dom" : 'lBfrtip',
+            "buttons" : [
+                'copy', 'csv', 'excel', 'pdf','print',
+            ]
             /*"ajax" : {
                     "url" : "{{ url('dashboard/lessons/index') }}",
                     "type": "PUT",

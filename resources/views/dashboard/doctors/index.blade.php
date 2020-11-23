@@ -199,7 +199,11 @@
                     { data: 'active', name: 'active' },
                     { data: 'account_confirm', name: 'account_confirm' },
                     { data: 'action', name: 'action' },
-                ]
+                ],
+                "dom" : 'lBfrtip',
+                "buttons" : [
+                    'copy', 'csv', 'excel', 'pdf','print',
+                    ]
             });
 
             $.fn.dataTable.ext.errMode = 'throw';

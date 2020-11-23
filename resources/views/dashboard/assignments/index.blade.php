@@ -230,6 +230,10 @@
         $(function(){
             $('#assigntable').DataTable({
             "pageLength": 5,
+            "dom" : 'lBfrtip',
+            "buttons" : [
+                'copy', 'csv', 'excel', 'pdf','print',
+            ]
         });
         });
     </script>

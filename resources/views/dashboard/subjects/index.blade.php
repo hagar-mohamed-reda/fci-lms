@@ -241,8 +241,11 @@
     $(function(){
         $('#subjecttable').DataTable({
             'order': [[ 1, 'desc' ]],
-            responsive: true
-
+            responsive: true,
+            "dom" : 'lBfrtip',
+            "buttons" : [
+                'copy', 'csv', 'excel', 'pdf','print',
+            ]
         });
         $.fn.dataTable.Responsive
     });
