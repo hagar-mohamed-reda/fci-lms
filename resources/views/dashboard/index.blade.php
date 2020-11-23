@@ -50,7 +50,7 @@
                                                      {{auth()->user()->toStudent()->stdSbjs->count()}}
                                                     @endif
                                                 </h3> --}}
-                                                <h4>@lang('site.subjects')</h4>
+                                                <a href="{{route('dashboard.subjects.index')}}">@lang('site.subjects')</a>
                                             </div>
                                             <div class="icon">
                                                 {{-- <i class="ion ion-bag"></i> --}}
@@ -73,7 +73,7 @@
                                                     @endif
                                                 </h3> --}}
 
-                                                <h4>@lang('site.lessons')</h4>
+                                                <a href="{{route('dashboard.lessons.index')}}">@lang('site.lessons')</a>
                                             </div>
                                             <div class="icon">
                                                 {{-- <i class="ion ion-stats-bars"></i> --}}
@@ -92,7 +92,7 @@
                                                      {{auth()->user()->toDoctor()->assignments->count()}}
                                                     @endif
                                                 </h3> --}}
-                                                <h4>@lang('site.assignments')</h4>
+                                                <a href="{{route('dashboard.assignments.index')}}">@lang('site.assignments')</a>
                                             </div>
                                             <div class="icon">
                                                 <i class="fa fa-user"></i>

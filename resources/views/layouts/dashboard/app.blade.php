@@ -110,6 +110,10 @@
                 background: #3C8DBC;
                 left: 20px;
             }
+            .small-box .inner a{
+                color: white;
+                font-size: 19px;
+            }
 
 
         </style>
