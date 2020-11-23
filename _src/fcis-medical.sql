@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2020 at 10:24 AM
+-- Generation Time: Nov 23, 2020 at 10:59 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.33
 
@@ -1943,6 +1943,7 @@ CREATE TABLE `student_assignments` (
   `lesson_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `sbj_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `doc_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `grade` double NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

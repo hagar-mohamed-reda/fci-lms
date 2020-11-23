@@ -21,6 +21,7 @@ class CreateStudentAssignmentsTable extends Migration
             $table->string('lesson_id');
             $table->string('sbj_id');
             $table->string('doc_id');
+            $table->double('grade',0);
             $table->timestamps();
 
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
