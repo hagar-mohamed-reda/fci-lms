@@ -44,7 +44,7 @@
             }
           </style>
         @else
-          <link rel="stylesheet" href="{{ asset('dashboard/css/AdminLTE.min.css') }}">
+          <link rel="stylesheet" href="{{ asset('dashboard/css/adminlte.min.css') }}">
           <link rel="stylesheet" href="{{ asset('dashboard/css/font-awesome.min.css') }}">
           <link rel="stylesheet" href="{{ asset('dashboard/css/fontbasic.css') }}">
         @endif
