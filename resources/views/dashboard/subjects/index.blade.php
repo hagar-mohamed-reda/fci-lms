@@ -84,7 +84,7 @@
                                         <td>{{ $subject->name}}</td>
                                         <td>{{ $subject->code}}</td>
                                         <td>{{ $subject->doctor['name']}}</td>
-                                        <td>{{ $subject->lessons->count()}} <a href="{{route('dashboard.lessons.index', [ 'doc_id' => $subject->doc_id, 'sbj_id' => $subject->id ])}}" class="btn btn-info btn-sm">@lang('site.go')</a> </td>
+                                        <td>{{ $subject->lessons->count()}} <a href="{{route('dashboard.lessons.index', [ 'doc_id' => $subject->doc_id, 'sbj_id' => $subject->id ])}}" class="btn btn-info btn-sm">@lang('site.show')</a> </td>
 
                                         @if(auth()->user()->type == 'doctor'  || auth()->user()->type == 'super_admin' || auth()->user()->type == 'admin' )
                                         <td>{{ $subject->stdSbjs->count()}} <a href="{{route('dashboard.student_subjects.index', ['sbj_id' => $subject->id ])}}" class="btn btn-info btn-sm">@lang('site.show')</a> </td>
@@ -136,7 +136,7 @@
                                         <td>{{ $subject->name}}</td>
                                         <td>{{ $subject->code}}</td>
                                         <td>{{ $subject->doctor['name']}}</td>
-                                        <td>{{ $subject->lessons->count()}} <a href="{{route('dashboard.lessons.index', [ 'doc_id' => $subject->doc_id, 'sbj_id' => $subject->id ])}}" class="btn btn-info btn-sm">@lang('site.go')</a> </td>
+                                        <td>{{ $subject->lessons->count()}} <a href="{{route('dashboard.lessons.index', [ 'doc_id' => $subject->doc_id, 'sbj_id' => $subject->id ])}}" class="btn btn-info btn-sm">@lang('site.show')</a> </td>
 
 
                                     </tr>

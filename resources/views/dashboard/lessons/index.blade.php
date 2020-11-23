@@ -117,7 +117,7 @@
 
                                         <td>
                                             @if (isset($lesson->youtube_link))
-                                            <a class="btn btn-warning btn-sm" href="{{$lesson->youtube_link}}" target="_blank">@lang('site.go')</a>
+                                            <a class="btn btn-warning btn-sm" href="{{$lesson->youtube_link}}" target="_blank">@lang('site.show')</a>
                                             @else
                                             __
                                             @endif
@@ -185,7 +185,7 @@
 
                                         <td>
                                             @if (isset($lesson->youtube_link))
-                                            <a class="btn btn-warning btn-sm" href="{{$lesson->youtube_link}}" target="_blank">@lang('site.go')</a>
+                                            <a class="btn btn-warning btn-sm" href="{{$lesson->youtube_link}}" target="_blank">@lang('site.show')</a>
                                             @else
                                             __
                                             @endif
