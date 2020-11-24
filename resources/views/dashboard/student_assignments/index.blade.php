@@ -105,7 +105,13 @@
                                         <th>@lang('site.assign_name')</th>
                                         <th>@lang('site.pdf_anss')</th>
                                         <th>@lang('site.date')</th>
-                                        <th>@lang('site.action')</th>
+                                        <th>
+                                            @if (auth()->user()->type == 'doctor')
+                                                @lang('site.action')
+                                            @else
+                                                @lang('site.grade')
+                                            @endif
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -132,6 +138,19 @@
                                             {{--@if (auth()->user()->hasPermission('update_stdassign'))
                                                 <a href=" {{ route('dashboard.student_assignments.edit', $stdSubject->id)}}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
                                             @endif--}}
+                                            @if (auth()->user()->type == 'doctor')
+                                                @if ($stdAssignment->grade > 0)
+                                                <button class="btn btn-success btn-sm editGradBtn" data-toggle="modal" data-target="#modalGrade" anssID="{{$stdAssignment->id}}" anssGrade="{{$stdAssignment->grade}}">@lang('site.edit_grade')</button>
+                                                {{$stdAssignment->grade}}
+                                                @else
+                                                <button class="btn btn-primary btn-sm addGradBtn" data-toggle="modal" data-target="#modalGrade" anssID="{{$stdAssignment->id}}">@lang('site.add_grade')</button>
+                                                @endif
+                                            @endif
+                                            @if (auth()->user()->type == 'super_admin' || auth()->user()->type == 'admin')
+                                                @if ($stdAssignment->grade > 0)
+                                                {{$stdAssignment->grade}}
+                                                @endif
+                                            @endif
                                             @if (auth()->user()->hasPermission('delete_stdassign'))
                                                 <form action="{{route('dashboard.student_assignments.destroy', $stdAssignment->id)}}" method="POST" style="display: inline-block">
                                                     {{ csrf_field() }}
@@ -159,6 +178,37 @@
 
     </div>
 
+    <!-- Modal -->
+<div class="modal fade" id="modalGrade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title text-center">@lang('site.add_grade')</h4>
+        </div>
+        <div class="modal-body">
+            <span id="form_result"></span>
+            <form action="" method="POST" id="grade_form">
+                @csrf
+                {{-- {{method_field('')}} --}}
+
+                {{-- <input type="hidden" name="action" id="action" value="Add"> --}}
+                <input type="hidden" name="hidden_id" id="hidden_id">
+                <div class="form-group">
+                    <label for="grade">@lang('site.grade')</label>
+                    <input name="grade" type="number" class="form-control" id="grade">
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="action_button" name="action_button">@lang('site.save')</button>
+                </div>
+            </form>
+        </div>
+
+      </div>
+    </div>
+</div>
 
 
 @endsection
@@ -172,6 +222,68 @@
          "buttons" : [
             'copy', 'csv', 'excel', 'pdf','print',
             ]
+        });
+
+        //add grade btn on click
+        $('.addGradBtn').on('click', function(){
+            var anssID = $(this).attr('anssID');
+            $('#hidden_id').val(anssID);
+            $('.modal-title').text('@lang("site.add_grade")');
+            $('#grade').val('');
+        });
+
+        //add grade btn on click
+        $('.editGradBtn').on('click', function(){
+            var anssID = $(this).attr('anssID');
+            var anssGrade = $(this).attr('anssGrade');
+
+            $('#hidden_id').val(anssID);
+            $('.modal-title').text('@lang("site.edit_grade")');
+            $('#grade').val(anssGrade);
+        });
+
+        //grade form on submit
+        $('#grade_form').on('submit', function(){
+            var id = $('#hidden_id').val();
+            var token = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({
+                //header:{'X-CSRF-TOKEN': token},
+                url : "{{ url('stdAssign/addGrade').'/'}}" + id,
+                type : 'post',
+                data: $(this).serialize(),
+                dataType : 'json',
+                success : function(data){
+                        if(data.errors){
+                            //alert('Data errorsss');
+                            iziToast.error({
+                                timeout: 6000,
+                                title: 'Error', message: data.errors,
+                                position:'topCenter',
+                            });
+                            //$('#chphoneform')[0].reset();
+                        };
+                        if(data.success){
+                            iziToast.success({
+                                timeout: 6000, icon: 'fa fa-check-circle',
+                                title: 'Success', message: 'Data updated Successfully',
+                                position: 'topCenter',
+                            });
+                            //alert(data);
+                            //console.log(data);
+                            //$('#chphoneform')[0].reset();
+                        }
+                },
+                error : function(){
+                        //alert('Error Data');
+                        iziToast.error({
+                                timeout: 6000,
+                                title: 'Error', message: 'Error Data',
+                                position:'topCenter',
+                            });
+                            //$('#chphoneform')[0].reset();
+                }
+            });
         });
     });
 

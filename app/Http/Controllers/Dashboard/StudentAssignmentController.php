@@ -96,6 +96,24 @@ class StudentAssignmentController extends Controller
 
     }
 
+    public function addGrade(Request $request,$id){
+        $stdAnss = StudentAssignment::find($request->hidden_id);
+
+        $stdAnss->grade = $request->grade;
+        $stdAnss->save();
+        /*$stdAnss->update([
+            "grade" => $request->grade
+        ]);*/
+
+       /* if($error->fails()){
+            return response()->json(['errors' => $error->errors()->all()]);
+        }*/
+        //return $stdAnss;
+
+        return response()->json(['success'=>'Data Updated Succefully']);
+
+    }
+
     public function show_pdf($id)
     {
         $data = StudentAssignment::find($id);
