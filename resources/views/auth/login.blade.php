@@ -58,18 +58,18 @@
                                             {{-- {{ __('Login') }} --}} @lang('site.sign-in')
                                         </button>
 
-                                        <div class="social-auth-links text-center mb-3">
+                                        {{-- <div class="social-auth-links text-center mb-3">
                                             <a href="#" class="btn btn-block btn-success btn-flat">
                                                @lang('site.register')
                                             </a>
 
-                                          </div>
+                                          </div> --}}
 
                                         @if (Route::has('password.request'))
-                                            <a class="btn btn-link" href="#{{-- route('password.request') --}}">
-                                                {{-- {{ __('Forgot Your Password?') }} --}}
+                                            {{-- <a class="btn btn-link" href="#{{-- route('password.request') --">
+                                                {{-- {{ __('Forgot Your Password?') }} --
                                                 @lang('site.forgot-password')
-                                            </a>
+                                            </a> --}}
                                         @endif
                             </form>
                             <br>

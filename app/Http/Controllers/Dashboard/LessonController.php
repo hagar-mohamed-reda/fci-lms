@@ -280,8 +280,15 @@ class LessonController extends Controller
      */
     public function destroy(Lesson $lesson)
     {
-        $lesson->delete();
-        session()->flash('success', __('site.deleted_successfully'));
-        return redirect()->route('dashboard.lessons.index');
+        if ($lesson->assignments()->exists())
+            {
+                notify()->error("Can not delete this item it has related relations","Error","topRight");
+                return redirect()->route('dashboard.lessons.index');
+
+            }else{
+                $lesson->delete();
+                session()->flash('success', __('site.deleted_successfully'));
+                return redirect()->route('dashboard.lessons.index');
+            }
     }
 }

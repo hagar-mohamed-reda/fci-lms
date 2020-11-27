@@ -400,7 +400,7 @@ desired effect
         });
 
         //delete
-        $('.delete').click(function (e) {
+        $(document).on('click', '.delete', function(e){
             e.preventDefault();
 
             var nthis = $(this)

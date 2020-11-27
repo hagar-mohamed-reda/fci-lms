@@ -91,6 +91,28 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
+        //add doctor to user table
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users',
+            'username' => 'required|unique:users',
+            'phone' => 'required|unique:users',
+            'type'  =>  'doctor',
+            'active' => 'required',
+
+            'password' => 'required|confirmed',
+            //'permissions' => 'required|min:1',
+
+        ]);
+        $request_data = $request->except(['password', 'password_confirmation', 'permissions']);
+        $request_data['password'] = bcrypt($request->password);
+        //dd($doctor->id);
+        $request_data['type'] = 'doctor';
+        //$request_data['fid']  = $doctor->id;
+
+        $user = User::create($request_data);
+        $user->attachRole('doctor');
+
         $request->validate([
             'name' => 'required',
             'email' => 'required|unique:doctors',
@@ -121,33 +143,15 @@ class DoctorController extends Controller
 
         $doctor = Doctor::create($request_data);
         $doctor->attachRole('doctor');
+
+        $user->update(['fid'=>$doctor->id]);
         /*$doctor->attachPermission('read_students','read_subjects'
                 ,'create_lessons','read_lessons', 'edit_lessons','delete_lessons',
                 'create_assignments','read_assignments', 'edit_assignments','delete_assignments',
                 'read_regist','read_stdassign');*/
         //$doctor->syncPermissions($request->permissions);
 
-        //add doctor to user table
-         $request->validate([
-            'name' => 'required',
-            'email' => 'required|unique:users',
-            'username' => 'required|unique:users',
-            'phone' => 'required|unique:users',
-            'type'  =>  'doctor',
-            'active' => 'required',
 
-            'password' => 'required|confirmed',
-            //'permissions' => 'required|min:1',
-
-        ]);
-        $request_data = $request->except(['password', 'password_confirmation', 'permissions']);
-        $request_data['password'] = bcrypt($request->password);
-        //dd($doctor->id);
-        $request_data['type'] = 'doctor';
-        $request_data['fid']  = $doctor->id;
-
-        $user = User::create($request_data);
-        $user->attachRole('doctor');
         /*$user->attachPermission('read_students','read_subjects'
         ,'create_lessons','read_lessons', 'edit_lessons','delete_lessons',
         'create_assignments','read_assignments', 'edit_assignments','delete_assignments',
@@ -227,14 +231,27 @@ class DoctorController extends Controller
      */
     public function destroy(Doctor $doctor)
     {
-        $users = User::all();
-        foreach ($users as $user) {
-            if($user->fid == $doctor->id){
-                $user->delete();
+        if ($doctor->subjects()->exists()
+                || $doctor->lessons()->exists()
+                || $doctor->assignments()->exists()
+                )
+            {
+                //session()->flash('danger', 'Unable to delete user with Value.');
+                //session()->flash('error', __('site.unable_to_delete'));
+                notify()->error("Can not delete this item it has related relations","Error","topRight");
+                return redirect()->route('dashboard.doctors.index');
+
+                //abort('Resource cannot be deleted due to existence of related resources.');
+            }else{
+                $users = User::all();
+                foreach ($users as $user) {
+                    if($user->fid == $doctor->id){
+                        $user->delete();
+                    }
+                }
+                $doctor->delete();
+                session()->flash('success', __('site.deleted_successfully'));
+                return redirect()->route('dashboard.doctors.index');
             }
-        }
-        $doctor->delete();
-        session()->flash('success', __('site.deleted_successfully'));
-        return redirect()->route('dashboard.doctors.index');
     }
 }

@@ -56,7 +56,7 @@
                             <table class="table table-hover" id="stdSbjTable">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        {{-- <th>#</th> --}}
                                         <th>@lang('site.std_name')</th>
                                         <th>@lang('site.sbj_name')</th>
                                         @if(auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin'))
@@ -69,7 +69,7 @@
                                         @foreach ($subjects as $subject)
                                             @if ($stdSubject->subject_id == $subject->id && auth()->user()->type == 'doctor' && $subject->doc_id == auth()->user()->fid)
                                             <tr>
-                                                <td>{{ $index + 1}}</td>
+                                                {{-- <td>{{ $index + 1}}</td> --}}
                                                 <td>{{ $stdSubject->students['name']}}</td>
                                                 <td>{{ $stdSubject->subjects['name']}}</td>
                                                 {{--<td>
@@ -96,7 +96,7 @@
                                         @endforeach
                                         @if (auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin'))
                                         <tr>
-                                            <td>{{ $index + 1}}</td>
+                                            {{-- <td>{{ $index + 1}}</td> --}}
                                             <td>{{ $stdSubject->students['name']}}</td>
                                             <td>{{ $stdSubject->subjects['name']}}</td>
                                             {{--<td>

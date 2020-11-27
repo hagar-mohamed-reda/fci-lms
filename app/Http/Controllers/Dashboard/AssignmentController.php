@@ -177,8 +177,16 @@ class AssignmentController extends Controller
      */
     public function destroy(Assignment $assignment)
     {
-        $assignment->delete();
-        session()->flash('success', __('site.deleted_successfully'));
-        return redirect()->route('dashboard.assignments.index');
+        if ($assignment->stdAssign()->exists())
+            {
+
+                notify()->error("Can not delete this item it has related relations","Error","topRight");
+                return redirect()->route('dashboard.assignments.index');
+
+            }else{
+                $assignment->delete();
+                session()->flash('success', __('site.deleted_successfully'));
+                return redirect()->route('dashboard.assignments.index');
+            }
     }
 }

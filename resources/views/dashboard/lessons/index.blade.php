@@ -75,7 +75,7 @@
                             <table class="table table-hover" id="lessonTable">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        {{-- <th>#</th> --}}
                                         <th>@lang('site.name')</th>
                                         <th>@lang('site.sbj_name')</th>
                                         <th>@lang('site.file_one')</th>
@@ -94,7 +94,7 @@
                                     @foreach ($lessons as $index=>$lesson)
                                     @if ($lesson->doc_id == auth()->user()->fid && auth()->user()->hasRole('doctor') || auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin'))
                                     <tr>
-                                        <td>{{ $lesson->id}}</td>
+                                        {{-- <td>{{ $lesson->id}}</td> --}}
                                         <td>{{ $lesson->name}}</td>
                                         <td>{{ $lesson->subject['name']}}</td>
 
@@ -162,7 +162,7 @@
                                     @foreach ($stdSbs as $stdSb)
                                     @if($stdSb->subject_id == $lesson->sbj_id && $stdSb->student_id == auth()->user()->fid)
                                     <tr>
-                                        <td>{{ $lesson->id}}</td>
+                                        {{-- <td>{{ $lesson->id}}</td> --}}
                                         <td>{{ $lesson->name}}</td>
                                         <td>{{ $lesson->subject['name']}}</td>
 

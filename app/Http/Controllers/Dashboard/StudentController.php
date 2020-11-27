@@ -75,6 +75,29 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+        //add doctor to user table
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users',
+            'username' => 'required|unique:users',
+            'phone' => 'required|unique:users',
+            'type'  =>  'student',
+            'active' => 'required',
+
+            'password' => 'required|confirmed',
+            //'permissions' => 'required|min:1',
+
+        ]);
+        $request_data = $request->except(['password', 'password_confirmation', 'permissions']);
+        $request_data['password'] = bcrypt($request->password);
+        $request_data['type'] = 'student';
+        //$request_data['fid']  = $student->id;
+
+
+        $user = User::create($request_data);
+        $user->attachRole('student');
+        //$user->syncPermissions($request->permissions);
+
         $request->validate([
             'name' => 'required',
             'level_id' => 'required',
@@ -99,30 +122,10 @@ class StudentController extends Controller
 
         $student = Student::create($request_data);
         $student->attachRole('student');
+        $user->update(['fid'=>$student->id]);
         //$student->syncPermissions($request->permissions);
 
-        //add doctor to user table
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|unique:users',
-            'username' => 'required|unique:users',
-            'phone' => 'required|unique:users',
-            'type'  =>  'student',
-            'active' => 'required',
 
-            'password' => 'required|confirmed',
-            //'permissions' => 'required|min:1',
-
-        ]);
-        $request_data = $request->except(['password', 'password_confirmation', 'permissions']);
-        $request_data['password'] = bcrypt($request->password);
-        $request_data['type'] = 'student';
-        $request_data['fid']  = $student->id;
-
-
-        $user = User::create($request_data);
-        $user->attachRole('student');
-        //$user->syncPermissions($request->permissions);
 
 
         session()->flash('success', __('site.added_successfully'));
@@ -204,16 +207,22 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        $users = User::all();
-        foreach ($users as $user) {
-            if($user->fid == $student->id){
-                $user->delete();
-            }
-        }
+        if ($student->stdSbjs()->exists() || $student->stdAssign()->exists())
+            {
+                notify()->error("Can not delete this item it has related relations","Error","topRight");
+                return redirect()->route('dashboard.students.index');
 
-        $student->delete();
-        session()->flash('success', __('site.deleted_successfully'));
-        return redirect()->route('dashboard.students.index');
+            }else{
+                $users = User::all();
+                foreach ($users as $user) {
+                    if($user->fid == $student->id){
+                        $user->delete();
+                    }
+                }
+                $student->delete();
+                session()->flash('success', __('site.deleted_successfully'));
+                return redirect()->route('dashboard.students.index');
+            }
     }
 
     //change active function

@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div>
-            <div class="login-box">
+            <div class="">
                 <div class="login-logo" style="text-align: center;">
                     <img style="border-radius: 45px" src="{{ asset('dashboard/images/login/22222222222.png') }}" class="w3-center w3-round"  width="90px" >
                     <br>
@@ -50,18 +50,18 @@
                                             {{-- {{ __('Login') }} --}} @lang('site.sign-in')
                                         </button>
 
-                                        <div class="social-auth-links text-center mb-3">
+                                        {{-- <div class="social-auth-links text-center mb-3">
                                             <a href="#" class="btn btn-block btn-success btn-flat">
                                                @lang('site.register')
                                             </a>
 
-                                          </div>
+                                          </div> --}}
 
                                         @if (Route::has('password.request'))
-                                            <a class="btn btn-link" href="#{{-- route('password.request') --}}">
-                                                {{-- {{ __('Forgot Your Password?') }} --}}
+                                            {{-- <a class="btn btn-link" href="#{{-- route('password.request') --">
+                                                {{-- {{ __('Forgot Your Password?') }} --
                                                 @lang('site.forgot-password')
-                                            </a>
+                                            </a> --}}
                                         @endif
                             </form>
                             <br>

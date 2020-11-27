@@ -208,8 +208,15 @@ class SubjectController extends Controller
      */
     public function destroy(Subject $subject)
     {
-        $subject->delete();
-        session()->flash('success', __('site.deleted_successfully'));
-        return redirect()->route('dashboard.subjects.index');
+        if ($subject->lessons()->exists() || $subject->stdSbjs()->exists())
+            {
+                notify()->error("Can not delete this item it has related relations","Error","topRight");
+                return redirect()->route('dashboard.subjects.index');
+
+            }else{
+                $subject->delete();
+                session()->flash('success', __('site.deleted_successfully'));
+                return redirect()->route('dashboard.subjects.index');
+            }
     }
 }

@@ -100,7 +100,7 @@
                             <table class="table table-hover" id="stdassigntable">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        {{-- <th>#</th> --}}
                                         <th>@lang('site.std_name')</th>
                                         <th>@lang('site.assign_name')</th>
                                         <th>@lang('site.pdf_anss')</th>
@@ -118,7 +118,7 @@
                                     @foreach ($stdAssignments as $index=>$stdAssignment)
                                     @if ($stdAssignment->doc_id == auth()->user()->fid && auth()->user()->type == 'doctor' || auth()->user()->type == 'super_admin' || auth()->user()->type == 'admin')
                                     <tr>
-                                        <td>{{ $stdAssignment->id}}</td>
+                                        {{-- <td>{{ $stdAssignment->id}}</td> --}}
                                         <td>{{ $stdAssignment->students['name']}}</td>
                                         <td>{{ $stdAssignment->assignments['name']}}</td>
                                         <td>

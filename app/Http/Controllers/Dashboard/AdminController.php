@@ -51,6 +51,27 @@ class AdminController extends Controller
 
     public function store(Request $request, Admin $admin)
     {
+        //add admin to user table
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users',
+            'username' => 'required|unique:users',
+            'phone' => 'required|unique:users',
+            'type'  =>  'admin',
+            'password' => 'required|confirmed',
+            //'permissions' => 'required|min:1',
+
+        ]);
+        $request_data = $request->except(['password', 'password_confirmation', 'permissions']);
+        $request_data['password'] = bcrypt($request->password);
+        $request_data['type'] = 'admin';
+        //$request_data['fid']  = $admin->id;
+
+
+        $user = User::create($request_data);
+        $user->attachRole('admin');
+        //$user->syncPermissions($request->permissions);
+
         $request->validate([
             'name' => 'required',
             //'last_name' => 'required',
@@ -67,28 +88,12 @@ class AdminController extends Controller
 
         $admin = Admin::create($request_data);
         $admin->attachRole('admin');
+
+        $user->update(['fid'=>$admin->id]);
+
         //$admin->syncPermissions($request->permissions);
 
-        //add admin to user table
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|unique:users',
-            'username' => 'required|unique:users',
-            'phone' => 'required|unique:users',
-            'type'  =>  'admin',
-            'password' => 'required|confirmed',
-            //'permissions' => 'required|min:1',
 
-        ]);
-        $request_data = $request->except(['password', 'password_confirmation', 'permissions']);
-        $request_data['password'] = bcrypt($request->password);
-        $request_data['type'] = 'admin';
-        $request_data['fid']  = $admin->id;
-
-
-        $user = User::create($request_data);
-        $user->attachRole('admin');
-        //$user->syncPermissions($request->permissions);
 
         session()->flash('success', __('site.added_successfully'));
 

@@ -57,6 +57,7 @@ return array(
     'App\\LoginHistory' => $baseDir . '/app/LoginHistory.php',
     'App\\Notification' => $baseDir . '/app/Notification.php',
     'App\\Permission' => $baseDir . '/app/Permission.php',
+    'App\\Problem' => $baseDir . '/app/Problem.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',

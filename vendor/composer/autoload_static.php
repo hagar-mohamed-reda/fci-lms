@@ -240,9 +240,9 @@ class ComposerStaticInitad8113c28c4969dd18697e1b6292c825
         ),
         'Yajra\\DataTables\\' => 
         array (
-            0 => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src',
+            0 => __DIR__ . '/..' . '/yajra/laravel-datatables-buttons/src',
             1 => __DIR__ . '/..' . '/yajra/laravel-datatables-html/src',
-            2 => __DIR__ . '/..' . '/yajra/laravel-datatables-buttons/src',
+            2 => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src',
         ),
         'XdgBaseDir\\' => 
         array (
@@ -604,6 +604,7 @@ class ComposerStaticInitad8113c28c4969dd18697e1b6292c825
         'App\\LoginHistory' => __DIR__ . '/../..' . '/app/LoginHistory.php',
         'App\\Notification' => __DIR__ . '/../..' . '/app/Notification.php',
         'App\\Permission' => __DIR__ . '/../..' . '/app/Permission.php',
+        'App\\Problem' => __DIR__ . '/../..' . '/app/Problem.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',

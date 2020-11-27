@@ -110,8 +110,16 @@ class LevelController extends Controller
      */
     public function destroy(Level $level)
     {
-        $level->delete();
-        session()->flash('success', __('site.deleted_successfully'));
-        return redirect()->route('dashboard.levels.index');
+        if ($level->students()->exists() || $level->departments()->exists()
+            )
+            {
+                notify()->error("Can not delete this item it has related relations","Error","topRight");
+                return redirect()->route('dashboard.levels.index');
+
+            }else{
+                $level->delete();
+                session()->flash('success', __('site.deleted_successfully'));
+                return redirect()->route('dashboard.levels.index');
+            }
     }
 }
