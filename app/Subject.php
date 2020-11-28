@@ -6,17 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subject extends Model
 {
-<<<<<<< HEAD
-    protected $table = "courses";
-    
-=======
     protected $table = "lms_courses";
 
->>>>>>> 26b744230e46ef5c3d71b728612bbb0fc8411cc3
     protected $guarded = [];
 
     protected $fillable = [
-        'name', 'code','doc_id','description','hours','notes'
+        'name', 'code','doc_id','description','hours','notes','level_id'
     ];
 
     public function doctor(){
