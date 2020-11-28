@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2020 at 11:47 AM
+-- Generation Time: Nov 28, 2020 at 03:15 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.33
 
@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admins`
+-- Table structure for table `lms_admins`
 --
 
-CREATE TABLE `admins` (
+CREATE TABLE `lms_admins` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `username` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -43,19 +43,19 @@ CREATE TABLE `admins` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `admins`
+-- Dumping data for table `lms_admins`
 --
 
-INSERT INTO `admins` (`id`, `name`, `username`, `phone`, `email`, `email_verified_at`, `password`, `active`, `account_confirm`, `remember_token`, `created_at`, `updated_at`) VALUES
+INSERT INTO `lms_admins` (`id`, `name`, `username`, `phone`, `email`, `email_verified_at`, `password`, `active`, `account_confirm`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'admin1', 'admin', '0115478', 'admin@admin.com', NULL, '$2y$10$kQTsb9C3WJba6gCMpliNyuzDlm8NvznUAAVeBjuAcZ38MFTOv52dy', 1, 0, NULL, '2020-10-24 10:15:16', '2020-10-24 18:41:47');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `assignments`
+-- Table structure for table `lms_assignments`
 --
 
-CREATE TABLE `assignments` (
+CREATE TABLE `lms_assignments` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `lesson_id` bigint(20) UNSIGNED NOT NULL,
   `sbj_id` int(11) DEFAULT NULL,
@@ -69,20 +69,59 @@ CREATE TABLE `assignments` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `assignments`
+-- Table structure for table `lms_courses`
 --
 
-INSERT INTO `assignments` (`id`, `lesson_id`, `sbj_id`, `doc_id`, `name`, `start_date`, `end_date`, `pdf_quest`, `pdf_anss`, `created_at`, `updated_at`) VALUES
-(12, 18, 50, 65, 'test assign', '2020-11-23', '2020-11-30', '1606127331.pdf', NULL, '2020-11-23 08:28:51', '2020-11-23 08:28:51');
+CREATE TABLE `lms_courses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `doc_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hours` int(11) NOT NULL,
+  `notes` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `lms_courses`
+--
+
+INSERT INTO `lms_courses` (`id`, `doc_id`, `name`, `code`, `description`, `hours`, `notes`, `created_at`, `updated_at`) VALUES
+(28, 40, 'Foundations of Information Systems', 'IS101', NULL, 3, 'مقرر للمستوى الأول', '2020-11-02 11:15:18', '2020-11-02 14:30:51'),
+(29, 41, 'Introduction to Computer Sciences', 'CS101', NULL, 3, 'مقرر للمستوى الأول', '2020-11-02 11:15:18', '2020-11-02 14:31:40'),
+(30, 42, 'English for Computer Specialist', 'HU111', NULL, 3, 'مقرر للمستوى الأول', '2020-11-02 11:15:18', '2020-11-02 14:30:35'),
+(31, 43, 'Medical Terminology', 'HU112', NULL, 3, 'مقرر للمستوى الأول', '2020-11-02 11:15:18', '2020-11-02 14:27:26'),
+(32, 44, 'Structure of Programming', 'CS141', NULL, 3, 'مقرر للمستوى الأول', '2020-11-02 11:15:18', '2020-11-02 14:26:46'),
+(33, 45, 'Physics I', 'PH101', NULL, 3, 'مقرر للمستوى الأول', '2020-11-02 11:15:18', '2020-11-02 14:27:06'),
+(34, 46, 'Math0/ Math1', 'M000', NULL, 3, 'مقرر للمستوى الأول', '2020-11-02 11:15:18', '2020-11-02 14:28:07'),
+(35, 47, 'Biology', 'B000', NULL, 3, 'مقرر للمستوى الأول', '2020-11-02 11:15:18', '2020-11-02 14:30:14'),
+(36, 48, 'Communication and Presentation skills', 'HU123', NULL, 3, 'مقرر للمستوى الثاني', '2020-11-02 11:15:18', '2020-11-02 14:28:49'),
+(37, 49, 'Mathematics II', 'MA102', NULL, 3, 'مقرر للمستوى الثاني', '2020-11-02 11:15:18', '2020-11-02 14:27:46'),
+(38, 50, 'Business Administration', 'HU231', NULL, 3, 'مقرر للمستوى الثاني', '2020-11-02 11:15:18', '2020-11-02 14:28:31'),
+(39, 51, 'Data Structures and Algorithms', 'CS211', NULL, 3, 'مقرر للمستوى الثاني', '2020-11-02 11:15:18', '2020-11-02 14:29:54'),
+(40, 52, 'Selected Programming Language I', 'CS242', NULL, 3, 'مقرر للمستوى الثاني', '2020-11-02 11:15:18', '2020-11-02 14:26:19'),
+(41, 48, 'Interpersonal Communication', 'HU132', NULL, 3, 'مقرر للمستوى الثاني', '2020-11-02 11:15:18', '2020-11-02 14:31:18'),
+(42, 53, 'Data Communications', 'IT251', NULL, 3, 'مقرر للمستوى الثاني', '2020-11-02 11:15:18', '2020-11-02 14:29:13'),
+(43, 54, 'Mathematics III', 'CS321', NULL, 3, 'مقرر للمستوى الثالث', '2020-11-02 11:15:18', '2020-11-02 14:41:16'),
+(44, 55, 'Image Processing', 'CS352', NULL, 3, 'مقرر للمستوى الثالث', '2020-11-02 11:15:18', '2020-11-02 14:41:39'),
+(45, 56, 'Software Engineering', 'CS391', NULL, 3, 'مقرر للمستوى الثالث', '2020-11-02 11:15:18', '2020-11-02 14:40:45'),
+(46, 57, 'Medical Informatics', 'MI321', NULL, 3, 'مقرر للمستوى الثالث', '2020-11-02 11:15:18', '2020-11-02 14:41:00'),
+(47, 58, 'Introduction to Genomics', 'B311', NULL, 3, 'مقرر للمستوى الثالث', '2020-11-02 11:15:18', '2020-11-02 14:41:57'),
+(48, 59, 'System Analysis and Design for Healthcare', 'MI427', NULL, 3, 'مقرر للمستوى الثالث', '2020-11-02 11:15:18', '2020-11-02 14:40:25'),
+(52, 67, 'test 2', '123', NULL, 3, NULL, '2020-11-25 09:53:17', '2020-11-28 09:17:11');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `departments`
+-- Table structure for table `lms_departments`
 --
 
-CREATE TABLE `departments` (
+CREATE TABLE `lms_departments` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `notes` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -93,10 +132,10 @@ CREATE TABLE `departments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `departments`
+-- Dumping data for table `lms_departments`
 --
 
-INSERT INTO `departments` (`id`, `name`, `notes`, `created_at`, `updated_at`, `deleted_at`, `level_id`) VALUES
+INSERT INTO `lms_departments` (`id`, `name`, `notes`, `created_at`, `updated_at`, `deleted_at`, `level_id`) VALUES
 (1, 'عام', NULL, '2020-05-26 23:26:24', '2020-05-29 10:40:22', NULL, 1),
 (2, 'عام', NULL, '2020-05-26 23:49:36', '2020-05-29 10:40:41', NULL, 2),
 (3, 'قسم إداره الأعمال - شعبه التمويل والاستثمار', NULL, '2020-05-28 21:45:21', '2020-05-29 10:42:44', NULL, 3),
@@ -111,10 +150,10 @@ INSERT INTO `departments` (`id`, `name`, `notes`, `created_at`, `updated_at`, `d
 -- --------------------------------------------------------
 
 --
--- Table structure for table `doctors`
+-- Table structure for table `lms_doctors`
 --
 
-CREATE TABLE `doctors` (
+CREATE TABLE `lms_doctors` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `username` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -128,10 +167,10 @@ CREATE TABLE `doctors` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `doctors`
+-- Dumping data for table `lms_doctors`
 --
 
-INSERT INTO `doctors` (`id`, `name`, `username`, `email`, `phone`, `password`, `active`, `account_confirm`, `created_at`, `updated_at`) VALUES
+INSERT INTO `lms_doctors` (`id`, `name`, `username`, `email`, `phone`, `password`, `active`, `account_confirm`, `created_at`, `updated_at`) VALUES
 (40, 'د. هاجر الحداد', '01091093981', '01091093981', '01091093981', '$2y$10$wMPk5/ZvHqkLRO/1Sp2rhOffsNjqOGad6pWw98ZV0yl9TvI/n/dPi', 1, 0, '2020-11-02 10:38:32', '2020-11-02 10:38:32'),
 (41, 'د. فريد على', '01001369125', '01001369125', '01001369125', '$2y$10$IFaDHOlT0uU3MfcKZe7R4Ov/sxk2ViV9f8umx2Y0xRbTwPTtqgGju', 1, 0, '2020-11-02 10:38:32', '2020-11-02 10:38:32'),
 (42, 'د. سامح جمال', '01099002236', '01099002236', '01099002236', '$2y$10$mjqVnIAXYf9GawfU4vABH.rP7l8fm/pKnmj2er3MtNOk5fjGRkNK6', 1, 0, '2020-11-02 10:38:32', '2020-11-02 10:38:32'),
@@ -152,15 +191,29 @@ INSERT INTO `doctors` (`id`, `name`, `username`, `email`, `phone`, `password`, `
 (57, 'د. أحمد عنتر', '01002325970', '01002325970', '01002325970', '$2y$10$BYHk31zVtnZR1aJY8ZvMneSmjtwQYuzCselb5iFhsdpi4EFJxsmFK', 1, 0, '2020-11-02 10:38:37', '2020-11-02 10:38:37'),
 (58, 'أ.م.د. خالد عدلى', '01004879295', '01004879295', '01004879295', '$2y$10$OePt4CPCWFxbQbJxhm/4vOfuj.v5Cqrh9oRcBlGvugl3c8X0hLT5m', 1, 0, '2020-11-02 10:38:37', '2020-11-02 10:38:37'),
 (59, 'د. عمرو عبد العزيز', '01021264641', '01021264641', '01021264641', '$2y$10$1cu896VYZ8HCUg834Zi9W.k7xqp3Cut/XBbYAD12oYvwW6.90FzqC', 1, 0, '2020-11-02 10:38:37', '2020-11-02 10:38:37'),
-(65, 'test doc', 'test doc', 'testdoc@gmail.com', '00124552', '$2y$10$1AMbQ56c4WrcNpcb6k1CX.KQkjqfpVIMB3n87k.m2k621Gg9ESCWG', 1, 0, '2020-11-23 08:26:53', '2020-11-23 08:26:53');
+(67, 'test 2', 'test2', 'test2@admin.com', '01234567890', '$2y$10$XCfEjRPra5fTAiSjecnNM.MC3MUUgaknvDaAw6G8NXNBqj2hb8bH2', 1, 0, '2020-11-25 09:50:03', '2020-11-25 09:50:03');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `lessons`
+-- Table structure for table `lms_doctor_courses`
 --
 
-CREATE TABLE `lessons` (
+CREATE TABLE `lms_doctor_courses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `doctor_id` int(11) NOT NULL,
+  `course_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lms_lessons`
+--
+
+CREATE TABLE `lms_lessons` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `sbj_id` bigint(20) UNSIGNED NOT NULL,
   `doc_id` int(11) DEFAULT NULL,
@@ -175,20 +228,20 @@ CREATE TABLE `lessons` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `lessons`
+-- Dumping data for table `lms_lessons`
 --
 
-INSERT INTO `lessons` (`id`, `sbj_id`, `doc_id`, `name`, `date`, `pdf_file`, `mp4_file`, `pptx_file`, `youtube_link`, `created_at`, `updated_at`) VALUES
+INSERT INTO `lms_lessons` (`id`, `sbj_id`, `doc_id`, `name`, `date`, `pdf_file`, `mp4_file`, `pptx_file`, `youtube_link`, `created_at`, `updated_at`) VALUES
 (16, 28, 40, 'test lesson', '2020-11-09', '1604914371.pdf', '1604914371.mp4', '1604914371.pptx', 'https://youtu.be/0JiP8jSFT3E', '2020-11-09 07:32:51', '2020-11-09 07:32:51'),
-(18, 50, 65, 'test lesson', '2020-11-23', '1606127314.pdf', NULL, '1606127314.pdf', NULL, '2020-11-23 08:28:34', '2020-11-23 08:28:34');
+(19, 52, 67, 'test', '2020-11-26', NULL, NULL, '1606564255.pdf', NULL, '2020-11-28 09:50:55', '2020-11-28 09:50:55');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `levels`
+-- Table structure for table `lms_levels`
 --
 
-CREATE TABLE `levels` (
+CREATE TABLE `lms_levels` (
   `id` int(11) NOT NULL,
   `name` varchar(191) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -197,10 +250,10 @@ CREATE TABLE `levels` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `levels`
+-- Dumping data for table `lms_levels`
 --
 
-INSERT INTO `levels` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
+INSERT INTO `lms_levels` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'المستوى الأول', '2020-05-28 21:43:49', '2020-05-29 10:38:18', NULL),
 (2, 'المستوى الثانى', '2020-05-29 10:38:59', '2020-05-29 10:38:59', NULL),
 (3, 'المستوى الثالث', '2020-05-29 10:39:12', '2020-05-29 10:39:12', NULL),
@@ -213,10 +266,10 @@ INSERT INTO `levels` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) VA
 -- --------------------------------------------------------
 
 --
--- Table structure for table `login_histories`
+-- Table structure for table `lms_login_histories`
 --
 
-CREATE TABLE `login_histories` (
+CREATE TABLE `lms_login_histories` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `ip` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone_details` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -226,10 +279,10 @@ CREATE TABLE `login_histories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `login_histories`
+-- Dumping data for table `lms_login_histories`
 --
 
-INSERT INTO `login_histories` (`id`, `ip`, `phone_details`, `user_id`, `created_at`, `updated_at`) VALUES
+INSERT INTO `lms_login_histories` (`id`, `ip`, `phone_details`, `user_id`, `created_at`, `updated_at`) VALUES
 (1, '127.0.0.1', 'Chrome/86.0.4240.75', 1, '2020-10-24 07:27:04', '2020-10-24 07:27:04'),
 (2, '127.0.0.1', 'Chrome/86.0.4240.75', 2, '2020-10-24 08:23:25', '2020-10-24 08:23:25'),
 (3, '127.0.0.1', 'Chrome/86.0.4240.75', 1, '2020-10-24 09:02:28', '2020-10-24 09:02:28'),
@@ -369,50 +422,26 @@ INSERT INTO `login_histories` (`id`, `ip`, `phone_details`, `user_id`, `created_
 (137, '127.0.0.1', 'Chrome/87.0.4280.66', 1532, '2020-11-23 08:22:49', '2020-11-23 08:22:49'),
 (138, '127.0.0.1', 'Chrome/87.0.4280.66', 1, '2020-11-23 08:23:39', '2020-11-23 08:23:39'),
 (139, '127.0.0.1', 'Chrome/87.0.4280.66', 1541, '2020-11-23 08:28:09', '2020-11-23 08:28:09'),
-(140, '127.0.0.1', 'Chrome/87.0.4280.66', 1540, '2020-11-23 08:29:06', '2020-11-23 08:29:06');
+(140, '127.0.0.1', 'Chrome/87.0.4280.66', 1540, '2020-11-23 08:29:06', '2020-11-23 08:29:06'),
+(141, '127.0.0.1', 'Chrome/87.0.4280.66', 1541, '2020-11-23 08:53:35', '2020-11-23 08:53:35'),
+(142, '127.0.0.1', 'Gecko)', 1541, '2020-11-23 10:56:39', '2020-11-23 10:56:39'),
+(143, '127.0.0.1', 'Gecko)', 1, '2020-11-23 11:34:46', '2020-11-23 11:34:46'),
+(144, '127.0.0.1', 'Chrome/87.0.4280.66', 1541, '2020-11-24 04:17:34', '2020-11-24 04:17:34'),
+(145, '127.0.0.1', 'Chrome/87.0.4280.66', 1, '2020-11-24 05:56:10', '2020-11-24 05:56:10'),
+(146, '127.0.0.1', 'Chrome/87.0.4280.66', 1, '2020-11-25 09:38:40', '2020-11-25 09:38:40'),
+(147, '127.0.0.1', 'Chrome/87.0.4280.66', 1, '2020-11-25 09:41:59', '2020-11-25 09:41:59'),
+(148, '127.0.0.1', 'Chrome/87.0.4280.66', 1, '2020-11-27 16:12:40', '2020-11-27 16:12:40'),
+(149, '::1', 'Chrome/87.0.4280.66', 1, '2020-11-28 09:00:39', '2020-11-28 09:00:39'),
+(150, '::1', 'Chrome/87.0.4280.66', 1542, '2020-11-28 09:13:36', '2020-11-28 09:13:36'),
+(151, '::1', 'Chrome/87.0.4280.66', 1, '2020-11-28 09:16:01', '2020-11-28 09:16:01');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migrations`
+-- Table structure for table `lms_notifications`
 --
 
-CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `migrations`
---
-
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_000000_create_users_table', 1),
-(2, '2014_10_12_100000_create_password_resets_table', 1),
-(3, '2019_09_22_131102_laratrust_setup_tables', 1),
-(4, '2020_09_09_225704_create_doctors_table', 1),
-(5, '2020_09_09_230229_create_students_table', 1),
-(6, '2020_09_09_230318_create_subjects_table', 1),
-(7, '2020_09_13_230954_create_admins_table', 1),
-(8, '2020_09_15_144505_create_lessons_table', 1),
-(9, '2020_09_15_174508_create_assignments_table', 1),
-(10, '2020_09_18_225044_create_student_subjects_table', 1),
-(11, '2020_09_19_142149_create_student_assignments_table', 1),
-(12, '2020_10_17_142705_create_login_histories_table', 1),
-(13, '2020_10_17_144031_create_levels_table', 1),
-(14, '2020_10_18_013606_create_departments_table', 1),
-(15, '2020_10_18_014106_create_notifications_table', 1),
-(16, '2020_10_20_064959_create_translations_table', 1),
-(17, '2020_10_20_070343_create_settings_table', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `notifications`
---
-
-CREATE TABLE `notifications` (
+CREATE TABLE `lms_notifications` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -426,1088 +455,30 @@ CREATE TABLE `notifications` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `password_resets`
+-- Table structure for table `lms_problems`
 --
 
-CREATE TABLE `password_resets` (
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `permissions`
---
-
-CREATE TABLE `permissions` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE `lms_problems` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `display_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` enum('default','success','warning','error') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` enum('student','doctor') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `notes` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `comment` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `permissions`
---
-
-INSERT INTO `permissions` (`id`, `name`, `display_name`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'create_doctors', 'Create Doctors', 'Create Doctors', '2020-10-24 07:26:00', '2020-10-24 07:26:00'),
-(2, 'read_doctors', 'Read Doctors', 'Read Doctors', '2020-10-24 07:26:01', '2020-10-24 07:26:01'),
-(3, 'update_doctors', 'Update Doctors', 'Update Doctors', '2020-10-24 07:26:01', '2020-10-24 07:26:01'),
-(4, 'delete_doctors', 'Delete Doctors', 'Delete Doctors', '2020-10-24 07:26:01', '2020-10-24 07:26:01'),
-(5, 'create_students', 'Create Students', 'Create Students', '2020-10-24 07:26:01', '2020-10-24 07:26:01'),
-(6, 'read_students', 'Read Students', 'Read Students', '2020-10-24 07:26:01', '2020-10-24 07:26:01'),
-(7, 'update_students', 'Update Students', 'Update Students', '2020-10-24 07:26:01', '2020-10-24 07:26:01'),
-(8, 'delete_students', 'Delete Students', 'Delete Students', '2020-10-24 07:26:01', '2020-10-24 07:26:01'),
-(9, 'create_subjects', 'Create Subjects', 'Create Subjects', '2020-10-24 07:26:01', '2020-10-24 07:26:01'),
-(10, 'read_subjects', 'Read Subjects', 'Read Subjects', '2020-10-24 07:26:02', '2020-10-24 07:26:02'),
-(11, 'update_subjects', 'Update Subjects', 'Update Subjects', '2020-10-24 07:26:02', '2020-10-24 07:26:02'),
-(12, 'delete_subjects', 'Delete Subjects', 'Delete Subjects', '2020-10-24 07:26:02', '2020-10-24 07:26:02'),
-(13, 'create_levels', 'Create Levels', 'Create Levels', '2020-10-24 07:26:02', '2020-10-24 07:26:02'),
-(14, 'read_levels', 'Read Levels', 'Read Levels', '2020-10-24 07:26:02', '2020-10-24 07:26:02'),
-(15, 'update_levels', 'Update Levels', 'Update Levels', '2020-10-24 07:26:02', '2020-10-24 07:26:02'),
-(16, 'delete_levels', 'Delete Levels', 'Delete Levels', '2020-10-24 07:26:02', '2020-10-24 07:26:02'),
-(17, 'create_departments', 'Create Departments', 'Create Departments', '2020-10-24 07:26:02', '2020-10-24 07:26:02'),
-(18, 'read_departments', 'Read Departments', 'Read Departments', '2020-10-24 07:26:02', '2020-10-24 07:26:02'),
-(19, 'update_departments', 'Update Departments', 'Update Departments', '2020-10-24 07:26:02', '2020-10-24 07:26:02'),
-(20, 'delete_departments', 'Delete Departments', 'Delete Departments', '2020-10-24 07:26:02', '2020-10-24 07:26:02'),
-(21, 'read_lessons', 'Read Lessons', 'Read Lessons', '2020-10-24 07:26:03', '2020-10-24 07:26:03'),
-(22, 'read_assignments', 'Read Assignments', 'Read Assignments', '2020-10-24 07:26:03', '2020-10-24 07:26:03'),
-(23, 'read_stdassign', 'Read Stdassign', 'Read Stdassign', '2020-10-24 07:26:03', '2020-10-24 07:26:03'),
-(24, 'create_regist', 'Create Regist', 'Create Regist', '2020-10-24 07:26:03', '2020-10-24 07:26:03'),
-(25, 'read_regist', 'Read Regist', 'Read Regist', '2020-10-24 07:26:03', '2020-10-24 07:26:03'),
-(26, 'update_regist', 'Update Regist', 'Update Regist', '2020-10-24 07:26:03', '2020-10-24 07:26:03'),
-(27, 'delete_regist', 'Delete Regist', 'Delete Regist', '2020-10-24 07:26:03', '2020-10-24 07:26:03'),
-(28, 'create_admins', 'Create Admins', 'Create Admins', '2020-10-24 07:26:03', '2020-10-24 07:26:03'),
-(29, 'read_admins', 'Read Admins', 'Read Admins', '2020-10-24 07:26:03', '2020-10-24 07:26:03'),
-(30, 'update_admins', 'Update Admins', 'Update Admins', '2020-10-24 07:26:03', '2020-10-24 07:26:03'),
-(31, 'delete_admins', 'Delete Admins', 'Delete Admins', '2020-10-24 07:26:03', '2020-10-24 07:26:03'),
-(32, 'create_users', 'Create Users', 'Create Users', '2020-10-24 07:26:03', '2020-10-24 07:26:03'),
-(33, 'read_users', 'Read Users', 'Read Users', '2020-10-24 07:26:03', '2020-10-24 07:26:03'),
-(34, 'update_users', 'Update Users', 'Update Users', '2020-10-24 07:26:04', '2020-10-24 07:26:04'),
-(35, 'delete_users', 'Delete Users', 'Delete Users', '2020-10-24 07:26:04', '2020-10-24 07:26:04'),
-(36, 'create_lessons', 'Create Lessons', 'Create Lessons', '2020-10-24 07:26:09', '2020-10-24 07:26:09'),
-(37, 'update_lessons', 'Update Lessons', 'Update Lessons', '2020-10-24 07:26:09', '2020-10-24 07:26:09'),
-(38, 'delete_lessons', 'Delete Lessons', 'Delete Lessons', '2020-10-24 07:26:10', '2020-10-24 07:26:10'),
-(39, 'create_assignments', 'Create Assignments', 'Create Assignments', '2020-10-24 07:26:10', '2020-10-24 07:26:10'),
-(40, 'update_assignments', 'Update Assignments', 'Update Assignments', '2020-10-24 07:26:10', '2020-10-24 07:26:10'),
-(41, 'delete_assignments', 'Delete Assignments', 'Delete Assignments', '2020-10-24 07:26:10', '2020-10-24 07:26:10'),
-(42, 'create_stdassign', 'Create Stdassign', 'Create Stdassign', '2020-10-24 07:26:11', '2020-10-24 07:26:11');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `permission_role`
---
-
-CREATE TABLE `permission_role` (
-  `permission_id` int(10) UNSIGNED NOT NULL,
-  `role_id` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `permission_role`
---
-
-INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
-(1, 1),
-(1, 2),
-(2, 1),
-(2, 2),
-(3, 1),
-(3, 2),
-(4, 1),
-(4, 2),
-(5, 1),
-(5, 2),
-(6, 1),
-(6, 2),
-(7, 1),
-(7, 2),
-(8, 1),
-(8, 2),
-(9, 1),
-(9, 2),
-(10, 1),
-(10, 2),
-(10, 3),
-(10, 4),
-(11, 1),
-(11, 2),
-(12, 1),
-(12, 2),
-(13, 1),
-(13, 2),
-(14, 1),
-(14, 2),
-(15, 1),
-(15, 2),
-(16, 1),
-(16, 2),
-(17, 1),
-(17, 2),
-(18, 1),
-(18, 2),
-(19, 1),
-(19, 2),
-(20, 1),
-(20, 2),
-(21, 1),
-(21, 2),
-(21, 3),
-(21, 4),
-(22, 1),
-(22, 2),
-(22, 3),
-(22, 4),
-(23, 1),
-(23, 2),
-(23, 3),
-(24, 1),
-(24, 2),
-(25, 1),
-(25, 2),
-(25, 3),
-(25, 4),
-(26, 1),
-(26, 2),
-(27, 1),
-(27, 2),
-(28, 1),
-(28, 2),
-(29, 1),
-(29, 2),
-(30, 1),
-(30, 2),
-(31, 1),
-(31, 2),
-(32, 1),
-(32, 2),
-(33, 1),
-(33, 2),
-(34, 1),
-(34, 2),
-(35, 1),
-(35, 2),
-(36, 3),
-(37, 3),
-(38, 3),
-(39, 3),
-(40, 3),
-(41, 3),
-(42, 4);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `permission_user`
---
-
-CREATE TABLE `permission_user` (
-  `permission_id` int(10) UNSIGNED NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
-  `user_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `roles`
+-- Table structure for table `lms_settings`
 --
 
-CREATE TABLE `roles` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `display_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `roles`
---
-
-INSERT INTO `roles` (`id`, `name`, `display_name`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'super_admin', 'Super Admin', 'Super Admin', '2020-10-24 07:26:00', '2020-10-24 07:26:00'),
-(2, 'admin', 'Admin', 'Admin', '2020-10-24 07:26:06', '2020-10-24 07:26:06'),
-(3, 'doctor', 'Doctor', 'Doctor', '2020-10-24 07:26:09', '2020-10-24 07:26:09'),
-(4, 'student', 'Student', 'Student', '2020-10-24 07:26:11', '2020-10-24 07:26:11'),
-(5, 'user', 'user', 'can do some tasks in the project', '2020-10-24 07:26:11', '2020-10-24 07:26:11');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `role_user`
---
-
-CREATE TABLE `role_user` (
-  `role_id` int(10) UNSIGNED NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
-  `user_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `role_user`
---
-
-INSERT INTO `role_user` (`role_id`, `user_id`, `user_type`) VALUES
-(1, 1, 'App\\User'),
-(2, 1, 'App\\Admin'),
-(3, 40, 'App\\Doctor'),
-(3, 41, 'App\\Doctor'),
-(3, 42, 'App\\Doctor'),
-(3, 43, 'App\\Doctor'),
-(3, 44, 'App\\Doctor'),
-(3, 45, 'App\\Doctor'),
-(3, 46, 'App\\Doctor'),
-(3, 47, 'App\\Doctor'),
-(3, 48, 'App\\Doctor'),
-(3, 49, 'App\\Doctor'),
-(3, 50, 'App\\Doctor'),
-(3, 51, 'App\\Doctor'),
-(4, 51, 'App\\User'),
-(3, 52, 'App\\Doctor'),
-(4, 52, 'App\\User'),
-(3, 53, 'App\\Doctor'),
-(4, 53, 'App\\User'),
-(3, 54, 'App\\Doctor'),
-(4, 54, 'App\\User'),
-(3, 55, 'App\\Doctor'),
-(4, 55, 'App\\User'),
-(3, 56, 'App\\Doctor'),
-(4, 56, 'App\\User'),
-(3, 57, 'App\\Doctor'),
-(4, 57, 'App\\User'),
-(3, 58, 'App\\Doctor'),
-(4, 58, 'App\\User'),
-(3, 59, 'App\\Doctor'),
-(4, 59, 'App\\User'),
-(3, 60, 'App\\Doctor'),
-(4, 60, 'App\\User'),
-(3, 61, 'App\\Doctor'),
-(4, 61, 'App\\User'),
-(3, 62, 'App\\Doctor'),
-(4, 62, 'App\\User'),
-(4, 63, 'App\\User'),
-(3, 64, 'App\\Doctor'),
-(4, 64, 'App\\User'),
-(3, 65, 'App\\Doctor'),
-(4, 65, 'App\\User'),
-(4, 66, 'App\\User'),
-(4, 67, 'App\\User'),
-(4, 68, 'App\\User'),
-(4, 69, 'App\\User'),
-(4, 70, 'App\\User'),
-(4, 71, 'App\\User'),
-(4, 72, 'App\\User'),
-(4, 73, 'App\\Student'),
-(4, 73, 'App\\User'),
-(4, 74, 'App\\Student'),
-(4, 74, 'App\\User'),
-(4, 75, 'App\\Student'),
-(4, 75, 'App\\User'),
-(4, 76, 'App\\Student'),
-(4, 76, 'App\\User'),
-(4, 77, 'App\\Student'),
-(4, 77, 'App\\User'),
-(4, 78, 'App\\Student'),
-(4, 78, 'App\\User'),
-(4, 79, 'App\\Student'),
-(4, 79, 'App\\User'),
-(4, 80, 'App\\Student'),
-(4, 80, 'App\\User'),
-(4, 81, 'App\\Student'),
-(4, 81, 'App\\User'),
-(4, 82, 'App\\Student'),
-(4, 82, 'App\\User'),
-(4, 83, 'App\\Student'),
-(4, 83, 'App\\User'),
-(4, 84, 'App\\Student'),
-(4, 85, 'App\\Student'),
-(4, 86, 'App\\Student'),
-(4, 87, 'App\\Student'),
-(4, 88, 'App\\Student'),
-(4, 89, 'App\\Student'),
-(4, 90, 'App\\Student'),
-(4, 91, 'App\\Student'),
-(4, 92, 'App\\Student'),
-(4, 93, 'App\\Student'),
-(4, 94, 'App\\Student'),
-(4, 95, 'App\\Student'),
-(4, 96, 'App\\Student'),
-(4, 97, 'App\\Student'),
-(4, 98, 'App\\Student'),
-(4, 99, 'App\\Student'),
-(4, 100, 'App\\Student'),
-(4, 101, 'App\\Student'),
-(4, 102, 'App\\Student'),
-(4, 103, 'App\\Student'),
-(4, 104, 'App\\Student'),
-(4, 105, 'App\\Student'),
-(4, 911, 'App\\User'),
-(4, 912, 'App\\User'),
-(4, 913, 'App\\User'),
-(4, 914, 'App\\User'),
-(4, 915, 'App\\User'),
-(4, 916, 'App\\User'),
-(4, 917, 'App\\User'),
-(4, 918, 'App\\User'),
-(4, 919, 'App\\User'),
-(4, 920, 'App\\User'),
-(4, 921, 'App\\User'),
-(4, 922, 'App\\User'),
-(4, 923, 'App\\User'),
-(4, 924, 'App\\User'),
-(4, 925, 'App\\User'),
-(4, 926, 'App\\User'),
-(4, 927, 'App\\User'),
-(4, 928, 'App\\User'),
-(4, 929, 'App\\User'),
-(4, 930, 'App\\User'),
-(4, 931, 'App\\User'),
-(4, 932, 'App\\User'),
-(4, 933, 'App\\Student'),
-(4, 933, 'App\\User'),
-(4, 934, 'App\\Student'),
-(4, 934, 'App\\User'),
-(4, 935, 'App\\Student'),
-(4, 935, 'App\\User'),
-(4, 936, 'App\\Student'),
-(4, 936, 'App\\User'),
-(4, 937, 'App\\Student'),
-(4, 937, 'App\\User'),
-(4, 938, 'App\\Student'),
-(4, 938, 'App\\User'),
-(4, 939, 'App\\Student'),
-(4, 939, 'App\\User'),
-(4, 940, 'App\\Student'),
-(4, 940, 'App\\User'),
-(4, 941, 'App\\Student'),
-(4, 941, 'App\\User'),
-(4, 942, 'App\\Student'),
-(4, 942, 'App\\User'),
-(4, 943, 'App\\Student'),
-(4, 943, 'App\\User'),
-(4, 944, 'App\\Student'),
-(4, 944, 'App\\User'),
-(4, 945, 'App\\Student'),
-(4, 945, 'App\\User'),
-(4, 946, 'App\\Student'),
-(4, 946, 'App\\User'),
-(4, 947, 'App\\Student'),
-(4, 947, 'App\\User'),
-(4, 948, 'App\\Student'),
-(4, 948, 'App\\User'),
-(4, 949, 'App\\Student'),
-(4, 949, 'App\\User'),
-(4, 950, 'App\\Student'),
-(4, 950, 'App\\User'),
-(4, 951, 'App\\Student'),
-(4, 951, 'App\\User'),
-(4, 952, 'App\\Student'),
-(4, 952, 'App\\User'),
-(4, 953, 'App\\Student'),
-(4, 953, 'App\\User'),
-(4, 954, 'App\\Student'),
-(4, 954, 'App\\User'),
-(4, 955, 'App\\Student'),
-(4, 955, 'App\\User'),
-(4, 956, 'App\\Student'),
-(4, 956, 'App\\User'),
-(4, 957, 'App\\Student'),
-(4, 957, 'App\\User'),
-(4, 958, 'App\\Student'),
-(4, 958, 'App\\User'),
-(4, 959, 'App\\Student'),
-(4, 959, 'App\\User'),
-(4, 960, 'App\\Student'),
-(4, 960, 'App\\User'),
-(4, 961, 'App\\Student'),
-(4, 961, 'App\\User'),
-(4, 962, 'App\\Student'),
-(4, 962, 'App\\User'),
-(4, 963, 'App\\Student'),
-(4, 963, 'App\\User'),
-(4, 964, 'App\\Student'),
-(4, 964, 'App\\User'),
-(4, 965, 'App\\Student'),
-(4, 965, 'App\\User'),
-(4, 966, 'App\\Student'),
-(4, 966, 'App\\User'),
-(4, 967, 'App\\Student'),
-(4, 967, 'App\\User'),
-(4, 968, 'App\\Student'),
-(4, 968, 'App\\User'),
-(4, 969, 'App\\Student'),
-(4, 969, 'App\\User'),
-(4, 970, 'App\\Student'),
-(4, 970, 'App\\User'),
-(4, 971, 'App\\Student'),
-(4, 971, 'App\\User'),
-(4, 972, 'App\\Student'),
-(4, 972, 'App\\User'),
-(4, 973, 'App\\Student'),
-(4, 973, 'App\\User'),
-(4, 974, 'App\\Student'),
-(4, 974, 'App\\User'),
-(4, 975, 'App\\Student'),
-(4, 975, 'App\\User'),
-(4, 976, 'App\\Student'),
-(4, 976, 'App\\User'),
-(4, 977, 'App\\Student'),
-(4, 977, 'App\\User'),
-(4, 978, 'App\\Student'),
-(4, 978, 'App\\User'),
-(4, 979, 'App\\Student'),
-(4, 979, 'App\\User'),
-(4, 980, 'App\\Student'),
-(4, 980, 'App\\User'),
-(4, 981, 'App\\Student'),
-(4, 981, 'App\\User'),
-(4, 982, 'App\\Student'),
-(4, 982, 'App\\User'),
-(4, 983, 'App\\Student'),
-(4, 983, 'App\\User'),
-(4, 984, 'App\\Student'),
-(4, 984, 'App\\User'),
-(4, 985, 'App\\Student'),
-(4, 985, 'App\\User'),
-(4, 986, 'App\\Student'),
-(4, 986, 'App\\User'),
-(4, 987, 'App\\Student'),
-(4, 987, 'App\\User'),
-(4, 988, 'App\\Student'),
-(4, 988, 'App\\User'),
-(4, 989, 'App\\Student'),
-(4, 989, 'App\\User'),
-(4, 990, 'App\\Student'),
-(4, 990, 'App\\User'),
-(4, 991, 'App\\Student'),
-(4, 991, 'App\\User'),
-(4, 992, 'App\\Student'),
-(4, 992, 'App\\User'),
-(4, 993, 'App\\Student'),
-(4, 993, 'App\\User'),
-(4, 994, 'App\\Student'),
-(4, 994, 'App\\User'),
-(4, 995, 'App\\Student'),
-(4, 995, 'App\\User'),
-(4, 996, 'App\\Student'),
-(4, 996, 'App\\User'),
-(4, 997, 'App\\Student'),
-(4, 997, 'App\\User'),
-(4, 998, 'App\\Student'),
-(4, 998, 'App\\User'),
-(4, 999, 'App\\Student'),
-(4, 999, 'App\\User'),
-(4, 1000, 'App\\Student'),
-(4, 1000, 'App\\User'),
-(4, 1001, 'App\\Student'),
-(4, 1001, 'App\\User'),
-(4, 1002, 'App\\Student'),
-(4, 1002, 'App\\User'),
-(4, 1003, 'App\\Student'),
-(4, 1003, 'App\\User'),
-(4, 1004, 'App\\Student'),
-(4, 1004, 'App\\User'),
-(4, 1005, 'App\\Student'),
-(4, 1005, 'App\\User'),
-(4, 1006, 'App\\Student'),
-(4, 1006, 'App\\User'),
-(4, 1007, 'App\\Student'),
-(4, 1007, 'App\\User'),
-(4, 1008, 'App\\Student'),
-(4, 1008, 'App\\User'),
-(4, 1009, 'App\\Student'),
-(4, 1009, 'App\\User'),
-(4, 1010, 'App\\Student'),
-(4, 1010, 'App\\User'),
-(4, 1011, 'App\\Student'),
-(4, 1011, 'App\\User'),
-(4, 1012, 'App\\Student'),
-(4, 1012, 'App\\User'),
-(4, 1013, 'App\\Student'),
-(4, 1013, 'App\\User'),
-(4, 1014, 'App\\Student'),
-(4, 1014, 'App\\User'),
-(4, 1015, 'App\\Student'),
-(4, 1015, 'App\\User'),
-(4, 1016, 'App\\Student'),
-(4, 1016, 'App\\User'),
-(4, 1017, 'App\\Student'),
-(4, 1017, 'App\\User'),
-(4, 1018, 'App\\Student'),
-(4, 1018, 'App\\User'),
-(4, 1019, 'App\\Student'),
-(4, 1019, 'App\\User'),
-(4, 1020, 'App\\Student'),
-(4, 1020, 'App\\User'),
-(4, 1021, 'App\\Student'),
-(4, 1021, 'App\\User'),
-(4, 1022, 'App\\Student'),
-(4, 1022, 'App\\User'),
-(4, 1023, 'App\\Student'),
-(4, 1023, 'App\\User'),
-(4, 1024, 'App\\Student'),
-(4, 1024, 'App\\User'),
-(4, 1025, 'App\\Student'),
-(4, 1025, 'App\\User'),
-(4, 1026, 'App\\Student'),
-(4, 1026, 'App\\User'),
-(4, 1027, 'App\\Student'),
-(4, 1027, 'App\\User'),
-(4, 1028, 'App\\Student'),
-(4, 1028, 'App\\User'),
-(4, 1029, 'App\\Student'),
-(4, 1029, 'App\\User'),
-(4, 1030, 'App\\Student'),
-(4, 1030, 'App\\User'),
-(4, 1031, 'App\\Student'),
-(4, 1031, 'App\\User'),
-(4, 1032, 'App\\Student'),
-(4, 1032, 'App\\User'),
-(4, 1033, 'App\\Student'),
-(4, 1033, 'App\\User'),
-(4, 1034, 'App\\Student'),
-(4, 1034, 'App\\User'),
-(4, 1035, 'App\\Student'),
-(4, 1035, 'App\\User'),
-(4, 1036, 'App\\Student'),
-(4, 1036, 'App\\User'),
-(4, 1037, 'App\\Student'),
-(4, 1037, 'App\\User'),
-(4, 1038, 'App\\Student'),
-(4, 1038, 'App\\User'),
-(4, 1039, 'App\\Student'),
-(4, 1039, 'App\\User'),
-(4, 1040, 'App\\Student'),
-(4, 1040, 'App\\User'),
-(4, 1041, 'App\\Student'),
-(4, 1041, 'App\\User'),
-(4, 1042, 'App\\Student'),
-(4, 1042, 'App\\User'),
-(4, 1043, 'App\\Student'),
-(4, 1043, 'App\\User'),
-(4, 1044, 'App\\Student'),
-(4, 1044, 'App\\User'),
-(4, 1045, 'App\\Student'),
-(4, 1045, 'App\\User'),
-(4, 1046, 'App\\Student'),
-(4, 1046, 'App\\User'),
-(4, 1047, 'App\\Student'),
-(4, 1047, 'App\\User'),
-(4, 1048, 'App\\Student'),
-(4, 1048, 'App\\User'),
-(4, 1049, 'App\\Student'),
-(4, 1049, 'App\\User'),
-(4, 1050, 'App\\Student'),
-(4, 1050, 'App\\User'),
-(4, 1051, 'App\\Student'),
-(4, 1051, 'App\\User'),
-(4, 1052, 'App\\Student'),
-(4, 1052, 'App\\User'),
-(4, 1053, 'App\\Student'),
-(4, 1053, 'App\\User'),
-(4, 1054, 'App\\Student'),
-(4, 1054, 'App\\User'),
-(4, 1055, 'App\\Student'),
-(4, 1055, 'App\\User'),
-(4, 1056, 'App\\Student'),
-(4, 1056, 'App\\User'),
-(4, 1057, 'App\\Student'),
-(4, 1057, 'App\\User'),
-(4, 1058, 'App\\Student'),
-(4, 1058, 'App\\User'),
-(4, 1059, 'App\\Student'),
-(4, 1060, 'App\\Student'),
-(4, 1061, 'App\\Student'),
-(4, 1062, 'App\\Student'),
-(4, 1063, 'App\\Student'),
-(4, 1064, 'App\\Student'),
-(4, 1065, 'App\\Student'),
-(4, 1066, 'App\\Student'),
-(4, 1067, 'App\\Student'),
-(4, 1068, 'App\\Student'),
-(4, 1069, 'App\\Student'),
-(4, 1070, 'App\\Student'),
-(4, 1071, 'App\\Student'),
-(4, 1072, 'App\\Student'),
-(4, 1073, 'App\\Student'),
-(4, 1074, 'App\\Student'),
-(4, 1075, 'App\\Student'),
-(4, 1076, 'App\\Student'),
-(4, 1077, 'App\\Student'),
-(4, 1078, 'App\\Student'),
-(4, 1079, 'App\\Student'),
-(4, 1080, 'App\\Student'),
-(4, 1209, 'App\\User'),
-(4, 1210, 'App\\User'),
-(4, 1211, 'App\\User'),
-(4, 1212, 'App\\User'),
-(4, 1213, 'App\\User'),
-(4, 1214, 'App\\User'),
-(4, 1215, 'App\\User'),
-(4, 1216, 'App\\User'),
-(4, 1217, 'App\\User'),
-(4, 1218, 'App\\User'),
-(4, 1219, 'App\\User'),
-(4, 1220, 'App\\User'),
-(4, 1221, 'App\\User'),
-(4, 1222, 'App\\User'),
-(4, 1223, 'App\\User'),
-(4, 1224, 'App\\User'),
-(4, 1225, 'App\\User'),
-(4, 1226, 'App\\User'),
-(4, 1227, 'App\\User'),
-(4, 1228, 'App\\User'),
-(4, 1229, 'App\\User'),
-(4, 1230, 'App\\User'),
-(4, 1231, 'App\\Student'),
-(4, 1231, 'App\\User'),
-(4, 1232, 'App\\Student'),
-(4, 1232, 'App\\User'),
-(4, 1233, 'App\\Student'),
-(4, 1233, 'App\\User'),
-(4, 1234, 'App\\Student'),
-(4, 1234, 'App\\User'),
-(4, 1235, 'App\\Student'),
-(4, 1235, 'App\\User'),
-(4, 1236, 'App\\Student'),
-(4, 1236, 'App\\User'),
-(4, 1237, 'App\\Student'),
-(4, 1237, 'App\\User'),
-(4, 1238, 'App\\Student'),
-(4, 1238, 'App\\User'),
-(4, 1239, 'App\\Student'),
-(4, 1239, 'App\\User'),
-(4, 1240, 'App\\Student'),
-(4, 1240, 'App\\User'),
-(4, 1241, 'App\\Student'),
-(4, 1241, 'App\\User'),
-(4, 1242, 'App\\Student'),
-(4, 1242, 'App\\User'),
-(4, 1243, 'App\\Student'),
-(4, 1243, 'App\\User'),
-(4, 1244, 'App\\Student'),
-(4, 1244, 'App\\User'),
-(4, 1245, 'App\\Student'),
-(4, 1245, 'App\\User'),
-(4, 1246, 'App\\Student'),
-(4, 1246, 'App\\User'),
-(4, 1247, 'App\\Student'),
-(4, 1247, 'App\\User'),
-(4, 1248, 'App\\Student'),
-(4, 1248, 'App\\User'),
-(4, 1249, 'App\\Student'),
-(4, 1249, 'App\\User'),
-(4, 1250, 'App\\Student'),
-(4, 1250, 'App\\User'),
-(4, 1251, 'App\\Student'),
-(4, 1251, 'App\\User'),
-(4, 1252, 'App\\Student'),
-(4, 1252, 'App\\User'),
-(4, 1253, 'App\\Student'),
-(4, 1253, 'App\\User'),
-(4, 1254, 'App\\Student'),
-(4, 1254, 'App\\User'),
-(4, 1255, 'App\\Student'),
-(4, 1255, 'App\\User'),
-(4, 1256, 'App\\Student'),
-(4, 1256, 'App\\User'),
-(4, 1257, 'App\\Student'),
-(4, 1257, 'App\\User'),
-(4, 1258, 'App\\Student'),
-(4, 1258, 'App\\User'),
-(4, 1259, 'App\\Student'),
-(4, 1259, 'App\\User'),
-(4, 1260, 'App\\Student'),
-(4, 1260, 'App\\User'),
-(4, 1261, 'App\\Student'),
-(4, 1261, 'App\\User'),
-(4, 1262, 'App\\Student'),
-(4, 1262, 'App\\User'),
-(4, 1263, 'App\\Student'),
-(4, 1263, 'App\\User'),
-(4, 1264, 'App\\Student'),
-(4, 1264, 'App\\User'),
-(4, 1265, 'App\\Student'),
-(4, 1265, 'App\\User'),
-(4, 1266, 'App\\Student'),
-(4, 1266, 'App\\User'),
-(4, 1267, 'App\\Student'),
-(4, 1267, 'App\\User'),
-(4, 1268, 'App\\Student'),
-(4, 1268, 'App\\User'),
-(4, 1269, 'App\\Student'),
-(4, 1269, 'App\\User'),
-(4, 1270, 'App\\Student'),
-(4, 1270, 'App\\User'),
-(4, 1271, 'App\\Student'),
-(4, 1271, 'App\\User'),
-(4, 1272, 'App\\Student'),
-(4, 1272, 'App\\User'),
-(4, 1273, 'App\\Student'),
-(4, 1273, 'App\\User'),
-(4, 1274, 'App\\Student'),
-(4, 1274, 'App\\User'),
-(4, 1275, 'App\\Student'),
-(4, 1275, 'App\\User'),
-(4, 1276, 'App\\Student'),
-(4, 1276, 'App\\User'),
-(4, 1277, 'App\\Student'),
-(4, 1277, 'App\\User'),
-(4, 1278, 'App\\Student'),
-(4, 1278, 'App\\User'),
-(4, 1279, 'App\\Student'),
-(4, 1279, 'App\\User'),
-(4, 1280, 'App\\Student'),
-(4, 1280, 'App\\User'),
-(4, 1281, 'App\\Student'),
-(4, 1281, 'App\\User'),
-(4, 1282, 'App\\Student'),
-(4, 1282, 'App\\User'),
-(4, 1283, 'App\\Student'),
-(4, 1283, 'App\\User'),
-(4, 1284, 'App\\Student'),
-(4, 1284, 'App\\User'),
-(4, 1285, 'App\\Student'),
-(4, 1285, 'App\\User'),
-(4, 1286, 'App\\Student'),
-(4, 1286, 'App\\User'),
-(4, 1287, 'App\\Student'),
-(4, 1287, 'App\\User'),
-(4, 1288, 'App\\Student'),
-(4, 1288, 'App\\User'),
-(4, 1289, 'App\\Student'),
-(4, 1289, 'App\\User'),
-(4, 1290, 'App\\Student'),
-(4, 1290, 'App\\User'),
-(4, 1291, 'App\\Student'),
-(4, 1291, 'App\\User'),
-(4, 1292, 'App\\Student'),
-(4, 1292, 'App\\User'),
-(4, 1293, 'App\\Student'),
-(4, 1293, 'App\\User'),
-(4, 1294, 'App\\Student'),
-(4, 1294, 'App\\User'),
-(4, 1295, 'App\\Student'),
-(4, 1295, 'App\\User'),
-(4, 1296, 'App\\Student'),
-(4, 1296, 'App\\User'),
-(4, 1297, 'App\\Student'),
-(4, 1297, 'App\\User'),
-(4, 1298, 'App\\Student'),
-(4, 1298, 'App\\User'),
-(4, 1299, 'App\\Student'),
-(4, 1299, 'App\\User'),
-(4, 1300, 'App\\Student'),
-(4, 1300, 'App\\User'),
-(4, 1301, 'App\\Student'),
-(4, 1301, 'App\\User'),
-(4, 1302, 'App\\Student'),
-(4, 1302, 'App\\User'),
-(4, 1303, 'App\\Student'),
-(4, 1303, 'App\\User'),
-(4, 1304, 'App\\Student'),
-(4, 1304, 'App\\User'),
-(4, 1305, 'App\\Student'),
-(4, 1305, 'App\\User'),
-(4, 1306, 'App\\Student'),
-(4, 1306, 'App\\User'),
-(4, 1307, 'App\\Student'),
-(4, 1307, 'App\\User'),
-(4, 1308, 'App\\Student'),
-(4, 1308, 'App\\User'),
-(4, 1309, 'App\\Student'),
-(4, 1309, 'App\\User'),
-(4, 1310, 'App\\Student'),
-(4, 1310, 'App\\User'),
-(4, 1311, 'App\\Student'),
-(4, 1311, 'App\\User'),
-(4, 1312, 'App\\Student'),
-(4, 1312, 'App\\User'),
-(4, 1313, 'App\\Student'),
-(4, 1313, 'App\\User'),
-(4, 1314, 'App\\Student'),
-(4, 1314, 'App\\User'),
-(4, 1315, 'App\\Student'),
-(4, 1315, 'App\\User'),
-(4, 1316, 'App\\Student'),
-(4, 1316, 'App\\User'),
-(4, 1317, 'App\\Student'),
-(4, 1317, 'App\\User'),
-(4, 1318, 'App\\Student'),
-(4, 1318, 'App\\User'),
-(4, 1319, 'App\\Student'),
-(4, 1319, 'App\\User'),
-(4, 1320, 'App\\Student'),
-(4, 1320, 'App\\User'),
-(4, 1321, 'App\\Student'),
-(4, 1321, 'App\\User'),
-(4, 1322, 'App\\Student'),
-(4, 1322, 'App\\User'),
-(4, 1323, 'App\\Student'),
-(4, 1323, 'App\\User'),
-(4, 1324, 'App\\Student'),
-(4, 1324, 'App\\User'),
-(4, 1325, 'App\\Student'),
-(4, 1325, 'App\\User'),
-(4, 1326, 'App\\Student'),
-(4, 1326, 'App\\User'),
-(4, 1327, 'App\\Student'),
-(4, 1327, 'App\\User'),
-(4, 1328, 'App\\Student'),
-(4, 1328, 'App\\User'),
-(4, 1329, 'App\\Student'),
-(4, 1329, 'App\\User'),
-(4, 1330, 'App\\Student'),
-(4, 1330, 'App\\User'),
-(4, 1331, 'App\\Student'),
-(4, 1331, 'App\\User'),
-(4, 1332, 'App\\Student'),
-(4, 1332, 'App\\User'),
-(4, 1333, 'App\\Student'),
-(4, 1333, 'App\\User'),
-(4, 1334, 'App\\Student'),
-(4, 1334, 'App\\User'),
-(4, 1335, 'App\\Student'),
-(4, 1335, 'App\\User'),
-(4, 1336, 'App\\Student'),
-(4, 1336, 'App\\User'),
-(4, 1337, 'App\\Student'),
-(4, 1337, 'App\\User'),
-(4, 1338, 'App\\Student'),
-(4, 1338, 'App\\User'),
-(4, 1339, 'App\\Student'),
-(4, 1339, 'App\\User'),
-(4, 1340, 'App\\Student'),
-(4, 1340, 'App\\User'),
-(4, 1341, 'App\\Student'),
-(4, 1341, 'App\\User'),
-(4, 1342, 'App\\Student'),
-(4, 1342, 'App\\User'),
-(4, 1343, 'App\\Student'),
-(4, 1343, 'App\\User'),
-(4, 1344, 'App\\Student'),
-(4, 1344, 'App\\User'),
-(4, 1345, 'App\\Student'),
-(4, 1345, 'App\\User'),
-(4, 1346, 'App\\Student'),
-(4, 1346, 'App\\User'),
-(4, 1347, 'App\\Student'),
-(4, 1347, 'App\\User'),
-(4, 1348, 'App\\Student'),
-(4, 1348, 'App\\User'),
-(4, 1349, 'App\\Student'),
-(4, 1349, 'App\\User'),
-(4, 1350, 'App\\Student'),
-(4, 1350, 'App\\User'),
-(4, 1351, 'App\\Student'),
-(4, 1351, 'App\\User'),
-(4, 1352, 'App\\Student'),
-(4, 1352, 'App\\User'),
-(4, 1353, 'App\\Student'),
-(4, 1353, 'App\\User'),
-(4, 1354, 'App\\Student'),
-(4, 1354, 'App\\User'),
-(4, 1355, 'App\\Student'),
-(4, 1355, 'App\\User'),
-(4, 1356, 'App\\Student'),
-(4, 1356, 'App\\User'),
-(4, 1357, 'App\\Student'),
-(4, 1357, 'App\\User'),
-(4, 1358, 'App\\Student'),
-(4, 1358, 'App\\User'),
-(4, 1359, 'App\\Student'),
-(4, 1360, 'App\\Student'),
-(4, 1361, 'App\\Student'),
-(4, 1362, 'App\\Student'),
-(4, 1363, 'App\\Student'),
-(4, 1364, 'App\\Student'),
-(4, 1365, 'App\\Student'),
-(4, 1366, 'App\\Student'),
-(4, 1367, 'App\\Student'),
-(4, 1368, 'App\\Student'),
-(4, 1369, 'App\\Student'),
-(4, 1370, 'App\\Student'),
-(4, 1371, 'App\\Student'),
-(4, 1372, 'App\\Student'),
-(4, 1373, 'App\\Student'),
-(4, 1374, 'App\\Student'),
-(4, 1375, 'App\\Student'),
-(4, 1376, 'App\\Student'),
-(4, 1377, 'App\\Student'),
-(4, 1378, 'App\\Student'),
-(4, 1379, 'App\\Student'),
-(4, 1380, 'App\\Student'),
-(4, 1423, 'App\\User'),
-(4, 1424, 'App\\User'),
-(4, 1425, 'App\\User'),
-(4, 1426, 'App\\User'),
-(4, 1427, 'App\\User'),
-(4, 1428, 'App\\User'),
-(4, 1429, 'App\\User'),
-(4, 1430, 'App\\User'),
-(4, 1431, 'App\\User'),
-(4, 1432, 'App\\User'),
-(4, 1433, 'App\\User'),
-(4, 1434, 'App\\User'),
-(4, 1435, 'App\\User'),
-(4, 1436, 'App\\User'),
-(4, 1437, 'App\\User'),
-(4, 1438, 'App\\User'),
-(4, 1439, 'App\\User'),
-(4, 1440, 'App\\User'),
-(4, 1441, 'App\\User'),
-(4, 1442, 'App\\User'),
-(4, 1443, 'App\\User'),
-(4, 1444, 'App\\User'),
-(4, 1445, 'App\\Student'),
-(4, 1445, 'App\\User'),
-(4, 1446, 'App\\Student'),
-(4, 1446, 'App\\User'),
-(4, 1447, 'App\\Student'),
-(4, 1447, 'App\\User'),
-(4, 1448, 'App\\Student'),
-(4, 1448, 'App\\User'),
-(4, 1449, 'App\\Student'),
-(4, 1449, 'App\\User'),
-(4, 1450, 'App\\Student'),
-(4, 1450, 'App\\User'),
-(4, 1451, 'App\\Student'),
-(4, 1451, 'App\\User'),
-(4, 1452, 'App\\Student'),
-(4, 1452, 'App\\User'),
-(4, 1453, 'App\\Student'),
-(4, 1453, 'App\\User'),
-(4, 1454, 'App\\Student'),
-(4, 1454, 'App\\User'),
-(4, 1455, 'App\\Student'),
-(4, 1455, 'App\\User'),
-(4, 1456, 'App\\Student'),
-(4, 1456, 'App\\User'),
-(4, 1457, 'App\\Student'),
-(4, 1457, 'App\\User'),
-(4, 1458, 'App\\Student'),
-(4, 1458, 'App\\User'),
-(4, 1459, 'App\\Student'),
-(4, 1459, 'App\\User'),
-(4, 1460, 'App\\Student'),
-(4, 1460, 'App\\User'),
-(4, 1461, 'App\\Student'),
-(4, 1461, 'App\\User'),
-(4, 1462, 'App\\Student'),
-(4, 1462, 'App\\User'),
-(4, 1463, 'App\\Student'),
-(4, 1463, 'App\\User'),
-(4, 1464, 'App\\Student'),
-(4, 1464, 'App\\User'),
-(4, 1465, 'App\\Student'),
-(4, 1465, 'App\\User'),
-(4, 1466, 'App\\Student'),
-(4, 1466, 'App\\User'),
-(4, 1467, 'App\\Student'),
-(4, 1467, 'App\\User'),
-(4, 1468, 'App\\Student'),
-(4, 1468, 'App\\User'),
-(4, 1469, 'App\\Student'),
-(4, 1469, 'App\\User'),
-(4, 1470, 'App\\Student'),
-(4, 1470, 'App\\User'),
-(4, 1471, 'App\\Student'),
-(4, 1471, 'App\\User'),
-(4, 1472, 'App\\Student'),
-(4, 1472, 'App\\User'),
-(4, 1473, 'App\\Student'),
-(4, 1473, 'App\\User'),
-(4, 1474, 'App\\Student'),
-(4, 1474, 'App\\User'),
-(4, 1475, 'App\\Student'),
-(4, 1475, 'App\\User'),
-(4, 1476, 'App\\Student'),
-(4, 1476, 'App\\User'),
-(4, 1477, 'App\\Student'),
-(4, 1477, 'App\\User'),
-(4, 1478, 'App\\Student'),
-(4, 1478, 'App\\User'),
-(4, 1479, 'App\\Student'),
-(4, 1479, 'App\\User'),
-(4, 1480, 'App\\Student'),
-(4, 1480, 'App\\User'),
-(4, 1481, 'App\\Student'),
-(4, 1481, 'App\\User'),
-(4, 1482, 'App\\Student'),
-(4, 1482, 'App\\User'),
-(4, 1483, 'App\\Student'),
-(4, 1483, 'App\\User'),
-(4, 1484, 'App\\Student'),
-(4, 1484, 'App\\User'),
-(4, 1485, 'App\\Student'),
-(4, 1485, 'App\\User'),
-(4, 1486, 'App\\Student'),
-(4, 1486, 'App\\User'),
-(4, 1487, 'App\\Student'),
-(4, 1488, 'App\\Student'),
-(4, 1489, 'App\\Student'),
-(4, 1490, 'App\\Student'),
-(4, 1491, 'App\\Student'),
-(4, 1492, 'App\\Student'),
-(4, 1493, 'App\\Student'),
-(4, 1494, 'App\\Student'),
-(4, 1495, 'App\\Student'),
-(4, 1496, 'App\\Student'),
-(4, 1497, 'App\\Student'),
-(4, 1498, 'App\\Student'),
-(4, 1499, 'App\\Student'),
-(4, 1500, 'App\\Student'),
-(4, 1501, 'App\\Student'),
-(4, 1502, 'App\\Student'),
-(4, 1503, 'App\\Student'),
-(4, 1504, 'App\\Student'),
-(4, 1505, 'App\\Student'),
-(4, 1506, 'App\\Student'),
-(4, 1507, 'App\\Student'),
-(4, 1508, 'App\\Student'),
-(4, 1512, 'App\\Student'),
-(3, 1513, 'App\\User'),
-(3, 1514, 'App\\User'),
-(4, 1514, 'App\\Student'),
-(3, 1515, 'App\\User'),
-(3, 1516, 'App\\User'),
-(3, 1517, 'App\\User'),
-(3, 1518, 'App\\User'),
-(3, 1519, 'App\\User'),
-(3, 1520, 'App\\User'),
-(3, 1521, 'App\\User'),
-(3, 1522, 'App\\User'),
-(3, 1523, 'App\\User'),
-(3, 1524, 'App\\User'),
-(3, 1525, 'App\\User'),
-(3, 1526, 'App\\User'),
-(3, 1527, 'App\\User'),
-(3, 1528, 'App\\User'),
-(3, 1529, 'App\\User'),
-(3, 1530, 'App\\User'),
-(3, 1531, 'App\\User'),
-(3, 1532, 'App\\User'),
-(3, 1533, 'App\\User'),
-(3, 1534, 'App\\User'),
-(4, 1538, 'App\\User'),
-(4, 1540, 'App\\User'),
-(3, 1541, 'App\\User');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `settings`
---
-
-CREATE TABLE `settings` (
+CREATE TABLE `lms_settings` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `value` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1518,10 +489,10 @@ CREATE TABLE `settings` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `students`
+-- Table structure for table `lms_students`
 --
 
-CREATE TABLE `students` (
+CREATE TABLE `lms_students` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `username` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1542,10 +513,10 @@ CREATE TABLE `students` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `students`
+-- Dumping data for table `lms_students`
 --
 
-INSERT INTO `students` (`id`, `name`, `username`, `email`, `phone`, `level_id`, `department_id`, `code`, `password`, `active`, `account_confirm`, `set_number`, `national_id`, `graduated`, `can_see_result`, `created_at`, `updated_at`) VALUES
+INSERT INTO `lms_students` (`id`, `name`, `username`, `email`, `phone`, `level_id`, `department_id`, `code`, `password`, `active`, `account_confirm`, `set_number`, `national_id`, `graduated`, `can_see_result`, `created_at`, `updated_at`) VALUES
 (73, 'احمد محمد عبد القادر عبدالجواد', '30302082201514', '30302082201514', '30302082201514', 1, NULL, '2', '$2y$10$sj6A7WV/AV3n.Ida4h6hlO3FhBCiiWFHVnqrBV9J/O7TbHNgw9iK6', 1, 0, 2, '30302082201514', 0, 0, '2020-11-02 07:38:25', '2020-11-09 10:42:28'),
 (74, 'اسماء هشام كمال ابراهيم', '30206232201381', '30206232201381', '30206232201381', 1, NULL, '3', '$2y$10$5wtBDnww5nwVgJwYsKJ6a.39JnEBbJh8GMxlW5m.BAfnH1GGthzbq', 1, 0, 3, '30206232201381', 0, 0, '2020-11-02 07:38:26', '2020-11-09 09:47:07'),
 (75, 'اهله باسم  محمد حسن', '30208082201461', '30208082201461', '30208082201461', 1, NULL, '4', '$2y$10$OOZOHphA9Luas7MhrFdJpOmYhSvudlvEGVZWK4VaDQQDxAHtoGie.', 1, 0, 4, '30208082201461', 0, 0, '2020-11-02 07:38:26', '2020-11-02 07:38:26'),
@@ -1747,7 +718,7 @@ INSERT INTO `students` (`id`, `name`, `username`, `email`, `phone`, `level_id`, 
 (1248, 'احمد مدحت احمد محمود', '30107102201934', '30107102201934', '30107102201934', 2, NULL, '18', '$2y$10$3IkQNz0JAnsz0HzOs.yqo.ybXwZzPQ7VqEamIooqVs5FDIV9FTGB2', 1, 0, 18, '30107102201934', 0, 0, '2020-11-02 09:31:12', '2020-11-02 09:31:12'),
 (1249, 'ادهم خالد حسين عابدين', '30105182200892', '30105182200892', '30105182200892', 2, NULL, '19', '$2y$10$wy30BGrzqpXlU6iQCKM4oOGNiqmwLwBZ.VpztomP6cWo5lowlsVsy', 1, 0, 19, '30105182200892', 0, 0, '2020-11-02 09:31:12', '2020-11-02 09:31:12'),
 (1250, 'اسامة احمد شعبان احمد', '30107072201217', '30107072201217', '30107072201217', 2, NULL, '20', '$2y$10$IEg171jUXm2pEnu121/tuOoK3IItjmJO7Rntiy77Fe8SuIlsFIucK', 1, 0, 20, '30107072201217', 0, 0, '2020-11-02 09:31:13', '2020-11-02 09:31:13');
-INSERT INTO `students` (`id`, `name`, `username`, `email`, `phone`, `level_id`, `department_id`, `code`, `password`, `active`, `account_confirm`, `set_number`, `national_id`, `graduated`, `can_see_result`, `created_at`, `updated_at`) VALUES
+INSERT INTO `lms_students` (`id`, `name`, `username`, `email`, `phone`, `level_id`, `department_id`, `code`, `password`, `active`, `account_confirm`, `set_number`, `national_id`, `graduated`, `can_see_result`, `created_at`, `updated_at`) VALUES
 (1251, 'اسامة محمد عاشور بكري', '30011072201252', '30011072201252', '30011072201252', 2, NULL, '21', '$2y$10$hlQt7dyB1Hj3Z.jVis1HaOhCoYeqDsmViasRuAcs.FfwcyTEIAek2', 1, 0, 21, '30011072201252', 0, 0, '2020-11-02 09:31:13', '2020-11-02 09:31:13'),
 (1252, 'اسراء ابراهيم علي ندا', '30105292200308', '30105292200308', '30105292200308', 2, NULL, '22', '$2y$10$Cl2LlD0NUW9RCxFA8txtLeVRk9HvBOXxrvCi.Ji.xz2KpG0gDCMby', 1, 0, 22, '30105292200308', 0, 0, '2020-11-02 09:31:13', '2020-11-02 09:31:13'),
 (1253, 'اسراء رجب عبدالنبي عبدالمعين', '30010262200183', '30010262200183', '30010262200183', 2, NULL, '23', '$2y$10$3CjZBE/cA9OhRKahSOUTkeD7Ya3a/KpneeVEa.rLj4DOwhjy.i7aa', 1, 0, 23, '30010262200183', 0, 0, '2020-11-02 09:31:14', '2020-11-02 09:31:14'),
@@ -1948,10 +919,10 @@ INSERT INTO `students` (`id`, `name`, `username`, `email`, `phone`, `level_id`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `student_assignments`
+-- Table structure for table `lms_student_assignments`
 --
 
-CREATE TABLE `student_assignments` (
+CREATE TABLE `lms_student_assignments` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `student_id` bigint(20) UNSIGNED NOT NULL,
   `assign_id` bigint(20) UNSIGNED NOT NULL,
@@ -1964,20 +935,13 @@ CREATE TABLE `student_assignments` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `student_assignments`
---
-
-INSERT INTO `student_assignments` (`id`, `student_id`, `assign_id`, `pdf_anss`, `lesson_id`, `sbj_id`, `doc_id`, `grade`, `created_at`, `updated_at`) VALUES
-(9, 1514, 12, '1606128339.pdf', '18', '50', '65', NULL, '2020-11-23 08:45:39', '2020-11-23 08:45:39');
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `student_subjects`
+-- Table structure for table `lms_student_subjects`
 --
 
-CREATE TABLE `student_subjects` (
+CREATE TABLE `lms_student_subjects` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `student_id` bigint(20) UNSIGNED NOT NULL,
   `subject_id` bigint(20) UNSIGNED NOT NULL,
@@ -1986,10 +950,10 @@ CREATE TABLE `student_subjects` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `student_subjects`
+-- Dumping data for table `lms_student_subjects`
 --
 
-INSERT INTO `student_subjects` (`id`, `student_id`, `subject_id`, `created_at`, `updated_at`) VALUES
+INSERT INTO `lms_student_subjects` (`id`, `student_id`, `subject_id`, `created_at`, `updated_at`) VALUES
 (21, 73, 28, '2020-11-02 11:57:18', '2020-11-02 11:57:18'),
 (22, 74, 28, '2020-11-02 11:57:18', '2020-11-02 11:57:18'),
 (23, 75, 28, '2020-11-02 11:57:19', '2020-11-02 11:57:19'),
@@ -2819,7 +1783,7 @@ INSERT INTO `student_subjects` (`id`, `student_id`, `subject_id`, `created_at`, 
 (854, 1347, 37, '2020-11-02 14:20:56', '2020-11-02 14:20:56'),
 (855, 1348, 37, '2020-11-02 14:20:56', '2020-11-02 14:20:56'),
 (856, 1349, 37, '2020-11-02 14:20:56', '2020-11-02 14:20:56');
-INSERT INTO `student_subjects` (`id`, `student_id`, `subject_id`, `created_at`, `updated_at`) VALUES
+INSERT INTO `lms_student_subjects` (`id`, `student_id`, `subject_id`, `created_at`, `updated_at`) VALUES
 (857, 1350, 37, '2020-11-02 14:20:56', '2020-11-02 14:20:56'),
 (858, 1351, 37, '2020-11-02 14:20:56', '2020-11-02 14:20:56'),
 (859, 1352, 37, '2020-11-02 14:20:56', '2020-11-02 14:20:56'),
@@ -3630,7 +2594,7 @@ INSERT INTO `student_subjects` (`id`, `student_id`, `subject_id`, `created_at`, 
 (1664, 1263, 40, '2020-11-02 14:25:14', '2020-11-02 14:25:14'),
 (1665, 1264, 40, '2020-11-02 14:25:14', '2020-11-02 14:25:14'),
 (1666, 1265, 40, '2020-11-02 14:25:14', '2020-11-02 14:25:14');
-INSERT INTO `student_subjects` (`id`, `student_id`, `subject_id`, `created_at`, `updated_at`) VALUES
+INSERT INTO `lms_student_subjects` (`id`, `student_id`, `subject_id`, `created_at`, `updated_at`) VALUES
 (1667, 1266, 40, '2020-11-02 14:25:14', '2020-11-02 14:25:14'),
 (1668, 1267, 40, '2020-11-02 14:25:14', '2020-11-02 14:25:14'),
 (1669, 1268, 40, '2020-11-02 14:25:14', '2020-11-02 14:25:14'),
@@ -4437,7 +3401,7 @@ INSERT INTO `student_subjects` (`id`, `student_id`, `subject_id`, `created_at`, 
 (2470, 1473, 44, '2020-11-02 14:39:56', '2020-11-02 14:39:56'),
 (2471, 1474, 44, '2020-11-02 14:39:56', '2020-11-02 14:39:56'),
 (2472, 1475, 44, '2020-11-02 14:39:56', '2020-11-02 14:39:56');
-INSERT INTO `student_subjects` (`id`, `student_id`, `subject_id`, `created_at`, `updated_at`) VALUES
+INSERT INTO `lms_student_subjects` (`id`, `student_id`, `subject_id`, `created_at`, `updated_at`) VALUES
 (2473, 1476, 44, '2020-11-02 14:39:56', '2020-11-02 14:39:56'),
 (2474, 1477, 44, '2020-11-02 14:39:56', '2020-11-02 14:39:56'),
 (2475, 1478, 44, '2020-11-02 14:39:56', '2020-11-02 14:39:56'),
@@ -4735,62 +3699,15 @@ INSERT INTO `student_subjects` (`id`, `student_id`, `subject_id`, `created_at`, 
 (2767, 1512, 33, '2020-11-07 04:50:02', '2020-11-07 04:50:02'),
 (2768, 1512, 34, '2020-11-07 04:50:02', '2020-11-07 04:50:02'),
 (2769, 1512, 35, '2020-11-07 04:50:02', '2020-11-07 04:50:02'),
-(2770, 1514, 50, '2020-11-23 08:27:55', '2020-11-23 08:27:55');
+(2775, 1514, 52, '2020-11-28 11:21:10', '2020-11-28 11:21:10');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `subjects`
+-- Table structure for table `lms_translations`
 --
 
-CREATE TABLE `subjects` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `doc_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `hours` int(11) NOT NULL,
-  `notes` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `sbj_num` int(11) NOT NULL DEFAULT 1,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `subjects`
---
-
-INSERT INTO `subjects` (`id`, `doc_id`, `name`, `code`, `description`, `hours`, `notes`, `sbj_num`, `created_at`, `updated_at`) VALUES
-(28, 40, 'Foundations of Information Systems', 'IS101', NULL, 3, 'مقرر للمستوى الأول', 1, '2020-11-02 11:15:18', '2020-11-02 14:30:51'),
-(29, 41, 'Introduction to Computer Sciences', 'CS101', NULL, 3, 'مقرر للمستوى الأول', 1, '2020-11-02 11:15:18', '2020-11-02 14:31:40'),
-(30, 42, 'English for Computer Specialist', 'HU111', NULL, 3, 'مقرر للمستوى الأول', 1, '2020-11-02 11:15:18', '2020-11-02 14:30:35'),
-(31, 43, 'Medical Terminology', 'HU112', NULL, 3, 'مقرر للمستوى الأول', 1, '2020-11-02 11:15:18', '2020-11-02 14:27:26'),
-(32, 44, 'Structure of Programming', 'CS141', NULL, 3, 'مقرر للمستوى الأول', 1, '2020-11-02 11:15:18', '2020-11-02 14:26:46'),
-(33, 45, 'Physics I', 'PH101', NULL, 3, 'مقرر للمستوى الأول', 1, '2020-11-02 11:15:18', '2020-11-02 14:27:06'),
-(34, 46, 'Math0/ Math1', 'M000', NULL, 3, 'مقرر للمستوى الأول', 1, '2020-11-02 11:15:18', '2020-11-02 14:28:07'),
-(35, 47, 'Biology', 'B000', NULL, 3, 'مقرر للمستوى الأول', 1, '2020-11-02 11:15:18', '2020-11-02 14:30:14'),
-(36, 48, 'Communication and Presentation skills', 'HU123', NULL, 3, 'مقرر للمستوى الثاني', 1, '2020-11-02 11:15:18', '2020-11-02 14:28:49'),
-(37, 49, 'Mathematics II', 'MA102', NULL, 3, 'مقرر للمستوى الثاني', 1, '2020-11-02 11:15:18', '2020-11-02 14:27:46'),
-(38, 50, 'Business Administration', 'HU231', NULL, 3, 'مقرر للمستوى الثاني', 1, '2020-11-02 11:15:18', '2020-11-02 14:28:31'),
-(39, 51, 'Data Structures and Algorithms', 'CS211', NULL, 3, 'مقرر للمستوى الثاني', 1, '2020-11-02 11:15:18', '2020-11-02 14:29:54'),
-(40, 52, 'Selected Programming Language I', 'CS242', NULL, 3, 'مقرر للمستوى الثاني', 1, '2020-11-02 11:15:18', '2020-11-02 14:26:19'),
-(41, 48, 'Interpersonal Communication', 'HU132', NULL, 3, 'مقرر للمستوى الثاني', 1, '2020-11-02 11:15:18', '2020-11-02 14:31:18'),
-(42, 53, 'Data Communications', 'IT251', NULL, 3, 'مقرر للمستوى الثاني', 1, '2020-11-02 11:15:18', '2020-11-02 14:29:13'),
-(43, 54, 'Mathematics III', 'CS321', NULL, 3, 'مقرر للمستوى الثالث', 1, '2020-11-02 11:15:18', '2020-11-02 14:41:16'),
-(44, 55, 'Image Processing', 'CS352', NULL, 3, 'مقرر للمستوى الثالث', 1, '2020-11-02 11:15:18', '2020-11-02 14:41:39'),
-(45, 56, 'Software Engineering', 'CS391', NULL, 3, 'مقرر للمستوى الثالث', 1, '2020-11-02 11:15:18', '2020-11-02 14:40:45'),
-(46, 57, 'Medical Informatics', 'MI321', NULL, 3, 'مقرر للمستوى الثالث', 1, '2020-11-02 11:15:18', '2020-11-02 14:41:00'),
-(47, 58, 'Introduction to Genomics', 'B311', NULL, 3, 'مقرر للمستوى الثالث', 1, '2020-11-02 11:15:18', '2020-11-02 14:41:57'),
-(48, 59, 'System Analysis and Design for Healthcare', 'MI427', NULL, 3, 'مقرر للمستوى الثالث', 1, '2020-11-02 11:15:18', '2020-11-02 14:40:25'),
-(50, 65, 'test subject', '112', 'test', 3, 'test notes', 1, '2020-11-23 08:27:32', '2020-11-23 08:27:45');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `translations`
---
-
-CREATE TABLE `translations` (
+CREATE TABLE `lms_translations` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `key` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `word_en` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -4800,10 +3717,10 @@ CREATE TABLE `translations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `translations`
+-- Dumping data for table `lms_translations`
 --
 
-INSERT INTO `translations` (`id`, `key`, `word_en`, `word_ar`, `created_at`, `updated_at`) VALUES
+INSERT INTO `lms_translations` (`id`, `key`, `word_en`, `word_ar`, `created_at`, `updated_at`) VALUES
 (1, 'new_notfications', 'new notfications', 'اشعارات جديده', '2020-05-26 05:24:13', '2020-05-27 08:39:49'),
 (2, 'you_have_{n}_notifications', 'you have {n} notifications', 'لديك {n} من الاشعارات', '2020-05-26 05:24:13', '2020-05-27 08:39:49'),
 (3, 'login_to_your_dashboard_control', 'login to your dashboard control', 'سجل الى لوحة التحكم الخاصه بك', '2020-05-26 05:24:14', '2020-05-27 08:39:49'),
@@ -5221,6 +4138,1120 @@ INSERT INTO `translations` (`id`, `key`, `word_en`, `word_ar`, `created_at`, `up
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '2014_10_12_000000_create_users_table', 1),
+(2, '2014_10_12_100000_create_password_resets_table', 1),
+(3, '2019_09_22_131102_laratrust_setup_tables', 1),
+(4, '2020_09_09_225704_create_doctors_table', 1),
+(5, '2020_09_09_230229_create_students_table', 1),
+(6, '2020_09_09_230318_create_subjects_table', 1),
+(7, '2020_09_13_230954_create_admins_table', 1),
+(8, '2020_09_15_144505_create_lessons_table', 1),
+(9, '2020_09_15_174508_create_assignments_table', 1),
+(10, '2020_09_18_225044_create_student_subjects_table', 1),
+(11, '2020_09_19_142149_create_student_assignments_table', 1),
+(12, '2020_10_17_142705_create_login_histories_table', 1),
+(13, '2020_10_17_144031_create_levels_table', 1),
+(14, '2020_10_18_013606_create_departments_table', 1),
+(15, '2020_10_18_014106_create_notifications_table', 1),
+(16, '2020_10_20_064959_create_translations_table', 1),
+(17, '2020_10_20_070343_create_settings_table', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permissions`
+--
+
+CREATE TABLE `permissions` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `display_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `permissions`
+--
+
+INSERT INTO `permissions` (`id`, `name`, `display_name`, `description`, `created_at`, `updated_at`) VALUES
+(1, 'create_doctors', 'Create Doctors', 'Create Doctors', '2020-10-24 07:26:00', '2020-10-24 07:26:00'),
+(2, 'read_doctors', 'Read Doctors', 'Read Doctors', '2020-10-24 07:26:01', '2020-10-24 07:26:01'),
+(3, 'update_doctors', 'Update Doctors', 'Update Doctors', '2020-10-24 07:26:01', '2020-10-24 07:26:01'),
+(4, 'delete_doctors', 'Delete Doctors', 'Delete Doctors', '2020-10-24 07:26:01', '2020-10-24 07:26:01'),
+(5, 'create_students', 'Create Students', 'Create Students', '2020-10-24 07:26:01', '2020-10-24 07:26:01'),
+(6, 'read_students', 'Read Students', 'Read Students', '2020-10-24 07:26:01', '2020-10-24 07:26:01'),
+(7, 'update_students', 'Update Students', 'Update Students', '2020-10-24 07:26:01', '2020-10-24 07:26:01'),
+(8, 'delete_students', 'Delete Students', 'Delete Students', '2020-10-24 07:26:01', '2020-10-24 07:26:01'),
+(9, 'create_subjects', 'Create Subjects', 'Create Subjects', '2020-10-24 07:26:01', '2020-10-24 07:26:01'),
+(10, 'read_subjects', 'Read Subjects', 'Read Subjects', '2020-10-24 07:26:02', '2020-10-24 07:26:02'),
+(11, 'update_subjects', 'Update Subjects', 'Update Subjects', '2020-10-24 07:26:02', '2020-10-24 07:26:02'),
+(12, 'delete_subjects', 'Delete Subjects', 'Delete Subjects', '2020-10-24 07:26:02', '2020-10-24 07:26:02'),
+(13, 'create_levels', 'Create Levels', 'Create Levels', '2020-10-24 07:26:02', '2020-10-24 07:26:02'),
+(14, 'read_levels', 'Read Levels', 'Read Levels', '2020-10-24 07:26:02', '2020-10-24 07:26:02'),
+(15, 'update_levels', 'Update Levels', 'Update Levels', '2020-10-24 07:26:02', '2020-10-24 07:26:02'),
+(16, 'delete_levels', 'Delete Levels', 'Delete Levels', '2020-10-24 07:26:02', '2020-10-24 07:26:02'),
+(17, 'create_departments', 'Create Departments', 'Create Departments', '2020-10-24 07:26:02', '2020-10-24 07:26:02'),
+(18, 'read_departments', 'Read Departments', 'Read Departments', '2020-10-24 07:26:02', '2020-10-24 07:26:02'),
+(19, 'update_departments', 'Update Departments', 'Update Departments', '2020-10-24 07:26:02', '2020-10-24 07:26:02'),
+(20, 'delete_departments', 'Delete Departments', 'Delete Departments', '2020-10-24 07:26:02', '2020-10-24 07:26:02'),
+(21, 'read_lessons', 'Read Lessons', 'Read Lessons', '2020-10-24 07:26:03', '2020-10-24 07:26:03'),
+(22, 'read_assignments', 'Read Assignments', 'Read Assignments', '2020-10-24 07:26:03', '2020-10-24 07:26:03'),
+(23, 'read_stdassign', 'Read Stdassign', 'Read Stdassign', '2020-10-24 07:26:03', '2020-10-24 07:26:03'),
+(24, 'create_regist', 'Create Regist', 'Create Regist', '2020-10-24 07:26:03', '2020-10-24 07:26:03'),
+(25, 'read_regist', 'Read Regist', 'Read Regist', '2020-10-24 07:26:03', '2020-10-24 07:26:03'),
+(26, 'update_regist', 'Update Regist', 'Update Regist', '2020-10-24 07:26:03', '2020-10-24 07:26:03'),
+(27, 'delete_regist', 'Delete Regist', 'Delete Regist', '2020-10-24 07:26:03', '2020-10-24 07:26:03'),
+(28, 'create_admins', 'Create Admins', 'Create Admins', '2020-10-24 07:26:03', '2020-10-24 07:26:03'),
+(29, 'read_admins', 'Read Admins', 'Read Admins', '2020-10-24 07:26:03', '2020-10-24 07:26:03'),
+(30, 'update_admins', 'Update Admins', 'Update Admins', '2020-10-24 07:26:03', '2020-10-24 07:26:03'),
+(31, 'delete_admins', 'Delete Admins', 'Delete Admins', '2020-10-24 07:26:03', '2020-10-24 07:26:03'),
+(32, 'create_users', 'Create Users', 'Create Users', '2020-10-24 07:26:03', '2020-10-24 07:26:03'),
+(33, 'read_users', 'Read Users', 'Read Users', '2020-10-24 07:26:03', '2020-10-24 07:26:03'),
+(34, 'update_users', 'Update Users', 'Update Users', '2020-10-24 07:26:04', '2020-10-24 07:26:04'),
+(35, 'delete_users', 'Delete Users', 'Delete Users', '2020-10-24 07:26:04', '2020-10-24 07:26:04'),
+(36, 'create_lessons', 'Create Lessons', 'Create Lessons', '2020-10-24 07:26:09', '2020-10-24 07:26:09'),
+(37, 'update_lessons', 'Update Lessons', 'Update Lessons', '2020-10-24 07:26:09', '2020-10-24 07:26:09'),
+(38, 'delete_lessons', 'Delete Lessons', 'Delete Lessons', '2020-10-24 07:26:10', '2020-10-24 07:26:10'),
+(39, 'create_assignments', 'Create Assignments', 'Create Assignments', '2020-10-24 07:26:10', '2020-10-24 07:26:10'),
+(40, 'update_assignments', 'Update Assignments', 'Update Assignments', '2020-10-24 07:26:10', '2020-10-24 07:26:10'),
+(41, 'delete_assignments', 'Delete Assignments', 'Delete Assignments', '2020-10-24 07:26:10', '2020-10-24 07:26:10'),
+(42, 'create_stdassign', 'Create Stdassign', 'Create Stdassign', '2020-10-24 07:26:11', '2020-10-24 07:26:11');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permission_role`
+--
+
+CREATE TABLE `permission_role` (
+  `permission_id` int(10) UNSIGNED NOT NULL,
+  `role_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `permission_role`
+--
+
+INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
+(1, 1),
+(1, 2),
+(2, 1),
+(2, 2),
+(3, 1),
+(3, 2),
+(4, 1),
+(4, 2),
+(5, 1),
+(5, 2),
+(6, 1),
+(6, 2),
+(7, 1),
+(7, 2),
+(8, 1),
+(8, 2),
+(9, 1),
+(9, 2),
+(10, 1),
+(10, 2),
+(10, 3),
+(10, 4),
+(11, 1),
+(11, 2),
+(12, 1),
+(12, 2),
+(13, 1),
+(13, 2),
+(14, 1),
+(14, 2),
+(15, 1),
+(15, 2),
+(16, 1),
+(16, 2),
+(17, 1),
+(17, 2),
+(18, 1),
+(18, 2),
+(19, 1),
+(19, 2),
+(20, 1),
+(20, 2),
+(21, 1),
+(21, 2),
+(21, 3),
+(21, 4),
+(22, 1),
+(22, 2),
+(22, 3),
+(22, 4),
+(23, 1),
+(23, 2),
+(23, 3),
+(24, 1),
+(24, 2),
+(25, 1),
+(25, 2),
+(25, 3),
+(25, 4),
+(26, 1),
+(26, 2),
+(27, 1),
+(27, 2),
+(28, 1),
+(28, 2),
+(29, 1),
+(29, 2),
+(30, 1),
+(30, 2),
+(31, 1),
+(31, 2),
+(32, 1),
+(32, 2),
+(33, 1),
+(33, 2),
+(34, 1),
+(34, 2),
+(35, 1),
+(35, 2),
+(36, 3),
+(37, 3),
+(38, 3),
+(39, 3),
+(40, 3),
+(41, 3),
+(42, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permission_user`
+--
+
+CREATE TABLE `permission_user` (
+  `permission_id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `user_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `display_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `display_name`, `description`, `created_at`, `updated_at`) VALUES
+(1, 'super_admin', 'Super Admin', 'Super Admin', '2020-10-24 07:26:00', '2020-10-24 07:26:00'),
+(2, 'admin', 'Admin', 'Admin', '2020-10-24 07:26:06', '2020-10-24 07:26:06'),
+(3, 'doctor', 'Doctor', 'Doctor', '2020-10-24 07:26:09', '2020-10-24 07:26:09'),
+(4, 'student', 'Student', 'Student', '2020-10-24 07:26:11', '2020-10-24 07:26:11'),
+(5, 'user', 'user', 'can do some tasks in the project', '2020-10-24 07:26:11', '2020-10-24 07:26:11');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `role_user`
+--
+
+CREATE TABLE `role_user` (
+  `role_id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `user_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `role_user`
+--
+
+INSERT INTO `role_user` (`role_id`, `user_id`, `user_type`) VALUES
+(1, 1, 'App\\User'),
+(2, 1, 'App\\Admin'),
+(3, 40, 'App\\Doctor'),
+(3, 41, 'App\\Doctor'),
+(3, 42, 'App\\Doctor'),
+(3, 43, 'App\\Doctor'),
+(3, 44, 'App\\Doctor'),
+(3, 45, 'App\\Doctor'),
+(3, 46, 'App\\Doctor'),
+(3, 47, 'App\\Doctor'),
+(3, 48, 'App\\Doctor'),
+(3, 49, 'App\\Doctor'),
+(3, 50, 'App\\Doctor'),
+(3, 51, 'App\\Doctor'),
+(4, 51, 'App\\User'),
+(3, 52, 'App\\Doctor'),
+(4, 52, 'App\\User'),
+(3, 53, 'App\\Doctor'),
+(4, 53, 'App\\User'),
+(3, 54, 'App\\Doctor'),
+(4, 54, 'App\\User'),
+(3, 55, 'App\\Doctor'),
+(4, 55, 'App\\User'),
+(3, 56, 'App\\Doctor'),
+(4, 56, 'App\\User'),
+(3, 57, 'App\\Doctor'),
+(4, 57, 'App\\User'),
+(3, 58, 'App\\Doctor'),
+(4, 58, 'App\\User'),
+(3, 59, 'App\\Doctor'),
+(4, 59, 'App\\User'),
+(3, 60, 'App\\Doctor'),
+(4, 60, 'App\\User'),
+(3, 61, 'App\\Doctor'),
+(4, 61, 'App\\User'),
+(3, 62, 'App\\Doctor'),
+(4, 62, 'App\\User'),
+(4, 63, 'App\\User'),
+(3, 64, 'App\\Doctor'),
+(4, 64, 'App\\User'),
+(4, 65, 'App\\User'),
+(3, 66, 'App\\Doctor'),
+(4, 66, 'App\\User'),
+(3, 67, 'App\\Doctor'),
+(4, 67, 'App\\User'),
+(4, 68, 'App\\User'),
+(4, 69, 'App\\User'),
+(4, 70, 'App\\User'),
+(4, 71, 'App\\User'),
+(4, 72, 'App\\User'),
+(4, 73, 'App\\Student'),
+(4, 73, 'App\\User'),
+(4, 74, 'App\\Student'),
+(4, 74, 'App\\User'),
+(4, 75, 'App\\Student'),
+(4, 75, 'App\\User'),
+(4, 76, 'App\\Student'),
+(4, 76, 'App\\User'),
+(4, 77, 'App\\Student'),
+(4, 77, 'App\\User'),
+(4, 78, 'App\\Student'),
+(4, 78, 'App\\User'),
+(4, 79, 'App\\Student'),
+(4, 79, 'App\\User'),
+(4, 80, 'App\\Student'),
+(4, 80, 'App\\User'),
+(4, 81, 'App\\Student'),
+(4, 81, 'App\\User'),
+(4, 82, 'App\\Student'),
+(4, 82, 'App\\User'),
+(4, 83, 'App\\Student'),
+(4, 83, 'App\\User'),
+(4, 84, 'App\\Student'),
+(4, 85, 'App\\Student'),
+(4, 86, 'App\\Student'),
+(4, 87, 'App\\Student'),
+(4, 88, 'App\\Student'),
+(4, 89, 'App\\Student'),
+(4, 90, 'App\\Student'),
+(4, 91, 'App\\Student'),
+(4, 92, 'App\\Student'),
+(4, 93, 'App\\Student'),
+(4, 94, 'App\\Student'),
+(4, 95, 'App\\Student'),
+(4, 96, 'App\\Student'),
+(4, 97, 'App\\Student'),
+(4, 98, 'App\\Student'),
+(4, 99, 'App\\Student'),
+(4, 100, 'App\\Student'),
+(4, 101, 'App\\Student'),
+(4, 102, 'App\\Student'),
+(4, 103, 'App\\Student'),
+(4, 104, 'App\\Student'),
+(4, 105, 'App\\Student'),
+(4, 911, 'App\\User'),
+(4, 912, 'App\\User'),
+(4, 913, 'App\\User'),
+(4, 914, 'App\\User'),
+(4, 915, 'App\\User'),
+(4, 916, 'App\\User'),
+(4, 917, 'App\\User'),
+(4, 918, 'App\\User'),
+(4, 919, 'App\\User'),
+(4, 920, 'App\\User'),
+(4, 921, 'App\\User'),
+(4, 922, 'App\\User'),
+(4, 923, 'App\\User'),
+(4, 924, 'App\\User'),
+(4, 925, 'App\\User'),
+(4, 926, 'App\\User'),
+(4, 927, 'App\\User'),
+(4, 928, 'App\\User'),
+(4, 929, 'App\\User'),
+(4, 930, 'App\\User'),
+(4, 931, 'App\\User'),
+(4, 932, 'App\\User'),
+(4, 933, 'App\\Student'),
+(4, 933, 'App\\User'),
+(4, 934, 'App\\Student'),
+(4, 934, 'App\\User'),
+(4, 935, 'App\\Student'),
+(4, 935, 'App\\User'),
+(4, 936, 'App\\Student'),
+(4, 936, 'App\\User'),
+(4, 937, 'App\\Student'),
+(4, 937, 'App\\User'),
+(4, 938, 'App\\Student'),
+(4, 938, 'App\\User'),
+(4, 939, 'App\\Student'),
+(4, 939, 'App\\User'),
+(4, 940, 'App\\Student'),
+(4, 940, 'App\\User'),
+(4, 941, 'App\\Student'),
+(4, 941, 'App\\User'),
+(4, 942, 'App\\Student'),
+(4, 942, 'App\\User'),
+(4, 943, 'App\\Student'),
+(4, 943, 'App\\User'),
+(4, 944, 'App\\Student'),
+(4, 944, 'App\\User'),
+(4, 945, 'App\\Student'),
+(4, 945, 'App\\User'),
+(4, 946, 'App\\Student'),
+(4, 946, 'App\\User'),
+(4, 947, 'App\\Student'),
+(4, 947, 'App\\User'),
+(4, 948, 'App\\Student'),
+(4, 948, 'App\\User'),
+(4, 949, 'App\\Student'),
+(4, 949, 'App\\User'),
+(4, 950, 'App\\Student'),
+(4, 950, 'App\\User'),
+(4, 951, 'App\\Student'),
+(4, 951, 'App\\User'),
+(4, 952, 'App\\Student'),
+(4, 952, 'App\\User'),
+(4, 953, 'App\\Student'),
+(4, 953, 'App\\User'),
+(4, 954, 'App\\Student'),
+(4, 954, 'App\\User'),
+(4, 955, 'App\\Student'),
+(4, 955, 'App\\User'),
+(4, 956, 'App\\Student'),
+(4, 956, 'App\\User'),
+(4, 957, 'App\\Student'),
+(4, 957, 'App\\User'),
+(4, 958, 'App\\Student'),
+(4, 958, 'App\\User'),
+(4, 959, 'App\\Student'),
+(4, 959, 'App\\User'),
+(4, 960, 'App\\Student'),
+(4, 960, 'App\\User'),
+(4, 961, 'App\\Student'),
+(4, 961, 'App\\User'),
+(4, 962, 'App\\Student'),
+(4, 962, 'App\\User'),
+(4, 963, 'App\\Student'),
+(4, 963, 'App\\User'),
+(4, 964, 'App\\Student'),
+(4, 964, 'App\\User'),
+(4, 965, 'App\\Student'),
+(4, 965, 'App\\User'),
+(4, 966, 'App\\Student'),
+(4, 966, 'App\\User'),
+(4, 967, 'App\\Student'),
+(4, 967, 'App\\User'),
+(4, 968, 'App\\Student'),
+(4, 968, 'App\\User'),
+(4, 969, 'App\\Student'),
+(4, 969, 'App\\User'),
+(4, 970, 'App\\Student'),
+(4, 970, 'App\\User'),
+(4, 971, 'App\\Student'),
+(4, 971, 'App\\User'),
+(4, 972, 'App\\Student'),
+(4, 972, 'App\\User'),
+(4, 973, 'App\\Student'),
+(4, 973, 'App\\User'),
+(4, 974, 'App\\Student'),
+(4, 974, 'App\\User'),
+(4, 975, 'App\\Student'),
+(4, 975, 'App\\User'),
+(4, 976, 'App\\Student'),
+(4, 976, 'App\\User'),
+(4, 977, 'App\\Student'),
+(4, 977, 'App\\User'),
+(4, 978, 'App\\Student'),
+(4, 978, 'App\\User'),
+(4, 979, 'App\\Student'),
+(4, 979, 'App\\User'),
+(4, 980, 'App\\Student'),
+(4, 980, 'App\\User'),
+(4, 981, 'App\\Student'),
+(4, 981, 'App\\User'),
+(4, 982, 'App\\Student'),
+(4, 982, 'App\\User'),
+(4, 983, 'App\\Student'),
+(4, 983, 'App\\User'),
+(4, 984, 'App\\Student'),
+(4, 984, 'App\\User'),
+(4, 985, 'App\\Student'),
+(4, 985, 'App\\User'),
+(4, 986, 'App\\Student'),
+(4, 986, 'App\\User'),
+(4, 987, 'App\\Student'),
+(4, 987, 'App\\User'),
+(4, 988, 'App\\Student'),
+(4, 988, 'App\\User'),
+(4, 989, 'App\\Student'),
+(4, 989, 'App\\User'),
+(4, 990, 'App\\Student'),
+(4, 990, 'App\\User'),
+(4, 991, 'App\\Student'),
+(4, 991, 'App\\User'),
+(4, 992, 'App\\Student'),
+(4, 992, 'App\\User'),
+(4, 993, 'App\\Student'),
+(4, 993, 'App\\User'),
+(4, 994, 'App\\Student'),
+(4, 994, 'App\\User'),
+(4, 995, 'App\\Student'),
+(4, 995, 'App\\User'),
+(4, 996, 'App\\Student'),
+(4, 996, 'App\\User'),
+(4, 997, 'App\\Student'),
+(4, 997, 'App\\User'),
+(4, 998, 'App\\Student'),
+(4, 998, 'App\\User'),
+(4, 999, 'App\\Student'),
+(4, 999, 'App\\User'),
+(4, 1000, 'App\\Student'),
+(4, 1000, 'App\\User'),
+(4, 1001, 'App\\Student'),
+(4, 1001, 'App\\User'),
+(4, 1002, 'App\\Student'),
+(4, 1002, 'App\\User'),
+(4, 1003, 'App\\Student'),
+(4, 1003, 'App\\User'),
+(4, 1004, 'App\\Student'),
+(4, 1004, 'App\\User'),
+(4, 1005, 'App\\Student'),
+(4, 1005, 'App\\User'),
+(4, 1006, 'App\\Student'),
+(4, 1006, 'App\\User'),
+(4, 1007, 'App\\Student'),
+(4, 1007, 'App\\User'),
+(4, 1008, 'App\\Student'),
+(4, 1008, 'App\\User'),
+(4, 1009, 'App\\Student'),
+(4, 1009, 'App\\User'),
+(4, 1010, 'App\\Student'),
+(4, 1010, 'App\\User'),
+(4, 1011, 'App\\Student'),
+(4, 1011, 'App\\User'),
+(4, 1012, 'App\\Student'),
+(4, 1012, 'App\\User'),
+(4, 1013, 'App\\Student'),
+(4, 1013, 'App\\User'),
+(4, 1014, 'App\\Student'),
+(4, 1014, 'App\\User'),
+(4, 1015, 'App\\Student'),
+(4, 1015, 'App\\User'),
+(4, 1016, 'App\\Student'),
+(4, 1016, 'App\\User'),
+(4, 1017, 'App\\Student'),
+(4, 1017, 'App\\User'),
+(4, 1018, 'App\\Student'),
+(4, 1018, 'App\\User'),
+(4, 1019, 'App\\Student'),
+(4, 1019, 'App\\User'),
+(4, 1020, 'App\\Student'),
+(4, 1020, 'App\\User'),
+(4, 1021, 'App\\Student'),
+(4, 1021, 'App\\User'),
+(4, 1022, 'App\\Student'),
+(4, 1022, 'App\\User'),
+(4, 1023, 'App\\Student'),
+(4, 1023, 'App\\User'),
+(4, 1024, 'App\\Student'),
+(4, 1024, 'App\\User'),
+(4, 1025, 'App\\Student'),
+(4, 1025, 'App\\User'),
+(4, 1026, 'App\\Student'),
+(4, 1026, 'App\\User'),
+(4, 1027, 'App\\Student'),
+(4, 1027, 'App\\User'),
+(4, 1028, 'App\\Student'),
+(4, 1028, 'App\\User'),
+(4, 1029, 'App\\Student'),
+(4, 1029, 'App\\User'),
+(4, 1030, 'App\\Student'),
+(4, 1030, 'App\\User'),
+(4, 1031, 'App\\Student'),
+(4, 1031, 'App\\User'),
+(4, 1032, 'App\\Student'),
+(4, 1032, 'App\\User'),
+(4, 1033, 'App\\Student'),
+(4, 1033, 'App\\User'),
+(4, 1034, 'App\\Student'),
+(4, 1034, 'App\\User'),
+(4, 1035, 'App\\Student'),
+(4, 1035, 'App\\User'),
+(4, 1036, 'App\\Student'),
+(4, 1036, 'App\\User'),
+(4, 1037, 'App\\Student'),
+(4, 1037, 'App\\User'),
+(4, 1038, 'App\\Student'),
+(4, 1038, 'App\\User'),
+(4, 1039, 'App\\Student'),
+(4, 1039, 'App\\User'),
+(4, 1040, 'App\\Student'),
+(4, 1040, 'App\\User'),
+(4, 1041, 'App\\Student'),
+(4, 1041, 'App\\User'),
+(4, 1042, 'App\\Student'),
+(4, 1042, 'App\\User'),
+(4, 1043, 'App\\Student'),
+(4, 1043, 'App\\User'),
+(4, 1044, 'App\\Student'),
+(4, 1044, 'App\\User'),
+(4, 1045, 'App\\Student'),
+(4, 1045, 'App\\User'),
+(4, 1046, 'App\\Student'),
+(4, 1046, 'App\\User'),
+(4, 1047, 'App\\Student'),
+(4, 1047, 'App\\User'),
+(4, 1048, 'App\\Student'),
+(4, 1048, 'App\\User'),
+(4, 1049, 'App\\Student'),
+(4, 1049, 'App\\User'),
+(4, 1050, 'App\\Student'),
+(4, 1050, 'App\\User'),
+(4, 1051, 'App\\Student'),
+(4, 1051, 'App\\User'),
+(4, 1052, 'App\\Student'),
+(4, 1052, 'App\\User'),
+(4, 1053, 'App\\Student'),
+(4, 1053, 'App\\User'),
+(4, 1054, 'App\\Student'),
+(4, 1054, 'App\\User'),
+(4, 1055, 'App\\Student'),
+(4, 1055, 'App\\User'),
+(4, 1056, 'App\\Student'),
+(4, 1056, 'App\\User'),
+(4, 1057, 'App\\Student'),
+(4, 1057, 'App\\User'),
+(4, 1058, 'App\\Student'),
+(4, 1058, 'App\\User'),
+(4, 1059, 'App\\Student'),
+(4, 1060, 'App\\Student'),
+(4, 1061, 'App\\Student'),
+(4, 1062, 'App\\Student'),
+(4, 1063, 'App\\Student'),
+(4, 1064, 'App\\Student'),
+(4, 1065, 'App\\Student'),
+(4, 1066, 'App\\Student'),
+(4, 1067, 'App\\Student'),
+(4, 1068, 'App\\Student'),
+(4, 1069, 'App\\Student'),
+(4, 1070, 'App\\Student'),
+(4, 1071, 'App\\Student'),
+(4, 1072, 'App\\Student'),
+(4, 1073, 'App\\Student'),
+(4, 1074, 'App\\Student'),
+(4, 1075, 'App\\Student'),
+(4, 1076, 'App\\Student'),
+(4, 1077, 'App\\Student'),
+(4, 1078, 'App\\Student'),
+(4, 1079, 'App\\Student'),
+(4, 1080, 'App\\Student'),
+(4, 1209, 'App\\User'),
+(4, 1210, 'App\\User'),
+(4, 1211, 'App\\User'),
+(4, 1212, 'App\\User'),
+(4, 1213, 'App\\User'),
+(4, 1214, 'App\\User'),
+(4, 1215, 'App\\User'),
+(4, 1216, 'App\\User'),
+(4, 1217, 'App\\User'),
+(4, 1218, 'App\\User'),
+(4, 1219, 'App\\User'),
+(4, 1220, 'App\\User'),
+(4, 1221, 'App\\User'),
+(4, 1222, 'App\\User'),
+(4, 1223, 'App\\User'),
+(4, 1224, 'App\\User'),
+(4, 1225, 'App\\User'),
+(4, 1226, 'App\\User'),
+(4, 1227, 'App\\User'),
+(4, 1228, 'App\\User'),
+(4, 1229, 'App\\User'),
+(4, 1230, 'App\\User'),
+(4, 1231, 'App\\Student'),
+(4, 1231, 'App\\User'),
+(4, 1232, 'App\\Student'),
+(4, 1232, 'App\\User'),
+(4, 1233, 'App\\Student'),
+(4, 1233, 'App\\User'),
+(4, 1234, 'App\\Student'),
+(4, 1234, 'App\\User'),
+(4, 1235, 'App\\Student'),
+(4, 1235, 'App\\User'),
+(4, 1236, 'App\\Student'),
+(4, 1236, 'App\\User'),
+(4, 1237, 'App\\Student'),
+(4, 1237, 'App\\User'),
+(4, 1238, 'App\\Student'),
+(4, 1238, 'App\\User'),
+(4, 1239, 'App\\Student'),
+(4, 1239, 'App\\User'),
+(4, 1240, 'App\\Student'),
+(4, 1240, 'App\\User'),
+(4, 1241, 'App\\Student'),
+(4, 1241, 'App\\User'),
+(4, 1242, 'App\\Student'),
+(4, 1242, 'App\\User'),
+(4, 1243, 'App\\Student'),
+(4, 1243, 'App\\User'),
+(4, 1244, 'App\\Student'),
+(4, 1244, 'App\\User'),
+(4, 1245, 'App\\Student'),
+(4, 1245, 'App\\User'),
+(4, 1246, 'App\\Student'),
+(4, 1246, 'App\\User'),
+(4, 1247, 'App\\Student'),
+(4, 1247, 'App\\User'),
+(4, 1248, 'App\\Student'),
+(4, 1248, 'App\\User'),
+(4, 1249, 'App\\Student'),
+(4, 1249, 'App\\User'),
+(4, 1250, 'App\\Student'),
+(4, 1250, 'App\\User'),
+(4, 1251, 'App\\Student'),
+(4, 1251, 'App\\User'),
+(4, 1252, 'App\\Student'),
+(4, 1252, 'App\\User'),
+(4, 1253, 'App\\Student'),
+(4, 1253, 'App\\User'),
+(4, 1254, 'App\\Student'),
+(4, 1254, 'App\\User'),
+(4, 1255, 'App\\Student'),
+(4, 1255, 'App\\User'),
+(4, 1256, 'App\\Student'),
+(4, 1256, 'App\\User'),
+(4, 1257, 'App\\Student'),
+(4, 1257, 'App\\User'),
+(4, 1258, 'App\\Student'),
+(4, 1258, 'App\\User'),
+(4, 1259, 'App\\Student'),
+(4, 1259, 'App\\User'),
+(4, 1260, 'App\\Student'),
+(4, 1260, 'App\\User'),
+(4, 1261, 'App\\Student'),
+(4, 1261, 'App\\User'),
+(4, 1262, 'App\\Student'),
+(4, 1262, 'App\\User'),
+(4, 1263, 'App\\Student'),
+(4, 1263, 'App\\User'),
+(4, 1264, 'App\\Student'),
+(4, 1264, 'App\\User'),
+(4, 1265, 'App\\Student'),
+(4, 1265, 'App\\User'),
+(4, 1266, 'App\\Student'),
+(4, 1266, 'App\\User'),
+(4, 1267, 'App\\Student'),
+(4, 1267, 'App\\User'),
+(4, 1268, 'App\\Student'),
+(4, 1268, 'App\\User'),
+(4, 1269, 'App\\Student'),
+(4, 1269, 'App\\User'),
+(4, 1270, 'App\\Student'),
+(4, 1270, 'App\\User'),
+(4, 1271, 'App\\Student'),
+(4, 1271, 'App\\User'),
+(4, 1272, 'App\\Student'),
+(4, 1272, 'App\\User'),
+(4, 1273, 'App\\Student'),
+(4, 1273, 'App\\User'),
+(4, 1274, 'App\\Student'),
+(4, 1274, 'App\\User'),
+(4, 1275, 'App\\Student'),
+(4, 1275, 'App\\User'),
+(4, 1276, 'App\\Student'),
+(4, 1276, 'App\\User'),
+(4, 1277, 'App\\Student'),
+(4, 1277, 'App\\User'),
+(4, 1278, 'App\\Student'),
+(4, 1278, 'App\\User'),
+(4, 1279, 'App\\Student'),
+(4, 1279, 'App\\User'),
+(4, 1280, 'App\\Student'),
+(4, 1280, 'App\\User'),
+(4, 1281, 'App\\Student'),
+(4, 1281, 'App\\User'),
+(4, 1282, 'App\\Student'),
+(4, 1282, 'App\\User'),
+(4, 1283, 'App\\Student'),
+(4, 1283, 'App\\User'),
+(4, 1284, 'App\\Student'),
+(4, 1284, 'App\\User'),
+(4, 1285, 'App\\Student'),
+(4, 1285, 'App\\User'),
+(4, 1286, 'App\\Student'),
+(4, 1286, 'App\\User'),
+(4, 1287, 'App\\Student'),
+(4, 1287, 'App\\User'),
+(4, 1288, 'App\\Student'),
+(4, 1288, 'App\\User'),
+(4, 1289, 'App\\Student'),
+(4, 1289, 'App\\User'),
+(4, 1290, 'App\\Student'),
+(4, 1290, 'App\\User'),
+(4, 1291, 'App\\Student'),
+(4, 1291, 'App\\User'),
+(4, 1292, 'App\\Student'),
+(4, 1292, 'App\\User'),
+(4, 1293, 'App\\Student'),
+(4, 1293, 'App\\User'),
+(4, 1294, 'App\\Student'),
+(4, 1294, 'App\\User'),
+(4, 1295, 'App\\Student'),
+(4, 1295, 'App\\User'),
+(4, 1296, 'App\\Student'),
+(4, 1296, 'App\\User'),
+(4, 1297, 'App\\Student'),
+(4, 1297, 'App\\User'),
+(4, 1298, 'App\\Student'),
+(4, 1298, 'App\\User'),
+(4, 1299, 'App\\Student'),
+(4, 1299, 'App\\User'),
+(4, 1300, 'App\\Student'),
+(4, 1300, 'App\\User'),
+(4, 1301, 'App\\Student'),
+(4, 1301, 'App\\User'),
+(4, 1302, 'App\\Student'),
+(4, 1302, 'App\\User'),
+(4, 1303, 'App\\Student'),
+(4, 1303, 'App\\User'),
+(4, 1304, 'App\\Student'),
+(4, 1304, 'App\\User'),
+(4, 1305, 'App\\Student'),
+(4, 1305, 'App\\User'),
+(4, 1306, 'App\\Student'),
+(4, 1306, 'App\\User'),
+(4, 1307, 'App\\Student'),
+(4, 1307, 'App\\User'),
+(4, 1308, 'App\\Student'),
+(4, 1308, 'App\\User'),
+(4, 1309, 'App\\Student'),
+(4, 1309, 'App\\User'),
+(4, 1310, 'App\\Student'),
+(4, 1310, 'App\\User'),
+(4, 1311, 'App\\Student'),
+(4, 1311, 'App\\User'),
+(4, 1312, 'App\\Student'),
+(4, 1312, 'App\\User'),
+(4, 1313, 'App\\Student'),
+(4, 1313, 'App\\User'),
+(4, 1314, 'App\\Student'),
+(4, 1314, 'App\\User'),
+(4, 1315, 'App\\Student'),
+(4, 1315, 'App\\User'),
+(4, 1316, 'App\\Student'),
+(4, 1316, 'App\\User'),
+(4, 1317, 'App\\Student'),
+(4, 1317, 'App\\User'),
+(4, 1318, 'App\\Student'),
+(4, 1318, 'App\\User'),
+(4, 1319, 'App\\Student'),
+(4, 1319, 'App\\User'),
+(4, 1320, 'App\\Student'),
+(4, 1320, 'App\\User'),
+(4, 1321, 'App\\Student'),
+(4, 1321, 'App\\User'),
+(4, 1322, 'App\\Student'),
+(4, 1322, 'App\\User'),
+(4, 1323, 'App\\Student'),
+(4, 1323, 'App\\User'),
+(4, 1324, 'App\\Student'),
+(4, 1324, 'App\\User'),
+(4, 1325, 'App\\Student'),
+(4, 1325, 'App\\User'),
+(4, 1326, 'App\\Student'),
+(4, 1326, 'App\\User'),
+(4, 1327, 'App\\Student'),
+(4, 1327, 'App\\User'),
+(4, 1328, 'App\\Student'),
+(4, 1328, 'App\\User'),
+(4, 1329, 'App\\Student'),
+(4, 1329, 'App\\User'),
+(4, 1330, 'App\\Student'),
+(4, 1330, 'App\\User'),
+(4, 1331, 'App\\Student'),
+(4, 1331, 'App\\User'),
+(4, 1332, 'App\\Student'),
+(4, 1332, 'App\\User'),
+(4, 1333, 'App\\Student'),
+(4, 1333, 'App\\User'),
+(4, 1334, 'App\\Student'),
+(4, 1334, 'App\\User'),
+(4, 1335, 'App\\Student'),
+(4, 1335, 'App\\User'),
+(4, 1336, 'App\\Student'),
+(4, 1336, 'App\\User'),
+(4, 1337, 'App\\Student'),
+(4, 1337, 'App\\User'),
+(4, 1338, 'App\\Student'),
+(4, 1338, 'App\\User'),
+(4, 1339, 'App\\Student'),
+(4, 1339, 'App\\User'),
+(4, 1340, 'App\\Student'),
+(4, 1340, 'App\\User'),
+(4, 1341, 'App\\Student'),
+(4, 1341, 'App\\User'),
+(4, 1342, 'App\\Student'),
+(4, 1342, 'App\\User'),
+(4, 1343, 'App\\Student'),
+(4, 1343, 'App\\User'),
+(4, 1344, 'App\\Student'),
+(4, 1344, 'App\\User'),
+(4, 1345, 'App\\Student'),
+(4, 1345, 'App\\User'),
+(4, 1346, 'App\\Student'),
+(4, 1346, 'App\\User'),
+(4, 1347, 'App\\Student'),
+(4, 1347, 'App\\User'),
+(4, 1348, 'App\\Student'),
+(4, 1348, 'App\\User'),
+(4, 1349, 'App\\Student'),
+(4, 1349, 'App\\User'),
+(4, 1350, 'App\\Student'),
+(4, 1350, 'App\\User'),
+(4, 1351, 'App\\Student'),
+(4, 1351, 'App\\User'),
+(4, 1352, 'App\\Student'),
+(4, 1352, 'App\\User'),
+(4, 1353, 'App\\Student'),
+(4, 1353, 'App\\User'),
+(4, 1354, 'App\\Student'),
+(4, 1354, 'App\\User'),
+(4, 1355, 'App\\Student'),
+(4, 1355, 'App\\User'),
+(4, 1356, 'App\\Student'),
+(4, 1356, 'App\\User'),
+(4, 1357, 'App\\Student'),
+(4, 1357, 'App\\User'),
+(4, 1358, 'App\\Student'),
+(4, 1358, 'App\\User'),
+(4, 1359, 'App\\Student'),
+(4, 1360, 'App\\Student'),
+(4, 1361, 'App\\Student'),
+(4, 1362, 'App\\Student'),
+(4, 1363, 'App\\Student'),
+(4, 1364, 'App\\Student'),
+(4, 1365, 'App\\Student'),
+(4, 1366, 'App\\Student'),
+(4, 1367, 'App\\Student'),
+(4, 1368, 'App\\Student'),
+(4, 1369, 'App\\Student'),
+(4, 1370, 'App\\Student'),
+(4, 1371, 'App\\Student'),
+(4, 1372, 'App\\Student'),
+(4, 1373, 'App\\Student'),
+(4, 1374, 'App\\Student'),
+(4, 1375, 'App\\Student'),
+(4, 1376, 'App\\Student'),
+(4, 1377, 'App\\Student'),
+(4, 1378, 'App\\Student'),
+(4, 1379, 'App\\Student'),
+(4, 1380, 'App\\Student'),
+(4, 1423, 'App\\User'),
+(4, 1424, 'App\\User'),
+(4, 1425, 'App\\User'),
+(4, 1426, 'App\\User'),
+(4, 1427, 'App\\User'),
+(4, 1428, 'App\\User'),
+(4, 1429, 'App\\User'),
+(4, 1430, 'App\\User'),
+(4, 1431, 'App\\User'),
+(4, 1432, 'App\\User'),
+(4, 1433, 'App\\User'),
+(4, 1434, 'App\\User'),
+(4, 1435, 'App\\User'),
+(4, 1436, 'App\\User'),
+(4, 1437, 'App\\User'),
+(4, 1438, 'App\\User'),
+(4, 1439, 'App\\User'),
+(4, 1440, 'App\\User'),
+(4, 1441, 'App\\User'),
+(4, 1442, 'App\\User'),
+(4, 1443, 'App\\User'),
+(4, 1444, 'App\\User'),
+(4, 1445, 'App\\Student'),
+(4, 1445, 'App\\User'),
+(4, 1446, 'App\\Student'),
+(4, 1446, 'App\\User'),
+(4, 1447, 'App\\Student'),
+(4, 1447, 'App\\User'),
+(4, 1448, 'App\\Student'),
+(4, 1448, 'App\\User'),
+(4, 1449, 'App\\Student'),
+(4, 1449, 'App\\User'),
+(4, 1450, 'App\\Student'),
+(4, 1450, 'App\\User'),
+(4, 1451, 'App\\Student'),
+(4, 1451, 'App\\User'),
+(4, 1452, 'App\\Student'),
+(4, 1452, 'App\\User'),
+(4, 1453, 'App\\Student'),
+(4, 1453, 'App\\User'),
+(4, 1454, 'App\\Student'),
+(4, 1454, 'App\\User'),
+(4, 1455, 'App\\Student'),
+(4, 1455, 'App\\User'),
+(4, 1456, 'App\\Student'),
+(4, 1456, 'App\\User'),
+(4, 1457, 'App\\Student'),
+(4, 1457, 'App\\User'),
+(4, 1458, 'App\\Student'),
+(4, 1458, 'App\\User'),
+(4, 1459, 'App\\Student'),
+(4, 1459, 'App\\User'),
+(4, 1460, 'App\\Student'),
+(4, 1460, 'App\\User'),
+(4, 1461, 'App\\Student'),
+(4, 1461, 'App\\User'),
+(4, 1462, 'App\\Student'),
+(4, 1462, 'App\\User'),
+(4, 1463, 'App\\Student'),
+(4, 1463, 'App\\User'),
+(4, 1464, 'App\\Student'),
+(4, 1464, 'App\\User'),
+(4, 1465, 'App\\Student'),
+(4, 1465, 'App\\User'),
+(4, 1466, 'App\\Student'),
+(4, 1466, 'App\\User'),
+(4, 1467, 'App\\Student'),
+(4, 1467, 'App\\User'),
+(4, 1468, 'App\\Student'),
+(4, 1468, 'App\\User'),
+(4, 1469, 'App\\Student'),
+(4, 1469, 'App\\User'),
+(4, 1470, 'App\\Student'),
+(4, 1470, 'App\\User'),
+(4, 1471, 'App\\Student'),
+(4, 1471, 'App\\User'),
+(4, 1472, 'App\\Student'),
+(4, 1472, 'App\\User'),
+(4, 1473, 'App\\Student'),
+(4, 1473, 'App\\User'),
+(4, 1474, 'App\\Student'),
+(4, 1474, 'App\\User'),
+(4, 1475, 'App\\Student'),
+(4, 1475, 'App\\User'),
+(4, 1476, 'App\\Student'),
+(4, 1476, 'App\\User'),
+(4, 1477, 'App\\Student'),
+(4, 1477, 'App\\User'),
+(4, 1478, 'App\\Student'),
+(4, 1478, 'App\\User'),
+(4, 1479, 'App\\Student'),
+(4, 1479, 'App\\User'),
+(4, 1480, 'App\\Student'),
+(4, 1480, 'App\\User'),
+(4, 1481, 'App\\Student'),
+(4, 1481, 'App\\User'),
+(4, 1482, 'App\\Student'),
+(4, 1482, 'App\\User'),
+(4, 1483, 'App\\Student'),
+(4, 1483, 'App\\User'),
+(4, 1484, 'App\\Student'),
+(4, 1484, 'App\\User'),
+(4, 1485, 'App\\Student'),
+(4, 1485, 'App\\User'),
+(4, 1486, 'App\\Student'),
+(4, 1486, 'App\\User'),
+(4, 1487, 'App\\Student'),
+(4, 1488, 'App\\Student'),
+(4, 1489, 'App\\Student'),
+(4, 1490, 'App\\Student'),
+(4, 1491, 'App\\Student'),
+(4, 1492, 'App\\Student'),
+(4, 1493, 'App\\Student'),
+(4, 1494, 'App\\Student'),
+(4, 1495, 'App\\Student'),
+(4, 1496, 'App\\Student'),
+(4, 1497, 'App\\Student'),
+(4, 1498, 'App\\Student'),
+(4, 1499, 'App\\Student'),
+(4, 1500, 'App\\Student'),
+(4, 1501, 'App\\Student'),
+(4, 1502, 'App\\Student'),
+(4, 1503, 'App\\Student'),
+(4, 1504, 'App\\Student'),
+(4, 1505, 'App\\Student'),
+(4, 1506, 'App\\Student'),
+(4, 1507, 'App\\Student'),
+(4, 1508, 'App\\Student'),
+(4, 1512, 'App\\Student'),
+(3, 1513, 'App\\User'),
+(3, 1514, 'App\\User'),
+(4, 1514, 'App\\Student'),
+(3, 1515, 'App\\User'),
+(3, 1516, 'App\\User'),
+(3, 1517, 'App\\User'),
+(3, 1518, 'App\\User'),
+(3, 1519, 'App\\User'),
+(3, 1520, 'App\\User'),
+(3, 1521, 'App\\User'),
+(3, 1522, 'App\\User'),
+(3, 1523, 'App\\User'),
+(3, 1524, 'App\\User'),
+(3, 1525, 'App\\User'),
+(3, 1526, 'App\\User'),
+(3, 1527, 'App\\User'),
+(3, 1528, 'App\\User'),
+(3, 1529, 'App\\User'),
+(3, 1530, 'App\\User'),
+(3, 1531, 'App\\User'),
+(3, 1532, 'App\\User'),
+(3, 1533, 'App\\User'),
+(3, 1534, 'App\\User'),
+(4, 1538, 'App\\User'),
+(4, 1540, 'App\\User'),
+(3, 1542, 'App\\User');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -5237,6 +5268,7 @@ CREATE TABLE `users` (
   `type` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `fid` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `api_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -5245,492 +5277,550 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `username`, `email`, `phone`, `active`, `account_confirm`, `email_verified_at`, `password`, `type`, `fid`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'super admin', 'superadmin', 'super_admin@app.com', '01157404397', 1, 1, NULL, '$2y$10$exvvJGumxIgjbgZ.kq7CgOcdzAKOnrPCfeeJ46oH6yWXCkrZC3tbW', 'super_admin', NULL, NULL, '2020-10-24 07:26:11', '2020-11-10 10:41:08'),
-(51, 'احمد محمد عبد القادر عبدالجواد', '30302082201514', '30302082201514', '30302082201514', 1, 0, NULL, '$2y$10$ujU7SVThmKDBCyrmOp6avevjbFyEhsX4HGRiQeeCQqMgLiZSxfKVK', 'student', '73', NULL, '2020-11-02 07:38:26', '2020-11-02 07:38:26'),
-(52, 'اسماء هشام كمال ابراهيم', '30206232201381', '30206232201381', '30206232201381', 1, 0, NULL, '$2y$10$vIrOviRbfNVz7jb72d9d2uAP5v69SHv2BdMZYAxAD8OIL4K65BetS', 'student', '74', NULL, '2020-11-02 07:38:26', '2020-11-02 07:38:26'),
-(53, 'اهله باسم  محمد حسن', '30208082201461', '30208082201461', '30208082201461', 1, 0, NULL, '$2y$10$cpVy48uR5J7aovSO4X5uwu1DUyHktHBuqZTOLYC.wV8JS6WV3xYFG', 'student', '75', NULL, '2020-11-02 07:38:27', '2020-11-02 07:38:27'),
-(54, 'اية  اشرف يوسف فتح الله', '30109222200225', '30109222200225', '30109222200225', 1, 0, NULL, '$2y$10$F8u86teuzHL9GHkJTmebKuT4R7YAIxL2aaSlkwJAlanitloSxu8Bq', 'student', '76', NULL, '2020-11-02 07:38:27', '2020-11-02 07:38:27'),
-(55, 'ايرينى عبدالمسيح صادق صالح', '30211232201164', '30211232201164', '30211232201164', 1, 0, NULL, '$2y$10$WW1ilFRupZDY4LhN.mAA0uKjabd1BK3R5p57cT39gq27iJbUK3H6W', 'student', '77', NULL, '2020-11-02 07:38:27', '2020-11-02 07:38:27'),
-(56, 'ايه ابراهيم زكى احمد', '30207222200723', '30207222200723', '30207222200723', 1, 0, NULL, '$2y$10$9ifqd7244/jJNw9rpRzw5u2VOnoMkz0EMSmFij8dTWTrkiOSKfv7O', 'student', '78', NULL, '2020-11-02 07:38:27', '2020-11-02 07:38:27'),
-(57, 'تغريد محمد على احمد', '30209302201863', '30209302201863', '30209302201863', 1, 0, NULL, '$2y$10$EB8/HAgibJOaHRM5ZOYa0e8gboR42QOqyapVFLe3qfPOuQzl6T6.K', 'student', '79', NULL, '2020-11-02 07:38:28', '2020-11-02 07:38:28'),
-(58, 'جمانه محمد احمد عبدالنبي', '30209142200687', '30209142200687', '30209142200687', 1, 0, NULL, '$2y$10$fIVZD2FyPk499qINHOlxt.kCIySkYVfWeS13urkHjPt7PMfxC8l8i', 'student', '80', NULL, '2020-11-02 07:38:28', '2020-11-02 07:38:28'),
-(59, 'حازم حماده دسوقي عبدالجيد', '30203052301478', '30203052301478', '30203052301478', 1, 0, NULL, '$2y$10$MsshcCYZoti7MtUn2K98/O7CQG51NY7uL4rbAHDJi6mOXWaeCNCmW', 'student', '81', NULL, '2020-11-02 07:38:28', '2020-11-02 07:38:28'),
-(60, 'حبيبه حازم محمود رياض', '30209302201561', '30209302201561', '30209302201561', 1, 0, NULL, '$2y$10$6i2YMurelOIocBDczy9CoOwcmLg5glzMudkRdoLKEbx8Vcn6BDmFG', 'student', '82', NULL, '2020-11-02 07:38:28', '2020-11-02 07:38:28'),
-(61, 'حسام الدين احمد ابوغنيمه ابراهيم', '30206012409437', '30206012409437', '30206012409437', 1, 0, NULL, '$2y$10$DtBHjducEiQYxKGYJv7hPuwSbZ3PkL6KfND2DjIIVPeUd.jEjYO0a', 'student', '83', NULL, '2020-11-02 07:38:29', '2020-11-02 07:38:29'),
-(62, 'حمزه حسن احمد الياس', '30110132200933', '30110132200933', '30110132200933', 1, 0, NULL, '$2y$10$qp43V0y5TfuTG0ga4HKgIuWndShpKDixeALRtUA2Ol8MJgpcLnDde', 'student', '84', NULL, '2020-11-02 07:38:29', '2020-11-02 07:38:29'),
-(63, 'رنا عادل عبد الحميد عبد التواب اسماعيل', '30304278800125', '30304278800125', '30304278800125', 1, 0, NULL, '$2y$10$2PU3Upkc5NBmpMK.NBwiaekWJKDtiI6R/Vd2jDjkb3qbgI4.Gb4GK', 'student', '85', NULL, '2020-11-02 07:38:29', '2020-11-02 07:38:29'),
-(64, 'ساره رمضان الحسيني حسين', '30209062202365', '30209062202365', '30209062202365', 1, 0, NULL, '$2y$10$5W.3./l9TQmW2iIU9bD39.fM1kzgSVM6UEzycRwyELL/uWjlF9mxy', 'student', '86', NULL, '2020-11-02 07:38:29', '2020-11-02 07:38:29'),
-(65, 'ساندى ذكرى عوض عطيه', '30211042202148', '30211042202148', '30211042202148', 1, 0, NULL, '$2y$10$T60QxUTmGRYS7tWyYV7ewOI00chgOt2Q1vF7NRVPZHPNWxPGwL.Eq', 'student', '87', NULL, '2020-11-02 07:38:30', '2020-11-02 07:38:30'),
-(66, 'سميه احمد محمد خلاف', '30207078800761', '30207078800761', '30207078800761', 1, 0, NULL, '$2y$10$vL3eUTB/x4cK/hZG6aBIw.j1CZRbNZMN039UXPZiWaEAl4JhWrRh.', 'student', '88', NULL, '2020-11-02 07:38:30', '2020-11-02 07:38:30'),
-(67, 'سهيله عبد العظيم عرفات عبد العظيم', '30109092200147', '30109092200147', '30109092200147', 1, 0, NULL, '$2y$10$75FhyK90wDKCpACi.7U74eWGbzsXXtGuT.MwUVvyjfY7vKAlHbN0m', 'student', '89', NULL, '2020-11-02 07:38:30', '2020-11-02 07:38:30'),
-(68, 'سهيله محمود سيد احمد', '30204072202049', '30204072202049', '30204072202049', 1, 0, NULL, '$2y$10$Zx9lnNwxFqJln9c/kBeI5.mClqctF874/jrxFBaGCHG4ldz.vQ1.m', 'student', '90', NULL, '2020-11-02 07:38:30', '2020-11-02 07:38:30'),
-(69, 'عبد الرحمن محمد عبد العزيز ابراهيم', '30202012200818', '30202012200818', '30202012200818', 1, 0, NULL, '$2y$10$omuwLceEzPYP5XCkLb36QuiAneFQytvkDKHG2SBB2GBXSO1Jz8Adq', 'student', '91', NULL, '2020-11-02 07:38:31', '2020-11-02 07:38:31'),
-(70, 'عزه محمد محمود عبد الواحد', '30201062402725', '30201062402725', '30201062402725', 1, 0, NULL, '$2y$10$HUPk0UF2za9WiH1FsaLAfuQSekOSqBKPUjC5N5dAWMQ/2lQsMO/IW', 'student', '92', NULL, '2020-11-02 07:38:31', '2020-11-02 07:38:31'),
-(71, 'فاطمه احمد كمال محمد', '30305152200108', '30305152200108', '30305152200108', 1, 0, NULL, '$2y$10$f4izU5PZHQCBB4xaDR0kDOXFqo7OIcyiH64Xa1yTyF5tW.lqj6uNO', 'student', '93', NULL, '2020-11-02 07:38:31', '2020-11-02 07:38:31'),
-(72, 'لطيفة اكرم عباس احمد محمد', '30112072200125', '30112072200125', '30112072200125', 1, 0, NULL, '$2y$10$iIBGkgYAiucSG.UCUOmyxerUP3Zpm615UP8CyOBB7SceOOlra9Wi6', 'student', '94', NULL, '2020-11-02 07:38:31', '2020-11-02 07:38:31'),
-(73, 'مريم طه مصطفي احمد', '30204212200165', '30204212200165', '30204212200165', 1, 0, NULL, '$2y$10$g2FEssRt5gkM6U0TMeDDQ.enM6PfEpH3BxOQsfE1ODZoMLjiX7ptK', 'student', '95', NULL, '2020-11-02 07:38:32', '2020-11-02 07:38:32'),
-(74, 'مصطفى ابراهيم كمال الدين ابراهيم', '30205152202178', '30205152202178', '30205152202178', 1, 0, NULL, '$2y$10$jNagM/Kw0dqeQ5sDM3QV9.QMIMKiLcrRjVrO8hkUkDWOFoDzzx7WW', 'student', '96', NULL, '2020-11-02 07:38:32', '2020-11-02 07:38:32'),
-(75, 'مصطفي معوض عبيد علي', '30110302200399', '30110302200399', '30110302200399', 1, 0, NULL, '$2y$10$rfJU1ifOYdPQU.C1YMWygetV5CKvdcwr/ztthnqm2f6qjgXK0bBqG', 'student', '97', NULL, '2020-11-02 07:38:32', '2020-11-02 07:38:32'),
-(76, 'منار ربيع عبدالحفيظ محمد', '30204272400465', '30204272400465', '30204272400465', 1, 0, NULL, '$2y$10$LkoX9PLuc9kY0rBFckkqluuyFnqyqivJqoOuDg7tueqzgzw6YsssK', 'student', '98', NULL, '2020-11-02 07:38:33', '2020-11-02 07:38:33'),
-(77, 'منه الله محمد  سلامه حسن', '30201288800529', '30201288800529', '30201288800529', 1, 0, NULL, '$2y$10$KZAyVk5.p/kMspp7mLuD6ODnp48a4jBqkfTUGLwu3upkIIZJva.vC', 'student', '99', NULL, '2020-11-02 07:38:33', '2020-11-02 07:38:33'),
-(78, 'مهاب محمد ابو المجد حسين', '30103102704558', '30103102704558', '30103102704558', 1, 0, NULL, '$2y$10$2HfMqJ5GZz5d7uDDLkrmPeo3Xu4aBu2/naMCH6QZj1I07ma9TaffW', 'student', '100', NULL, '2020-11-02 07:38:33', '2020-11-02 07:38:33'),
-(79, 'ندا طارق بحر اسماعيل', '30011232201548', '30011232201548', '30011232201548', 1, 0, NULL, '$2y$10$C5bp14C1.DIEn3gOYnIDree7/BWs5Q.ZhTuHsUXWRgtRsaiymR9JO', 'student', '101', NULL, '2020-11-02 07:38:33', '2020-11-02 07:38:33'),
-(80, 'نورهان علاء علي امين', '30110202201266', '30110202201266', '30110202201266', 1, 0, NULL, '$2y$10$YN6Rvew4KiXFZl1xASIoAe1ONCrHclDybKTsziFHH3vnB/bQIuDzm', 'student', '102', NULL, '2020-11-02 07:38:34', '2020-11-02 07:38:34'),
-(81, 'هاجر على عبد الرحمن طنطاوى', '30208182201906', '30208182201906', '30208182201906', 1, 0, NULL, '$2y$10$APOe3Ml8qF9YzS4FGA/nQ.Vj.BFPHseC4lH9wtDjwOihVnPjzTMZ6', 'student', '103', NULL, '2020-11-02 07:38:34', '2020-11-02 07:38:34'),
-(82, 'هاجر محمد رمضان محمد', '30209232200082', '30209232200082', '30209232200082', 1, 0, NULL, '$2y$10$XE6hBHW2bL2Naao.L82LUO9jtI7F95CM5iV.ypGnCh1/QJl7Hd0uO', 'student', '104', NULL, '2020-11-02 07:38:34', '2020-11-02 07:38:34'),
-(83, 'هدير اشرف اسماعيل عبد العظيم', '30209242200706', '30209242200706', '30209242200706', 1, 0, NULL, '$2y$10$lrl97CWU9YwaH5MzQtN/iOyebN22uywxhUzYPzOTnLlp.aZSYNsaS', 'student', '105', NULL, '2020-11-02 07:38:35', '2020-11-02 07:38:35'),
-(911, 'غادة جمال عبدالله حمدان', '30012122200801', '30012122200801', '30012122200801', 1, 0, NULL, '$2y$10$EAL2RtJLyK0gTi8J5S0CvONrqNEGHJMtS7bo7Txf4cGJqqYRZKfDO', 'student', '933', NULL, '2020-11-02 09:23:49', '2020-11-02 09:23:49'),
-(912, 'فادية مجدي حزقيال قزمان', '30108102300882', '30108102300882', '30108102300882', 1, 0, NULL, '$2y$10$MFc4TtE0m7ZCkz.SRb9x9eyfCMM.xlmpVYebtUbQgtkG5ra0MiKxy', 'student', '934', NULL, '2020-11-02 09:23:49', '2020-11-02 09:23:49'),
-(913, 'فاطمة  سعد هلال سيد', '30107162200082', '30107162200082', '30107162200082', 1, 0, NULL, '$2y$10$7fsz4yLifMUomYaxTd1C7.VcRLAUAsLDmHJiumdwo4P2P02eu4b1C', 'student', '935', NULL, '2020-11-02 09:23:50', '2020-11-02 09:23:50'),
-(914, 'فاطمة الزهراء محمد سمير عبدالحميد', '30004172201105', '30004172201105', '30004172201105', 1, 0, NULL, '$2y$10$rfcNu0kIsBwbXt8fr3EmSe9XYBOyEUuXivV56wq450LwSUvk/0hMS', 'student', '936', NULL, '2020-11-02 09:23:50', '2020-11-02 09:23:50'),
-(915, 'فاطمة سليمان حسن محمد', '30102012202204', '30102012202204', '30102012202204', 1, 0, NULL, '$2y$10$4mu/7pSIF/zj/N7AUNdh7ukcKVVLEkNWIN4sXFtkrQZ3QHdz6Tzym', 'student', '937', NULL, '2020-11-02 09:23:50', '2020-11-02 09:23:50'),
-(916, 'فدوي طه احمد طه', '30106212200325', '30106212200325', '30106212200325', 1, 0, NULL, '$2y$10$ZOJ6r1A8fGtgdWM9I0qyLOvb4HD/TpzlOXhpEmlFkcYIe37htpvQy', 'student', '938', NULL, '2020-11-02 09:23:51', '2020-11-02 09:23:51'),
-(917, 'فيرينا اسامه رمزى عياد', '30012092200127', '30012092200127', '30012092200127', 1, 0, NULL, '$2y$10$dGtypRWJo5IUTqvAsFBk3OuQCEuuVeOTqCIK7DxbeLeCKW6pUaDRO', 'student', '939', NULL, '2020-11-02 09:23:51', '2020-11-02 09:23:51'),
-(918, 'كارولين ميلاد سليمان اسحق', '30102052402583', '30102052402583', '30102052402583', 1, 0, NULL, '$2y$10$U3lRoE5fC0nmd7a6hSfiXu0lfI7YXCfAKErlKWJkGxwKkQq.k3Vyu', 'student', '940', NULL, '2020-11-02 09:23:51', '2020-11-02 09:23:51'),
-(919, 'كارين بشري مجلي بشري', '30103160100069', '30103160100069', '30103160100069', 1, 0, NULL, '$2y$10$u2DD4vmsNRNNVar13CJlQeGq.vErPjdVyscsMXjsMRwgILdMDcL6W', 'student', '941', NULL, '2020-11-02 09:23:52', '2020-11-02 09:23:52'),
-(920, 'كارين وفيق جيد اسحق', '30107242400503', '30107242400503', '30107242400503', 1, 0, NULL, '$2y$10$FLDTzG4C346alCnGCV7YXu7rJ4jp4iCrlxIdfdxfRInvfRCI8rT.S', 'student', '942', NULL, '2020-11-02 09:23:52', '2020-11-02 09:23:52'),
-(921, 'كريم محمد مختار محمد', '30007062200374', '30007062200374', '30007062200374', 1, 0, NULL, '$2y$10$Sg.3I8.SZSoDcQOnDXBrUO5FSdq32.mBCpJv.t5Rai8jP/Ak4tM1S', 'student', '943', NULL, '2020-11-02 09:23:53', '2020-11-02 09:23:53'),
-(922, 'كيرلس ممدوح ناجح توفيق', '30003102403219', '30003102403219', '30003102403219', 1, 0, NULL, '$2y$10$vZENv7OhRoZPPNYu2FJ0R.T6ojkJbtTvD0S3uQXTdG3t/myTBMHy.', 'student', '944', NULL, '2020-11-02 09:23:53', '2020-11-02 09:23:53'),
-(923, 'لؤي محمود احمد  محمد حزين', '30104032300272', '30104032300272', '30104032300272', 1, 0, NULL, '$2y$10$8Wb3tkfBOmwK1tBnZjMCLewDIfAWSWslWJcaIbVtjos/LJ8rtWyEa', 'student', '945', NULL, '2020-11-02 09:23:53', '2020-11-02 09:23:53'),
-(924, 'لبنه غانم محمدالفولى على', '30009112403886', '30009112403886', '30009112403886', 1, 0, NULL, '$2y$10$d22eeZa8B5ptCyb4WutBYepijp6o1NdO.JvoHeVRMW1fo5JEKRdVm', 'student', '946', NULL, '2020-11-02 09:23:53', '2020-11-02 09:23:53'),
-(925, 'لمياء محمد عليش هاشم', '30001012214546', '30001012214546', '30001012214546', 1, 0, NULL, '$2y$10$Ei/3cUZsvU2CQVkk782oJOyyrohs6uJWNrpG35g6bxn2yPIvlbPqS', 'student', '947', NULL, '2020-11-02 09:23:54', '2020-11-02 09:23:54'),
-(926, 'مؤمن  محمد عبدالعال عبدالكريم', '30105122600891', '30105122600891', '30105122600891', 1, 0, NULL, '$2y$10$YBMNVbu8MiWTZ/o4N2meSOtAWw0riP9fh9Bw0plwTvbmnUHZ02csm', 'student', '948', NULL, '2020-11-02 09:23:54', '2020-11-02 09:23:54'),
-(927, 'مارتينا محسن نمر تادرس', '30001262600662', '30001262600662', '30001262600662', 1, 0, NULL, '$2y$10$.R5uxCHlJWRQuJjs5mqycud6bMgbktrhsU2hnujvIvn4oJ3MmGOM.', 'student', '949', NULL, '2020-11-02 09:23:54', '2020-11-02 09:23:54'),
-(928, 'مارى مرقس بشرى كامل', '30105122401368', '30105122401368', '30105122401368', 1, 0, NULL, '$2y$10$GuKg.AD/vXJ/6RuA4lke7eA5yJMldfHwyb1finqG7NHRfbHYWJazq', 'student', '950', NULL, '2020-11-02 09:23:55', '2020-11-02 09:23:55'),
-(929, 'مازن رجب حسين جمعة', '30105032301852', '30105032301852', '30105032301852', 1, 0, NULL, '$2y$10$V0pT1eGHZTncSaDYtmNo5unnopj2Enk2xRIv32MK7fnrE6WElWhEC', 'student', '951', NULL, '2020-11-02 09:23:55', '2020-11-02 09:23:55'),
-(930, 'ماهيتاب محمد على كامل', '30103102305823', '30103102305823', '30103102305823', 1, 0, NULL, '$2y$10$LkBAPJLEYmi2Y/RQLA6KBuWZ/XJCnZPBpXdc3ZDQYZdlp3BadjAkq', 'student', '952', NULL, '2020-11-02 09:23:55', '2020-11-02 09:23:55'),
-(931, 'ماهينور محمد على  احمد', '30112202204284', '30112202204284', '30112202204284', 1, 0, NULL, '$2y$10$dZmGWwwcGqPzZkic2Zs9.OA36ntsaAPBRJkAGgZNbBMie7m4OxYe6', 'student', '953', NULL, '2020-11-02 09:23:55', '2020-11-02 09:23:55'),
-(932, 'محمد  اسامه محمود مرداش', '30202022200174', '30202022200174', '30202022200174', 1, 0, NULL, '$2y$10$CkcQD.ftFR0FyGIeQEdGU.JDAeQfG.Tkvfx0o8I09IWtj8Esd47.G', 'student', '954', NULL, '2020-11-02 09:23:56', '2020-11-02 09:23:56'),
-(933, 'محمد  نبيل عبد العزيز شوربجى', '30202188800919', '30202188800919', '30202188800919', 1, 0, NULL, '$2y$10$Hp2s9rYaCif9WxMbZrxuPesYyPA2pg2YzibTwtq6eMFR7Mzzjrij.', 'student', '955', NULL, '2020-11-02 09:23:56', '2020-11-02 09:23:56'),
-(934, 'محمد  هشام انور محمد', '30105242300336', '30105242300336', '30105242300336', 1, 0, NULL, '$2y$10$O2WBXp5SjQn/fOaP2MeNp.2sWZwYei15DsAC8Zzwr0zEiK6Efnkoi', 'student', '956', NULL, '2020-11-02 09:23:56', '2020-11-02 09:23:56'),
-(935, 'محمد احمد علي سيد', '30109272201052', '30109272201052', '30109272201052', 1, 0, NULL, '$2y$10$LQ0OXxyidu5DzA0OkrDnJujwcZAeJ7iF995Iz62d1V4lcOW1Lyif6', 'student', '957', NULL, '2020-11-02 09:23:57', '2020-11-02 09:23:57'),
-(936, 'محمد اسامة عبدالمطلب يوسف', '30106122300479', '30106122300479', '30106122300479', 1, 0, NULL, '$2y$10$dSArq5z7JerzVQSEM.gQDeEaF1hA130QQbPx3k1VHxU29kVC5whY.', 'student', '958', NULL, '2020-11-02 09:23:57', '2020-11-02 09:23:57'),
-(937, 'محمد اشرف ابراهيم عبدالقادر', '30103102305599', '30103102305599', '30103102305599', 1, 0, NULL, '$2y$10$Kvwi2VqZR2s6oQHU7O0iF..Mgzqt22Za5uzbxg/EIQgmQBEeMCxBG', 'student', '959', NULL, '2020-11-02 09:23:57', '2020-11-02 09:23:57'),
-(938, 'محمد اشرف السيد احمد', '30106262200695', '30106262200695', '30106262200695', 1, 0, NULL, '$2y$10$2So8ZnRqktVfGPN5DzJnteMTWzAw5KsL9o5LHE5MmhYDwHWkYXGZm', 'student', '960', NULL, '2020-11-02 09:23:57', '2020-11-02 09:23:57'),
-(939, 'محمد ايمن محمد عبدالحميد', '30108262200353', '30108262200353', '30108262200353', 1, 0, NULL, '$2y$10$t4fX9VfIOW5NLbPvCmeL4ecb6NGJeZHFUvqIQ935B/FXEmQEHqPpu', 'student', '961', NULL, '2020-11-02 09:23:58', '2020-11-02 09:23:58'),
-(940, 'محمد جمال شحاتة جمعة', '30111302200352', '30111302200352', '30111302200352', 1, 0, NULL, '$2y$10$U1RurNp3dCVMdJDcQt8WmeuNtt13KO4Y.TNTSyqQx7rtn1ryzZ4lW', 'student', '962', NULL, '2020-11-02 09:23:58', '2020-11-02 09:23:58'),
-(941, 'محمد حسام محمد طه', '30108192200318', '30108192200318', '30108192200318', 1, 0, NULL, '$2y$10$DnCrbddqQUujM8VDde.QG..PXhOfm9n5TPzqQnTuADUyLeghkGkhG', 'student', '963', NULL, '2020-11-02 09:23:58', '2020-11-02 09:23:58'),
-(942, 'محمد حمدى عبد الواحد رزق', '30102102303034', '30102102303034', '30102102303034', 1, 0, NULL, '$2y$10$vl4jFJ9UFXAWGRBo3aLsbe77TcwIlAPCh4ck96HkCAE24VjxIUhVO', 'student', '964', NULL, '2020-11-02 09:23:58', '2020-11-02 09:23:58'),
-(943, 'محمد دسوقي رياض دسوقي', '30104162200458', '30104162200458', '30104162200458', 1, 0, NULL, '$2y$10$/ORn8XPWiz0Ggpt5DAia9O9.AFpdI5xmUhzc8qLtP/wiXl1FhuQFe', 'student', '965', NULL, '2020-11-02 09:23:59', '2020-11-02 09:23:59'),
-(944, 'محمد رجب عبدالواحد محمد', '30109302203934', '30109302203934', '30109302203934', 1, 0, NULL, '$2y$10$vyGpVfo6ZNU5LW.ZNaWnKeIUdL4a4Q/0M5xqIi7Mc.2B/Wizx2v3q', 'student', '966', NULL, '2020-11-02 09:23:59', '2020-11-02 09:23:59'),
-(945, 'محمد رمضان  احمد عبدالمقصود', '30106042300591', '30106042300591', '30106042300591', 1, 0, NULL, '$2y$10$Ljfls8lSLXUwYOjTiBXu0eS8EHzosvmh3tLh21mMORYDwXQ/p4t3q', 'student', '967', NULL, '2020-11-02 09:24:00', '2020-11-02 09:24:00'),
-(946, 'محمد سيد ربيع هاشم', '30103122301295', '30103122301295', '30103122301295', 1, 0, NULL, '$2y$10$bb0p59o.L4ilhtqo5z33s.VaxzEu/377h9TUm/rSw8v/A1Nm0SVeC', 'student', '968', NULL, '2020-11-02 09:24:00', '2020-11-02 09:24:00'),
-(947, 'محمد سيد عبدالتواب سالم', '30108152300093', '30108152300093', '30108152300093', 1, 0, NULL, '$2y$10$o.9KyhYGEDfZV9HULmSkae6GInGbG5gQog7PxdA7tWjon/A0sA0xK', 'student', '969', NULL, '2020-11-02 09:24:00', '2020-11-02 09:24:00'),
-(948, 'محمد طه سرى محمد', '30107082201096', '30107082201096', '30107082201096', 1, 0, NULL, '$2y$10$zLeh8Mka0cP1mTgSWljNX.zRDR2rmmEHU1aLo4b0r2ppHNWzOPvUS', 'student', '970', NULL, '2020-11-02 09:24:01', '2020-11-02 09:24:01'),
-(949, 'محمد عادل احمد عوض', '30011302200439', '30011302200439', '30011302200439', 1, 0, NULL, '$2y$10$nH6LLi.xlyrZmnbVtjUY6e5azfvdvS3qRBwq6TPo7AorSaNQoLCdm', 'student', '971', NULL, '2020-11-02 09:24:01', '2020-11-02 09:24:01'),
-(950, 'محمد عبدالعزيز محمد  كمال الدين', '30104098800993', '30104098800993', '30104098800993', 1, 0, NULL, '$2y$10$gFW3eMAf1uqc7/T3OQPzW.QNmiHXUcK/5tHikpgrONBlT.jZxBJYG', 'student', '972', NULL, '2020-11-02 09:24:01', '2020-11-02 09:24:01'),
-(951, 'محمد عبدالله فتح الله محمد محمود', '30104011502495', '30104011502495', '30104011502495', 1, 0, NULL, '$2y$10$yUtH9R2vb7XM6EwejKg2ue46yYZAfzrFNYPRqZiKdylHuU.BQwuxK', 'student', '973', NULL, '2020-11-02 09:24:02', '2020-11-02 09:24:02'),
-(952, 'محمد عرفه احمد علي موسي', '30112041302078', '30112041302078', '30112041302078', 1, 0, NULL, '$2y$10$QeEffHVVxiH3TjUHCm3xPOs.5wTjixcrZeQpqUbp3WwIY8635AaOW', 'student', '974', NULL, '2020-11-02 09:24:02', '2020-11-02 09:24:02'),
-(953, 'محمد عصام قرني محمد', '30104172201533', '30104172201533', '30104172201533', 1, 0, NULL, '$2y$10$a.FvWqm69bAa7jCQ9YA89uunkc1flSHqd1Iqtrsq9pyKsc84aeWsW', 'student', '975', NULL, '2020-11-02 09:24:02', '2020-11-02 09:24:02'),
-(954, 'محمد فرج علي فراج', '30203182400397', '30203182400397', '30203182400397', 1, 0, NULL, '$2y$10$1MWQsk3LU0kjt4Y2zOb.WOSlSTdsuDEBo6cuBNH4tFlxkz9UMxEtu', 'student', '976', NULL, '2020-11-02 09:24:03', '2020-11-02 09:24:03'),
-(955, 'محمد ماهر محمد سليمان', '30109010107497', '30109010107497', '30109010107497', 1, 0, NULL, '$2y$10$Tmp6lNPBYtHL70q6JEUBKOjcf9f9CPMO6xPp1waoUByJOHMOdv4RG', 'student', '977', NULL, '2020-11-02 09:24:03', '2020-11-02 09:24:03'),
-(956, 'محمد مجدي محمد ابراهيم', '30111082200798', '30111082200798', '30111082200798', 1, 0, NULL, '$2y$10$xr43/znnIE5F8o5.8mTJ.eYQKoN1XfavFfIT9PZk6CKTEnnuXNWMS', 'student', '978', NULL, '2020-11-02 09:24:03', '2020-11-02 09:24:03'),
-(957, 'محمد محمد جودة ابوالسعود', '30105182200876', '30105182200876', '30105182200876', 1, 0, NULL, '$2y$10$UUQ286zG2VVUSsJYsQApzOgGxSQRwfZ7GliHJd.ZMv7l1oB7DKGUu', 'student', '979', NULL, '2020-11-02 09:24:04', '2020-11-02 09:24:04'),
-(958, 'محمد محمود احمد كامل عوض', '30110010219412', '30110010219412', '30110010219412', 1, 0, NULL, '$2y$10$OUaLnrtr9QusT.pnbrWngOJ1eaa/d26wrjvPYm0Jfhe07Ch9adTh.', 'student', '980', NULL, '2020-11-02 09:24:04', '2020-11-02 09:24:04'),
-(959, 'محمد مصطفي فاروق عبدالسميع', '30012102303434', '30012102303434', '30012102303434', 1, 0, NULL, '$2y$10$28I.7ABLOfUna.HecI75k.JMFYyCViVh5MAVr4gMDfnon9FiTEr6C', 'student', '981', NULL, '2020-11-02 09:24:05', '2020-11-02 09:24:05'),
-(960, 'محمد ياسر بكر صديق', '30109012401899', '30109012401899', '30109012401899', 1, 0, NULL, '$2y$10$L17kUYOrEvmOMT4OtA7m4u2oU2pWmJ.26g9hkXJvoJuStJf7SNxAa', 'student', '982', NULL, '2020-11-02 09:24:05', '2020-11-02 09:24:05'),
-(961, 'محمد ياسر علي عبدالغني', '30107232301914', '30107232301914', '30107232301914', 1, 0, NULL, '$2y$10$sx4B4./ob2axVi3C2m1DWuYSIZe.92nOvSe2DunelkiqxGb.EmyZS', 'student', '983', NULL, '2020-11-02 09:24:05', '2020-11-02 09:24:05'),
-(962, 'محمود  سعد فرج  متولي', '30103122201552', '30103122201552', '30103122201552', 1, 0, NULL, '$2y$10$Dj3uNgpQFi5gpwtW3dszfuqsdv.Z9ged7UwLSYQcAIpxhMMUU2u3m', 'student', '984', NULL, '2020-11-02 09:24:06', '2020-11-02 09:24:06'),
-(963, 'محمود احمد رجب عبدالفتاح', '30108012301855', '30108012301855', '30108012301855', 1, 0, NULL, '$2y$10$36Yt.hEFlfPSBtRrlFU..euppkKF.40ph2lG5.6kohXHpbxHavdue', 'student', '985', NULL, '2020-11-02 09:24:06', '2020-11-02 09:24:06'),
-(964, 'محمود اشرف عبدالعظيم ابراهيم', '30108192300339', '30108192300339', '30108192300339', 1, 0, NULL, '$2y$10$MVse2SrOtA7fooaK1/dYsemHZJ8gTi/Nt3Pmh4Je3R/qErCowLV0S', 'student', '986', NULL, '2020-11-02 09:24:07', '2020-11-02 09:24:07'),
-(965, 'محمود حسين كمال احمد', '30103022200052', '30103022200052', '30103022200052', 1, 0, NULL, '$2y$10$jfBGdxwHonJbAy0ZjMZMROCb3kt9mpV1T/vmCuRuyHoOZ.f1mZwXm', 'student', '987', NULL, '2020-11-02 09:24:07', '2020-11-02 09:24:07'),
-(966, 'محمود عبد العزيز محمد علي', '30001012321075', '30001012321075', '30001012321075', 1, 0, NULL, '$2y$10$UJw4Fta/3OFBhvb82nYO4exwhH1mt0Y4dbSI4F/UVazMFdTwqVxXe', 'student', '988', NULL, '2020-11-02 09:24:07', '2020-11-02 09:24:07'),
-(967, 'محمود محمد محمود مصطفي جادالرب', '30105122201474', '30105122201474', '30105122201474', 1, 0, NULL, '$2y$10$/SiS1W/SJMJ1D10lWQ9twusrPCe5Al5jR2V0dd71fvDzp3/2ovVtC', 'student', '989', NULL, '2020-11-02 09:24:08', '2020-11-02 09:24:08'),
-(968, 'مرام عصام ناجح محمد', '30101132200349', '30101132200349', '30101132200349', 1, 0, NULL, '$2y$10$b9mPSix5T5OV00RvUI7mouQdIV7zoNaCy3Fl4ALqLwrrHZTJE/Qim', 'student', '990', NULL, '2020-11-02 09:24:08', '2020-11-02 09:24:08'),
-(969, 'مروة جمال محمد مرسي', '30007222400804', '30007222400804', '30007222400804', 1, 0, NULL, '$2y$10$jVzVm5I4mgGk5ImdCQORluLflRapP/S8FQu2BZ..QH2MtpthFsm5u', 'student', '991', NULL, '2020-11-02 09:24:08', '2020-11-02 09:24:08'),
-(970, 'مروة مصطفي عرفات احمد', '30104162200687', '30104162200687', '30104162200687', 1, 0, NULL, '$2y$10$6OgZBoWHPShTdkueFbtZze6JgmIYG06arlzf/fNIBmcjF/savAsqe', 'student', '992', NULL, '2020-11-02 09:24:09', '2020-11-02 09:24:09'),
-(971, 'مروه حسن محمد انور', '30105272201588', '30105272201588', '30105272201588', 1, 0, NULL, '$2y$10$O3xkeA2wQnmvMovX19HnIOLWbg7MKx5r/vCtdyt3YhrI/tSoe4VZq', 'student', '993', NULL, '2020-11-02 09:24:09', '2020-11-02 09:24:09'),
-(972, 'مريم احمد قاسم جودة', '30107042200623', '30107042200623', '30107042200623', 1, 0, NULL, '$2y$10$w57.A3PDwJpxPNznncVxgeObsnJwnpB2726XtjJ/U2CwIHaCWTfiK', 'student', '994', NULL, '2020-11-02 09:24:09', '2020-11-02 09:24:09'),
-(973, 'مريم القس جبريل فتحي', '30108052200369', '30108052200369', '30108052200369', 1, 0, NULL, '$2y$10$uXAZWJV/BWfxpZr0hvoNQu/23tvCDxXjjscn0RRbZALy7RijNGJBm', 'student', '995', NULL, '2020-11-02 09:24:10', '2020-11-02 09:24:10'),
-(974, 'مريم بسخرون بباوى جرجس', '30107012203148', '30107012203148', '30107012203148', 1, 0, NULL, '$2y$10$zqFiBQ/2fXWmuZSMqNivJOWAuPQYc/UQ.ajx0ikpTtngu/4zibf7C', 'student', '996', NULL, '2020-11-02 09:24:10', '2020-11-02 09:24:10'),
-(975, 'مريم محمد حسين محمود', '30103032201421', '30103032201421', '30103032201421', 1, 0, NULL, '$2y$10$xATKpXn0S9miJxFb3SLzBuRTjza3c8sF1S0gc.ODGDZx/VuY9E10O', 'student', '997', NULL, '2020-11-02 09:24:10', '2020-11-02 09:24:10'),
-(976, 'مريم محمد خليفه محمود', '30102172200186', '30102172200186', '30102172200186', 1, 0, NULL, '$2y$10$dcjWprlt2Fx623/FTSeTVuAoFZfSs0YyiZ8Y67SHz2Injojnj.5Bi', 'student', '998', NULL, '2020-11-02 09:24:11', '2020-11-02 09:24:11'),
-(977, 'مريم محمود محمد عبد العزيز', '30110262200781', '30110262200781', '30110262200781', 1, 0, NULL, '$2y$10$GWPxCATLv3518PRIxyhfC.VuejKvojNoRZB5ug6D1cZpFikBaug2S', 'student', '999', NULL, '2020-11-02 09:24:11', '2020-11-02 09:24:11'),
-(978, 'مصطفى  نبيل حشمت شحاته', '30105012201894', '30105012201894', '30105012201894', 1, 0, NULL, '$2y$10$BlCJe1FKluOL3Zeh708Dges730qPZxun/JMDlxokUS3AFVWsMI5r.', 'student', '1000', NULL, '2020-11-02 09:24:11', '2020-11-02 09:24:11'),
-(979, 'مصطفي عصام عبدالرحمن عثمان', '30201212202053', '30201212202053', '30201212202053', 1, 0, NULL, '$2y$10$YBjQ9eIMs3H2Sj0Q4V3kHu0Ez4ibLfjC/Cf1Kbq7tjImQtVwJdGoS', 'student', '1001', NULL, '2020-11-02 09:24:12', '2020-11-02 09:24:12'),
-(980, 'مصطفى علاء مصطفى  عامر', '30107012303592', '30107012303592', '30107012303592', 1, 0, NULL, '$2y$10$7cj9M/vu.8WoAIIRhcyzouGXDSeJgEpjOIxIgCe3/che0u/zv1liu', 'student', '1002', NULL, '2020-11-02 09:24:12', '2020-11-02 09:24:12'),
-(981, 'مصطفي عمرو مصطفي محمد', '30104121600751', '30104121600751', '30104121600751', 1, 0, NULL, '$2y$10$/T1FMGW5K/Lrzc/RpLPNmO77yy0Dg/VhU4wtgGcX96WW3HJVah2km', 'student', '1003', NULL, '2020-11-02 09:24:12', '2020-11-02 09:24:12'),
-(982, 'مصطفي محمود احمد كامل عوض', '30110010219439', '30110010219439', '30110010219439', 1, 0, NULL, '$2y$10$yCD4Mrs4ToNqdzypQ7JZHecPKs5seTOh5MhREO2sVW1C5iAuhDzku', 'student', '1004', NULL, '2020-11-02 09:24:13', '2020-11-02 09:24:13'),
-(983, 'ممدوح السيد صديق حجازي حسين', '30106042301911', '30106042301911', '30106042301911', 1, 0, NULL, '$2y$10$qNnH1VGV42xfH8XCuD7wXeXQUiIkH6d2tIZJin4jwPMNrvXutQ3jW', 'student', '1005', NULL, '2020-11-02 09:24:13', '2020-11-02 09:24:13'),
-(984, 'منار عبدالرحمن محمد عبدالباقى', '30105062200406', '30105062200406', '30105062200406', 1, 0, NULL, '$2y$10$EYvgFlQcIIxFVeDB7xePmufL/bphYQ7bmTUxIOtSks0W8B6r1245.', 'student', '1006', NULL, '2020-11-02 09:24:13', '2020-11-02 09:24:13'),
-(985, 'منار عربى محمد سوعيد', '30001012431741', '30001012431741', '30001012431741', 1, 0, NULL, '$2y$10$TIxwLbDBR52IphiFf71fkuMlR4/zu0yImfj2V8MRGF/wH/YXRfJ7y', 'student', '1007', NULL, '2020-11-02 09:24:14', '2020-11-02 09:24:14'),
-(986, 'منة الله اشرف حسين بكري', '30101162200181', '30101162200181', '30101162200181', 1, 0, NULL, '$2y$10$GKaBsUzZqJf0fxuKLZMVMOThwRVC4Gt0jil4ES1/sLhDEvWHC3mWu', 'student', '1008', NULL, '2020-11-02 09:24:14', '2020-11-02 09:24:14'),
-(987, 'منه الله عاطف محمد نورالدين', '30110222200045', '30110222200045', '30110222200045', 1, 0, NULL, '$2y$10$2FsCehVrihzuecGN9j6sr.dQRekVV5HQLTQA61.T6qQ5O6GmWBONW', 'student', '1009', NULL, '2020-11-02 09:24:14', '2020-11-02 09:24:14'),
-(988, 'منه الله نبيل على  على', '30104020100308', '30104020100308', '30104020100308', 1, 0, NULL, '$2y$10$dtCY8jqTvcoYsIlHoDFBA.bSS1RwhcobeVE7FSFOhW2Hf4V.hv34q', 'student', '1010', NULL, '2020-11-02 09:24:14', '2020-11-02 09:24:14'),
-(989, 'منه محمد عبدالفتاح حامد', '30102172200143', '30102172200143', '30102172200143', 1, 0, NULL, '$2y$10$Z.aCribS9iA2WNzqXv16lO7ufOOaCfkWYaUNJZzCkaVFZ6g9QcYtK', 'student', '1011', NULL, '2020-11-02 09:24:15', '2020-11-02 09:24:15'),
-(990, 'منورة حسن عبدالمعز عبدالفتاح', '30109202305381', '30109202305381', '30109202305381', 1, 0, NULL, '$2y$10$bOmyWccJJNfh1xZB4qCRyO/9WqlJfltAh.pxAkq4bvGF2uRYkEbUq', 'student', '1012', NULL, '2020-11-02 09:24:15', '2020-11-02 09:24:15'),
-(991, 'مي ابراهيم احمد متولي', '30103232200187', '30103232200187', '30103232200187', 1, 0, NULL, '$2y$10$Gv8bMiebp1U1kSJiq4Wk/uA1LWJ63Wn8uKElow5bJL.wBcZ4hMY6u', 'student', '1013', NULL, '2020-11-02 09:24:16', '2020-11-02 09:24:16'),
-(992, 'مي محمد زين العابدين عبدالعظيم', '30111222200467', '30111222200467', '30111222200467', 1, 0, NULL, '$2y$10$hyouh0/BjmIXsKodPrvRoO7KBd5xs4KTaT8jXtouTayfAWoN.vW1m', 'student', '1014', NULL, '2020-11-02 09:24:16', '2020-11-02 09:24:16'),
-(993, 'مي محمد سيد سعيد', '30109292301908', '30109292301908', '30109292301908', 1, 0, NULL, '$2y$10$gTRBjsl5fyIMAQv4igtYcOPPfSG5zZapuSfxrY86ktYmMh9iAHAt.', 'student', '1015', NULL, '2020-11-02 09:24:16', '2020-11-02 09:24:16'),
-(994, 'مي هاني حسني عبدالحميد', '30204012201264', '30204012201264', '30204012201264', 1, 0, NULL, '$2y$10$fQyQdMEBOgxwAbrrThoQFO.lJ.XjSaeZdqRnrvgqtSn6DRplVteKq', 'student', '1016', NULL, '2020-11-02 09:24:17', '2020-11-02 09:24:17'),
-(995, 'ميار عادل راضي موسي', '30203012203244', '30203012203244', '30203012203244', 1, 0, NULL, '$2y$10$Jtw0G3hixnHUDHOcyc.uTefR4ME.YuNMnArZgIxsmttRBfyD0DJU6', 'student', '1017', NULL, '2020-11-02 09:24:17', '2020-11-02 09:24:17'),
-(996, 'ميار علاء عبدالعاطى خلف', '30102252401026', '30102252401026', '30102252401026', 1, 0, NULL, '$2y$10$eqoLuaNxnZXy7YOaFAXU0.W9zkgC1hZljgx.PV1wYchiNKBL2Acva', 'student', '1018', NULL, '2020-11-02 09:24:17', '2020-11-02 09:24:17'),
-(997, 'ميار مجدى صابر محمد', '30001012307846', '30001012307846', '30001012307846', 1, 0, NULL, '$2y$10$eijYV.4p02wOTvH.UhFe8O9YweyC/.zqaZErC0RvvJlAQTUXAWZAC', 'student', '1019', NULL, '2020-11-02 09:24:17', '2020-11-02 09:24:17'),
-(998, 'ميار محمد فكري محمود', '30107142200361', '30107142200361', '30107142200361', 1, 0, NULL, '$2y$10$OJ5ee6Gz/bTLDadHrZUxQuuySyjAHEaMqOFbuuuERsvOYghp6wJJ6', 'student', '1020', NULL, '2020-11-02 09:24:18', '2020-11-02 09:24:18'),
-(999, 'ميرفت جمعة حسن حسين', '30005032402743', '30005032402743', '30005032402743', 1, 0, NULL, '$2y$10$xC2ZP8AV8ouBzh3Lkj0zE.XlwKcjo4fTK/nikjg9RBaK2uB4arqyW', 'student', '1021', NULL, '2020-11-02 09:24:18', '2020-11-02 09:24:18'),
-(1000, 'ميرنا ابرام نجيب جيد', '30109102401545', '30109102401545', '30109102401545', 1, 0, NULL, '$2y$10$dqIp.9DmmYFJEPvpq2/zD.6jjodHejnTOmAGzxbf0ANZ.A6RiPNl.', 'student', '1022', NULL, '2020-11-02 09:24:18', '2020-11-02 09:24:18'),
-(1001, 'ميرنا نبيل نجيب عياد', '30111062201763', '30111062201763', '30111062201763', 1, 0, NULL, '$2y$10$E/LtRcLWYn7ZAY/QYwKUe.cKsEbiy60QQzshC3fDduYgCqfs/xe9.', 'student', '1023', NULL, '2020-11-02 09:24:19', '2020-11-02 09:24:19'),
-(1002, 'ميسون محمد محمد محمود', '30005012306764', '30005012306764', '30005012306764', 1, 0, NULL, '$2y$10$docC1PY/BmrDcqUHEik7l.Dzp66cnn4hoT2iVwicxyFWEniJgQFGC', 'student', '1024', NULL, '2020-11-02 09:24:19', '2020-11-02 09:24:19'),
-(1003, 'ميشيل  جمال  لوندى عبيد', '30203202201515', '30203202201515', '30203202201515', 1, 0, NULL, '$2y$10$aszdYolnQM/NAlP5LPz5p.1ZbF3UjjVdG0jQ8n1V8H/B7Xve3sRge', 'student', '1025', NULL, '2020-11-02 09:24:19', '2020-11-02 09:24:19'),
-(1004, 'ندا على  محمد محمد', '30009252202147', '30009252202147', '30009252202147', 1, 0, NULL, '$2y$10$0LnRkRKVxVnsGnHo24fOyeClzJ2QPbThkjbVGsZxfYPVJZu4hsWWm', 'student', '1026', NULL, '2020-11-02 09:24:20', '2020-11-02 09:24:20'),
-(1005, 'ندى ايهاب  عبدالحليم طه', '30104012202649', '30104012202649', '30104012202649', 1, 0, NULL, '$2y$10$5EfYa8AuUA1E5i2k3wBdyu35qDbiC4ghh6sAmTPBp3ORVXC9e71/C', 'student', '1027', NULL, '2020-11-02 09:24:20', '2020-11-02 09:24:20'),
-(1006, 'ندي جمال صبحي اسماعيل', '30109012201202', '30109012201202', '30109012201202', 1, 0, NULL, '$2y$10$xltJku6R8XmGurdBVEwlTeoRDpHzjZph1QJK9GB.pJt8ABBKvlqYK', 'student', '1028', NULL, '2020-11-02 09:24:20', '2020-11-02 09:24:20'),
-(1007, 'ندي جمال نصرالدين محمد', '30105072201044', '30105072201044', '30105072201044', 1, 0, NULL, '$2y$10$YCdAybWWD0kta2ZraUhV5.bnlyfcSTrU9ZT90OMsiQDYfRzvNrr1K', 'student', '1029', NULL, '2020-11-02 09:24:21', '2020-11-02 09:24:21'),
-(1008, 'ندي حمدي مصطفي حسين', '30109092200066', '30109092200066', '30109092200066', 1, 0, NULL, '$2y$10$7N8soyI/0DyHQDaI9FV/TuEMMyNdPAqA4RXxvrrzsx.w4.ryJQTLy', 'student', '1030', NULL, '2020-11-02 09:24:21', '2020-11-02 09:24:21'),
-(1009, 'ندي عاطف محفوظ احمد احمد', '30112052200102', '30112052200102', '30112052200102', 1, 0, NULL, '$2y$10$bCcwQfQRQryLs4O02KmvLO02JCvDVavmIpCBRDJtVbAaZ8xUliXj.', 'student', '1031', NULL, '2020-11-02 09:24:21', '2020-11-02 09:24:21'),
-(1010, 'ندي علي وزير احمد', '30012102203189', '30012102203189', '30012102203189', 1, 0, NULL, '$2y$10$a41ZIOA/OEifDef71XsjZOnbgaNO6usQKmS4WYV1/6bNhEoZcm.C6', 'student', '1032', NULL, '2020-11-02 09:24:22', '2020-11-02 09:24:22'),
-(1011, 'نسرين نصر عبدالفتاح فراج', '30010152301669', '30010152301669', '30010152301669', 1, 0, NULL, '$2y$10$DQcixx4cdWWjTi/.UpYRhe2Ygo43DN0uEBkGcnFUj0rkUTSnd2aYe', 'student', '1033', NULL, '2020-11-02 09:24:22', '2020-11-02 09:24:22'),
-(1012, 'نهال عماد عبدالفتاح محمد', '30203042200509', '30203042200509', '30203042200509', 1, 0, NULL, '$2y$10$H6VWCjKiCDOQD3qEZJO76.tkz6c4MGn4vuTAAaV7KsGGe.5YMvJ8u', 'student', '1034', NULL, '2020-11-02 09:24:22', '2020-11-02 09:24:22'),
-(1013, 'نهال نصرالدين جابر حسن', '30105012201789', '30105012201789', '30105012201789', 1, 0, NULL, '$2y$10$8egyuGkILISm5mDMQR0XbuGY81QT4vLgI3ZX7zIPrXWN4ZRtrlmLe', 'student', '1035', NULL, '2020-11-02 09:24:22', '2020-11-02 09:24:22'),
-(1014, 'نوران حمدي محمد معوض', '30105062201445', '30105062201445', '30105062201445', 1, 0, NULL, '$2y$10$o4gduh121rJ.xBCLwQHMquDU/wWpuOv7WZBOnGZX2JdR/WEdjKb36', 'student', '1036', NULL, '2020-11-02 09:24:23', '2020-11-02 09:24:23'),
-(1015, 'نورسين محسن صلاح الدين حسن', '30103092200041', '30103092200041', '30103092200041', 1, 0, NULL, '$2y$10$AlGdF7qA7VuzDfWQR3mHoe4Sl8MsrepCQVV8nOr5RgK4XRInH22hq', 'student', '1037', NULL, '2020-11-02 09:24:23', '2020-11-02 09:24:23'),
-(1016, 'نورهان احمد طلعت محمود سيد', '30107280104586', '30107280104586', '30107280104586', 1, 0, NULL, '$2y$10$SMPZuJVUdyRlGeKB/OfGNeGGYO43fAEiPugdhBpPvbejAqpgwQvkm', 'student', '1038', NULL, '2020-11-02 09:24:23', '2020-11-02 09:24:23'),
-(1017, 'نورهان اسامة ربيع عبدالتواب', '30106182200627', '30106182200627', '30106182200627', 1, 0, NULL, '$2y$10$u4rTDO4yELrkaKQQWEcYx.l5v6mrVUsWO3XOdpOuR0gf9GFLwieLS', 'student', '1039', NULL, '2020-11-02 09:24:24', '2020-11-02 09:24:24'),
-(1018, 'نورهان حمدي حلميي نصر', '30108012204981', '30108012204981', '30108012204981', 1, 0, NULL, '$2y$10$KsJJ0SwyZ8jP5ANf61kkxeB5jvubaZVnYnDcxcEtZEOFTC7TAHT1u', 'student', '1040', NULL, '2020-11-02 09:24:24', '2020-11-02 09:24:24'),
-(1019, 'نورهان عبدالتواب محمد حسن', '30101022203385', '30101022203385', '30101022203385', 1, 0, NULL, '$2y$10$euFXTwSxebdohVaaoYf6JunpzcAVhcx5veoGBi3f4cAJeVVtgilKq', 'student', '1041', NULL, '2020-11-02 09:24:24', '2020-11-02 09:24:24'),
-(1020, 'نورهان علاءالدين شحاتة محمد شحاتة', '30112012200207', '30112012200207', '30112012200207', 1, 0, NULL, '$2y$10$Zx4CGXjZSf.6Nnvfkze.S.wmh7mKJM1Vo3UumZFzm9VNbgRZkAIhy', 'student', '1042', NULL, '2020-11-02 09:24:24', '2020-11-02 09:24:24'),
-(1021, 'نورهان كمال حسني محمود', '30201042200565', '30201042200565', '30201042200565', 1, 0, NULL, '$2y$10$ozL2C/uLbQrJ4LHwlEBgf.POQcgy9AEhJIqezTIAeNBV9gN2TvC0O', 'student', '1043', NULL, '2020-11-02 09:24:25', '2020-11-02 09:24:25'),
-(1022, 'نورهان محمود صلاح توفيق', '30111012303921', '30111012303921', '30111012303921', 1, 0, NULL, '$2y$10$/jiseocTgI2ABLIID.benu.EB5JaYAIb5NQh/D7M6JUfUxEXEhFXW', 'student', '1044', NULL, '2020-11-02 09:24:25', '2020-11-02 09:24:25'),
-(1023, 'نورهان مصطفي محمد عبدالعال', '30011212200588', '30011212200588', '30011212200588', 1, 0, NULL, '$2y$10$FPgDY6qWHSCR819VZSZfoOcu1rpxYhwx3B2e6ClO457Ei8uJkhTDu', 'student', '1045', NULL, '2020-11-02 09:24:25', '2020-11-02 09:24:25'),
-(1024, 'نيرة احمد احمد ابراهيم الشاهد', '30109222300629', '30109222300629', '30109222300629', 1, 0, NULL, '$2y$10$vV/2AJz2qZx.X196LT9SEeiDyGNp2/dAM9CGrvpv5lwMkaYUr4FCW', 'student', '1046', NULL, '2020-11-02 09:24:26', '2020-11-02 09:24:26'),
-(1025, 'نيرة مدحت محمد عبدالعظيم', '30109012201121', '30109012201121', '30109012201121', 1, 0, NULL, '$2y$10$dHxiCNceAqsOC0HTXooRwOTt2RX//Nma5qyzlCIFUcq75VdL6QJ0O', 'student', '1047', NULL, '2020-11-02 09:24:26', '2020-11-02 09:24:26'),
-(1026, 'هاجر جابر مرعي سالم', '30102242201142', '30102242201142', '30102242201142', 1, 0, NULL, '$2y$10$u7YoboyLnJHgztgNu6ETR.jgcRGP8dvxKe2YmekRmvuIF5QCTbDou', 'student', '1048', NULL, '2020-11-02 09:24:26', '2020-11-02 09:24:26'),
-(1027, 'هاجر سراج محمد ابراهيم', '30001012400862', '30001012400862', '30001012400862', 1, 0, NULL, '$2y$10$q7Lz2kd784dR2tGLj0tPmOmPj5dQC8xdRPgW7JjfCJBp1FOgsZEeO', 'student', '1049', NULL, '2020-11-02 09:24:27', '2020-11-02 09:24:27'),
-(1028, 'هاجر سعد سعد يحيي', '30104142200427', '30104142200427', '30104142200427', 1, 0, NULL, '$2y$10$UwmbTmE2RZUnJbNmADg67e2kjGX4X1ej0we7M53IjB3iP82vkyd7.', 'student', '1050', NULL, '2020-11-02 09:24:28', '2020-11-02 09:24:28'),
-(1029, 'هاجر سيد محرم جودة', '30104172202084', '30104172202084', '30104172202084', 1, 0, NULL, '$2y$10$of4RL2nDNADG42AWNuajY.bCM44q1l7pGhmlLCiMLH98cDEbr1wBC', 'student', '1051', NULL, '2020-11-02 09:24:28', '2020-11-02 09:24:28'),
-(1030, 'هاجر محمد مصطفي محمد', '30108082201149', '30108082201149', '30108082201149', 1, 0, NULL, '$2y$10$krKWeGNOg729M4LJC.kWBuEdp9YO1yVke6/v6Efog9LzclMdAFp2O', 'student', '1052', NULL, '2020-11-02 09:24:28', '2020-11-02 09:24:28'),
-(1031, 'هاجر ناجى جاد شاكر', '30108132200041', '30108132200041', '30108132200041', 1, 0, NULL, '$2y$10$SrghSqXj.W8vJQXRORwO1uxOMuU3qYz8evwJo67wqqFhA7vVdS9bS', 'student', '1053', NULL, '2020-11-02 09:24:28', '2020-11-02 09:24:28'),
-(1032, 'هاجر ناصر ابراهيم حسين', '30012102300346', '30012102300346', '30012102300346', 1, 0, NULL, '$2y$10$L3LLIeIMZ9i18zYIIwRxvO1XuDZzWOvwkGOZDqXV/CNtKICjRZY3m', 'student', '1054', NULL, '2020-11-02 09:24:29', '2020-11-02 09:24:29'),
-(1033, 'هادي عبدالمنعم عبدالباسط عبدالمولي', '30106252302015', '30106252302015', '30106252302015', 1, 0, NULL, '$2y$10$aocEyXlenq/GAc13odsWN.m4WHtiyhgFJb9VmFc0N0pFGuTztWcai', 'student', '1055', NULL, '2020-11-02 09:24:29', '2020-11-02 09:24:29'),
-(1034, 'هادي عبدالوهاب محمد علام', '30005022700037', '30005022700037', '30005022700037', 1, 0, NULL, '$2y$10$diJHzsVbLINsXbnzLFJBdOP3CToi0jHN1zkqHNdTyGw6TjYI84vzW', 'student', '1056', NULL, '2020-11-02 09:24:29', '2020-11-02 09:24:29'),
-(1035, 'هاله اشرف فتحي محمد ابراهيم', '30111152200227', '30111152200227', '30111152200227', 1, 0, NULL, '$2y$10$Hl8NDhRt/fRlSv1opCCrIuy9kY6Rm6o/ZiC0b8z0m0SgrbvOAVqaS', 'student', '1057', NULL, '2020-11-02 09:24:30', '2020-11-02 09:24:30'),
-(1036, 'هانيا عمرو سليمان سعد الدين نجم', '30103121800266', '30103121800266', '30103121800266', 1, 0, NULL, '$2y$10$LwUiyZ2WFXaHWPZfYss3oeYYpIXgZqhBn8xB6aYg81I1AXPRDAG9q', 'student', '1058', NULL, '2020-11-02 09:24:30', '2020-11-02 09:24:30'),
-(1037, 'هايدي حسن عبدالله حسن', '30101210104564', '30101210104564', '30101210104564', 1, 0, NULL, '$2y$10$yAUHCC2soGGvL4FcQEiuxO2gsDazENHwLvShv.NhQ1tZBKIVqPyMe', 'student', '1059', NULL, '2020-11-02 09:24:30', '2020-11-02 09:24:30'),
-(1038, 'هبه سعيد سيد جوده', '30009212301568', '30009212301568', '30009212301568', 1, 0, NULL, '$2y$10$.dtc42sTVOc8pbTfyZlr3OBkwwUGauc1ohYFIFmc3M4WSkj5LCYqS', 'student', '1060', NULL, '2020-11-02 09:24:31', '2020-11-02 09:24:31'),
-(1039, 'هدي راضي محمد بدوي', '30109092202522', '30109092202522', '30109092202522', 1, 0, NULL, '$2y$10$tjadGU19rO5xIxiIip/EWua1BsoUKxHU2wGAHyyYaxxFM05o.gjCq', 'student', '1061', NULL, '2020-11-02 09:24:31', '2020-11-02 09:24:31'),
-(1040, 'هدير ناصر مصطفي محمد', '30106272201045', '30106272201045', '30106272201045', 1, 0, NULL, '$2y$10$TNR1BYkuLZaQoaG0EOu8cOs3WdP8xdAyOWOZb4ZL.a9Dw9FHDwnLa', 'student', '1062', NULL, '2020-11-02 09:24:31', '2020-11-02 09:24:31'),
-(1041, 'هشام عبدالرحمن احمد محمد', '30105302200972', '30105302200972', '30105302200972', 1, 0, NULL, '$2y$10$DGNpwG176bJhrbhuBCsnBufKzuA6kqD7wcF6aFYx6Su8EwXhrR0Ny', 'student', '1063', NULL, '2020-11-02 09:24:32', '2020-11-02 09:24:32'),
-(1042, 'هشام محمد فتحي محمد', '30105282201691', '30105282201691', '30105282201691', 1, 0, NULL, '$2y$10$aennuq6LXSEOOniPc8.es.Jhv6CRcU2TgQxA2/NsqEC2Dke2MxsAm', 'student', '1064', NULL, '2020-11-02 09:24:32', '2020-11-02 09:24:32'),
-(1043, 'هنا عاطف محمد غباشى', '30201298800667', '30201298800667', '30201298800667', 1, 0, NULL, '$2y$10$5.1gUKk2jHXZT0uTyzmSfuAXmDNIFe0bP2vpqH5ROlShDEwP7VoiC', 'student', '1065', NULL, '2020-11-02 09:24:32', '2020-11-02 09:24:32'),
-(1044, 'ولاء السيد جلال هاشم', '30104022200547', '30104022200547', '30104022200547', 1, 0, NULL, '$2y$10$5e1U8elLKeTQkSn3sLouae/IQoeIACgbmagPZivjLYv1a0mEOdiIa', 'student', '1066', NULL, '2020-11-02 09:24:32', '2020-11-02 09:24:32'),
-(1045, 'ولاء شعبان سليمان محمد', '30107202201842', '30107202201842', '30107202201842', 1, 0, NULL, '$2y$10$h/sqTo4GxRrMig5sPjYhG.ms6Psh8B/HJKQ158NTgmuhTdBKJL.mW', 'student', '1067', NULL, '2020-11-02 09:24:33', '2020-11-02 09:24:33'),
-(1046, 'يارا حاتم محمد عاكف محمد', '30108252405127', '30108252405127', '30108252405127', 1, 0, NULL, '$2y$10$pTgT6vRdB/nXLnTlKlN00euG.vBNHBEnaB9lB1aUwZlPg.zdx4sNi', 'student', '1068', NULL, '2020-11-02 09:24:33', '2020-11-02 09:24:33'),
-(1047, 'ياسمين احمد رشاد عوض', '30110272300709', '30110272300709', '30110272300709', 1, 0, NULL, '$2y$10$2gGd3MVaqD8hiWOf1gcZO.ncLxmnq8Lv937IURtplGsBe4xJgx1o6', 'student', '1069', NULL, '2020-11-02 09:24:33', '2020-11-02 09:24:33'),
-(1048, 'ياسمين سعد عبدالفتاح حسين', '30005062301402', '30005062301402', '30005062301402', 1, 0, NULL, '$2y$10$uu9LZC0Der1qD3z4XZb.POcV6uH3b5v5YGPwyqFi3cTZdyVTI5Oim', 'student', '1070', NULL, '2020-11-02 09:24:34', '2020-11-02 09:24:34'),
-(1049, 'يسرا ضياء مختار عبدالحميد', '30106012203087', '30106012203087', '30106012203087', 1, 0, NULL, '$2y$10$nl7lf3QbiI2uTtaH8y4Ke.xLEPvUUPwrVhmG1d1Xy77C3lMGKjgIq', 'student', '1071', NULL, '2020-11-02 09:24:34', '2020-11-02 09:24:34'),
-(1050, 'يسرا عماد فهمى  ابوالعلا', '30104162200709', '30104162200709', '30104162200709', 1, 0, NULL, '$2y$10$WkPgQSd3F7pMpkjO0k3Oru4AxpEt94/TzSsvQ0zyKuRFH8pXo/9OG', 'student', '1072', NULL, '2020-11-02 09:24:34', '2020-11-02 09:24:34'),
-(1051, 'يسري محمد محمد شريف', '30010272200076', '30010272200076', '30010272200076', 1, 0, NULL, '$2y$10$3b2rlshzUnbRgdWJcnZnKeHSx9vfjk/B1zbws2/a1aqoO818osmZa', 'student', '1073', NULL, '2020-11-02 09:24:34', '2020-11-02 09:24:34'),
-(1052, 'يمنى اشرف رضوان عبدالله', '30106182201364', '30106182201364', '30106182201364', 1, 0, NULL, '$2y$10$.LmpXb1PTqb/As2VUvc5Y.mlIQ/VLiwV4EiK1i46LmdldD5E27mgq', 'student', '1074', NULL, '2020-11-02 09:24:35', '2020-11-02 09:24:35'),
-(1053, 'يمني خالد محمد محمد السيد', '30010292300468', '30010292300468', '30010292300468', 1, 0, NULL, '$2y$10$hh3Y568m.iLbKlue5ZXIcOVveCK8So9jFFi3KhFfEwnHJkrV166YW', 'student', '1075', NULL, '2020-11-02 09:24:35', '2020-11-02 09:24:35'),
-(1054, 'يمني عماد جلال الدين محمد حسين', '30108222300622', '30108222300622', '30108222300622', 1, 0, NULL, '$2y$10$u/xUsivDTi7ku7CCK9ovievQF1aPu0vk9CC24U9Nw9wzgKIlnmPLW', 'student', '1076', NULL, '2020-11-02 09:24:35', '2020-11-02 09:24:35'),
-(1055, 'يوستينا جورج وليم كامل ابراهيم', '30105112200747', '30105112200747', '30105112200747', 1, 0, NULL, '$2y$10$R3JBIydQks3COUa3ioppRuqBuHnuYBJ5XC/BPZdhMB0Bnp01xwoO2', 'student', '1077', NULL, '2020-11-02 09:24:35', '2020-11-02 09:24:35'),
-(1056, 'يوسف اشرف جابر قرني', '30108082201033', '30108082201033', '30108082201033', 1, 0, NULL, '$2y$10$pfbvy/0wzeoV8qhozoSdruPVXfpF3zpaiiWGpByctHlgf5proT./e', 'student', '1078', NULL, '2020-11-02 09:24:36', '2020-11-02 09:24:36'),
-(1057, 'يوسف جلال حلمي خليل', '30009252202074', '30009252202074', '30009252202074', 1, 0, NULL, '$2y$10$401sMn6p4K5PqCsfzn.N/On0dZXKpk69DOm6hdIyV1tYtEDYxC5FC', 'student', '1079', NULL, '2020-11-02 09:24:36', '2020-11-02 09:24:36'),
-(1058, 'يوسف عمر محمد يوسف', '30105092200796', '30105092200796', '30105092200796', 1, 0, NULL, '$2y$10$bj3JmouotO4hJMr7PjXJGeaZSnOlcVb8gYF62h6v2HoQSqsRGrXDW', 'student', '1080', NULL, '2020-11-02 09:24:36', '2020-11-02 09:24:36'),
-(1209, 'ألاء فاروق زهران خلف', '30009012200783', '30009012200783', '30009012200783', 1, 0, NULL, '$2y$10$Gdww6BZejJNXD.yhyAGSH.dInQrJawxPFfEh3ZAfVizWMSyv.H6Q2', 'student', '1231', NULL, '2020-11-02 09:31:07', '2020-11-02 09:31:07'),
-(1210, 'أمنية محمد السيد محمد السيد', '30102242301104', '30102242301104', '30102242301104', 1, 0, NULL, '$2y$10$OgqmF9YH3Dm6rAWAkEmSR.gB4ZLiXLQyq5GxrZV1WJy4oyW3VbrRW', 'student', '1232', NULL, '2020-11-02 09:31:08', '2020-11-02 09:31:08'),
-(1211, 'أية رجب عبدالعظيم محمد', '30108152200145', '30108152200145', '30108152200145', 1, 0, NULL, '$2y$10$L9/dHRocglMjqbxK443uOunGiovQVuZ5J5jcRVvEntiN96NYLPN4G', 'student', '1233', NULL, '2020-11-02 09:31:08', '2020-11-02 09:31:08'),
-(1212, 'ابانوب  عماد فكرى سلامه', '30108042201758', '30108042201758', '30108042201758', 1, 0, NULL, '$2y$10$s2T5v28NGbixbfU3gP6Os.xGCnO/A/sSGMf5Y66NffUmAfKk80Nd6', 'student', '1234', NULL, '2020-11-02 09:31:08', '2020-11-02 09:31:08'),
-(1213, 'ابرام ابراهيم عزيز جرجس', '30108212200638', '30108212200638', '30108212200638', 1, 0, NULL, '$2y$10$BA0Sj7RG8jzYIjStOgf.L.d5pVRpt2U5ehUxA.ECJHMEVLAbLElk6', 'student', '1235', NULL, '2020-11-02 09:31:08', '2020-11-02 09:31:08'),
-(1214, 'ابراهيم محمد محمد علي', '30108122202194', '30108122202194', '30108122202194', 1, 0, NULL, '$2y$10$rwWS2tAA35AqslILRFJi.uKJqdXIrjvxj.THoBIRn9b/tVM4usGGS', 'student', '1236', NULL, '2020-11-02 09:31:09', '2020-11-02 09:31:09'),
-(1215, 'ابوبكر محمد حسان محمود', '30107032301715', '30107032301715', '30107032301715', 1, 0, NULL, '$2y$10$9Jyh4Bp1Ntav6KFyR3uNs.Kfx4V48M7O/cDYoljn75FqIZvfV63BC', 'student', '1237', NULL, '2020-11-02 09:31:09', '2020-11-02 09:31:09'),
-(1216, 'ابوعبيده مجدى عمر عبدالباقى', '30109092200716', '30109092200716', '30109092200716', 1, 0, NULL, '$2y$10$EknExa3rMsNWdX0jkh4C0eXATYWNLJ1pDDpM5cCrMGXop8KdIf/BO', 'student', '1238', NULL, '2020-11-02 09:31:09', '2020-11-02 09:31:09'),
-(1217, 'احمد  خالد فتحي محمد', '30109042300116', '30109042300116', '30109042300116', 1, 0, NULL, '$2y$10$hk3Lv/YNiPm/UVNEzS5oPei9FzUfhTRJPEiAFQGIUtaixKVNe1ajO', 'student', '1239', NULL, '2020-11-02 09:31:10', '2020-11-02 09:31:10'),
-(1218, 'احمد  محمد عرابي محمد', '30101082201357', '30101082201357', '30101082201357', 1, 0, NULL, '$2y$10$fIH/IAXsczizDxJguD5.8.X75Lb75oBUbw0Jy6Pwqz0tCbXUqjjfm', 'student', '1240', NULL, '2020-11-02 09:31:10', '2020-11-02 09:31:10'),
-(1219, 'احمد اسماعيل ابراهيم ابراهيم', '30011212201053', '30011212201053', '30011212201053', 1, 0, NULL, '$2y$10$Z6DYMwdzexk.LzvMRnYQ5OYSUnjxs8FnrmIv02BIYpRbYwRIFcUeW', 'student', '1241', NULL, '2020-11-02 09:31:10', '2020-11-02 09:31:10'),
-(1220, 'احمد حامد عويضة احمد', '30001202200657', '30001202200657', '30001202200657', 1, 0, NULL, '$2y$10$yMYQ6f/T6Wn70zAZi1HxiOaehicrJ05I7oLMNmMUuTKhnQnSSyd7e', 'student', '1242', NULL, '2020-11-02 09:31:10', '2020-11-02 09:31:10'),
-(1221, 'احمد رجب عبدالصمد على', '30105302200433', '30105302200433', '30105302200433', 1, 0, NULL, '$2y$10$bxvRGVyU1zxXtH8Gk3rOm.T6pEoPWQvo3hKHWKAgKxu7Xy10Y.4O6', 'student', '1243', NULL, '2020-11-02 09:31:11', '2020-11-02 09:31:11'),
-(1222, 'احمد سمير رشاد محمد', '30108162300695', '30108162300695', '30108162300695', 1, 0, NULL, '$2y$10$YWNYdCZqEGniWjzBFZzeZuYu8XaTtBHJIecscanSRJRLnEGXMhura', 'student', '1244', NULL, '2020-11-02 09:31:11', '2020-11-02 09:31:11'),
-(1223, 'احمد سيد محمد حسين', '30108202403158', '30108202403158', '30108202403158', 1, 0, NULL, '$2y$10$Ryvb6kTKJKuxONORbuJrc.IlblV6D5sSap5bR8vHszytORisKGQpG', 'student', '1245', NULL, '2020-11-02 09:31:11', '2020-11-02 09:31:11'),
-(1224, 'احمد محمد المهدي عبدالمعزابوسيف', '30105212301478', '30105212301478', '30105212301478', 1, 0, NULL, '$2y$10$N/YbQ6YHQXV0q4mGgQGRl.49mQ/Sjoqhm8eEY5Y2Jy695Pp0FmhuW', 'student', '1246', NULL, '2020-11-02 09:31:12', '2020-11-02 09:31:12'),
-(1225, 'احمد محمد فكري محمد', '30109232200916', '30109232200916', '30109232200916', 1, 0, NULL, '$2y$10$AWyfaqpATyo9mUdNv2/aWOPadBkHDViadm/yigg1IlXt1BEx.kW1q', 'student', '1247', NULL, '2020-11-02 09:31:12', '2020-11-02 09:31:12'),
-(1226, 'احمد مدحت احمد محمود', '30107102201934', '30107102201934', '30107102201934', 1, 0, NULL, '$2y$10$dWLKJn.T0nmFVhdhkUinjOB73.l4.ZgnbRHLMSB6gfXzuA6f6lizW', 'student', '1248', NULL, '2020-11-02 09:31:12', '2020-11-02 09:31:12'),
-(1227, 'ادهم خالد حسين عابدين', '30105182200892', '30105182200892', '30105182200892', 1, 0, NULL, '$2y$10$NFX0mdT044g6X81p1aEyMuAh4KlBKJwJzxwW2e9UuQ/w2Sb0WZBK.', 'student', '1249', NULL, '2020-11-02 09:31:12', '2020-11-02 09:31:12'),
-(1228, 'اسامة احمد شعبان احمد', '30107072201217', '30107072201217', '30107072201217', 1, 0, NULL, '$2y$10$ZulVEQpnd92dJbWJ1p5amuqL7vp5amIqnX0PmgwFj./C3cva1r/Ee', 'student', '1250', NULL, '2020-11-02 09:31:13', '2020-11-02 09:31:13'),
-(1229, 'اسامة محمد عاشور بكري', '30011072201252', '30011072201252', '30011072201252', 1, 0, NULL, '$2y$10$wjYM5tfIpmUHqdCKYSGlgOt53BvZQZADKzLu/j.8xqFgkSGWDZG8q', 'student', '1251', NULL, '2020-11-02 09:31:13', '2020-11-02 09:31:13'),
-(1230, 'اسراء ابراهيم علي ندا', '30105292200308', '30105292200308', '30105292200308', 1, 0, NULL, '$2y$10$T7RlHld3mUpO6aP.7.U.6e1YFTLzHq5Nd2mixHhGC15jFX/XzOELG', 'student', '1252', NULL, '2020-11-02 09:31:14', '2020-11-02 09:31:14'),
-(1231, 'اسراء رجب عبدالنبي عبدالمعين', '30010262200183', '30010262200183', '30010262200183', 1, 0, NULL, '$2y$10$YoBDMWC0u2JLhqQyN/FGc.3fYepyXCHsgyczJjGlZ9NxABNbtY1O6', 'student', '1253', NULL, '2020-11-02 09:31:14', '2020-11-02 09:31:14'),
-(1232, 'اسراء رمضان سيد دردير', '30010162400746', '30010162400746', '30010162400746', 1, 0, NULL, '$2y$10$CefcdQ5MT1aqBr.XJkmCFOzgp/xF/Z/vwk.jf.kC63OSR2pQ2B0C2', 'student', '1254', NULL, '2020-11-02 09:31:15', '2020-11-02 09:31:15'),
-(1233, 'اسراء عبدالسميع حافظ طه', '30106012202242', '30106012202242', '30106012202242', 1, 0, NULL, '$2y$10$XfpNfWx2rA9TrHy8Ed4adOlRkm1ctQ70wflMIk3lrPK93gj9e6S2O', 'student', '1255', NULL, '2020-11-02 09:31:15', '2020-11-02 09:31:15'),
-(1234, 'اسراء محمد محمد محمد', '30102032400908', '30102032400908', '30102032400908', 1, 0, NULL, '$2y$10$MiM3kc6.DvJmdn4x0f9CPenBDxwIEQhu5GIZ1AZ96aAV64Io.td1.', 'student', '1256', NULL, '2020-11-02 09:31:16', '2020-11-02 09:31:16'),
-(1235, 'اسراء ممدوح عبده ابراهيم', '30202262200163', '30202262200163', '30202262200163', 1, 0, NULL, '$2y$10$fzovBUI4aICQ6WiJ.xZnSuoXwqPEfwk4WUCVKbjGIS0O3ya3Jy7Te', 'student', '1257', NULL, '2020-11-02 09:31:16', '2020-11-02 09:31:16'),
-(1236, 'اسلام عبدالحليم احمد عبدالوارث', '30111122403212', '30111122403212', '30111122403212', 1, 0, NULL, '$2y$10$x8FO86qSCohfdmLI1oOA5.RJ.0PGhoP6hpqvC01ciywbORofBHBlG', 'student', '1258', NULL, '2020-11-02 09:31:16', '2020-11-02 09:31:16'),
-(1237, 'اسلام محمد عبدالمنعم احمد', '30101048800616', '30101048800616', '30101048800616', 1, 0, NULL, '$2y$10$AUlthZbrzx/CJkYT6X/vauOstpYXtepyP7pTMZIXywQBi0odBk1eW', 'student', '1259', NULL, '2020-11-02 09:31:17', '2020-11-02 09:31:17'),
-(1238, 'اسماء حسين محمد الداخلي', '29910212200404', '29910212200404', '29910212200404', 1, 0, NULL, '$2y$10$V4Wo1UxkBmS/GR/753D1leoXEwJTa7e/ws1kDkZgJzD0fOCjR7DGS', 'student', '1260', NULL, '2020-11-02 09:31:17', '2020-11-02 09:31:17'),
-(1239, 'اسماء رمضان رمضان ابراهيم', '30011092401266', '30011092401266', '30011092401266', 1, 0, NULL, '$2y$10$N9BPoZmtBRaRo.Zj7mx0W.0BgF1Y54FCW3jcl0yNUMN0CzTP.xN/6', 'student', '1261', NULL, '2020-11-02 09:31:18', '2020-11-02 09:31:18'),
-(1240, 'اسماء عبدالرحيم بكر عثمان', '30201202201768', '30201202201768', '30201202201768', 1, 0, NULL, '$2y$10$Mw3USvHFoC0.CLNI2RqRy.qoEFzOVZEl/P8TqEGg131g48h6dqA1G', 'student', '1262', NULL, '2020-11-02 09:31:18', '2020-11-02 09:31:18');
-INSERT INTO `users` (`id`, `name`, `username`, `email`, `phone`, `active`, `account_confirm`, `email_verified_at`, `password`, `type`, `fid`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1241, 'اسماء محمود زكريا محمد', '30103212200202', '30103212200202', '30103212200202', 1, 0, NULL, '$2y$10$4l1Ur8.sK6K1ALEKS9d6UubARnanA/tGydBVMXn6GvNnK5hr0eYdS', 'student', '1263', NULL, '2020-11-02 09:31:19', '2020-11-02 09:31:19'),
-(1242, 'الأمير سامي عزمي جادالله', '29911012203111', '29911012203111', '29911012203111', 1, 0, NULL, '$2y$10$s69hsE10UbS42pd4kWgTNerg7t.sfCSx0as04gm2WcLdQtiA39Q/i', 'student', '1264', NULL, '2020-11-02 09:31:19', '2020-11-02 09:31:19'),
-(1243, 'الاء ابراهيم احمد ابراهيم', '30001129220084', '30001129220084', '30001129220084', 1, 0, NULL, '$2y$10$lMbJKseJVHO.GdWUzStNoO.iP.h6NvAWtfd2q.Lidc79gYcHbCJ/K', 'student', '1265', NULL, '2020-11-02 09:31:19', '2020-11-02 09:31:19'),
-(1244, 'الاء جابر عبدالفتاح عبدالقوى', '29911062201985', '29911062201985', '29911062201985', 1, 0, NULL, '$2y$10$hWk5PtHe2MQhdyDgs6aFPOxGByv55vOtnDoZ1VT6Ci9qt5Cjw.geu', 'student', '1266', NULL, '2020-11-02 09:31:20', '2020-11-02 09:31:20'),
-(1245, 'الاء خالد علي احمد', '30107062200905', '30107062200905', '30107062200905', 1, 0, NULL, '$2y$10$PkC/DVF9EWdZiAZ3gyLEJuQ4iCmK8OFZgmxKhUhlRkkAX6cpLlZ0e', 'student', '1267', NULL, '2020-11-02 09:31:20', '2020-11-02 09:31:20'),
-(1246, 'الاء محمد احمد محمد', '30011132200048', '30011132200048', '30011132200048', 1, 0, NULL, '$2y$10$Q8lNHa5Iz6quOL2y1EPFq.VPkK50fe3kVxIEX698xdDj6CqIaER5K', 'student', '1268', NULL, '2020-11-02 09:31:20', '2020-11-02 09:31:20'),
-(1247, 'الشيماء محمد سيد مرسي', '30108122401227', '30108122401227', '30108122401227', 1, 0, NULL, '$2y$10$6xwBDIFjg4ymWfdHLgkdyuQSfWiNNEPN6GjtIaRU4CHXwN3K7zJXy', 'student', '1269', NULL, '2020-11-02 09:31:21', '2020-11-02 09:31:21'),
-(1248, 'الشيماء محمد عزمى ابراهيم', '30104082400464', '30104082400464', '30104082400464', 1, 0, NULL, '$2y$10$C0OBXmThpNO5.edjnDdka.hWvriezRR5CwyKLBQQ/XoWTHrDmvCkq', 'student', '1270', NULL, '2020-11-02 09:31:21', '2020-11-02 09:31:21'),
-(1249, 'العلياء محمد حسين حفني غانم', '30108011318789', '30108011318789', '30108011318789', 1, 0, NULL, '$2y$10$qeR6ob7Ko6T.YcGY9kbXA.ATtwrJ3Z1jqyXCmx/JvAyl0rxx2ySte', 'student', '1271', NULL, '2020-11-02 09:31:22', '2020-11-02 09:31:22'),
-(1250, 'اماني جمال امين محمد', '30104012302686', '30104012302686', '30104012302686', 1, 0, NULL, '$2y$10$kmhbhdInCj.kyJMxAERlPuA1boBZu79x4T0f9n/c3FDgmFJTGsIkm', 'student', '1272', NULL, '2020-11-02 09:31:22', '2020-11-02 09:31:22'),
-(1251, 'اماني حبيشي حبيشي محمد', '30105242201168', '30105242201168', '30105242201168', 1, 0, NULL, '$2y$10$XXIxydowXFGE80WM5pxbXu4sY6Ls5msRocw3U91CkrNIvvfdV2tle', 'student', '1273', NULL, '2020-11-02 09:31:23', '2020-11-02 09:31:23'),
-(1252, 'اماني حمدي عبدالمنعم محمد', '30102262200827', '30102262200827', '30102262200827', 1, 0, NULL, '$2y$10$lnaaLBDbpfoZA26UebGsJOCH435vc9asOeb4kFImycYeKPPZGKcHi', 'student', '1274', NULL, '2020-11-02 09:31:23', '2020-11-02 09:31:23'),
-(1253, 'اماني عبدالرحمن صلاح محمد', '30006122403389', '30006122403389', '30006122403389', 1, 0, NULL, '$2y$10$cxF9yTnidZXh6i5pyu1HfOVHhSm/6L.ZUEafUgspwPySYkTRz7egO', 'student', '1275', NULL, '2020-11-02 09:31:24', '2020-11-02 09:31:24'),
-(1254, 'امنية ربيع محمد سيد', '30105122201962', '30105122201962', '30105122201962', 1, 0, NULL, '$2y$10$Gak2ci4Xk9.o/HVd4GgU3eaowRnq9ISTYwqR6pV/WLNCI19xQ6MzO', 'student', '1276', NULL, '2020-11-02 09:31:24', '2020-11-02 09:31:24'),
-(1255, 'امنية محمد حسن عبدالرحمن', '30201052202043', '30201052202043', '30201052202043', 1, 0, NULL, '$2y$10$cKXrfN.iRUyDnkxXqnjuu.9i.RzdKZppgQUJE3w9x.3UWYQovCjnC', 'student', '1277', NULL, '2020-11-02 09:31:25', '2020-11-02 09:31:25'),
-(1256, 'امنيه على  احمد  محمد على', '30106262200946', '30106262200946', '30106262200946', 1, 0, NULL, '$2y$10$LaO3HSwM4cGarimxSe7fP.WeqwSxjDFNeWl2awVwQIWQB9pwAehFi', 'student', '1278', NULL, '2020-11-02 09:31:25', '2020-11-02 09:31:25'),
-(1257, 'اميمه ايمن محمد عويس', '30108112201025', '30108112201025', '30108112201025', 1, 0, NULL, '$2y$10$6c3D81oIxSzH0koOgrlsHOtxJm8OEEwk9bb8UzkrThdAs/Rd6DAfe', 'student', '1279', NULL, '2020-11-02 09:31:26', '2020-11-02 09:31:26'),
-(1258, 'اية  مصطفي  محمد بدوي', '30102262300848', '30102262300848', '30102262300848', 1, 0, NULL, '$2y$10$xv8VTIERocsaCpDLTKQlv.As.8zUIbbSbB0eqm2XJv3pWzrwSMJBW', 'student', '1280', NULL, '2020-11-02 09:31:26', '2020-11-02 09:31:26'),
-(1259, 'اية فتحي عبدالعزيز عثمان', '30011042200367', '30011042200367', '30011042200367', 1, 0, NULL, '$2y$10$4vVh5SANyv1yLUVoYf7Rgu1x/Z0NDtdLvOBpf5dBF2WTIL/V/eBGe', 'student', '1281', NULL, '2020-11-02 09:31:26', '2020-11-02 09:31:26'),
-(1260, 'اية ماهر محمد جلال', '30105202200665', '30105202200665', '30105202200665', 1, 0, NULL, '$2y$10$5W2k/MLMfGjkrWAVH0xdWOIKo8KfnN71z/bsJ8dBdHXoJ/DomeOwi', 'student', '1282', NULL, '2020-11-02 09:31:27', '2020-11-02 09:31:27'),
-(1261, 'اية محمد ذكي عطا الله', '30104042200527', '30104042200527', '30104042200527', 1, 0, NULL, '$2y$10$ZSoQpLKEeHMw/wOBnXIb/OtC1iS9MwxzqticQqn8HKvivf0l7SeTa', 'student', '1283', NULL, '2020-11-02 09:31:27', '2020-11-02 09:31:27'),
-(1262, 'اية محمد عبدالحليم محمد', '30103312201168', '30103312201168', '30103312201168', 1, 0, NULL, '$2y$10$mOdZ6SOO4.aXto0LEg/xW..53bi6ar0qPuI6LhfVO/dI6d65t33CK', 'student', '1284', NULL, '2020-11-02 09:31:28', '2020-11-02 09:31:28'),
-(1263, 'ايمان  محمد عبدالواحد سيد', '30106282402022', '30106282402022', '30106282402022', 1, 0, NULL, '$2y$10$beo417WUBaYDPJJmbLJGzuv2miXdHIJOV6C3mFe7ftSLaJkewLDla', 'student', '1285', NULL, '2020-11-02 09:31:28', '2020-11-02 09:31:28'),
-(1264, 'ايمان ابراهيم صلاح عبدالحميد', '30104252201666', '30104252201666', '30104252201666', 1, 0, NULL, '$2y$10$m6i6Bpj7CwOvtbpEiIOemuFs4iuvjt5LQtbaxt8EEuQxgMBJxo5Om', 'student', '1286', NULL, '2020-11-02 09:31:28', '2020-11-02 09:31:28'),
-(1265, 'ايمان احمد نشأت محمد الشطلاوي', '30101101600829', '30101101600829', '30101101600829', 1, 0, NULL, '$2y$10$sUMPFJDA3LxhSeNeJeLCceKsQhsfNGYGQGjuzuEP1vERt.W0Vvlja', 'student', '1287', NULL, '2020-11-02 09:31:29', '2020-11-02 09:31:29'),
-(1266, 'ايمان حسن محمود  حسن', '30001222201064', '30001222201064', '30001222201064', 1, 0, NULL, '$2y$10$FHWtXJYN6B7WH/8JgZMWBeh2Y6M6nPWtxOsPs1PrGVJEoD3m2XcLC', 'student', '1288', NULL, '2020-11-02 09:31:29', '2020-11-02 09:31:29'),
-(1267, 'ايمان طه عويس يوسف', '30107242201144', '30107242201144', '30107242201144', 1, 0, NULL, '$2y$10$8MsfTmRZNwZL12G8kqeise7wZ8D1IiTeE3knOftcY/1NJWikFaFsW', 'student', '1289', NULL, '2020-11-02 09:31:29', '2020-11-02 09:31:29'),
-(1268, 'ايناس حسين علي عثمان', '30003232201324', '30003232201324', '30003232201324', 1, 0, NULL, '$2y$10$zPtnjmjQ0y0egNZVMzj9v.AYUPatyy3UM1t6f8q5Y99ndDslrlrWq', 'student', '1290', NULL, '2020-11-02 09:31:30', '2020-11-02 09:31:30'),
-(1269, 'ايه احمد محمد محمد', '30108122301125', '30108122301125', '30108122301125', 1, 0, NULL, '$2y$10$Hn2DmApLBPbrDc64pAxfden1BS.DSajnTB99xcLMPkFR8.T5fr1tq', 'student', '1291', NULL, '2020-11-02 09:31:30', '2020-11-02 09:31:30'),
-(1270, 'ايه الله ابراهيم عبدالرازق حسين', '30107272300287', '30107272300287', '30107272300287', 1, 0, NULL, '$2y$10$OaDhEWN8vDCfpe3SXkGDXuS9FPzNEe/hT45vnQghTDeb7EmR2kzKW', 'student', '1292', NULL, '2020-11-02 09:31:30', '2020-11-02 09:31:30'),
-(1271, 'ايه جمال شحاته عثمان', '30203032200063', '30203032200063', '30203032200063', 1, 0, NULL, '$2y$10$plQALXDQNl3sruWG29xE3.xGjR9mi7Bbfd/HOALg0EQYPwcZLPjKG', 'student', '1293', NULL, '2020-11-02 09:31:30', '2020-11-02 09:31:30'),
-(1272, 'ايه جمال محمد محمد حسن', '30105212200345', '30105212200345', '30105212200345', 1, 0, NULL, '$2y$10$.DEwo8272tyCGhCH9LcU6OmCD2tlBpE7m/klN4kuhanA5KSXxZipi', 'student', '1294', NULL, '2020-11-02 09:31:31', '2020-11-02 09:31:31'),
-(1273, 'ايه عبدالتواب السيد رياض', '30009262301429', '30009262301429', '30009262301429', 1, 0, NULL, '$2y$10$xAwnIYOJ925vBgPTJsl5gOAFK5s7rIBM8X6baNJGe8VwH369Ks3Je', 'student', '1295', NULL, '2020-11-02 09:31:31', '2020-11-02 09:31:31'),
-(1274, 'ايه عبدالمنعم عبدالعظيم محمد', '30107222200982', '30107222200982', '30107222200982', 1, 0, NULL, '$2y$10$suMgRC2elFBydcvDtBhv7egx6/wenH5.cDOx61fbl5hrkMlPAYVxe', 'student', '1296', NULL, '2020-11-02 09:31:31', '2020-11-02 09:31:31'),
-(1275, 'بثينه عبد الدايم عبد التواب سليمان', '30105132201065', '30105132201065', '30105132201065', 1, 0, NULL, '$2y$10$n05xisGysWAGZ8rPSc9jf.HWZLj/cYmdu9IpPSbACC8.NwjcfrEY.', 'student', '1297', NULL, '2020-11-02 09:31:32', '2020-11-02 09:31:32'),
-(1276, 'بركسام جمال قدوس ابراهيم', '30008062600085', '30008062600085', '30008062600085', 1, 0, NULL, '$2y$10$gxbS6Y.ESG6d1MPSoixCkOwm45jYs8ACb4wUaZv5K3XS93pBfBxei', 'student', '1298', NULL, '2020-11-02 09:31:32', '2020-11-02 09:31:32'),
-(1277, 'بسام رضا نجيب حنا', '30002062402757', '30002062402757', '30002062402757', 1, 0, NULL, '$2y$10$PmTvgXE5m3jYPRyUkPuH8uL2zNgp.CGY/r2M8TZPtLC2Kl6haYJRO', 'student', '1299', NULL, '2020-11-02 09:31:32', '2020-11-02 09:31:32'),
-(1278, 'بسمة طارق محمد محمد', '30107092201248', '30107092201248', '30107092201248', 1, 0, NULL, '$2y$10$wn2aPT.uoy4MhcjCvOZN5Oa6pteQDuB5bNxww7GczB3HD0GeA0uea', 'student', '1300', NULL, '2020-11-02 09:31:33', '2020-11-02 09:31:33'),
-(1279, 'بيتر سامى عبدالله فانوش', '30108292200153', '30108292200153', '30108292200153', 1, 0, NULL, '$2y$10$Jbj5IPkp7CPobZZM3ucxxeLAD99l0GjS5JdIR/0CaW4A2ZEnlojbm', 'student', '1301', NULL, '2020-11-02 09:31:33', '2020-11-02 09:31:33'),
-(1280, 'بيشوي سلامة سلامة عبدالسيد', '30007202201953', '30007202201953', '30007202201953', 1, 0, NULL, '$2y$10$/UBthN9zufnODZEIwRoHUe7tVkwjBkp7Exo9B5cUL5H093pddlfji', 'student', '1302', NULL, '2020-11-02 09:31:34', '2020-11-02 09:31:34'),
-(1281, 'تقي سعيد صادق سيدعلي', '29911182200109', '29911182200109', '29911182200109', 1, 0, NULL, '$2y$10$dqx6yC2qwfOH1l3PPRXaGe9GU8AVIWK/Flfn.apD8I.4VGVhazOCG', 'student', '1303', NULL, '2020-11-02 09:31:34', '2020-11-02 09:31:34'),
-(1282, 'تقي عبدالرحمن مصطفي عيد احمد', '30101202302624', '30101202302624', '30101202302624', 1, 0, NULL, '$2y$10$aV10V2qm4Q1RBG56Z/8ir.qTir28nOg.cFusJhItwF92fmK/ivLWW', 'student', '1304', NULL, '2020-11-02 09:31:35', '2020-11-02 09:31:35'),
-(1283, 'تيسير عبدالعظيم ابراهيم محمد', '30109172403588', '30109172403588', '30109172403588', 1, 0, NULL, '$2y$10$SZNiwLBaFZLDMkLC.TiiW.flJolhzNnZtJYLLSr98y6jYnfaxc2zS', 'student', '1305', NULL, '2020-11-02 09:31:35', '2020-11-02 09:31:35'),
-(1284, 'جرجس صلاح مرجان مشرقي', '30006202600657', '30006202600657', '30006202600657', 1, 0, NULL, '$2y$10$sp6XiU5H.TT77pZa5HxSa.a0/lve35HbWv7s898OhslwlhkiNlvQK', 'student', '1306', NULL, '2020-11-02 09:31:35', '2020-11-02 09:31:35'),
-(1285, 'جني محمد عبدالعزيز علواني', '30111262200567', '30111262200567', '30111262200567', 1, 0, NULL, '$2y$10$4/eshrxeB.NaZWYhHlFjGuBVnWY7O1MSS3TYf1QxLE6fP3.RnEJbO', 'student', '1307', NULL, '2020-11-02 09:31:36', '2020-11-02 09:31:36'),
-(1286, 'جهاد احمد محمد رشاد', '30104032402806', '30104032402806', '30104032402806', 1, 0, NULL, '$2y$10$p6ntLI0JmWViINDvkXH6nehqmCkcF3v4fzkzl94z5cl8D5XTdblzm', 'student', '1308', NULL, '2020-11-02 09:31:36', '2020-11-02 09:31:36'),
-(1287, 'جوزيف جمال استمالك عبدالشهيد', '30111162400518', '30111162400518', '30111162400518', 1, 0, NULL, '$2y$10$jnuZkUy0H3R1aZAoqTXiQ.7tX5yc/SKjJquXT24Gqd6uTGq5NWEDe', 'student', '1309', NULL, '2020-11-02 09:31:37', '2020-11-02 09:31:37'),
-(1288, 'حاتم محمد زكريا عبود', '30109212200375', '30109212200375', '30109212200375', 1, 0, NULL, '$2y$10$5NYAnHtJxX5J0Gt4UCOCK.sf1B9bH04A8oBZ5w5qP1ebXfNmDqYS2', 'student', '1310', NULL, '2020-11-02 09:31:37', '2020-11-02 09:31:37'),
-(1289, 'حازم علاء عبدالكريم علي', '30102012607794', '30102012607794', '30102012607794', 1, 0, NULL, '$2y$10$Ek0QgWxKBciMlhCJ1RovBuW.4TY3vAqWy1HRU6asqPHAUGsktBGI2', 'student', '1311', NULL, '2020-11-02 09:31:37', '2020-11-02 09:31:37'),
-(1290, 'حسناء محمد علي طه الحميلي', '30109162201367', '30109162201367', '30109162201367', 1, 0, NULL, '$2y$10$bh2Li2Quw7IZXLH9Q5Et7Ofg7lcAKlj0uqnUWhSnzjls39kZHOgHC', 'student', '1312', NULL, '2020-11-02 09:31:38', '2020-11-02 09:31:38'),
-(1291, 'حماس ماهر محمد جودة', '30106122200326', '30106122200326', '30106122200326', 1, 0, NULL, '$2y$10$5oz2g/CobiZfid7en6M.BOx.2u8KAdRy60OUNThhr4GtjWZOgGXyy', 'student', '1313', NULL, '2020-11-02 09:31:38', '2020-11-02 09:31:38'),
-(1292, 'حمزه عشري حمزه عبدالحفيظ', '30005108800832', '30005108800832', '30005108800832', 1, 0, NULL, '$2y$10$0x2P2vIuYy1coQBOrkPvaOiEN.FpDyD9Uq5p5fwcwYvI2PqPqtRiG', 'student', '1314', NULL, '2020-11-02 09:31:38', '2020-11-02 09:31:38'),
-(1293, 'خالد شعبان عبدالله حسن', '30107112201134', '30107112201134', '30107112201134', 1, 0, NULL, '$2y$10$617LdrFgqzPESezCVhtDwu7exrnvOHCaOClkuxFr/j0oklKH/ra.y', 'student', '1315', NULL, '2020-11-02 09:31:39', '2020-11-02 09:31:39'),
-(1294, 'خديجه عبدالرازق عبدالعليم السنوسى', '29912302300508', '29912302300508', '29912302300508', 1, 0, NULL, '$2y$10$wGe3Y/gfsc6WKT0oLehBwef0dd5z9STcF0Ns.rx/jD3ybw6UbyVZq', 'student', '1316', NULL, '2020-11-02 09:31:39', '2020-11-02 09:31:39'),
-(1295, 'داليا محمد السيد علي', '30105192300224', '30105192300224', '30105192300224', 1, 0, NULL, '$2y$10$liz0WY8bMDJz6Z8BxWJwyuBoz7LAo.W1oHhqkKwynqxe7IwPgthZC', 'student', '1317', NULL, '2020-11-02 09:31:39', '2020-11-02 09:31:39'),
-(1296, 'دعاء  ابراهيم محمد احمد', '30105252301446', '30105252301446', '30105252301446', 1, 0, NULL, '$2y$10$0bqOjiYKwLk7I7qQWd8U7uHsWYQVCZHUeNsSEjOTUl7lQBU23lTxC', 'student', '1318', NULL, '2020-11-02 09:31:39', '2020-11-02 09:31:39'),
-(1297, 'دينا ربيع احمد تمام', '30101132200985', '30101132200985', '30101132200985', 1, 0, NULL, '$2y$10$3P3vBeXcybuoFa7E4tBTZOD419.fxRPVlwbSEa.rQkxoEonaXpDqS', 'student', '1319', NULL, '2020-11-02 09:31:40', '2020-11-02 09:31:40'),
-(1298, 'رانيا رجب رمضان حسن', '30010122200965', '30010122200965', '30010122200965', 1, 0, NULL, '$2y$10$HVaZgtPF3K8fp/K9AhC8kegNLWtgmROhDlbUdcq5hhPNzkWHrjNki', 'student', '1320', NULL, '2020-11-02 09:31:40', '2020-11-02 09:31:40'),
-(1299, 'رانيا رمضان سعد محمود', '30109152400523', '30109152400523', '30109152400523', 1, 0, NULL, '$2y$10$3DKOMiWvDeimAZvfHdEd3es867p0UpHssuU6ZfuNyo.0nnbyJ8N0i', 'student', '1321', NULL, '2020-11-02 09:31:40', '2020-11-02 09:31:40'),
-(1300, 'رحاب علاءالدين حسين عباس', '30003282200922', '30003282200922', '30003282200922', 1, 0, NULL, '$2y$10$/uCmT9BhPL6IPFI8ClaBJOfFZ3/UMtYNX3HjkSS4WImYgtC9Bcraq', 'student', '1322', NULL, '2020-11-02 09:31:41', '2020-11-02 09:31:41'),
-(1301, 'رحمه نجيب محسب احمد', '30104252400286', '30104252400286', '30104252400286', 1, 0, NULL, '$2y$10$wmFUKsx6IxoJ2A3RJfYnL./b0pBLzXE4J7SZTNFNxkNIIWn327O72', 'student', '1323', NULL, '2020-11-02 09:31:41', '2020-11-02 09:31:41'),
-(1302, 'رضوي جميل عادل عبدالعال سليمان', '30110202200103', '30110202200103', '30110202200103', 1, 0, NULL, '$2y$10$fvvdM8Dk60.fnEfsJXekROhnxdfIUSs/CqDoL4KnFPq78T7ZTs/.q', 'student', '1324', NULL, '2020-11-02 09:31:41', '2020-11-02 09:31:41'),
-(1303, 'رنا عبدالله احمد عبدالله', '30102102200642', '30102102200642', '30102102200642', 1, 0, NULL, '$2y$10$8tHrzLI8EjjCWCv2YC7q1egCc9qpP0xcKIuGIhP1W8d060lQNmbJy', 'student', '1325', NULL, '2020-11-02 09:31:42', '2020-11-02 09:31:42'),
-(1304, 'رنا محسن عبدالفتاح محمد', '30009012306867', '30009012306867', '30009012306867', 1, 0, NULL, '$2y$10$UkKGkYCzSSEKCgrl0qt61uQW7MeWTdRyzzWfr8I9ZkqD1zfTyqvny', 'student', '1326', NULL, '2020-11-02 09:31:42', '2020-11-02 09:31:42'),
-(1305, 'رواء سرور عبدالتواب احمد', '30012142201642', '30012142201642', '30012142201642', 1, 0, NULL, '$2y$10$.UvwYJMSuzxlkB.gLiTAJe5vQTWX0/ToXSkUeb/vR5l1vTnJD5otu', 'student', '1327', NULL, '2020-11-02 09:31:42', '2020-11-02 09:31:42'),
-(1306, 'روان احمد عبدالعزيز السيد', '30109302200803', '30109302200803', '30109302200803', 1, 0, NULL, '$2y$10$UcdEmdiEk05wA9uVBsYpju5W2zaCl3FvKZFfLhfT0eK6t/kQ3zTZ2', 'student', '1328', NULL, '2020-11-02 09:31:42', '2020-11-02 09:31:42'),
-(1307, 'رودينة ياسر رجب مصطفي', '30106132300485', '30106132300485', '30106132300485', 1, 0, NULL, '$2y$10$2j7ol.6ykO.e.V.9.6rcs.f3Wmk/6Sl6hvdUp28EP/v0GQBxamRdu', 'student', '1329', NULL, '2020-11-02 09:31:43', '2020-11-02 09:31:43'),
-(1308, 'ريم محمد عبداللطيف امين', '30106022200868', '30106022200868', '30106022200868', 1, 0, NULL, '$2y$10$ZdMvyAqkxMtbs3ZaaGlAR.PSQB12fmagRfNLctx2DBvJBRJkBUPH6', 'student', '1330', NULL, '2020-11-02 09:31:43', '2020-11-02 09:31:43'),
-(1309, 'ريم معوض عبدالحميد معوض', '30010192300703', '30010192300703', '30010192300703', 1, 0, NULL, '$2y$10$bHDO7fYnwQnNSzWsDI6ZEeo.PBTT4VKXlG188YTsT0WpOlzzMsHN6', 'student', '1331', NULL, '2020-11-02 09:31:43', '2020-11-02 09:31:43'),
-(1310, 'ريهام  عصام  احمد احمد', '30109022200301', '30109022200301', '30109022200301', 1, 0, NULL, '$2y$10$6JfUtOhK9xc4J9wxrM27oOOFFlezQ3GTg.BXznRc5SpEh5wQ6LI22', 'student', '1332', NULL, '2020-11-02 09:31:44', '2020-11-02 09:31:44'),
-(1311, 'ريهام وليد جمعة علي', '30102012206145', '30102012206145', '30102012206145', 1, 0, NULL, '$2y$10$k6FLYBEeGrPHZz3s4RZbE.aNNDKcqgdYidTt5a4huj2pm99g.Cmhq', 'student', '1333', NULL, '2020-11-02 09:31:44', '2020-11-02 09:31:44'),
-(1312, 'زينب  عمادالدين شحاته محمد', '30109302200765', '30109302200765', '30109302200765', 1, 0, NULL, '$2y$10$wR/K9myLScajKm.kwwVUJO29n/jRo.GPtKmzT7/rmWxb4fiJkPYsS', 'student', '1334', NULL, '2020-11-02 09:31:44', '2020-11-02 09:31:44'),
-(1313, 'سارة جمال محمد عبدالله', '30010152300484', '30010152300484', '30010152300484', 1, 0, NULL, '$2y$10$p7Ph8kQKuakiWwEHZDFpK.iwnlstiIgOB3yP1z8X89nSjDOfO7wR6', 'student', '1335', NULL, '2020-11-02 09:31:45', '2020-11-02 09:31:45'),
-(1314, 'سارة محمد سعيد محمد', '30112242401821', '30112242401821', '30112242401821', 1, 0, NULL, '$2y$10$9mWtdVK4j02nP878EwcCMO/H94YZetr8zsO62fMKzG82duRBvRmcm', 'student', '1336', NULL, '2020-11-02 09:31:45', '2020-11-02 09:31:45'),
-(1315, 'ساره جمال عبدالعظيم محمد', '30111072201109', '30111072201109', '30111072201109', 1, 0, NULL, '$2y$10$xYjQ7lBz2Mc/bBrVVIeC4.akJB5/UrPCB8bPxA7gGcgNEVx.1sqiS', 'student', '1337', NULL, '2020-11-02 09:31:46', '2020-11-02 09:31:46'),
-(1316, 'سلمى  سيد اسماعيل  عجاب', '30010182301043', '30010182301043', '30010182301043', 1, 0, NULL, '$2y$10$tnvdt19VhfoX3wIm4TQvcuQI/OPACk7eyBB3bvOhSA8ZxxaAzvHRi', 'student', '1338', NULL, '2020-11-02 09:31:46', '2020-11-02 09:31:46'),
-(1317, 'سلمى عماد فاروق محمد', '30105132201588', '30105132201588', '30105132201588', 1, 0, NULL, '$2y$10$QTOHqbK4VQk1ukavMDyCVuGxaKx1W66rO5AdKChwRtX.0v.FfGXTe', 'student', '1339', NULL, '2020-11-02 09:31:46', '2020-11-02 09:31:46'),
-(1318, 'سلمي محمد عمر عبدالمقصود', '30111141203046', '30111141203046', '30111141203046', 1, 0, NULL, '$2y$10$QXVxHCaINq3dIqsk/0Z1ve6lJb5BQH6qRhSxPPpcEMp90vdzBIGrK', 'student', '1340', NULL, '2020-11-02 09:31:47', '2020-11-02 09:31:47'),
-(1319, 'سلوي سامي زناتي عرابي', '30105022201744', '30105022201744', '30105022201744', 1, 0, NULL, '$2y$10$LFqcgHAP2Kd4sY93FPIhYuoqY3jNzeCBt3x1KY4U/HREMmpIjmEOu', 'student', '1341', NULL, '2020-11-02 09:31:47', '2020-11-02 09:31:47'),
-(1320, 'سما احمد محمد صلاح', '30107112201444', '30107112201444', '30107112201444', 1, 0, NULL, '$2y$10$4Q26pSwaV1gheqq/iENvAe8e1Y450/9Ew5FgLY/4WVvr6x0Dz7K46', 'student', '1342', NULL, '2020-11-02 09:31:47', '2020-11-02 09:31:47'),
-(1321, 'سماح عبد الغفار محمود عبد الله', '30109282300164', '30109282300164', '30109282300164', 1, 0, NULL, '$2y$10$EKQ/6vq4j07CqHw6u20Uwemj4SNcBcOhfc483ATiNFnevPyfqiVRe', 'student', '1343', NULL, '2020-11-02 09:31:48', '2020-11-02 09:31:48'),
-(1322, 'سهيلة احمد هلال عبدالعال', '30105122201822', '30105122201822', '30105122201822', 1, 0, NULL, '$2y$10$Ke3AyIqZaN9JWM3K0xAT/ulpn/kex4SZwjyW3fuGeQFzHIEpJKcma', 'student', '1344', NULL, '2020-11-02 09:31:48', '2020-11-02 09:31:48'),
-(1323, 'سهيلة حسن مرسي حسان', '30105262200664', '30105262200664', '30105262200664', 1, 0, NULL, '$2y$10$SHn8A4ETS.CWoHAIyPLtzu6/6Ok9n/u5MNUqEVIwzngBwdRqvY8Me', 'student', '1345', NULL, '2020-11-02 09:31:48', '2020-11-02 09:31:48'),
-(1324, 'سهيلة محمد جودة حسب الله', '30109092200465', '30109092200465', '30109092200465', 1, 0, NULL, '$2y$10$KdDmacJKRo0CMBbHhtoKE.n856aDFRTZX1UO4nNTalFGAIrEmIUiK', 'student', '1346', NULL, '2020-11-02 09:31:49', '2020-11-02 09:31:49'),
-(1325, 'سهيلة نبيل ابوغدية حافظ', '30107242401623', '30107242401623', '30107242401623', 1, 0, NULL, '$2y$10$uTy1QANmnIqd7G9YJjmnou5IkNc2E9tb9h5F4.eoD24n/3yEvDHBC', 'student', '1347', NULL, '2020-11-02 09:31:49', '2020-11-02 09:31:49'),
-(1326, 'سوتي سامي خليل غبور', '30110262300263', '30110262300263', '30110262300263', 1, 0, NULL, '$2y$10$49u5xfUEw4QnX/N7VnqHK.TV5AiDXBHAhBkNoNDRNVWRWcfPMlwo6', 'student', '1348', NULL, '2020-11-02 09:31:50', '2020-11-02 09:31:50'),
-(1327, 'سيد هاشم سيد محمد', '30110012203114', '30110012203114', '30110012203114', 1, 0, NULL, '$2y$10$PPG/.Z7X//R4ZC/G9SAEz.7OzDH46X2/0Bm3PzRAQSX4W9RAaeBqm', 'student', '1349', NULL, '2020-11-02 09:31:50', '2020-11-02 09:31:50'),
-(1328, 'سيف الله محمد  عبدالمجيد احمد', '30010260102877', '30010260102877', '30010260102877', 1, 0, NULL, '$2y$10$kUsYo62LkCokZR1I35lEEeHC56CDpk2jaV6mDp8fO2yF5Kg./3wBK', 'student', '1350', NULL, '2020-11-02 09:31:50', '2020-11-02 09:31:50'),
-(1329, 'شروق حمدي عبدالله صالح', '30106112300985', '30106112300985', '30106112300985', 1, 0, NULL, '$2y$10$bVof4OOpKQAsQ16TZUHj8OY42j5sWW.ot/jycwB5P8tGiZeOHGrui', 'student', '1351', NULL, '2020-11-02 09:31:50', '2020-11-02 09:31:50'),
-(1330, 'شروق محمد ذكي محمد', '30107012207445', '30107012207445', '30107012207445', 1, 0, NULL, '$2y$10$heZ9/jH5XyIOalq5iHsGB.AFUG4s4VSAY7M1JY1sLZ7ZYbtOBafOa', 'student', '1352', NULL, '2020-11-02 09:31:51', '2020-11-02 09:31:51'),
-(1331, 'شروق محمد عجمى قاسم', '30203242200708', '30203242200708', '30203242200708', 1, 0, NULL, '$2y$10$mpR1cu3fxoI2H/3Oagu8iObDZC.KbZydpQLM0CZMqLtxgOnPVH0V2', 'student', '1353', NULL, '2020-11-02 09:31:51', '2020-11-02 09:31:51'),
-(1332, 'شروق ناصر على  اسماعيل', '30109122301504', '30109122301504', '30109122301504', 1, 0, NULL, '$2y$10$b.StlPDiTh/XZZIvaCGwi.WFEEYXCoo/c9utA9J30cnwDBQYWTHoq', 'student', '1354', NULL, '2020-11-02 09:31:51', '2020-11-02 09:31:51'),
-(1333, 'شمس عبدالتواب عبدالجليل عبدالحكيم', '30105042200728', '30105042200728', '30105042200728', 1, 0, NULL, '$2y$10$FAJOzPxHe4zfyQSwSMsoyO8mp6C1bzxja0Z8u1t5fCC8Hcl5bDZF6', 'student', '1355', NULL, '2020-11-02 09:31:52', '2020-11-02 09:31:52'),
-(1334, 'شهد احمد عبدالرءوف محمد', '30106012201084', '30106012201084', '30106012201084', 1, 0, NULL, '$2y$10$1hL059U3XHCYbe4YkYF0v.3w1IaEjsT94c8rOSs47YdS1.dIE4LWm', 'student', '1356', NULL, '2020-11-02 09:31:52', '2020-11-02 09:31:52'),
-(1335, 'شهد احمد محمود عبدالحميد', '30109282201522', '30109282201522', '30109282201522', 1, 0, NULL, '$2y$10$TWkIZoxo6iBHwvDIl/tsduA4IVQmTjHwTg77ysY7qGJLPOhZo5T6K', 'student', '1357', NULL, '2020-11-02 09:31:52', '2020-11-02 09:31:52'),
-(1336, 'شهد عادل يونس محمد', '30108142200546', '30108142200546', '30108142200546', 1, 0, NULL, '$2y$10$7db3aozaqG5ePD2ETV09q.NwkEIqBUOkCLpLDwD.S52iCrcE5NzM2', 'student', '1358', NULL, '2020-11-02 09:31:53', '2020-11-02 09:31:53'),
-(1337, 'شهد عويس علي عبدالحميد', '30102052200085', '30102052200085', '30102052200085', 1, 0, NULL, '$2y$10$GfMAfmV6/ie5fDG0qufro.Gb0n/se.2FsOBpWF4VVTl11NBDs1Lba', 'student', '1359', NULL, '2020-11-02 09:31:53', '2020-11-02 09:31:53'),
-(1338, 'شهد محمد ياسين شحاتة', '30109072200906', '30109072200906', '30109072200906', 1, 0, NULL, '$2y$10$CA6Ft8iQXGPisqtYoHCTB.gy9TLB8KlWzI9ztfQPHbQ0CVQ/QGOGu', 'student', '1360', NULL, '2020-11-02 09:31:54', '2020-11-02 09:31:54'),
-(1339, 'شيماء عبدالعال محمد فوزي', '30103122301344', '30103122301344', '30103122301344', 1, 0, NULL, '$2y$10$4KERpk31IK6mhg4og6BVReNxxMmLFlxkTolY6WDaRA25qXEhn.2Ae', 'student', '1361', NULL, '2020-11-02 09:31:54', '2020-11-02 09:31:54'),
-(1340, 'صفاء عوض احمد محمد', '29912122702705', '29912122702705', '29912122702705', 1, 0, NULL, '$2y$10$ePk.Ou5/X0ICmMfhpLIVX.dthZK880b2O3hDf/NSUlYaxtTl3t2zG', 'student', '1362', NULL, '2020-11-02 09:31:54', '2020-11-02 09:31:54'),
-(1341, 'صلاح محمد  صلاح  الدين', '30004262200337', '30004262200337', '30004262200337', 1, 0, NULL, '$2y$10$CM44awB0FC7jVPfpIIhbDOlkskdzXT1bMlM.PmlZJVraBKyLynU9W', 'student', '1363', NULL, '2020-11-02 09:31:55', '2020-11-02 09:31:55'),
-(1342, 'صموئيل عادل عزمي ابراهيم', '30203022301619', '30203022301619', '30203022301619', 1, 0, NULL, '$2y$10$AW4YQwBThmyvboeDhgh2su/4l7cyn/b9O8JB.GENmDOowOLRSlPWK', 'student', '1364', NULL, '2020-11-02 09:31:55', '2020-11-02 09:31:55'),
-(1343, 'عبدالرحمن خالد جمال شعبان', '30202092301695', '30202092301695', '30202092301695', 1, 0, NULL, '$2y$10$9PnbDMoKKLJogDVMMM0aE.j6.a0hXu.kY00w02p0pegiOSpuJXS4.', 'student', '1365', NULL, '2020-11-02 09:31:55', '2020-11-02 09:31:55'),
-(1344, 'عبدالرحمن رشدي حسن محمد', '30201012213492', '30201012213492', '30201012213492', 1, 0, NULL, '$2y$10$XOeRDYIgfNbCn4YYbyjR8.E1SflIo3JbCn5yyN.DKIaIbUs0Y096u', 'student', '1366', NULL, '2020-11-02 09:31:56', '2020-11-02 09:31:56'),
-(1345, 'عبدالرحمن عصام علي احمد', '30104122200633', '30104122200633', '30104122200633', 1, 0, NULL, '$2y$10$DZhq7r60pW4LNB9kKgdJIeZQrRONChaLDIIH.yYGF5/LL313XYqWO', 'student', '1367', NULL, '2020-11-02 09:31:56', '2020-11-02 09:31:56'),
-(1346, 'عبدالرحمن على  محمد احمد', '30110012205397', '30110012205397', '30110012205397', 1, 0, NULL, '$2y$10$5x8WGEr0SHufm.UV5HlsfOrBqBjKbo4swQjO/7rgL/HBGAyPSQSSy', 'student', '1368', NULL, '2020-11-02 09:31:56', '2020-11-02 09:31:56'),
-(1347, 'عبدالرحمن محمد شاهين عبدالقادر', '30203222401472', '30203222401472', '30203222401472', 1, 0, NULL, '$2y$10$YV0VUDumf4e/hFYbSq52gORNPP0n4BDKB8ndPOUPTSJk6ylXM1bKC', 'student', '1369', NULL, '2020-11-02 09:31:57', '2020-11-02 09:31:57'),
-(1348, 'عبدالرحمن محمود عبدالرحمن محمود', '30202092200155', '30202092200155', '30202092200155', 1, 0, NULL, '$2y$10$jGGjbZKckfWskdmpFI3qaeIJUuoqi944HP60Nz1tp8VY7zZtSXuBW', 'student', '1370', NULL, '2020-11-02 09:31:57', '2020-11-02 09:31:57'),
-(1349, 'عبدالله ربيع رشاد محمود', '30010222300495', '30010222300495', '30010222300495', 1, 0, NULL, '$2y$10$Im77Z45H3p.XAznH7lcCO.gSFrcj2VrLVcOSjtU2.hBpMtOx3QBSC', 'student', '1371', NULL, '2020-11-02 09:31:57', '2020-11-02 09:31:57'),
-(1350, 'علا احمد عبدالحى عبدالصادق', '30101122301082', '30101122301082', '30101122301082', 1, 0, NULL, '$2y$10$nwh55lkLPMoR3/y5kvubu.zIj9NwNJn1NGKKj.Yw68T2tai/iTAwG', 'student', '1372', NULL, '2020-11-02 09:31:58', '2020-11-02 09:31:58'),
-(1351, 'علا عيد احمد محمد', '30010152201761', '30010152201761', '30010152201761', 1, 0, NULL, '$2y$10$9.3Fm9s835HM147fzpWWa.u1RBLbj9eVLmQTx8JZ4YEJwZqcYhwOq', 'student', '1373', NULL, '2020-11-02 09:31:58', '2020-11-02 09:31:58'),
-(1352, 'علاء سمير سيد محمود', '30103122201196', '30103122201196', '30103122201196', 1, 0, NULL, '$2y$10$6UrVx1B51GiwZ96diwQCTuJA8NiOHbh9BLOkEAVEw1RZUdqewN3Nu', 'student', '1374', NULL, '2020-11-02 09:31:59', '2020-11-02 09:31:59'),
-(1353, 'علاء عيد سيد حسين', '30011022201138', '30011022201138', '30011022201138', 1, 0, NULL, '$2y$10$ezciPRHOo5wjc7dVVZWfqeR10ldWz3KvMQq5VIKHpqqPlTdxdrM0e', 'student', '1375', NULL, '2020-11-02 09:31:59', '2020-11-02 09:31:59'),
-(1354, 'علياء عماد علي نجيب', '30106112201146', '30106112201146', '30106112201146', 1, 0, NULL, '$2y$10$hpaFj6JNqrCTOHXXuaGlrOHmv8mFlb49s5bnx2eqsRLNHX8vy8.KS', 'student', '1376', NULL, '2020-11-02 09:32:00', '2020-11-02 09:32:00'),
-(1355, 'عمار عويس عبدالعزيز عبدالجيد', '30104212200454', '30104212200454', '30104212200454', 1, 0, NULL, '$2y$10$BYtrecpicPeBXgYZC6C6WuAAxUGKVgZM3HpuBOhxALQ32MWQvKqse', 'student', '1377', NULL, '2020-11-02 09:32:00', '2020-11-02 09:32:00'),
-(1356, 'عمار محمود ابراهيم احمد', '30103112200051', '30103112200051', '30103112200051', 1, 0, NULL, '$2y$10$Iy7Ucx4FucoOGNKcUlR3Nu6mwULFUHxlLzIc1khJ9ar3kNiAxmqaa', 'student', '1378', NULL, '2020-11-02 09:32:00', '2020-11-02 09:32:00'),
-(1357, 'عمر مصطفي ادريس محمود', '30202118800792', '30202118800792', '30202118800792', 1, 0, NULL, '$2y$10$wY1XBTxKVXEnMyiwEKTOxuUkBfEIitxLrbmFrwksP25VIlK2wXcdG', 'student', '1379', NULL, '2020-11-02 09:32:01', '2020-11-02 09:32:01'),
-(1358, 'عنان محسن محمود مصطفي', '30105102202725', '30105102202725', '30105102202725', 1, 0, NULL, '$2y$10$oSet.V3hn57NYqCzVeyFy.d5nfse.XtdchHYpSOrGu3dIUN4NWaDy', 'student', '1380', NULL, '2020-11-02 09:32:01', '2020-11-02 09:32:01'),
-(1423, 'إيناس احمد فؤاد علي', '30005132402104', '30005132402104', '30005132402104', 1, 0, NULL, '$2y$10$3twU8i0Mrt7h4IImbw3fgO5JW8HId..4iZ1m/A1LXPvqBkiIrHSkq', 'student', '1445', NULL, '2020-11-02 09:47:50', '2020-11-02 09:47:50'),
-(1424, 'احمد عصام الدين عبد التواب -', '29912102200495', '29912102200495', '29912102200495', 1, 0, NULL, '$2y$10$pFKDV4UJU4YULC7ZsPs3Yu2NTW4ijbKeMOrGqe9QBvCTCqIjFrvk6', 'student', '1446', NULL, '2020-11-02 09:47:50', '2020-11-02 09:47:50'),
-(1425, 'ادهم احمد محمد فرج', '29910182201052', '29910182201052', '29910182201052', 1, 0, NULL, '$2y$10$kJGZJvzRbf00Jqg46j3QleHPgnxDSl.TAvHq/gFKI/A2WKgIYYVr2', 'student', '1447', NULL, '2020-11-02 09:47:50', '2020-11-02 09:47:50'),
-(1426, 'اروي سعد سيد احمد', '30005162201286', '30005162201286', '30005162201286', 1, 0, NULL, '$2y$10$YPbsNv2c4T/FxMz65ocIoOnYEtNPw8/FVDkMUWezmMt4YgnYJ0vlS', 'student', '1448', NULL, '2020-11-02 09:47:50', '2020-11-02 09:47:50'),
-(1427, 'اسامه خليل عبد العظيم -', '30103082200191', '30103082200191', '30103082200191', 1, 0, NULL, '$2y$10$Al9hps7zJrXba4.KnAQanOHbafN1y9rXw2/2UwN59XRdx797OY3S.', 'student', '1449', NULL, '2020-11-02 09:47:51', '2020-11-02 09:47:51'),
-(1428, 'اسراء طه احمد سيد', '29912222200529', '29912222200529', '29912222200529', 1, 0, NULL, '$2y$10$oKhEfUGiNm9kEqOSjxNmce.bOoNnh4fgqf/n/7DR.s/V2usIYl/k6', 'student', '1450', NULL, '2020-11-02 09:47:51', '2020-11-02 09:47:51'),
-(1429, 'اسراء محمود سيد احمد', '29811112200948', '29811112200948', '29811112200948', 1, 0, NULL, '$2y$10$MM5UUBeJwmaUUDePdfjNF.mCcTCMOZEUJYz4LAkvom50nxwRYmgbW', 'student', '1451', NULL, '2020-11-02 09:47:51', '2020-11-02 09:47:51'),
-(1430, 'الاء ربيع خليفة عبد الله', '30007092201928', '30007092201928', '30007092201928', 1, 0, NULL, '$2y$10$.VZMseI0.mmEEvRUZUZkjeRYm0AsQpDahSf9yVTCc4mFrn9VMUILK', 'student', '1452', NULL, '2020-11-02 09:47:52', '2020-11-02 09:47:52'),
-(1431, 'الاء فتحي محمد محمد', '29912142200846', '29912142200846', '29912142200846', 1, 0, NULL, '$2y$10$nJvTg0GBglE.WZU.YlVXxuhTTVKooZI12vST9kERKbh/QI403o5Pm', 'student', '1453', NULL, '2020-11-02 09:47:52', '2020-11-02 09:47:52'),
-(1432, 'الحسين احمد عبدالعظيم محمد', '29908162403177', '29908162403177', '29908162403177', 1, 0, NULL, '$2y$10$DNfMt0OkVdgoP9isBHZSIeRV0xaK5i1HiJW.ohpE1hG4RLB2hkOSe', 'student', '1454', NULL, '2020-11-02 09:47:52', '2020-11-02 09:47:52'),
-(1433, 'اماني عادل سيد -', '30009252201183', '30009252201183', '30009252201183', 1, 0, NULL, '$2y$10$kBmf2XkmhtefsO5MIjk9guptk1JmOxbtgjFRhJWYqWfYp9Htxv0ZS', 'student', '1455', NULL, '2020-11-02 09:47:52', '2020-11-02 09:47:52'),
-(1434, 'اميره احمد كيلاني شعبان', '29707012412687', '29707012412687', '29707012412687', 1, 0, NULL, '$2y$10$oTyaGLOFQvUdzRbnL6OJmukZiwWfmkVfj6x8Xmv1CjCZh8n2jxaA.', 'student', '1456', NULL, '2020-11-02 09:47:53', '2020-11-02 09:47:53'),
-(1435, 'ايمان عيد جمعه حامد', '30002102201601', '30002102201601', '30002102201601', 1, 0, NULL, '$2y$10$UY3dwsL3aMdRnODeV95N4Om/iWz6rAIHD/2gmdWSd483SJBwCiVfG', 'student', '1457', NULL, '2020-11-02 09:47:53', '2020-11-02 09:47:53'),
-(1436, 'ايه نزيه خلف حسان', '30003102404088', '30003102404088', '30003102404088', 1, 0, NULL, '$2y$10$BHbMPLEvWNphRQFz/QVF4eeo9iHkrQ3kQg13xEXBCA9KyEdKrL7be', 'student', '1458', NULL, '2020-11-02 09:47:53', '2020-11-02 09:47:53'),
-(1437, 'باسل ايمن صلاح محمد', '29911262200754', '29911262200754', '29911262200754', 1, 0, NULL, '$2y$10$hy3pp1kOYtwq4Uf/8fCiDup8iosSSf10W/S54r4Lnni7i/aeVSRI.', 'student', '1459', NULL, '2020-11-02 09:47:53', '2020-11-02 09:47:53'),
-(1438, 'دينا ربيع اسماعيل علي', '30004122401804', '30004122401804', '30004122401804', 1, 0, NULL, '$2y$10$HF9UPwXa0WAK.oayeCnzh.RjX8ry6Eo0aq7BC32kDemSvy/6twUJS', 'student', '1460', NULL, '2020-11-02 09:47:54', '2020-11-02 09:47:54'),
-(1439, 'رائد عمر عبد الرازق عبد الوهاب', '30008152200892', '30008152200892', '30008152200892', 1, 0, NULL, '$2y$10$KfgKO/eIL.AdPnVxApymtuTTHdD1ApUc4rZvmKbKI8SAI94ypf4/a', 'student', '1461', NULL, '2020-11-02 09:47:54', '2020-11-02 09:47:54'),
-(1440, 'روضه عماد الدين احمد -', '30004042200468', '30004042200468', '30004042200468', 1, 0, NULL, '$2y$10$pXB.X2hnUAKZ8ItoEoGYxOVE53GNSSpR2YRGuQq215TmrBzy4KZmy', 'student', '1462', NULL, '2020-11-02 09:47:54', '2020-11-02 09:47:54'),
-(1441, 'روفيدة ايهاب فوزي فهمي', '30001232201089', '30001232201089', '30001232201089', 1, 0, NULL, '$2y$10$QVbhkvzolpmOQARX/1vrw.Rb/hkD.et/aa1eBK9OUlq58OtnOXyj6', 'student', '1463', NULL, '2020-11-02 09:47:55', '2020-11-02 09:47:55'),
-(1442, 'ريم رائد محمد طه', '30007102202987', '30007102202987', '30007102202987', 1, 0, NULL, '$2y$10$IF.5RF0HcUjTe9nfSAkB3.U.Cl/gwarztePE.CsfLLrBBUFNY1UQ6', 'student', '1464', NULL, '2020-11-02 09:47:55', '2020-11-02 09:47:55'),
-(1443, 'زهوة خالد سعد احمد', '29912203100041', '29912203100041', '29912203100041', 1, 0, NULL, '$2y$10$QZq4jhapdZiGx5GlK1ckZuZM1OJZIQgTwCOeITq7Xn59hbeWRZo0m', 'student', '1465', NULL, '2020-11-02 09:47:55', '2020-11-02 09:47:55'),
-(1444, 'زياد احمد شعبان -', '30008202201038', '30008202201038', '30008202201038', 1, 0, NULL, '$2y$10$SVgq6yt4YtQqk5NsvOVlG.aMCWZbPkfZt1MQMpyJjeeRLkeLut92u', 'student', '1466', NULL, '2020-11-02 09:47:56', '2020-11-02 09:47:56'),
-(1445, 'سارة أحمد قرني ذكي', '30008122202947', '30008122202947', '30008122202947', 1, 0, NULL, '$2y$10$LgR7Uy82KZwzbnfO5VSi7eLhuWt7rkluPdKlwiWo7l16YjmaYQvs.', 'student', '1467', NULL, '2020-11-02 09:47:56', '2020-11-02 09:47:56'),
-(1446, 'سارة معتمد رمضان عبدالعظيم', '30110258800987', '30110258800987', '30110258800987', 1, 0, NULL, '$2y$10$PuNRWU5URf4sUrwfgumHZ.PfaogJQeDwKGnpnxRt0q9of3vXItoj6', 'student', '1468', NULL, '2020-11-02 09:47:56', '2020-11-02 09:47:56'),
-(1447, 'سلمي احمد محمد -', '29908242100469', '29908242100469', '29908242100469', 1, 0, NULL, '$2y$10$EhQYYOS8X/e7NWGl/8.EUu78IkeyRJ8tDVZ84nBaSQwqfh7sfjeXe', 'student', '1469', NULL, '2020-11-02 09:47:57', '2020-11-02 09:47:57'),
-(1448, 'سهيلة اشرف حنفي سيد', '30012122200186', '30012122200186', '30012122200186', 1, 0, NULL, '$2y$10$9pfEtnx6iytyvLqQu98TCOKxrYO7m1iLfME1w1tp01xwxyeRwfBge', 'student', '1470', NULL, '2020-11-02 09:47:57', '2020-11-02 09:47:57'),
-(1449, 'سهيله ناصر محمد علي', '30010010209463', '30010010209463', '30010010209463', 1, 0, NULL, '$2y$10$pm37i8RDSYOk9NGxiVX1S.XZQuuL4e5qv6wtR8XZdBs5hMQV41TeS', 'student', '1471', NULL, '2020-11-02 09:47:57', '2020-11-02 09:47:57'),
-(1450, 'شريف  حمدي جمال فؤاد', '30103132401177', '30103132401177', '30103132401177', 1, 0, NULL, '$2y$10$zh92/V2.AB9t/A/VLOSKv.OMlbewiiI1uM6unokmvx0HQfYDjJA3S', 'student', '1472', NULL, '2020-11-02 09:47:58', '2020-11-02 09:47:58'),
-(1451, 'شهد محمد علي محمد', '30005072201287', '30005072201287', '30005072201287', 1, 0, NULL, '$2y$10$ROLd1el4wg6VKLOBwbxcPeVV0BVwFAezq151rw5XdlNtUygFSt5pC', 'student', '1473', NULL, '2020-11-02 09:47:58', '2020-11-02 09:47:58'),
-(1452, 'طيبة نادي عبد الحميد طلب', '30005152201644', '30005152201644', '30005152201644', 1, 0, NULL, '$2y$10$b/k3EeTJqZVjTlVN.P0ldudoUJWbRZkVAWRyI6yqKma/E9WtSenYu', 'student', '1474', NULL, '2020-11-02 09:47:58', '2020-11-02 09:47:58'),
-(1453, 'عادل اشرف السيد بيومي خالد', '30010072300696', '30010072300696', '30010072300696', 1, 0, NULL, '$2y$10$tnWwtXxbiom8aw48H6jXwezNxV.y74TiwxBP5luk4r/Xp0t.ta9zO', 'student', '1475', NULL, '2020-11-02 09:47:58', '2020-11-02 09:47:58'),
-(1454, 'عبد الرحمن محمد سيد -', '30101012208079', '30101012208079', '30101012208079', 1, 0, NULL, '$2y$10$OydDZsoNJy.oZ6c9UefUW.IFQQ7VfMUB4AZmWJ/JaH6V75Rhe06Ny', 'student', '1476', NULL, '2020-11-02 09:47:59', '2020-11-02 09:47:59'),
-(1455, 'عبد الرحمن محمود صادق -', '30005152301754', '30005152301754', '30005152301754', 1, 0, NULL, '$2y$10$kE0Z8szzwmnrZqf0TFzEyOGwHnTzsPwEtTfnGLHZqTDSv.s35zZmC', 'student', '1477', NULL, '2020-11-02 09:47:59', '2020-11-02 09:47:59'),
-(1456, 'عبدالله احمد عبدالتواب اسماعيل', '30003012300976', '30003012300976', '30003012300976', 1, 0, NULL, '$2y$10$8SPrJWzcjgnKdEp40S6jxOZb1Bo9mXhAYq.IEF8siaNU0oQbhLSx6', 'student', '1478', NULL, '2020-11-02 09:47:59', '2020-11-02 09:47:59'),
-(1457, 'علي نادي حسن علي', '30003022201399', '30003022201399', '30003022201399', 1, 0, NULL, '$2y$10$KpLVRWL6Ypac175T5GjiNOS.2OqhJOQek4SBAD/9DZKcOn8Hyf8Ya', 'student', '1479', NULL, '2020-11-02 09:48:00', '2020-11-02 09:48:00'),
-(1458, 'علياء هشام مصطفي ابوطالب', '30008162401063', '30008162401063', '30008162401063', 1, 0, NULL, '$2y$10$q1zn7wv.19zuluRDs1IDQeXU3gkw.PaqYQ8qLlJAE8sn2NoMQ.vgm', 'student', '1480', NULL, '2020-11-02 09:48:00', '2020-11-02 09:48:00'),
-(1459, 'عمرو  عبدالمنعم عبدالرازق -', '30012252200056', '30012252200056', '30012252200056', 1, 0, NULL, '$2y$10$KNdvUatQE7DTeBhijUONYu1ywNAFkl6WejK9PKRYq5lcAvR6B9RJG', 'student', '1481', NULL, '2020-11-02 09:48:00', '2020-11-02 09:48:00'),
-(1460, 'كريم عصام جلال محمد', '30001118800215', '30001118800215', '30001118800215', 1, 0, NULL, '$2y$10$DDE0BZeEhFNVSJ6.0763A.GY0A1arUMx.NIWiTIBlzSkNCamcnjfS', 'student', '1482', NULL, '2020-11-02 09:48:00', '2020-11-02 09:48:00'),
-(1461, 'مازن طارق علي البكري', '30007232201192', '30007232201192', '30007232201192', 1, 0, NULL, '$2y$10$4UXLFEI4dvpYgbNKi6rpGeXyrMhab9WyBWGWMmZiU.RCUFTqR1m92', 'student', '1483', NULL, '2020-11-02 09:48:01', '2020-11-02 09:48:01'),
-(1462, 'محمد  احمد علي هارون', '30012272200516', '30012272200516', '30012272200516', 1, 0, NULL, '$2y$10$CIetnq5YaEfChSThnaoUmOZfXIYjkBnes7dgQlZ8oTtb5hPqq/kSG', 'student', '1484', NULL, '2020-11-02 09:48:01', '2020-11-02 09:48:01'),
-(1463, 'محمد  جمعه عبدالعاطي جوده', '30003318800735', '30003318800735', '30003318800735', 1, 0, NULL, '$2y$10$G0E4Wgs1WFrIBKtZhe7Oc.O5P1gZ9BwoOFLyOmlVQiLuDRzpiC7fu', 'student', '1485', NULL, '2020-11-02 09:48:02', '2020-11-02 09:48:02'),
-(1464, 'محمد  حامد سيد حامد', '29810022200233', '29810022200233', '29810022200233', 1, 0, NULL, '$2y$10$fwZVGaa0RL1lqZHjHc6apuI1AsEj8F7h3uhdfmXxKoZLvogTsd3lW', 'student', '1486', NULL, '2020-11-02 09:48:02', '2020-11-02 09:48:02'),
-(1465, 'محمد ابراهيم رجب -', '30008172200473', '30008172200473', '30008172200473', 1, 0, NULL, '$2y$10$UTQLp.M4PUaIt6IRz/b/IOtLhbt8wkuYdLURTH2XM2KuJo3SLHjHC', 'student', '1487', NULL, '2020-11-02 09:48:02', '2020-11-02 09:48:02'),
-(1466, 'محمد احمد سيد مهدي', '29910262200138', '29910262200138', '29910262200138', 1, 0, NULL, '$2y$10$R2F7wNTreuHt.QftlnjgYOoSylLzJTLS6bvFyDB0ANeTnTsd9k5OK', 'student', '1488', NULL, '2020-11-02 09:48:02', '2020-11-02 09:48:02'),
-(1467, 'محمد امير معوض ابراهيم', '30007312300094', '30007312300094', '30007312300094', 1, 0, NULL, '$2y$10$GOQFL.2H4b/.KjmiXmGTLOUKy/tqZm3I/LbHiHAjg62BjB6gPVadO', 'student', '1489', NULL, '2020-11-02 09:48:03', '2020-11-02 09:48:03'),
-(1468, 'محمد عبد السلام حسن -', '29903212202052', '29903212202052', '29903212202052', 1, 0, NULL, '$2y$10$BqhE0YB6dXWeOP.S6.vbze./8iGqJ3O64joKk1hvpqGbxraT17AOq', 'student', '1490', NULL, '2020-11-02 09:48:03', '2020-11-02 09:48:03'),
-(1469, 'محمد ممدوح محمود عبد الفتاح', '30003028800359', '30003028800359', '30003028800359', 1, 0, NULL, '$2y$10$qqdd6L4HM3ilavsaHt5LDuwEXYwu2E6CFmgNg9DxZnOxnPv.w1oy2', 'student', '1491', NULL, '2020-11-02 09:48:04', '2020-11-02 09:48:04'),
-(1470, 'محمود جابر عطيه احمد', '30004082200037', '30004082200037', '30004082200037', 1, 0, NULL, '$2y$10$N/qNC5Yx1FjU7eh2bBZ//uAGzHSUSThNQMqJqg6e6V0D4ZDRpajXi', 'student', '1492', NULL, '2020-11-02 09:48:04', '2020-11-02 09:48:04'),
-(1471, 'مريم  اشرف محمد محمود', '30103112201864', '30103112201864', '30103112201864', 1, 0, NULL, '$2y$10$5is217X1FaN/J5ZV6XLncuPUl/k.Hy94NalsnpG8VZ2ehW.Y0bBOu', 'student', '1493', NULL, '2020-11-02 09:48:04', '2020-11-02 09:48:04'),
-(1472, 'منار اشرف شعبان محمود', '29908292201169', '29908292201169', '29908292201169', 1, 0, NULL, '$2y$10$GASBKPeO/WEOWoKiKKASnO/tSj32jEzHBDxO0KBnxG2aBbk/LSnBC', 'student', '1494', NULL, '2020-11-02 09:48:05', '2020-11-02 09:48:05'),
-(1473, 'منار حمدي عبدالحميد -', '30001302400645', '30001302400645', '30001302400645', 1, 0, NULL, '$2y$10$0zR.n3jDKYsq0e43ssNPKOFrfDzsiYdb5mMgHpkACJFjYG1ikqnMG', 'student', '1495', NULL, '2020-11-02 09:48:05', '2020-11-02 09:48:05'),
-(1474, 'نادين محمد عبدالقادر احمد', '30002242300421', '30002242300421', '30002242300421', 1, 0, NULL, '$2y$10$eamDK2.LXZ/VIKxJycCUte5iIt.gGgygACetlREzBC7OU.lbYNPpu', 'student', '1496', NULL, '2020-11-02 09:48:05', '2020-11-02 09:48:05'),
-(1475, 'ندي احمد عبد الرحمن سيد', '30005182200189', '30005182200189', '30005182200189', 1, 0, NULL, '$2y$10$PIOCevDCxxMPbwTyG8Z5QeANt8eWMSuA8M11vIeRjqjy1na5HwpaO', 'student', '1497', NULL, '2020-11-02 09:48:06', '2020-11-02 09:48:06'),
-(1476, 'ندي جمال احمد محمد', '30006162201223', '30006162201223', '30006162201223', 1, 0, NULL, '$2y$10$coHW3xDoSTzwz6lc.ArRU.Y3S8xaHoJYV.TV2PBE4zREdZm/VBdeO', 'student', '1498', NULL, '2020-11-02 09:48:06', '2020-11-02 09:48:06'),
-(1477, 'ندي علي حسين ابراهيم', '30008212200501', '30008212200501', '30008212200501', 1, 0, NULL, '$2y$10$FNumr7QrvARSAIkKY.SYLu2Vrv8swWtRYzOp7mEKkK0WeiPUpUgaa', 'student', '1499', NULL, '2020-11-02 09:48:06', '2020-11-02 09:48:06'),
-(1478, 'ندى محمد عبدالستار -', '30005052201345', '30005052201345', '30005052201345', 1, 0, NULL, '$2y$10$QkWW9q47WX9l5dUAFYgg9OTQTI4DZ2pbsqAwhvPETxqpQbs/r8fkC', 'student', '1500', NULL, '2020-11-02 09:48:07', '2020-11-02 09:48:07'),
-(1479, 'نسيبة محمود محمد محمد', '30007162202129', '30007162202129', '30007162202129', 1, 0, NULL, '$2y$10$sl.Q4k3SvnuHIxC7eKTyE.YHe5OqOHEGSze1F5hnGVN1Ge/L9aDHO', 'student', '1501', NULL, '2020-11-02 09:48:07', '2020-11-02 09:48:07'),
-(1480, 'نهي محمد فهيم -', '29802212201641', '29802212201641', '29802212201641', 1, 0, NULL, '$2y$10$iDi3cVgFY4MkV7FkrkICKOr2Ija5suBsK4MMm3Q5VWL4tS4wX2cye', 'student', '1502', NULL, '2020-11-02 09:48:07', '2020-11-02 09:48:07'),
-(1481, 'نورهان عبد المنعم وزير احمد', '29911102200561', '29911102200561', '29911102200561', 1, 0, NULL, '$2y$10$Pc4MDAa5Iq3K6IFDRqZJDOYXtun5TZHDcKqY7Moi4RhOVWu.ef7X2', 'student', '1503', NULL, '2020-11-02 09:48:08', '2020-11-02 09:48:08'),
-(1482, 'نورهان محمد حمد الله -', '30005202202787', '30005202202787', '30005202202787', 1, 0, NULL, '$2y$10$x9gxaT4SSD5bT0HT0oWo7uEYVe0VTQ8GN7BwjR9aHZE5zG/o12G/m', 'student', '1504', NULL, '2020-11-02 09:48:08', '2020-11-02 09:48:08'),
-(1483, 'هاله علي سيد حسن', '30007012206428', '30007012206428', '30007012206428', 1, 0, NULL, '$2y$10$VpnQOqhdFyq.NZu6bXCpUODSvgZECwIlYa6kYwjQJFqYCn40kTofq', 'student', '1505', NULL, '2020-11-02 09:48:08', '2020-11-02 09:48:08'),
-(1484, 'هدير مصطفي محمد محمد', '30002122200342', '30002122200342', '30002122200342', 1, 0, NULL, '$2y$10$MC7HzqL61/Vq/IFS0b.Za.Iz98irRou/PwvRWb16DqBEQTZP6.56q', 'student', '1506', NULL, '2020-11-02 09:48:08', '2020-11-02 09:48:08'),
-(1485, 'ياسمين عطاء ايوب عبداللطيف', '29909012307362', '29909012307362', '29909012307362', 1, 0, NULL, '$2y$10$zhHg2/0skKXNfhlYY/.oHeQeBg8zbKs0A1GMTl/7dGLZltAyhvlrS', 'student', '1507', NULL, '2020-11-02 09:48:09', '2020-11-02 09:48:09'),
-(1486, 'يوسف  محمد حامد احمد', '30009112200659', '30009112200659', '30009112200659', 1, 0, NULL, '$2y$10$hHpUPjKy4Xq8elE22vTOheMz5iMSftNb6rqBMk3RVM9YXXj4JjOXS', 'student', '1508', NULL, '2020-11-02 09:48:09', '2020-11-02 09:48:09'),
-(1513, 'د. هاجر الحداد', '01091093981', '01091093981', '01091093981', 1, 0, NULL, '$2y$10$z/c.gy5rdfh6FZWaO5N7AeAe9.DyNxZ0qI/aHCVkjH/InLY4moCwK', 'doctor', '40', NULL, '2020-11-02 10:38:32', '2020-11-02 10:38:32'),
-(1514, 'د. فريد على', '01001369125', '01001369125', '01001369125', 1, 0, NULL, '$2y$10$8Yxvv3rqhSUP.QTDFr1Vvu73pRQR7YfU/kNxtDa1QCSOyY3/oxVm6', 'doctor', '41', NULL, '2020-11-02 10:38:32', '2020-11-02 10:38:32'),
-(1515, 'د. سامح جمال', '01099002236', '01099002236', '01099002236', 1, 0, NULL, '$2y$10$SE.nqw1AVBwUBJBShOqs7uoaQSguE5pyyzZ2pvX7iW8PGnpqzxlxW', 'doctor', '42', NULL, '2020-11-02 10:38:33', '2020-11-02 10:38:33'),
-(1516, 'د. دعاء حمدى', '01062274667', '01062274667', '01062274667', 1, 0, NULL, '$2y$10$0BUr7ajjv94W0GirFqOyU.IgGUABO8r/wPiFMrzNXneTB5ypkT95y', 'doctor', '43', NULL, '2020-11-02 10:38:33', '2020-11-02 10:38:33'),
-(1517, 'أ.م.د. كريم أحمد', '01272285609', '01272285609', '01272285609', 1, 0, NULL, '$2y$10$N.f8pNx9u/HjHisaF1xr9.VvDSzuomzseBtKf9O4eyv9N7rzyJT7C', 'doctor', '44', NULL, '2020-11-02 10:38:33', '2020-11-02 10:38:33'),
-(1518, 'د. عاشور', '01140417941', '01140417941', '01140417941', 1, 0, NULL, '$2y$10$Egfy6q12O14b5MITE/HM0Oo3Jt.cMLynE9qWI9j9d9p4Khu26J4iy', 'doctor', '45', NULL, '2020-11-02 10:38:33', '2020-11-02 10:38:33'),
-(1519, 'د. إيناس الكردى', '01288195946', '01288195946', '01288195946', 1, 0, NULL, '$2y$10$X54y1sVTQ8nic7suxgb5pODj7wijLho4Y0X9eAoORE25oknCOn1MG', 'doctor', '46', NULL, '2020-11-02 10:38:34', '2020-11-02 10:38:34'),
-(1520, 'أ.م.د. هبة عبد الحليم', '01093529258', '01093529258', '01093529258', 1, 0, NULL, '$2y$10$IsA9WIZhtFt8dfpvIRGs1uGDKndlFrKqQeO3vyvMBkfRX94cS81Jm', 'doctor', '47', NULL, '2020-11-02 10:38:34', '2020-11-02 10:38:34'),
-(1521, 'أ.م.د. رحاب يوسف', '01143955586', '01143955586', '01143955586', 1, 0, NULL, '$2y$10$38zGe6UL5t7SQmdshiRT5enSlIkmvlROST.d.GkCMfx56gNR5C58m', 'doctor', '48', NULL, '2020-11-02 10:38:34', '2020-11-02 10:38:34'),
-(1522, 'د. عاطف فرج الله', '01146405970', '01146405970', '01146405970', 1, 0, NULL, '$2y$10$RQLfcWkjcmW0sExv4roXOeAaWdD/EdJScv//A8qK7ypJAkq1bK0w.', 'doctor', '49', NULL, '2020-11-02 10:38:34', '2020-11-02 10:38:34'),
-(1523, 'أ.م.د. ميرفت حسين', '01225750730', '01225750730', '01225750730', 1, 0, NULL, '$2y$10$7C0fUepKw3yL4AhkAtew4u6HxIXNdNqNNKrZW9WlHNvIQ/fz/CyT.', 'doctor', '50', NULL, '2020-11-02 10:38:35', '2020-11-02 10:38:35'),
-(1524, 'أ.م.د. حمدى محمود', '01000122247', '01000122247', '01000122247', 1, 0, NULL, '$2y$10$K.Wciqe4v6ryvTu5oF2FIeabxFavm0QxKcGwbnvUwMdCdbVzWTm1q', 'doctor', '51', NULL, '2020-11-02 10:38:35', '2020-11-02 10:38:35'),
-(1525, 'أ.م.د. محمد سيد قايد', '01091666404', '01091666404', '01091666404', 1, 0, NULL, '$2y$10$I43H7IyF27K2QB/e3QiHMe3tw/fVKTCP9V5USEhM8A6SNJi5nc5Bm', 'doctor', '52', NULL, '2020-11-02 10:38:35', '2020-11-02 10:38:35'),
-(1526, 'د. دعاء شبل', '01009561621', '01009561621', '01009561621', 1, 0, NULL, '$2y$10$rTK60NRKWJrnG3WjWYoLq.mq1sVVHh6Ww2VosZc05AiHjHUXcIOSy', 'doctor', '53', NULL, '2020-11-02 10:38:36', '2020-11-02 10:38:36'),
-(1527, 'د. عمر القلعاوى', '01014446311', '01014446311', '01014446311', 1, 0, NULL, '$2y$10$F7AK5hpedoctHiKkfRol4ud8K6Rot2DJMtfwBf5AsfvsVrhbOhxP6', 'doctor', '54', NULL, '2020-11-02 10:38:36', '2020-11-02 10:38:36'),
-(1528, 'أ.م.د. حسام مفتاح', '01003543364', '01003543364', '01003543364', 1, 0, NULL, '$2y$10$pgCeKIYrXLrhYbn8rSpYc.L5LCcLPsZEMUdUKaKYfl3EuDkDlBtdO', 'doctor', '55', NULL, '2020-11-02 10:38:36', '2020-11-02 10:38:36'),
-(1529, 'د. محمد العربى', '01061014143', '01061014143', '01061014143', 1, 0, NULL, '$2y$10$t6JjngvN7H3qx0vY7HaWK.xkkkb6wQYuJ0JRFHUewk1LQMQi4i27.', 'doctor', '56', NULL, '2020-11-02 10:38:37', '2020-11-02 10:38:37'),
-(1530, 'د. أحمد عنتر', '01002325970', '01002325970', '01002325970', 1, 0, NULL, '$2y$10$L6VB0hd1YcUHGQZyAZBaXeFFNupu58ovwq3QcF7nXKEI6fO7ZoLPu', 'doctor', '57', NULL, '2020-11-02 10:38:37', '2020-11-02 10:38:37'),
-(1531, 'أ.م.د. خالد عدلى', '01004879295', '01004879295', '01004879295', 1, 0, NULL, '$2y$10$JePUFgZOpZTSF/CwHKo1CewoHP1BWcBAyIiEDKoktxhcSvJT3LMWi', 'doctor', '58', NULL, '2020-11-02 10:38:37', '2020-11-02 10:38:37'),
-(1532, 'د. عمرو عبد العزيز', '01021264641', '01021264641', '01021264641', 1, 0, NULL, '$2y$10$jNFg0MmvrePEXX3a3niU/OgpIwmMqszTsLye3/6zA0OTyYD.KXa/m', 'doctor', '59', NULL, '2020-11-02 10:38:37', '2020-11-02 10:38:37'),
-(1538, 'احمد محمد احمد محمد', '30206102200197', '30206102200197', '30206102200197', 1, 0, NULL, '$2y$10$egrxMXhyHtW1IB.v1zDqJuArWym8v9wRdibBhB9yepFXZSLeuiDFu', 'student', '1512', NULL, '2020-11-07 04:35:22', '2020-11-07 04:35:22'),
-(1540, 'std test', 'std test', 'std1@gmail.com', '0114454475', 1, 0, NULL, '$2y$10$i3D1IQegRyTpkUPt5mmTiuUpwL04Zs3meG8ikR/wPfGE/KtaHdxSe', 'student', '1514', NULL, '2020-11-07 05:01:35', '2020-11-09 09:50:07'),
-(1541, 'test doc', 'test doc', 'testdoc@gmail.com', '00124552', 1, 0, NULL, '$2y$10$0XFR.u/IYY/gN.AuSST.oOleMZHlERl0IfMVJ8QS.VslcwinXISvq', 'doctor', '65', NULL, '2020-11-23 08:26:53', '2020-11-23 08:26:53');
+INSERT INTO `users` (`id`, `name`, `username`, `email`, `phone`, `active`, `account_confirm`, `email_verified_at`, `password`, `type`, `fid`, `remember_token`, `api_token`, `created_at`, `updated_at`) VALUES
+(1, 'super admin', 'superadmin', 'super_admin@app.com', '0111122222', 1, 1, NULL, '$2y$10$YSxKRg2eV7Flnu7TOGwW9OaLkpuq1VasBRRDzo76vTHXmJs8Hnt1.', 'super_admin', NULL, NULL, '123456789', '2020-10-24 07:26:11', '2020-11-28 09:01:08'),
+(51, 'احمد محمد عبد القادر عبدالجواد', '30302082201514', '30302082201514', '30302082201514', 1, 0, NULL, '$2y$10$ujU7SVThmKDBCyrmOp6avevjbFyEhsX4HGRiQeeCQqMgLiZSxfKVK', 'student', '73', NULL, NULL, '2020-11-02 07:38:26', '2020-11-02 07:38:26'),
+(52, 'اسماء هشام كمال ابراهيم', '30206232201381', '30206232201381', '30206232201381', 1, 0, NULL, '$2y$10$vIrOviRbfNVz7jb72d9d2uAP5v69SHv2BdMZYAxAD8OIL4K65BetS', 'student', '74', NULL, NULL, '2020-11-02 07:38:26', '2020-11-02 07:38:26'),
+(53, 'اهله باسم  محمد حسن', '30208082201461', '30208082201461', '30208082201461', 1, 0, NULL, '$2y$10$cpVy48uR5J7aovSO4X5uwu1DUyHktHBuqZTOLYC.wV8JS6WV3xYFG', 'student', '75', NULL, '123456', '2020-11-02 07:38:27', '2020-11-02 07:38:27'),
+(54, 'اية  اشرف يوسف فتح الله', '30109222200225', '30109222200225', '30109222200225', 1, 0, NULL, '$2y$10$F8u86teuzHL9GHkJTmebKuT4R7YAIxL2aaSlkwJAlanitloSxu8Bq', 'student', '76', NULL, NULL, '2020-11-02 07:38:27', '2020-11-02 07:38:27'),
+(55, 'ايرينى عبدالمسيح صادق صالح', '30211232201164', '30211232201164', '30211232201164', 1, 0, NULL, '$2y$10$WW1ilFRupZDY4LhN.mAA0uKjabd1BK3R5p57cT39gq27iJbUK3H6W', 'student', '77', NULL, NULL, '2020-11-02 07:38:27', '2020-11-02 07:38:27'),
+(56, 'ايه ابراهيم زكى احمد', '30207222200723', '30207222200723', '30207222200723', 1, 0, NULL, '$2y$10$9ifqd7244/jJNw9rpRzw5u2VOnoMkz0EMSmFij8dTWTrkiOSKfv7O', 'student', '78', NULL, NULL, '2020-11-02 07:38:27', '2020-11-02 07:38:27'),
+(57, 'تغريد محمد على احمد', '30209302201863', '30209302201863', '30209302201863', 1, 0, NULL, '$2y$10$EB8/HAgibJOaHRM5ZOYa0e8gboR42QOqyapVFLe3qfPOuQzl6T6.K', 'student', '79', NULL, NULL, '2020-11-02 07:38:28', '2020-11-02 07:38:28'),
+(58, 'جمانه محمد احمد عبدالنبي', '30209142200687', '30209142200687', '30209142200687', 1, 0, NULL, '$2y$10$fIVZD2FyPk499qINHOlxt.kCIySkYVfWeS13urkHjPt7PMfxC8l8i', 'student', '80', NULL, NULL, '2020-11-02 07:38:28', '2020-11-02 07:38:28'),
+(59, 'حازم حماده دسوقي عبدالجيد', '30203052301478', '30203052301478', '30203052301478', 1, 0, NULL, '$2y$10$MsshcCYZoti7MtUn2K98/O7CQG51NY7uL4rbAHDJi6mOXWaeCNCmW', 'student', '81', NULL, NULL, '2020-11-02 07:38:28', '2020-11-02 07:38:28'),
+(60, 'حبيبه حازم محمود رياض', '30209302201561', '30209302201561', '30209302201561', 1, 0, NULL, '$2y$10$6i2YMurelOIocBDczy9CoOwcmLg5glzMudkRdoLKEbx8Vcn6BDmFG', 'student', '82', NULL, NULL, '2020-11-02 07:38:28', '2020-11-02 07:38:28'),
+(61, 'حسام الدين احمد ابوغنيمه ابراهيم', '30206012409437', '30206012409437', '30206012409437', 1, 0, NULL, '$2y$10$DtBHjducEiQYxKGYJv7hPuwSbZ3PkL6KfND2DjIIVPeUd.jEjYO0a', 'student', '83', NULL, NULL, '2020-11-02 07:38:29', '2020-11-02 07:38:29'),
+(62, 'حمزه حسن احمد الياس', '30110132200933', '30110132200933', '30110132200933', 1, 0, NULL, '$2y$10$qp43V0y5TfuTG0ga4HKgIuWndShpKDixeALRtUA2Ol8MJgpcLnDde', 'student', '84', NULL, NULL, '2020-11-02 07:38:29', '2020-11-02 07:38:29'),
+(63, 'رنا عادل عبد الحميد عبد التواب اسماعيل', '30304278800125', '30304278800125', '30304278800125', 1, 0, NULL, '$2y$10$2PU3Upkc5NBmpMK.NBwiaekWJKDtiI6R/Vd2jDjkb3qbgI4.Gb4GK', 'student', '85', NULL, NULL, '2020-11-02 07:38:29', '2020-11-02 07:38:29'),
+(64, 'ساره رمضان الحسيني حسين', '30209062202365', '30209062202365', '30209062202365', 1, 0, NULL, '$2y$10$5W.3./l9TQmW2iIU9bD39.fM1kzgSVM6UEzycRwyELL/uWjlF9mxy', 'student', '86', NULL, NULL, '2020-11-02 07:38:29', '2020-11-02 07:38:29'),
+(65, 'ساندى ذكرى عوض عطيه', '30211042202148', '30211042202148', '30211042202148', 1, 0, NULL, '$2y$10$T60QxUTmGRYS7tWyYV7ewOI00chgOt2Q1vF7NRVPZHPNWxPGwL.Eq', 'student', '87', NULL, NULL, '2020-11-02 07:38:30', '2020-11-02 07:38:30'),
+(66, 'سميه احمد محمد خلاف', '30207078800761', '30207078800761', '30207078800761', 1, 0, NULL, '$2y$10$vL3eUTB/x4cK/hZG6aBIw.j1CZRbNZMN039UXPZiWaEAl4JhWrRh.', 'student', '88', NULL, NULL, '2020-11-02 07:38:30', '2020-11-02 07:38:30'),
+(67, 'سهيله عبد العظيم عرفات عبد العظيم', '30109092200147', '30109092200147', '30109092200147', 1, 0, NULL, '$2y$10$75FhyK90wDKCpACi.7U74eWGbzsXXtGuT.MwUVvyjfY7vKAlHbN0m', 'student', '89', NULL, NULL, '2020-11-02 07:38:30', '2020-11-02 07:38:30'),
+(68, 'سهيله محمود سيد احمد', '30204072202049', '30204072202049', '30204072202049', 1, 0, NULL, '$2y$10$Zx9lnNwxFqJln9c/kBeI5.mClqctF874/jrxFBaGCHG4ldz.vQ1.m', 'student', '90', NULL, NULL, '2020-11-02 07:38:30', '2020-11-02 07:38:30'),
+(69, 'عبد الرحمن محمد عبد العزيز ابراهيم', '30202012200818', '30202012200818', '30202012200818', 1, 0, NULL, '$2y$10$omuwLceEzPYP5XCkLb36QuiAneFQytvkDKHG2SBB2GBXSO1Jz8Adq', 'student', '91', NULL, NULL, '2020-11-02 07:38:31', '2020-11-02 07:38:31'),
+(70, 'عزه محمد محمود عبد الواحد', '30201062402725', '30201062402725', '30201062402725', 1, 0, NULL, '$2y$10$HUPk0UF2za9WiH1FsaLAfuQSekOSqBKPUjC5N5dAWMQ/2lQsMO/IW', 'student', '92', NULL, NULL, '2020-11-02 07:38:31', '2020-11-02 07:38:31'),
+(71, 'فاطمه احمد كمال محمد', '30305152200108', '30305152200108', '30305152200108', 1, 0, NULL, '$2y$10$f4izU5PZHQCBB4xaDR0kDOXFqo7OIcyiH64Xa1yTyF5tW.lqj6uNO', 'student', '93', NULL, NULL, '2020-11-02 07:38:31', '2020-11-02 07:38:31'),
+(72, 'لطيفة اكرم عباس احمد محمد', '30112072200125', '30112072200125', '30112072200125', 1, 0, NULL, '$2y$10$iIBGkgYAiucSG.UCUOmyxerUP3Zpm615UP8CyOBB7SceOOlra9Wi6', 'student', '94', NULL, NULL, '2020-11-02 07:38:31', '2020-11-02 07:38:31'),
+(73, 'مريم طه مصطفي احمد', '30204212200165', '30204212200165', '30204212200165', 1, 0, NULL, '$2y$10$g2FEssRt5gkM6U0TMeDDQ.enM6PfEpH3BxOQsfE1ODZoMLjiX7ptK', 'student', '95', NULL, NULL, '2020-11-02 07:38:32', '2020-11-02 07:38:32'),
+(74, 'مصطفى ابراهيم كمال الدين ابراهيم', '30205152202178', '30205152202178', '30205152202178', 1, 0, NULL, '$2y$10$jNagM/Kw0dqeQ5sDM3QV9.QMIMKiLcrRjVrO8hkUkDWOFoDzzx7WW', 'student', '96', NULL, NULL, '2020-11-02 07:38:32', '2020-11-02 07:38:32'),
+(75, 'مصطفي معوض عبيد علي', '30110302200399', '30110302200399', '30110302200399', 1, 0, NULL, '$2y$10$rfJU1ifOYdPQU.C1YMWygetV5CKvdcwr/ztthnqm2f6qjgXK0bBqG', 'student', '97', NULL, NULL, '2020-11-02 07:38:32', '2020-11-02 07:38:32'),
+(76, 'منار ربيع عبدالحفيظ محمد', '30204272400465', '30204272400465', '30204272400465', 1, 0, NULL, '$2y$10$LkoX9PLuc9kY0rBFckkqluuyFnqyqivJqoOuDg7tueqzgzw6YsssK', 'student', '98', NULL, NULL, '2020-11-02 07:38:33', '2020-11-02 07:38:33'),
+(77, 'منه الله محمد  سلامه حسن', '30201288800529', '30201288800529', '30201288800529', 1, 0, NULL, '$2y$10$KZAyVk5.p/kMspp7mLuD6ODnp48a4jBqkfTUGLwu3upkIIZJva.vC', 'student', '99', NULL, NULL, '2020-11-02 07:38:33', '2020-11-02 07:38:33'),
+(78, 'مهاب محمد ابو المجد حسين', '30103102704558', '30103102704558', '30103102704558', 1, 0, NULL, '$2y$10$2HfMqJ5GZz5d7uDDLkrmPeo3Xu4aBu2/naMCH6QZj1I07ma9TaffW', 'student', '100', NULL, NULL, '2020-11-02 07:38:33', '2020-11-02 07:38:33'),
+(79, 'ندا طارق بحر اسماعيل', '30011232201548', '30011232201548', '30011232201548', 1, 0, NULL, '$2y$10$C5bp14C1.DIEn3gOYnIDree7/BWs5Q.ZhTuHsUXWRgtRsaiymR9JO', 'student', '101', NULL, NULL, '2020-11-02 07:38:33', '2020-11-02 07:38:33'),
+(80, 'نورهان علاء علي امين', '30110202201266', '30110202201266', '30110202201266', 1, 0, NULL, '$2y$10$YN6Rvew4KiXFZl1xASIoAe1ONCrHclDybKTsziFHH3vnB/bQIuDzm', 'student', '102', NULL, NULL, '2020-11-02 07:38:34', '2020-11-02 07:38:34'),
+(81, 'هاجر على عبد الرحمن طنطاوى', '30208182201906', '30208182201906', '30208182201906', 1, 0, NULL, '$2y$10$APOe3Ml8qF9YzS4FGA/nQ.Vj.BFPHseC4lH9wtDjwOihVnPjzTMZ6', 'student', '103', NULL, NULL, '2020-11-02 07:38:34', '2020-11-02 07:38:34'),
+(82, 'هاجر محمد رمضان محمد', '30209232200082', '30209232200082', '30209232200082', 1, 0, NULL, '$2y$10$XE6hBHW2bL2Naao.L82LUO9jtI7F95CM5iV.ypGnCh1/QJl7Hd0uO', 'student', '104', NULL, NULL, '2020-11-02 07:38:34', '2020-11-02 07:38:34'),
+(83, 'هدير اشرف اسماعيل عبد العظيم', '30209242200706', '30209242200706', '30209242200706', 1, 0, NULL, '$2y$10$lrl97CWU9YwaH5MzQtN/iOyebN22uywxhUzYPzOTnLlp.aZSYNsaS', 'student', '105', NULL, NULL, '2020-11-02 07:38:35', '2020-11-02 07:38:35'),
+(911, 'غادة جمال عبدالله حمدان', '30012122200801', '30012122200801', '30012122200801', 1, 0, NULL, '$2y$10$EAL2RtJLyK0gTi8J5S0CvONrqNEGHJMtS7bo7Txf4cGJqqYRZKfDO', 'student', '933', NULL, NULL, '2020-11-02 09:23:49', '2020-11-02 09:23:49'),
+(912, 'فادية مجدي حزقيال قزمان', '30108102300882', '30108102300882', '30108102300882', 1, 0, NULL, '$2y$10$MFc4TtE0m7ZCkz.SRb9x9eyfCMM.xlmpVYebtUbQgtkG5ra0MiKxy', 'student', '934', NULL, NULL, '2020-11-02 09:23:49', '2020-11-02 09:23:49'),
+(913, 'فاطمة  سعد هلال سيد', '30107162200082', '30107162200082', '30107162200082', 1, 0, NULL, '$2y$10$7fsz4yLifMUomYaxTd1C7.VcRLAUAsLDmHJiumdwo4P2P02eu4b1C', 'student', '935', NULL, NULL, '2020-11-02 09:23:50', '2020-11-02 09:23:50'),
+(914, 'فاطمة الزهراء محمد سمير عبدالحميد', '30004172201105', '30004172201105', '30004172201105', 1, 0, NULL, '$2y$10$rfcNu0kIsBwbXt8fr3EmSe9XYBOyEUuXivV56wq450LwSUvk/0hMS', 'student', '936', NULL, NULL, '2020-11-02 09:23:50', '2020-11-02 09:23:50'),
+(915, 'فاطمة سليمان حسن محمد', '30102012202204', '30102012202204', '30102012202204', 1, 0, NULL, '$2y$10$4mu/7pSIF/zj/N7AUNdh7ukcKVVLEkNWIN4sXFtkrQZ3QHdz6Tzym', 'student', '937', NULL, NULL, '2020-11-02 09:23:50', '2020-11-02 09:23:50'),
+(916, 'فدوي طه احمد طه', '30106212200325', '30106212200325', '30106212200325', 1, 0, NULL, '$2y$10$ZOJ6r1A8fGtgdWM9I0qyLOvb4HD/TpzlOXhpEmlFkcYIe37htpvQy', 'student', '938', NULL, NULL, '2020-11-02 09:23:51', '2020-11-02 09:23:51'),
+(917, 'فيرينا اسامه رمزى عياد', '30012092200127', '30012092200127', '30012092200127', 1, 0, NULL, '$2y$10$dGtypRWJo5IUTqvAsFBk3OuQCEuuVeOTqCIK7DxbeLeCKW6pUaDRO', 'student', '939', NULL, NULL, '2020-11-02 09:23:51', '2020-11-02 09:23:51'),
+(918, 'كارولين ميلاد سليمان اسحق', '30102052402583', '30102052402583', '30102052402583', 1, 0, NULL, '$2y$10$U3lRoE5fC0nmd7a6hSfiXu0lfI7YXCfAKErlKWJkGxwKkQq.k3Vyu', 'student', '940', NULL, NULL, '2020-11-02 09:23:51', '2020-11-02 09:23:51'),
+(919, 'كارين بشري مجلي بشري', '30103160100069', '30103160100069', '30103160100069', 1, 0, NULL, '$2y$10$u2DD4vmsNRNNVar13CJlQeGq.vErPjdVyscsMXjsMRwgILdMDcL6W', 'student', '941', NULL, NULL, '2020-11-02 09:23:52', '2020-11-02 09:23:52'),
+(920, 'كارين وفيق جيد اسحق', '30107242400503', '30107242400503', '30107242400503', 1, 0, NULL, '$2y$10$FLDTzG4C346alCnGCV7YXu7rJ4jp4iCrlxIdfdxfRInvfRCI8rT.S', 'student', '942', NULL, NULL, '2020-11-02 09:23:52', '2020-11-02 09:23:52'),
+(921, 'كريم محمد مختار محمد', '30007062200374', '30007062200374', '30007062200374', 1, 0, NULL, '$2y$10$Sg.3I8.SZSoDcQOnDXBrUO5FSdq32.mBCpJv.t5Rai8jP/Ak4tM1S', 'student', '943', NULL, NULL, '2020-11-02 09:23:53', '2020-11-02 09:23:53'),
+(922, 'كيرلس ممدوح ناجح توفيق', '30003102403219', '30003102403219', '30003102403219', 1, 0, NULL, '$2y$10$vZENv7OhRoZPPNYu2FJ0R.T6ojkJbtTvD0S3uQXTdG3t/myTBMHy.', 'student', '944', NULL, NULL, '2020-11-02 09:23:53', '2020-11-02 09:23:53'),
+(923, 'لؤي محمود احمد  محمد حزين', '30104032300272', '30104032300272', '30104032300272', 1, 0, NULL, '$2y$10$8Wb3tkfBOmwK1tBnZjMCLewDIfAWSWslWJcaIbVtjos/LJ8rtWyEa', 'student', '945', NULL, NULL, '2020-11-02 09:23:53', '2020-11-02 09:23:53'),
+(924, 'لبنه غانم محمدالفولى على', '30009112403886', '30009112403886', '30009112403886', 1, 0, NULL, '$2y$10$d22eeZa8B5ptCyb4WutBYepijp6o1NdO.JvoHeVRMW1fo5JEKRdVm', 'student', '946', NULL, NULL, '2020-11-02 09:23:53', '2020-11-02 09:23:53'),
+(925, 'لمياء محمد عليش هاشم', '30001012214546', '30001012214546', '30001012214546', 1, 0, NULL, '$2y$10$Ei/3cUZsvU2CQVkk782oJOyyrohs6uJWNrpG35g6bxn2yPIvlbPqS', 'student', '947', NULL, NULL, '2020-11-02 09:23:54', '2020-11-02 09:23:54'),
+(926, 'مؤمن  محمد عبدالعال عبدالكريم', '30105122600891', '30105122600891', '30105122600891', 1, 0, NULL, '$2y$10$YBMNVbu8MiWTZ/o4N2meSOtAWw0riP9fh9Bw0plwTvbmnUHZ02csm', 'student', '948', NULL, NULL, '2020-11-02 09:23:54', '2020-11-02 09:23:54'),
+(927, 'مارتينا محسن نمر تادرس', '30001262600662', '30001262600662', '30001262600662', 1, 0, NULL, '$2y$10$.R5uxCHlJWRQuJjs5mqycud6bMgbktrhsU2hnujvIvn4oJ3MmGOM.', 'student', '949', NULL, NULL, '2020-11-02 09:23:54', '2020-11-02 09:23:54'),
+(928, 'مارى مرقس بشرى كامل', '30105122401368', '30105122401368', '30105122401368', 1, 0, NULL, '$2y$10$GuKg.AD/vXJ/6RuA4lke7eA5yJMldfHwyb1finqG7NHRfbHYWJazq', 'student', '950', NULL, NULL, '2020-11-02 09:23:55', '2020-11-02 09:23:55'),
+(929, 'مازن رجب حسين جمعة', '30105032301852', '30105032301852', '30105032301852', 1, 0, NULL, '$2y$10$V0pT1eGHZTncSaDYtmNo5unnopj2Enk2xRIv32MK7fnrE6WElWhEC', 'student', '951', NULL, NULL, '2020-11-02 09:23:55', '2020-11-02 09:23:55'),
+(930, 'ماهيتاب محمد على كامل', '30103102305823', '30103102305823', '30103102305823', 1, 0, NULL, '$2y$10$LkBAPJLEYmi2Y/RQLA6KBuWZ/XJCnZPBpXdc3ZDQYZdlp3BadjAkq', 'student', '952', NULL, NULL, '2020-11-02 09:23:55', '2020-11-02 09:23:55'),
+(931, 'ماهينور محمد على  احمد', '30112202204284', '30112202204284', '30112202204284', 1, 0, NULL, '$2y$10$dZmGWwwcGqPzZkic2Zs9.OA36ntsaAPBRJkAGgZNbBMie7m4OxYe6', 'student', '953', NULL, NULL, '2020-11-02 09:23:55', '2020-11-02 09:23:55'),
+(932, 'محمد  اسامه محمود مرداش', '30202022200174', '30202022200174', '30202022200174', 1, 0, NULL, '$2y$10$CkcQD.ftFR0FyGIeQEdGU.JDAeQfG.Tkvfx0o8I09IWtj8Esd47.G', 'student', '954', NULL, NULL, '2020-11-02 09:23:56', '2020-11-02 09:23:56'),
+(933, 'محمد  نبيل عبد العزيز شوربجى', '30202188800919', '30202188800919', '30202188800919', 1, 0, NULL, '$2y$10$Hp2s9rYaCif9WxMbZrxuPesYyPA2pg2YzibTwtq6eMFR7Mzzjrij.', 'student', '955', NULL, NULL, '2020-11-02 09:23:56', '2020-11-02 09:23:56'),
+(934, 'محمد  هشام انور محمد', '30105242300336', '30105242300336', '30105242300336', 1, 0, NULL, '$2y$10$O2WBXp5SjQn/fOaP2MeNp.2sWZwYei15DsAC8Zzwr0zEiK6Efnkoi', 'student', '956', NULL, NULL, '2020-11-02 09:23:56', '2020-11-02 09:23:56'),
+(935, 'محمد احمد علي سيد', '30109272201052', '30109272201052', '30109272201052', 1, 0, NULL, '$2y$10$LQ0OXxyidu5DzA0OkrDnJujwcZAeJ7iF995Iz62d1V4lcOW1Lyif6', 'student', '957', NULL, NULL, '2020-11-02 09:23:57', '2020-11-02 09:23:57'),
+(936, 'محمد اسامة عبدالمطلب يوسف', '30106122300479', '30106122300479', '30106122300479', 1, 0, NULL, '$2y$10$dSArq5z7JerzVQSEM.gQDeEaF1hA130QQbPx3k1VHxU29kVC5whY.', 'student', '958', NULL, NULL, '2020-11-02 09:23:57', '2020-11-02 09:23:57'),
+(937, 'محمد اشرف ابراهيم عبدالقادر', '30103102305599', '30103102305599', '30103102305599', 1, 0, NULL, '$2y$10$Kvwi2VqZR2s6oQHU7O0iF..Mgzqt22Za5uzbxg/EIQgmQBEeMCxBG', 'student', '959', NULL, NULL, '2020-11-02 09:23:57', '2020-11-02 09:23:57'),
+(938, 'محمد اشرف السيد احمد', '30106262200695', '30106262200695', '30106262200695', 1, 0, NULL, '$2y$10$2So8ZnRqktVfGPN5DzJnteMTWzAw5KsL9o5LHE5MmhYDwHWkYXGZm', 'student', '960', NULL, NULL, '2020-11-02 09:23:57', '2020-11-02 09:23:57'),
+(939, 'محمد ايمن محمد عبدالحميد', '30108262200353', '30108262200353', '30108262200353', 1, 0, NULL, '$2y$10$t4fX9VfIOW5NLbPvCmeL4ecb6NGJeZHFUvqIQ935B/FXEmQEHqPpu', 'student', '961', NULL, NULL, '2020-11-02 09:23:58', '2020-11-02 09:23:58'),
+(940, 'محمد جمال شحاتة جمعة', '30111302200352', '30111302200352', '30111302200352', 1, 0, NULL, '$2y$10$U1RurNp3dCVMdJDcQt8WmeuNtt13KO4Y.TNTSyqQx7rtn1ryzZ4lW', 'student', '962', NULL, NULL, '2020-11-02 09:23:58', '2020-11-02 09:23:58'),
+(941, 'محمد حسام محمد طه', '30108192200318', '30108192200318', '30108192200318', 1, 0, NULL, '$2y$10$DnCrbddqQUujM8VDde.QG..PXhOfm9n5TPzqQnTuADUyLeghkGkhG', 'student', '963', NULL, NULL, '2020-11-02 09:23:58', '2020-11-02 09:23:58'),
+(942, 'محمد حمدى عبد الواحد رزق', '30102102303034', '30102102303034', '30102102303034', 1, 0, NULL, '$2y$10$vl4jFJ9UFXAWGRBo3aLsbe77TcwIlAPCh4ck96HkCAE24VjxIUhVO', 'student', '964', NULL, NULL, '2020-11-02 09:23:58', '2020-11-02 09:23:58'),
+(943, 'محمد دسوقي رياض دسوقي', '30104162200458', '30104162200458', '30104162200458', 1, 0, NULL, '$2y$10$/ORn8XPWiz0Ggpt5DAia9O9.AFpdI5xmUhzc8qLtP/wiXl1FhuQFe', 'student', '965', NULL, NULL, '2020-11-02 09:23:59', '2020-11-02 09:23:59'),
+(944, 'محمد رجب عبدالواحد محمد', '30109302203934', '30109302203934', '30109302203934', 1, 0, NULL, '$2y$10$vyGpVfo6ZNU5LW.ZNaWnKeIUdL4a4Q/0M5xqIi7Mc.2B/Wizx2v3q', 'student', '966', NULL, NULL, '2020-11-02 09:23:59', '2020-11-02 09:23:59'),
+(945, 'محمد رمضان  احمد عبدالمقصود', '30106042300591', '30106042300591', '30106042300591', 1, 0, NULL, '$2y$10$Ljfls8lSLXUwYOjTiBXu0eS8EHzosvmh3tLh21mMORYDwXQ/p4t3q', 'student', '967', NULL, NULL, '2020-11-02 09:24:00', '2020-11-02 09:24:00'),
+(946, 'محمد سيد ربيع هاشم', '30103122301295', '30103122301295', '30103122301295', 1, 0, NULL, '$2y$10$bb0p59o.L4ilhtqo5z33s.VaxzEu/377h9TUm/rSw8v/A1Nm0SVeC', 'student', '968', NULL, NULL, '2020-11-02 09:24:00', '2020-11-02 09:24:00'),
+(947, 'محمد سيد عبدالتواب سالم', '30108152300093', '30108152300093', '30108152300093', 1, 0, NULL, '$2y$10$o.9KyhYGEDfZV9HULmSkae6GInGbG5gQog7PxdA7tWjon/A0sA0xK', 'student', '969', NULL, NULL, '2020-11-02 09:24:00', '2020-11-02 09:24:00'),
+(948, 'محمد طه سرى محمد', '30107082201096', '30107082201096', '30107082201096', 1, 0, NULL, '$2y$10$zLeh8Mka0cP1mTgSWljNX.zRDR2rmmEHU1aLo4b0r2ppHNWzOPvUS', 'student', '970', NULL, NULL, '2020-11-02 09:24:01', '2020-11-02 09:24:01'),
+(949, 'محمد عادل احمد عوض', '30011302200439', '30011302200439', '30011302200439', 1, 0, NULL, '$2y$10$nH6LLi.xlyrZmnbVtjUY6e5azfvdvS3qRBwq6TPo7AorSaNQoLCdm', 'student', '971', NULL, NULL, '2020-11-02 09:24:01', '2020-11-02 09:24:01'),
+(950, 'محمد عبدالعزيز محمد  كمال الدين', '30104098800993', '30104098800993', '30104098800993', 1, 0, NULL, '$2y$10$gFW3eMAf1uqc7/T3OQPzW.QNmiHXUcK/5tHikpgrONBlT.jZxBJYG', 'student', '972', NULL, NULL, '2020-11-02 09:24:01', '2020-11-02 09:24:01'),
+(951, 'محمد عبدالله فتح الله محمد محمود', '30104011502495', '30104011502495', '30104011502495', 1, 0, NULL, '$2y$10$yUtH9R2vb7XM6EwejKg2ue46yYZAfzrFNYPRqZiKdylHuU.BQwuxK', 'student', '973', NULL, NULL, '2020-11-02 09:24:02', '2020-11-02 09:24:02'),
+(952, 'محمد عرفه احمد علي موسي', '30112041302078', '30112041302078', '30112041302078', 1, 0, NULL, '$2y$10$QeEffHVVxiH3TjUHCm3xPOs.5wTjixcrZeQpqUbp3WwIY8635AaOW', 'student', '974', NULL, NULL, '2020-11-02 09:24:02', '2020-11-02 09:24:02'),
+(953, 'محمد عصام قرني محمد', '30104172201533', '30104172201533', '30104172201533', 1, 0, NULL, '$2y$10$a.FvWqm69bAa7jCQ9YA89uunkc1flSHqd1Iqtrsq9pyKsc84aeWsW', 'student', '975', NULL, NULL, '2020-11-02 09:24:02', '2020-11-02 09:24:02'),
+(954, 'محمد فرج علي فراج', '30203182400397', '30203182400397', '30203182400397', 1, 0, NULL, '$2y$10$1MWQsk3LU0kjt4Y2zOb.WOSlSTdsuDEBo6cuBNH4tFlxkz9UMxEtu', 'student', '976', NULL, NULL, '2020-11-02 09:24:03', '2020-11-02 09:24:03'),
+(955, 'محمد ماهر محمد سليمان', '30109010107497', '30109010107497', '30109010107497', 1, 0, NULL, '$2y$10$Tmp6lNPBYtHL70q6JEUBKOjcf9f9CPMO6xPp1waoUByJOHMOdv4RG', 'student', '977', NULL, NULL, '2020-11-02 09:24:03', '2020-11-02 09:24:03'),
+(956, 'محمد مجدي محمد ابراهيم', '30111082200798', '30111082200798', '30111082200798', 1, 0, NULL, '$2y$10$xr43/znnIE5F8o5.8mTJ.eYQKoN1XfavFfIT9PZk6CKTEnnuXNWMS', 'student', '978', NULL, NULL, '2020-11-02 09:24:03', '2020-11-02 09:24:03'),
+(957, 'محمد محمد جودة ابوالسعود', '30105182200876', '30105182200876', '30105182200876', 1, 0, NULL, '$2y$10$UUQ286zG2VVUSsJYsQApzOgGxSQRwfZ7GliHJd.ZMv7l1oB7DKGUu', 'student', '979', NULL, NULL, '2020-11-02 09:24:04', '2020-11-02 09:24:04'),
+(958, 'محمد محمود احمد كامل عوض', '30110010219412', '30110010219412', '30110010219412', 1, 0, NULL, '$2y$10$OUaLnrtr9QusT.pnbrWngOJ1eaa/d26wrjvPYm0Jfhe07Ch9adTh.', 'student', '980', NULL, NULL, '2020-11-02 09:24:04', '2020-11-02 09:24:04'),
+(959, 'محمد مصطفي فاروق عبدالسميع', '30012102303434', '30012102303434', '30012102303434', 1, 0, NULL, '$2y$10$28I.7ABLOfUna.HecI75k.JMFYyCViVh5MAVr4gMDfnon9FiTEr6C', 'student', '981', NULL, NULL, '2020-11-02 09:24:05', '2020-11-02 09:24:05'),
+(960, 'محمد ياسر بكر صديق', '30109012401899', '30109012401899', '30109012401899', 1, 0, NULL, '$2y$10$L17kUYOrEvmOMT4OtA7m4u2oU2pWmJ.26g9hkXJvoJuStJf7SNxAa', 'student', '982', NULL, NULL, '2020-11-02 09:24:05', '2020-11-02 09:24:05'),
+(961, 'محمد ياسر علي عبدالغني', '30107232301914', '30107232301914', '30107232301914', 1, 0, NULL, '$2y$10$sx4B4./ob2axVi3C2m1DWuYSIZe.92nOvSe2DunelkiqxGb.EmyZS', 'student', '983', NULL, NULL, '2020-11-02 09:24:05', '2020-11-02 09:24:05'),
+(962, 'محمود  سعد فرج  متولي', '30103122201552', '30103122201552', '30103122201552', 1, 0, NULL, '$2y$10$Dj3uNgpQFi5gpwtW3dszfuqsdv.Z9ged7UwLSYQcAIpxhMMUU2u3m', 'student', '984', NULL, NULL, '2020-11-02 09:24:06', '2020-11-02 09:24:06'),
+(963, 'محمود احمد رجب عبدالفتاح', '30108012301855', '30108012301855', '30108012301855', 1, 0, NULL, '$2y$10$36Yt.hEFlfPSBtRrlFU..euppkKF.40ph2lG5.6kohXHpbxHavdue', 'student', '985', NULL, NULL, '2020-11-02 09:24:06', '2020-11-02 09:24:06'),
+(964, 'محمود اشرف عبدالعظيم ابراهيم', '30108192300339', '30108192300339', '30108192300339', 1, 0, NULL, '$2y$10$MVse2SrOtA7fooaK1/dYsemHZJ8gTi/Nt3Pmh4Je3R/qErCowLV0S', 'student', '986', NULL, NULL, '2020-11-02 09:24:07', '2020-11-02 09:24:07'),
+(965, 'محمود حسين كمال احمد', '30103022200052', '30103022200052', '30103022200052', 1, 0, NULL, '$2y$10$jfBGdxwHonJbAy0ZjMZMROCb3kt9mpV1T/vmCuRuyHoOZ.f1mZwXm', 'student', '987', NULL, NULL, '2020-11-02 09:24:07', '2020-11-02 09:24:07'),
+(966, 'محمود عبد العزيز محمد علي', '30001012321075', '30001012321075', '30001012321075', 1, 0, NULL, '$2y$10$UJw4Fta/3OFBhvb82nYO4exwhH1mt0Y4dbSI4F/UVazMFdTwqVxXe', 'student', '988', NULL, NULL, '2020-11-02 09:24:07', '2020-11-02 09:24:07'),
+(967, 'محمود محمد محمود مصطفي جادالرب', '30105122201474', '30105122201474', '30105122201474', 1, 0, NULL, '$2y$10$/SiS1W/SJMJ1D10lWQ9twusrPCe5Al5jR2V0dd71fvDzp3/2ovVtC', 'student', '989', NULL, NULL, '2020-11-02 09:24:08', '2020-11-02 09:24:08'),
+(968, 'مرام عصام ناجح محمد', '30101132200349', '30101132200349', '30101132200349', 1, 0, NULL, '$2y$10$b9mPSix5T5OV00RvUI7mouQdIV7zoNaCy3Fl4ALqLwrrHZTJE/Qim', 'student', '990', NULL, NULL, '2020-11-02 09:24:08', '2020-11-02 09:24:08'),
+(969, 'مروة جمال محمد مرسي', '30007222400804', '30007222400804', '30007222400804', 1, 0, NULL, '$2y$10$jVzVm5I4mgGk5ImdCQORluLflRapP/S8FQu2BZ..QH2MtpthFsm5u', 'student', '991', NULL, NULL, '2020-11-02 09:24:08', '2020-11-02 09:24:08'),
+(970, 'مروة مصطفي عرفات احمد', '30104162200687', '30104162200687', '30104162200687', 1, 0, NULL, '$2y$10$6OgZBoWHPShTdkueFbtZze6JgmIYG06arlzf/fNIBmcjF/savAsqe', 'student', '992', NULL, NULL, '2020-11-02 09:24:09', '2020-11-02 09:24:09'),
+(971, 'مروه حسن محمد انور', '30105272201588', '30105272201588', '30105272201588', 1, 0, NULL, '$2y$10$O3xkeA2wQnmvMovX19HnIOLWbg7MKx5r/vCtdyt3YhrI/tSoe4VZq', 'student', '993', NULL, NULL, '2020-11-02 09:24:09', '2020-11-02 09:24:09'),
+(972, 'مريم احمد قاسم جودة', '30107042200623', '30107042200623', '30107042200623', 1, 0, NULL, '$2y$10$w57.A3PDwJpxPNznncVxgeObsnJwnpB2726XtjJ/U2CwIHaCWTfiK', 'student', '994', NULL, NULL, '2020-11-02 09:24:09', '2020-11-02 09:24:09'),
+(973, 'مريم القس جبريل فتحي', '30108052200369', '30108052200369', '30108052200369', 1, 0, NULL, '$2y$10$uXAZWJV/BWfxpZr0hvoNQu/23tvCDxXjjscn0RRbZALy7RijNGJBm', 'student', '995', NULL, NULL, '2020-11-02 09:24:10', '2020-11-02 09:24:10'),
+(974, 'مريم بسخرون بباوى جرجس', '30107012203148', '30107012203148', '30107012203148', 1, 0, NULL, '$2y$10$zqFiBQ/2fXWmuZSMqNivJOWAuPQYc/UQ.ajx0ikpTtngu/4zibf7C', 'student', '996', NULL, NULL, '2020-11-02 09:24:10', '2020-11-02 09:24:10'),
+(975, 'مريم محمد حسين محمود', '30103032201421', '30103032201421', '30103032201421', 1, 0, NULL, '$2y$10$xATKpXn0S9miJxFb3SLzBuRTjza3c8sF1S0gc.ODGDZx/VuY9E10O', 'student', '997', NULL, NULL, '2020-11-02 09:24:10', '2020-11-02 09:24:10'),
+(976, 'مريم محمد خليفه محمود', '30102172200186', '30102172200186', '30102172200186', 1, 0, NULL, '$2y$10$dcjWprlt2Fx623/FTSeTVuAoFZfSs0YyiZ8Y67SHz2Injojnj.5Bi', 'student', '998', NULL, NULL, '2020-11-02 09:24:11', '2020-11-02 09:24:11'),
+(977, 'مريم محمود محمد عبد العزيز', '30110262200781', '30110262200781', '30110262200781', 1, 0, NULL, '$2y$10$GWPxCATLv3518PRIxyhfC.VuejKvojNoRZB5ug6D1cZpFikBaug2S', 'student', '999', NULL, NULL, '2020-11-02 09:24:11', '2020-11-02 09:24:11'),
+(978, 'مصطفى  نبيل حشمت شحاته', '30105012201894', '30105012201894', '30105012201894', 1, 0, NULL, '$2y$10$BlCJe1FKluOL3Zeh708Dges730qPZxun/JMDlxokUS3AFVWsMI5r.', 'student', '1000', NULL, NULL, '2020-11-02 09:24:11', '2020-11-02 09:24:11'),
+(979, 'مصطفي عصام عبدالرحمن عثمان', '30201212202053', '30201212202053', '30201212202053', 1, 0, NULL, '$2y$10$YBjQ9eIMs3H2Sj0Q4V3kHu0Ez4ibLfjC/Cf1Kbq7tjImQtVwJdGoS', 'student', '1001', NULL, NULL, '2020-11-02 09:24:12', '2020-11-02 09:24:12'),
+(980, 'مصطفى علاء مصطفى  عامر', '30107012303592', '30107012303592', '30107012303592', 1, 0, NULL, '$2y$10$7cj9M/vu.8WoAIIRhcyzouGXDSeJgEpjOIxIgCe3/che0u/zv1liu', 'student', '1002', NULL, NULL, '2020-11-02 09:24:12', '2020-11-02 09:24:12'),
+(981, 'مصطفي عمرو مصطفي محمد', '30104121600751', '30104121600751', '30104121600751', 1, 0, NULL, '$2y$10$/T1FMGW5K/Lrzc/RpLPNmO77yy0Dg/VhU4wtgGcX96WW3HJVah2km', 'student', '1003', NULL, NULL, '2020-11-02 09:24:12', '2020-11-02 09:24:12'),
+(982, 'مصطفي محمود احمد كامل عوض', '30110010219439', '30110010219439', '30110010219439', 1, 0, NULL, '$2y$10$yCD4Mrs4ToNqdzypQ7JZHecPKs5seTOh5MhREO2sVW1C5iAuhDzku', 'student', '1004', NULL, NULL, '2020-11-02 09:24:13', '2020-11-02 09:24:13'),
+(983, 'ممدوح السيد صديق حجازي حسين', '30106042301911', '30106042301911', '30106042301911', 1, 0, NULL, '$2y$10$qNnH1VGV42xfH8XCuD7wXeXQUiIkH6d2tIZJin4jwPMNrvXutQ3jW', 'student', '1005', NULL, NULL, '2020-11-02 09:24:13', '2020-11-02 09:24:13'),
+(984, 'منار عبدالرحمن محمد عبدالباقى', '30105062200406', '30105062200406', '30105062200406', 1, 0, NULL, '$2y$10$EYvgFlQcIIxFVeDB7xePmufL/bphYQ7bmTUxIOtSks0W8B6r1245.', 'student', '1006', NULL, NULL, '2020-11-02 09:24:13', '2020-11-02 09:24:13'),
+(985, 'منار عربى محمد سوعيد', '30001012431741', '30001012431741', '30001012431741', 1, 0, NULL, '$2y$10$TIxwLbDBR52IphiFf71fkuMlR4/zu0yImfj2V8MRGF/wH/YXRfJ7y', 'student', '1007', NULL, NULL, '2020-11-02 09:24:14', '2020-11-02 09:24:14'),
+(986, 'منة الله اشرف حسين بكري', '30101162200181', '30101162200181', '30101162200181', 1, 0, NULL, '$2y$10$GKaBsUzZqJf0fxuKLZMVMOThwRVC4Gt0jil4ES1/sLhDEvWHC3mWu', 'student', '1008', NULL, NULL, '2020-11-02 09:24:14', '2020-11-02 09:24:14'),
+(987, 'منه الله عاطف محمد نورالدين', '30110222200045', '30110222200045', '30110222200045', 1, 0, NULL, '$2y$10$2FsCehVrihzuecGN9j6sr.dQRekVV5HQLTQA61.T6qQ5O6GmWBONW', 'student', '1009', NULL, NULL, '2020-11-02 09:24:14', '2020-11-02 09:24:14'),
+(988, 'منه الله نبيل على  على', '30104020100308', '30104020100308', '30104020100308', 1, 0, NULL, '$2y$10$dtCY8jqTvcoYsIlHoDFBA.bSS1RwhcobeVE7FSFOhW2Hf4V.hv34q', 'student', '1010', NULL, NULL, '2020-11-02 09:24:14', '2020-11-02 09:24:14'),
+(989, 'منه محمد عبدالفتاح حامد', '30102172200143', '30102172200143', '30102172200143', 1, 0, NULL, '$2y$10$Z.aCribS9iA2WNzqXv16lO7ufOOaCfkWYaUNJZzCkaVFZ6g9QcYtK', 'student', '1011', NULL, NULL, '2020-11-02 09:24:15', '2020-11-02 09:24:15'),
+(990, 'منورة حسن عبدالمعز عبدالفتاح', '30109202305381', '30109202305381', '30109202305381', 1, 0, NULL, '$2y$10$bOmyWccJJNfh1xZB4qCRyO/9WqlJfltAh.pxAkq4bvGF2uRYkEbUq', 'student', '1012', NULL, NULL, '2020-11-02 09:24:15', '2020-11-02 09:24:15'),
+(991, 'مي ابراهيم احمد متولي', '30103232200187', '30103232200187', '30103232200187', 1, 0, NULL, '$2y$10$Gv8bMiebp1U1kSJiq4Wk/uA1LWJ63Wn8uKElow5bJL.wBcZ4hMY6u', 'student', '1013', NULL, NULL, '2020-11-02 09:24:16', '2020-11-02 09:24:16'),
+(992, 'مي محمد زين العابدين عبدالعظيم', '30111222200467', '30111222200467', '30111222200467', 1, 0, NULL, '$2y$10$hyouh0/BjmIXsKodPrvRoO7KBd5xs4KTaT8jXtouTayfAWoN.vW1m', 'student', '1014', NULL, NULL, '2020-11-02 09:24:16', '2020-11-02 09:24:16'),
+(993, 'مي محمد سيد سعيد', '30109292301908', '30109292301908', '30109292301908', 1, 0, NULL, '$2y$10$gTRBjsl5fyIMAQv4igtYcOPPfSG5zZapuSfxrY86ktYmMh9iAHAt.', 'student', '1015', NULL, NULL, '2020-11-02 09:24:16', '2020-11-02 09:24:16'),
+(994, 'مي هاني حسني عبدالحميد', '30204012201264', '30204012201264', '30204012201264', 1, 0, NULL, '$2y$10$fQyQdMEBOgxwAbrrThoQFO.lJ.XjSaeZdqRnrvgqtSn6DRplVteKq', 'student', '1016', NULL, NULL, '2020-11-02 09:24:17', '2020-11-02 09:24:17'),
+(995, 'ميار عادل راضي موسي', '30203012203244', '30203012203244', '30203012203244', 1, 0, NULL, '$2y$10$Jtw0G3hixnHUDHOcyc.uTefR4ME.YuNMnArZgIxsmttRBfyD0DJU6', 'student', '1017', NULL, NULL, '2020-11-02 09:24:17', '2020-11-02 09:24:17'),
+(996, 'ميار علاء عبدالعاطى خلف', '30102252401026', '30102252401026', '30102252401026', 1, 0, NULL, '$2y$10$eqoLuaNxnZXy7YOaFAXU0.W9zkgC1hZljgx.PV1wYchiNKBL2Acva', 'student', '1018', NULL, NULL, '2020-11-02 09:24:17', '2020-11-02 09:24:17'),
+(997, 'ميار مجدى صابر محمد', '30001012307846', '30001012307846', '30001012307846', 1, 0, NULL, '$2y$10$eijYV.4p02wOTvH.UhFe8O9YweyC/.zqaZErC0RvvJlAQTUXAWZAC', 'student', '1019', NULL, NULL, '2020-11-02 09:24:17', '2020-11-02 09:24:17'),
+(998, 'ميار محمد فكري محمود', '30107142200361', '30107142200361', '30107142200361', 1, 0, NULL, '$2y$10$OJ5ee6Gz/bTLDadHrZUxQuuySyjAHEaMqOFbuuuERsvOYghp6wJJ6', 'student', '1020', NULL, NULL, '2020-11-02 09:24:18', '2020-11-02 09:24:18'),
+(999, 'ميرفت جمعة حسن حسين', '30005032402743', '30005032402743', '30005032402743', 1, 0, NULL, '$2y$10$xC2ZP8AV8ouBzh3Lkj0zE.XlwKcjo4fTK/nikjg9RBaK2uB4arqyW', 'student', '1021', NULL, NULL, '2020-11-02 09:24:18', '2020-11-02 09:24:18'),
+(1000, 'ميرنا ابرام نجيب جيد', '30109102401545', '30109102401545', '30109102401545', 1, 0, NULL, '$2y$10$dqIp.9DmmYFJEPvpq2/zD.6jjodHejnTOmAGzxbf0ANZ.A6RiPNl.', 'student', '1022', NULL, NULL, '2020-11-02 09:24:18', '2020-11-02 09:24:18'),
+(1001, 'ميرنا نبيل نجيب عياد', '30111062201763', '30111062201763', '30111062201763', 1, 0, NULL, '$2y$10$E/LtRcLWYn7ZAY/QYwKUe.cKsEbiy60QQzshC3fDduYgCqfs/xe9.', 'student', '1023', NULL, NULL, '2020-11-02 09:24:19', '2020-11-02 09:24:19'),
+(1002, 'ميسون محمد محمد محمود', '30005012306764', '30005012306764', '30005012306764', 1, 0, NULL, '$2y$10$docC1PY/BmrDcqUHEik7l.Dzp66cnn4hoT2iVwicxyFWEniJgQFGC', 'student', '1024', NULL, NULL, '2020-11-02 09:24:19', '2020-11-02 09:24:19'),
+(1003, 'ميشيل  جمال  لوندى عبيد', '30203202201515', '30203202201515', '30203202201515', 1, 0, NULL, '$2y$10$aszdYolnQM/NAlP5LPz5p.1ZbF3UjjVdG0jQ8n1V8H/B7Xve3sRge', 'student', '1025', NULL, NULL, '2020-11-02 09:24:19', '2020-11-02 09:24:19'),
+(1004, 'ندا على  محمد محمد', '30009252202147', '30009252202147', '30009252202147', 1, 0, NULL, '$2y$10$0LnRkRKVxVnsGnHo24fOyeClzJ2QPbThkjbVGsZxfYPVJZu4hsWWm', 'student', '1026', NULL, NULL, '2020-11-02 09:24:20', '2020-11-02 09:24:20'),
+(1005, 'ندى ايهاب  عبدالحليم طه', '30104012202649', '30104012202649', '30104012202649', 1, 0, NULL, '$2y$10$5EfYa8AuUA1E5i2k3wBdyu35qDbiC4ghh6sAmTPBp3ORVXC9e71/C', 'student', '1027', NULL, NULL, '2020-11-02 09:24:20', '2020-11-02 09:24:20'),
+(1006, 'ندي جمال صبحي اسماعيل', '30109012201202', '30109012201202', '30109012201202', 1, 0, NULL, '$2y$10$xltJku6R8XmGurdBVEwlTeoRDpHzjZph1QJK9GB.pJt8ABBKvlqYK', 'student', '1028', NULL, NULL, '2020-11-02 09:24:20', '2020-11-02 09:24:20'),
+(1007, 'ندي جمال نصرالدين محمد', '30105072201044', '30105072201044', '30105072201044', 1, 0, NULL, '$2y$10$YCdAybWWD0kta2ZraUhV5.bnlyfcSTrU9ZT90OMsiQDYfRzvNrr1K', 'student', '1029', NULL, NULL, '2020-11-02 09:24:21', '2020-11-02 09:24:21'),
+(1008, 'ندي حمدي مصطفي حسين', '30109092200066', '30109092200066', '30109092200066', 1, 0, NULL, '$2y$10$7N8soyI/0DyHQDaI9FV/TuEMMyNdPAqA4RXxvrrzsx.w4.ryJQTLy', 'student', '1030', NULL, NULL, '2020-11-02 09:24:21', '2020-11-02 09:24:21'),
+(1009, 'ندي عاطف محفوظ احمد احمد', '30112052200102', '30112052200102', '30112052200102', 1, 0, NULL, '$2y$10$bCcwQfQRQryLs4O02KmvLO02JCvDVavmIpCBRDJtVbAaZ8xUliXj.', 'student', '1031', NULL, NULL, '2020-11-02 09:24:21', '2020-11-02 09:24:21'),
+(1010, 'ندي علي وزير احمد', '30012102203189', '30012102203189', '30012102203189', 1, 0, NULL, '$2y$10$a41ZIOA/OEifDef71XsjZOnbgaNO6usQKmS4WYV1/6bNhEoZcm.C6', 'student', '1032', NULL, NULL, '2020-11-02 09:24:22', '2020-11-02 09:24:22'),
+(1011, 'نسرين نصر عبدالفتاح فراج', '30010152301669', '30010152301669', '30010152301669', 1, 0, NULL, '$2y$10$DQcixx4cdWWjTi/.UpYRhe2Ygo43DN0uEBkGcnFUj0rkUTSnd2aYe', 'student', '1033', NULL, NULL, '2020-11-02 09:24:22', '2020-11-02 09:24:22'),
+(1012, 'نهال عماد عبدالفتاح محمد', '30203042200509', '30203042200509', '30203042200509', 1, 0, NULL, '$2y$10$H6VWCjKiCDOQD3qEZJO76.tkz6c4MGn4vuTAAaV7KsGGe.5YMvJ8u', 'student', '1034', NULL, NULL, '2020-11-02 09:24:22', '2020-11-02 09:24:22'),
+(1013, 'نهال نصرالدين جابر حسن', '30105012201789', '30105012201789', '30105012201789', 1, 0, NULL, '$2y$10$8egyuGkILISm5mDMQR0XbuGY81QT4vLgI3ZX7zIPrXWN4ZRtrlmLe', 'student', '1035', NULL, NULL, '2020-11-02 09:24:22', '2020-11-02 09:24:22'),
+(1014, 'نوران حمدي محمد معوض', '30105062201445', '30105062201445', '30105062201445', 1, 0, NULL, '$2y$10$o4gduh121rJ.xBCLwQHMquDU/wWpuOv7WZBOnGZX2JdR/WEdjKb36', 'student', '1036', NULL, NULL, '2020-11-02 09:24:23', '2020-11-02 09:24:23'),
+(1015, 'نورسين محسن صلاح الدين حسن', '30103092200041', '30103092200041', '30103092200041', 1, 0, NULL, '$2y$10$AlGdF7qA7VuzDfWQR3mHoe4Sl8MsrepCQVV8nOr5RgK4XRInH22hq', 'student', '1037', NULL, NULL, '2020-11-02 09:24:23', '2020-11-02 09:24:23'),
+(1016, 'نورهان احمد طلعت محمود سيد', '30107280104586', '30107280104586', '30107280104586', 1, 0, NULL, '$2y$10$SMPZuJVUdyRlGeKB/OfGNeGGYO43fAEiPugdhBpPvbejAqpgwQvkm', 'student', '1038', NULL, NULL, '2020-11-02 09:24:23', '2020-11-02 09:24:23'),
+(1017, 'نورهان اسامة ربيع عبدالتواب', '30106182200627', '30106182200627', '30106182200627', 1, 0, NULL, '$2y$10$u4rTDO4yELrkaKQQWEcYx.l5v6mrVUsWO3XOdpOuR0gf9GFLwieLS', 'student', '1039', NULL, NULL, '2020-11-02 09:24:24', '2020-11-02 09:24:24'),
+(1018, 'نورهان حمدي حلميي نصر', '30108012204981', '30108012204981', '30108012204981', 1, 0, NULL, '$2y$10$KsJJ0SwyZ8jP5ANf61kkxeB5jvubaZVnYnDcxcEtZEOFTC7TAHT1u', 'student', '1040', NULL, NULL, '2020-11-02 09:24:24', '2020-11-02 09:24:24'),
+(1019, 'نورهان عبدالتواب محمد حسن', '30101022203385', '30101022203385', '30101022203385', 1, 0, NULL, '$2y$10$euFXTwSxebdohVaaoYf6JunpzcAVhcx5veoGBi3f4cAJeVVtgilKq', 'student', '1041', NULL, NULL, '2020-11-02 09:24:24', '2020-11-02 09:24:24'),
+(1020, 'نورهان علاءالدين شحاتة محمد شحاتة', '30112012200207', '30112012200207', '30112012200207', 1, 0, NULL, '$2y$10$Zx4CGXjZSf.6Nnvfkze.S.wmh7mKJM1Vo3UumZFzm9VNbgRZkAIhy', 'student', '1042', NULL, NULL, '2020-11-02 09:24:24', '2020-11-02 09:24:24'),
+(1021, 'نورهان كمال حسني محمود', '30201042200565', '30201042200565', '30201042200565', 1, 0, NULL, '$2y$10$ozL2C/uLbQrJ4LHwlEBgf.POQcgy9AEhJIqezTIAeNBV9gN2TvC0O', 'student', '1043', NULL, NULL, '2020-11-02 09:24:25', '2020-11-02 09:24:25'),
+(1022, 'نورهان محمود صلاح توفيق', '30111012303921', '30111012303921', '30111012303921', 1, 0, NULL, '$2y$10$/jiseocTgI2ABLIID.benu.EB5JaYAIb5NQh/D7M6JUfUxEXEhFXW', 'student', '1044', NULL, NULL, '2020-11-02 09:24:25', '2020-11-02 09:24:25'),
+(1023, 'نورهان مصطفي محمد عبدالعال', '30011212200588', '30011212200588', '30011212200588', 1, 0, NULL, '$2y$10$FPgDY6qWHSCR819VZSZfoOcu1rpxYhwx3B2e6ClO457Ei8uJkhTDu', 'student', '1045', NULL, NULL, '2020-11-02 09:24:25', '2020-11-02 09:24:25'),
+(1024, 'نيرة احمد احمد ابراهيم الشاهد', '30109222300629', '30109222300629', '30109222300629', 1, 0, NULL, '$2y$10$vV/2AJz2qZx.X196LT9SEeiDyGNp2/dAM9CGrvpv5lwMkaYUr4FCW', 'student', '1046', NULL, NULL, '2020-11-02 09:24:26', '2020-11-02 09:24:26'),
+(1025, 'نيرة مدحت محمد عبدالعظيم', '30109012201121', '30109012201121', '30109012201121', 1, 0, NULL, '$2y$10$dHxiCNceAqsOC0HTXooRwOTt2RX//Nma5qyzlCIFUcq75VdL6QJ0O', 'student', '1047', NULL, NULL, '2020-11-02 09:24:26', '2020-11-02 09:24:26'),
+(1026, 'هاجر جابر مرعي سالم', '30102242201142', '30102242201142', '30102242201142', 1, 0, NULL, '$2y$10$u7YoboyLnJHgztgNu6ETR.jgcRGP8dvxKe2YmekRmvuIF5QCTbDou', 'student', '1048', NULL, NULL, '2020-11-02 09:24:26', '2020-11-02 09:24:26'),
+(1027, 'هاجر سراج محمد ابراهيم', '30001012400862', '30001012400862', '30001012400862', 1, 0, NULL, '$2y$10$q7Lz2kd784dR2tGLj0tPmOmPj5dQC8xdRPgW7JjfCJBp1FOgsZEeO', 'student', '1049', NULL, NULL, '2020-11-02 09:24:27', '2020-11-02 09:24:27'),
+(1028, 'هاجر سعد سعد يحيي', '30104142200427', '30104142200427', '30104142200427', 1, 0, NULL, '$2y$10$UwmbTmE2RZUnJbNmADg67e2kjGX4X1ej0we7M53IjB3iP82vkyd7.', 'student', '1050', NULL, NULL, '2020-11-02 09:24:28', '2020-11-02 09:24:28'),
+(1029, 'هاجر سيد محرم جودة', '30104172202084', '30104172202084', '30104172202084', 1, 0, NULL, '$2y$10$of4RL2nDNADG42AWNuajY.bCM44q1l7pGhmlLCiMLH98cDEbr1wBC', 'student', '1051', NULL, NULL, '2020-11-02 09:24:28', '2020-11-02 09:24:28'),
+(1030, 'هاجر محمد مصطفي محمد', '30108082201149', '30108082201149', '30108082201149', 1, 0, NULL, '$2y$10$krKWeGNOg729M4LJC.kWBuEdp9YO1yVke6/v6Efog9LzclMdAFp2O', 'student', '1052', NULL, NULL, '2020-11-02 09:24:28', '2020-11-02 09:24:28'),
+(1031, 'هاجر ناجى جاد شاكر', '30108132200041', '30108132200041', '30108132200041', 1, 0, NULL, '$2y$10$SrghSqXj.W8vJQXRORwO1uxOMuU3qYz8evwJo67wqqFhA7vVdS9bS', 'student', '1053', NULL, NULL, '2020-11-02 09:24:28', '2020-11-02 09:24:28'),
+(1032, 'هاجر ناصر ابراهيم حسين', '30012102300346', '30012102300346', '30012102300346', 1, 0, NULL, '$2y$10$L3LLIeIMZ9i18zYIIwRxvO1XuDZzWOvwkGOZDqXV/CNtKICjRZY3m', 'student', '1054', NULL, NULL, '2020-11-02 09:24:29', '2020-11-02 09:24:29'),
+(1033, 'هادي عبدالمنعم عبدالباسط عبدالمولي', '30106252302015', '30106252302015', '30106252302015', 1, 0, NULL, '$2y$10$aocEyXlenq/GAc13odsWN.m4WHtiyhgFJb9VmFc0N0pFGuTztWcai', 'student', '1055', NULL, NULL, '2020-11-02 09:24:29', '2020-11-02 09:24:29'),
+(1034, 'هادي عبدالوهاب محمد علام', '30005022700037', '30005022700037', '30005022700037', 1, 0, NULL, '$2y$10$diJHzsVbLINsXbnzLFJBdOP3CToi0jHN1zkqHNdTyGw6TjYI84vzW', 'student', '1056', NULL, NULL, '2020-11-02 09:24:29', '2020-11-02 09:24:29'),
+(1035, 'هاله اشرف فتحي محمد ابراهيم', '30111152200227', '30111152200227', '30111152200227', 1, 0, NULL, '$2y$10$Hl8NDhRt/fRlSv1opCCrIuy9kY6Rm6o/ZiC0b8z0m0SgrbvOAVqaS', 'student', '1057', NULL, NULL, '2020-11-02 09:24:30', '2020-11-02 09:24:30'),
+(1036, 'هانيا عمرو سليمان سعد الدين نجم', '30103121800266', '30103121800266', '30103121800266', 1, 0, NULL, '$2y$10$LwUiyZ2WFXaHWPZfYss3oeYYpIXgZqhBn8xB6aYg81I1AXPRDAG9q', 'student', '1058', NULL, NULL, '2020-11-02 09:24:30', '2020-11-02 09:24:30'),
+(1037, 'هايدي حسن عبدالله حسن', '30101210104564', '30101210104564', '30101210104564', 1, 0, NULL, '$2y$10$yAUHCC2soGGvL4FcQEiuxO2gsDazENHwLvShv.NhQ1tZBKIVqPyMe', 'student', '1059', NULL, NULL, '2020-11-02 09:24:30', '2020-11-02 09:24:30'),
+(1038, 'هبه سعيد سيد جوده', '30009212301568', '30009212301568', '30009212301568', 1, 0, NULL, '$2y$10$.dtc42sTVOc8pbTfyZlr3OBkwwUGauc1ohYFIFmc3M4WSkj5LCYqS', 'student', '1060', NULL, NULL, '2020-11-02 09:24:31', '2020-11-02 09:24:31'),
+(1039, 'هدي راضي محمد بدوي', '30109092202522', '30109092202522', '30109092202522', 1, 0, NULL, '$2y$10$tjadGU19rO5xIxiIip/EWua1BsoUKxHU2wGAHyyYaxxFM05o.gjCq', 'student', '1061', NULL, NULL, '2020-11-02 09:24:31', '2020-11-02 09:24:31'),
+(1040, 'هدير ناصر مصطفي محمد', '30106272201045', '30106272201045', '30106272201045', 1, 0, NULL, '$2y$10$TNR1BYkuLZaQoaG0EOu8cOs3WdP8xdAyOWOZb4ZL.a9Dw9FHDwnLa', 'student', '1062', NULL, NULL, '2020-11-02 09:24:31', '2020-11-02 09:24:31'),
+(1041, 'هشام عبدالرحمن احمد محمد', '30105302200972', '30105302200972', '30105302200972', 1, 0, NULL, '$2y$10$DGNpwG176bJhrbhuBCsnBufKzuA6kqD7wcF6aFYx6Su8EwXhrR0Ny', 'student', '1063', NULL, NULL, '2020-11-02 09:24:32', '2020-11-02 09:24:32'),
+(1042, 'هشام محمد فتحي محمد', '30105282201691', '30105282201691', '30105282201691', 1, 0, NULL, '$2y$10$aennuq6LXSEOOniPc8.es.Jhv6CRcU2TgQxA2/NsqEC2Dke2MxsAm', 'student', '1064', NULL, NULL, '2020-11-02 09:24:32', '2020-11-02 09:24:32'),
+(1043, 'هنا عاطف محمد غباشى', '30201298800667', '30201298800667', '30201298800667', 1, 0, NULL, '$2y$10$5.1gUKk2jHXZT0uTyzmSfuAXmDNIFe0bP2vpqH5ROlShDEwP7VoiC', 'student', '1065', NULL, NULL, '2020-11-02 09:24:32', '2020-11-02 09:24:32'),
+(1044, 'ولاء السيد جلال هاشم', '30104022200547', '30104022200547', '30104022200547', 1, 0, NULL, '$2y$10$5e1U8elLKeTQkSn3sLouae/IQoeIACgbmagPZivjLYv1a0mEOdiIa', 'student', '1066', NULL, NULL, '2020-11-02 09:24:32', '2020-11-02 09:24:32'),
+(1045, 'ولاء شعبان سليمان محمد', '30107202201842', '30107202201842', '30107202201842', 1, 0, NULL, '$2y$10$h/sqTo4GxRrMig5sPjYhG.ms6Psh8B/HJKQ158NTgmuhTdBKJL.mW', 'student', '1067', NULL, NULL, '2020-11-02 09:24:33', '2020-11-02 09:24:33'),
+(1046, 'يارا حاتم محمد عاكف محمد', '30108252405127', '30108252405127', '30108252405127', 1, 0, NULL, '$2y$10$pTgT6vRdB/nXLnTlKlN00euG.vBNHBEnaB9lB1aUwZlPg.zdx4sNi', 'student', '1068', NULL, NULL, '2020-11-02 09:24:33', '2020-11-02 09:24:33'),
+(1047, 'ياسمين احمد رشاد عوض', '30110272300709', '30110272300709', '30110272300709', 1, 0, NULL, '$2y$10$2gGd3MVaqD8hiWOf1gcZO.ncLxmnq8Lv937IURtplGsBe4xJgx1o6', 'student', '1069', NULL, NULL, '2020-11-02 09:24:33', '2020-11-02 09:24:33'),
+(1048, 'ياسمين سعد عبدالفتاح حسين', '30005062301402', '30005062301402', '30005062301402', 1, 0, NULL, '$2y$10$uu9LZC0Der1qD3z4XZb.POcV6uH3b5v5YGPwyqFi3cTZdyVTI5Oim', 'student', '1070', NULL, NULL, '2020-11-02 09:24:34', '2020-11-02 09:24:34'),
+(1049, 'يسرا ضياء مختار عبدالحميد', '30106012203087', '30106012203087', '30106012203087', 1, 0, NULL, '$2y$10$nl7lf3QbiI2uTtaH8y4Ke.xLEPvUUPwrVhmG1d1Xy77C3lMGKjgIq', 'student', '1071', NULL, NULL, '2020-11-02 09:24:34', '2020-11-02 09:24:34'),
+(1050, 'يسرا عماد فهمى  ابوالعلا', '30104162200709', '30104162200709', '30104162200709', 1, 0, NULL, '$2y$10$WkPgQSd3F7pMpkjO0k3Oru4AxpEt94/TzSsvQ0zyKuRFH8pXo/9OG', 'student', '1072', NULL, NULL, '2020-11-02 09:24:34', '2020-11-02 09:24:34'),
+(1051, 'يسري محمد محمد شريف', '30010272200076', '30010272200076', '30010272200076', 1, 0, NULL, '$2y$10$3b2rlshzUnbRgdWJcnZnKeHSx9vfjk/B1zbws2/a1aqoO818osmZa', 'student', '1073', NULL, NULL, '2020-11-02 09:24:34', '2020-11-02 09:24:34'),
+(1052, 'يمنى اشرف رضوان عبدالله', '30106182201364', '30106182201364', '30106182201364', 1, 0, NULL, '$2y$10$.LmpXb1PTqb/As2VUvc5Y.mlIQ/VLiwV4EiK1i46LmdldD5E27mgq', 'student', '1074', NULL, NULL, '2020-11-02 09:24:35', '2020-11-02 09:24:35'),
+(1053, 'يمني خالد محمد محمد السيد', '30010292300468', '30010292300468', '30010292300468', 1, 0, NULL, '$2y$10$hh3Y568m.iLbKlue5ZXIcOVveCK8So9jFFi3KhFfEwnHJkrV166YW', 'student', '1075', NULL, NULL, '2020-11-02 09:24:35', '2020-11-02 09:24:35'),
+(1054, 'يمني عماد جلال الدين محمد حسين', '30108222300622', '30108222300622', '30108222300622', 1, 0, NULL, '$2y$10$u/xUsivDTi7ku7CCK9ovievQF1aPu0vk9CC24U9Nw9wzgKIlnmPLW', 'student', '1076', NULL, NULL, '2020-11-02 09:24:35', '2020-11-02 09:24:35'),
+(1055, 'يوستينا جورج وليم كامل ابراهيم', '30105112200747', '30105112200747', '30105112200747', 1, 0, NULL, '$2y$10$R3JBIydQks3COUa3ioppRuqBuHnuYBJ5XC/BPZdhMB0Bnp01xwoO2', 'student', '1077', NULL, NULL, '2020-11-02 09:24:35', '2020-11-02 09:24:35'),
+(1056, 'يوسف اشرف جابر قرني', '30108082201033', '30108082201033', '30108082201033', 1, 0, NULL, '$2y$10$pfbvy/0wzeoV8qhozoSdruPVXfpF3zpaiiWGpByctHlgf5proT./e', 'student', '1078', NULL, NULL, '2020-11-02 09:24:36', '2020-11-02 09:24:36'),
+(1057, 'يوسف جلال حلمي خليل', '30009252202074', '30009252202074', '30009252202074', 1, 0, NULL, '$2y$10$401sMn6p4K5PqCsfzn.N/On0dZXKpk69DOm6hdIyV1tYtEDYxC5FC', 'student', '1079', NULL, NULL, '2020-11-02 09:24:36', '2020-11-02 09:24:36'),
+(1058, 'يوسف عمر محمد يوسف', '30105092200796', '30105092200796', '30105092200796', 1, 0, NULL, '$2y$10$bj3JmouotO4hJMr7PjXJGeaZSnOlcVb8gYF62h6v2HoQSqsRGrXDW', 'student', '1080', NULL, NULL, '2020-11-02 09:24:36', '2020-11-02 09:24:36'),
+(1209, 'ألاء فاروق زهران خلف', '30009012200783', '30009012200783', '30009012200783', 1, 0, NULL, '$2y$10$Gdww6BZejJNXD.yhyAGSH.dInQrJawxPFfEh3ZAfVizWMSyv.H6Q2', 'student', '1231', NULL, NULL, '2020-11-02 09:31:07', '2020-11-02 09:31:07'),
+(1210, 'أمنية محمد السيد محمد السيد', '30102242301104', '30102242301104', '30102242301104', 1, 0, NULL, '$2y$10$OgqmF9YH3Dm6rAWAkEmSR.gB4ZLiXLQyq5GxrZV1WJy4oyW3VbrRW', 'student', '1232', NULL, NULL, '2020-11-02 09:31:08', '2020-11-02 09:31:08'),
+(1211, 'أية رجب عبدالعظيم محمد', '30108152200145', '30108152200145', '30108152200145', 1, 0, NULL, '$2y$10$L9/dHRocglMjqbxK443uOunGiovQVuZ5J5jcRVvEntiN96NYLPN4G', 'student', '1233', NULL, NULL, '2020-11-02 09:31:08', '2020-11-02 09:31:08'),
+(1212, 'ابانوب  عماد فكرى سلامه', '30108042201758', '30108042201758', '30108042201758', 1, 0, NULL, '$2y$10$s2T5v28NGbixbfU3gP6Os.xGCnO/A/sSGMf5Y66NffUmAfKk80Nd6', 'student', '1234', NULL, NULL, '2020-11-02 09:31:08', '2020-11-02 09:31:08'),
+(1213, 'ابرام ابراهيم عزيز جرجس', '30108212200638', '30108212200638', '30108212200638', 1, 0, NULL, '$2y$10$BA0Sj7RG8jzYIjStOgf.L.d5pVRpt2U5ehUxA.ECJHMEVLAbLElk6', 'student', '1235', NULL, NULL, '2020-11-02 09:31:08', '2020-11-02 09:31:08'),
+(1214, 'ابراهيم محمد محمد علي', '30108122202194', '30108122202194', '30108122202194', 1, 0, NULL, '$2y$10$rwWS2tAA35AqslILRFJi.uKJqdXIrjvxj.THoBIRn9b/tVM4usGGS', 'student', '1236', NULL, NULL, '2020-11-02 09:31:09', '2020-11-02 09:31:09'),
+(1215, 'ابوبكر محمد حسان محمود', '30107032301715', '30107032301715', '30107032301715', 1, 0, NULL, '$2y$10$9Jyh4Bp1Ntav6KFyR3uNs.Kfx4V48M7O/cDYoljn75FqIZvfV63BC', 'student', '1237', NULL, NULL, '2020-11-02 09:31:09', '2020-11-02 09:31:09'),
+(1216, 'ابوعبيده مجدى عمر عبدالباقى', '30109092200716', '30109092200716', '30109092200716', 1, 0, NULL, '$2y$10$EknExa3rMsNWdX0jkh4C0eXATYWNLJ1pDDpM5cCrMGXop8KdIf/BO', 'student', '1238', NULL, NULL, '2020-11-02 09:31:09', '2020-11-02 09:31:09'),
+(1217, 'احمد  خالد فتحي محمد', '30109042300116', '30109042300116', '30109042300116', 1, 0, NULL, '$2y$10$hk3Lv/YNiPm/UVNEzS5oPei9FzUfhTRJPEiAFQGIUtaixKVNe1ajO', 'student', '1239', NULL, NULL, '2020-11-02 09:31:10', '2020-11-02 09:31:10'),
+(1218, 'احمد  محمد عرابي محمد', '30101082201357', '30101082201357', '30101082201357', 1, 0, NULL, '$2y$10$fIH/IAXsczizDxJguD5.8.X75Lb75oBUbw0Jy6Pwqz0tCbXUqjjfm', 'student', '1240', NULL, NULL, '2020-11-02 09:31:10', '2020-11-02 09:31:10'),
+(1219, 'احمد اسماعيل ابراهيم ابراهيم', '30011212201053', '30011212201053', '30011212201053', 1, 0, NULL, '$2y$10$Z6DYMwdzexk.LzvMRnYQ5OYSUnjxs8FnrmIv02BIYpRbYwRIFcUeW', 'student', '1241', NULL, NULL, '2020-11-02 09:31:10', '2020-11-02 09:31:10'),
+(1220, 'احمد حامد عويضة احمد', '30001202200657', '30001202200657', '30001202200657', 1, 0, NULL, '$2y$10$yMYQ6f/T6Wn70zAZi1HxiOaehicrJ05I7oLMNmMUuTKhnQnSSyd7e', 'student', '1242', NULL, NULL, '2020-11-02 09:31:10', '2020-11-02 09:31:10'),
+(1221, 'احمد رجب عبدالصمد على', '30105302200433', '30105302200433', '30105302200433', 1, 0, NULL, '$2y$10$bxvRGVyU1zxXtH8Gk3rOm.T6pEoPWQvo3hKHWKAgKxu7Xy10Y.4O6', 'student', '1243', NULL, NULL, '2020-11-02 09:31:11', '2020-11-02 09:31:11'),
+(1222, 'احمد سمير رشاد محمد', '30108162300695', '30108162300695', '30108162300695', 1, 0, NULL, '$2y$10$YWNYdCZqEGniWjzBFZzeZuYu8XaTtBHJIecscanSRJRLnEGXMhura', 'student', '1244', NULL, NULL, '2020-11-02 09:31:11', '2020-11-02 09:31:11'),
+(1223, 'احمد سيد محمد حسين', '30108202403158', '30108202403158', '30108202403158', 1, 0, NULL, '$2y$10$Ryvb6kTKJKuxONORbuJrc.IlblV6D5sSap5bR8vHszytORisKGQpG', 'student', '1245', NULL, NULL, '2020-11-02 09:31:11', '2020-11-02 09:31:11'),
+(1224, 'احمد محمد المهدي عبدالمعزابوسيف', '30105212301478', '30105212301478', '30105212301478', 1, 0, NULL, '$2y$10$N/YbQ6YHQXV0q4mGgQGRl.49mQ/Sjoqhm8eEY5Y2Jy695Pp0FmhuW', 'student', '1246', NULL, NULL, '2020-11-02 09:31:12', '2020-11-02 09:31:12'),
+(1225, 'احمد محمد فكري محمد', '30109232200916', '30109232200916', '30109232200916', 1, 0, NULL, '$2y$10$AWyfaqpATyo9mUdNv2/aWOPadBkHDViadm/yigg1IlXt1BEx.kW1q', 'student', '1247', NULL, NULL, '2020-11-02 09:31:12', '2020-11-02 09:31:12'),
+(1226, 'احمد مدحت احمد محمود', '30107102201934', '30107102201934', '30107102201934', 1, 0, NULL, '$2y$10$dWLKJn.T0nmFVhdhkUinjOB73.l4.ZgnbRHLMSB6gfXzuA6f6lizW', 'student', '1248', NULL, NULL, '2020-11-02 09:31:12', '2020-11-02 09:31:12'),
+(1227, 'ادهم خالد حسين عابدين', '30105182200892', '30105182200892', '30105182200892', 1, 0, NULL, '$2y$10$NFX0mdT044g6X81p1aEyMuAh4KlBKJwJzxwW2e9UuQ/w2Sb0WZBK.', 'student', '1249', NULL, NULL, '2020-11-02 09:31:12', '2020-11-02 09:31:12'),
+(1228, 'اسامة احمد شعبان احمد', '30107072201217', '30107072201217', '30107072201217', 1, 0, NULL, '$2y$10$ZulVEQpnd92dJbWJ1p5amuqL7vp5amIqnX0PmgwFj./C3cva1r/Ee', 'student', '1250', NULL, NULL, '2020-11-02 09:31:13', '2020-11-02 09:31:13'),
+(1229, 'اسامة محمد عاشور بكري', '30011072201252', '30011072201252', '30011072201252', 1, 0, NULL, '$2y$10$wjYM5tfIpmUHqdCKYSGlgOt53BvZQZADKzLu/j.8xqFgkSGWDZG8q', 'student', '1251', NULL, NULL, '2020-11-02 09:31:13', '2020-11-02 09:31:13'),
+(1230, 'اسراء ابراهيم علي ندا', '30105292200308', '30105292200308', '30105292200308', 1, 0, NULL, '$2y$10$T7RlHld3mUpO6aP.7.U.6e1YFTLzHq5Nd2mixHhGC15jFX/XzOELG', 'student', '1252', NULL, NULL, '2020-11-02 09:31:14', '2020-11-02 09:31:14'),
+(1231, 'اسراء رجب عبدالنبي عبدالمعين', '30010262200183', '30010262200183', '30010262200183', 1, 0, NULL, '$2y$10$YoBDMWC0u2JLhqQyN/FGc.3fYepyXCHsgyczJjGlZ9NxABNbtY1O6', 'student', '1253', NULL, NULL, '2020-11-02 09:31:14', '2020-11-02 09:31:14'),
+(1232, 'اسراء رمضان سيد دردير', '30010162400746', '30010162400746', '30010162400746', 1, 0, NULL, '$2y$10$CefcdQ5MT1aqBr.XJkmCFOzgp/xF/Z/vwk.jf.kC63OSR2pQ2B0C2', 'student', '1254', NULL, NULL, '2020-11-02 09:31:15', '2020-11-02 09:31:15'),
+(1233, 'اسراء عبدالسميع حافظ طه', '30106012202242', '30106012202242', '30106012202242', 1, 0, NULL, '$2y$10$XfpNfWx2rA9TrHy8Ed4adOlRkm1ctQ70wflMIk3lrPK93gj9e6S2O', 'student', '1255', NULL, NULL, '2020-11-02 09:31:15', '2020-11-02 09:31:15'),
+(1234, 'اسراء محمد محمد محمد', '30102032400908', '30102032400908', '30102032400908', 1, 0, NULL, '$2y$10$MiM3kc6.DvJmdn4x0f9CPenBDxwIEQhu5GIZ1AZ96aAV64Io.td1.', 'student', '1256', NULL, NULL, '2020-11-02 09:31:16', '2020-11-02 09:31:16');
+INSERT INTO `users` (`id`, `name`, `username`, `email`, `phone`, `active`, `account_confirm`, `email_verified_at`, `password`, `type`, `fid`, `remember_token`, `api_token`, `created_at`, `updated_at`) VALUES
+(1235, 'اسراء ممدوح عبده ابراهيم', '30202262200163', '30202262200163', '30202262200163', 1, 0, NULL, '$2y$10$fzovBUI4aICQ6WiJ.xZnSuoXwqPEfwk4WUCVKbjGIS0O3ya3Jy7Te', 'student', '1257', NULL, NULL, '2020-11-02 09:31:16', '2020-11-02 09:31:16'),
+(1236, 'اسلام عبدالحليم احمد عبدالوارث', '30111122403212', '30111122403212', '30111122403212', 1, 0, NULL, '$2y$10$x8FO86qSCohfdmLI1oOA5.RJ.0PGhoP6hpqvC01ciywbORofBHBlG', 'student', '1258', NULL, NULL, '2020-11-02 09:31:16', '2020-11-02 09:31:16'),
+(1237, 'اسلام محمد عبدالمنعم احمد', '30101048800616', '30101048800616', '30101048800616', 1, 0, NULL, '$2y$10$AUlthZbrzx/CJkYT6X/vauOstpYXtepyP7pTMZIXywQBi0odBk1eW', 'student', '1259', NULL, NULL, '2020-11-02 09:31:17', '2020-11-02 09:31:17'),
+(1238, 'اسماء حسين محمد الداخلي', '29910212200404', '29910212200404', '29910212200404', 1, 0, NULL, '$2y$10$V4Wo1UxkBmS/GR/753D1leoXEwJTa7e/ws1kDkZgJzD0fOCjR7DGS', 'student', '1260', NULL, NULL, '2020-11-02 09:31:17', '2020-11-02 09:31:17'),
+(1239, 'اسماء رمضان رمضان ابراهيم', '30011092401266', '30011092401266', '30011092401266', 1, 0, NULL, '$2y$10$N9BPoZmtBRaRo.Zj7mx0W.0BgF1Y54FCW3jcl0yNUMN0CzTP.xN/6', 'student', '1261', NULL, NULL, '2020-11-02 09:31:18', '2020-11-02 09:31:18'),
+(1240, 'اسماء عبدالرحيم بكر عثمان', '30201202201768', '30201202201768', '30201202201768', 1, 0, NULL, '$2y$10$Mw3USvHFoC0.CLNI2RqRy.qoEFzOVZEl/P8TqEGg131g48h6dqA1G', 'student', '1262', NULL, NULL, '2020-11-02 09:31:18', '2020-11-02 09:31:18'),
+(1241, 'اسماء محمود زكريا محمد', '30103212200202', '30103212200202', '30103212200202', 1, 0, NULL, '$2y$10$4l1Ur8.sK6K1ALEKS9d6UubARnanA/tGydBVMXn6GvNnK5hr0eYdS', 'student', '1263', NULL, NULL, '2020-11-02 09:31:19', '2020-11-02 09:31:19'),
+(1242, 'الأمير سامي عزمي جادالله', '29911012203111', '29911012203111', '29911012203111', 1, 0, NULL, '$2y$10$s69hsE10UbS42pd4kWgTNerg7t.sfCSx0as04gm2WcLdQtiA39Q/i', 'student', '1264', NULL, NULL, '2020-11-02 09:31:19', '2020-11-02 09:31:19'),
+(1243, 'الاء ابراهيم احمد ابراهيم', '30001129220084', '30001129220084', '30001129220084', 1, 0, NULL, '$2y$10$lMbJKseJVHO.GdWUzStNoO.iP.h6NvAWtfd2q.Lidc79gYcHbCJ/K', 'student', '1265', NULL, NULL, '2020-11-02 09:31:19', '2020-11-02 09:31:19'),
+(1244, 'الاء جابر عبدالفتاح عبدالقوى', '29911062201985', '29911062201985', '29911062201985', 1, 0, NULL, '$2y$10$hWk5PtHe2MQhdyDgs6aFPOxGByv55vOtnDoZ1VT6Ci9qt5Cjw.geu', 'student', '1266', NULL, NULL, '2020-11-02 09:31:20', '2020-11-02 09:31:20'),
+(1245, 'الاء خالد علي احمد', '30107062200905', '30107062200905', '30107062200905', 1, 0, NULL, '$2y$10$PkC/DVF9EWdZiAZ3gyLEJuQ4iCmK8OFZgmxKhUhlRkkAX6cpLlZ0e', 'student', '1267', NULL, NULL, '2020-11-02 09:31:20', '2020-11-02 09:31:20'),
+(1246, 'الاء محمد احمد محمد', '30011132200048', '30011132200048', '30011132200048', 1, 0, NULL, '$2y$10$Q8lNHa5Iz6quOL2y1EPFq.VPkK50fe3kVxIEX698xdDj6CqIaER5K', 'student', '1268', NULL, NULL, '2020-11-02 09:31:20', '2020-11-02 09:31:20'),
+(1247, 'الشيماء محمد سيد مرسي', '30108122401227', '30108122401227', '30108122401227', 1, 0, NULL, '$2y$10$6xwBDIFjg4ymWfdHLgkdyuQSfWiNNEPN6GjtIaRU4CHXwN3K7zJXy', 'student', '1269', NULL, NULL, '2020-11-02 09:31:21', '2020-11-02 09:31:21'),
+(1248, 'الشيماء محمد عزمى ابراهيم', '30104082400464', '30104082400464', '30104082400464', 1, 0, NULL, '$2y$10$C0OBXmThpNO5.edjnDdka.hWvriezRR5CwyKLBQQ/XoWTHrDmvCkq', 'student', '1270', NULL, NULL, '2020-11-02 09:31:21', '2020-11-02 09:31:21'),
+(1249, 'العلياء محمد حسين حفني غانم', '30108011318789', '30108011318789', '30108011318789', 1, 0, NULL, '$2y$10$qeR6ob7Ko6T.YcGY9kbXA.ATtwrJ3Z1jqyXCmx/JvAyl0rxx2ySte', 'student', '1271', NULL, NULL, '2020-11-02 09:31:22', '2020-11-02 09:31:22'),
+(1250, 'اماني جمال امين محمد', '30104012302686', '30104012302686', '30104012302686', 1, 0, NULL, '$2y$10$kmhbhdInCj.kyJMxAERlPuA1boBZu79x4T0f9n/c3FDgmFJTGsIkm', 'student', '1272', NULL, NULL, '2020-11-02 09:31:22', '2020-11-02 09:31:22'),
+(1251, 'اماني حبيشي حبيشي محمد', '30105242201168', '30105242201168', '30105242201168', 1, 0, NULL, '$2y$10$XXIxydowXFGE80WM5pxbXu4sY6Ls5msRocw3U91CkrNIvvfdV2tle', 'student', '1273', NULL, NULL, '2020-11-02 09:31:23', '2020-11-02 09:31:23'),
+(1252, 'اماني حمدي عبدالمنعم محمد', '30102262200827', '30102262200827', '30102262200827', 1, 0, NULL, '$2y$10$lnaaLBDbpfoZA26UebGsJOCH435vc9asOeb4kFImycYeKPPZGKcHi', 'student', '1274', NULL, NULL, '2020-11-02 09:31:23', '2020-11-02 09:31:23'),
+(1253, 'اماني عبدالرحمن صلاح محمد', '30006122403389', '30006122403389', '30006122403389', 1, 0, NULL, '$2y$10$cxF9yTnidZXh6i5pyu1HfOVHhSm/6L.ZUEafUgspwPySYkTRz7egO', 'student', '1275', NULL, NULL, '2020-11-02 09:31:24', '2020-11-02 09:31:24'),
+(1254, 'امنية ربيع محمد سيد', '30105122201962', '30105122201962', '30105122201962', 1, 0, NULL, '$2y$10$Gak2ci4Xk9.o/HVd4GgU3eaowRnq9ISTYwqR6pV/WLNCI19xQ6MzO', 'student', '1276', NULL, NULL, '2020-11-02 09:31:24', '2020-11-02 09:31:24'),
+(1255, 'امنية محمد حسن عبدالرحمن', '30201052202043', '30201052202043', '30201052202043', 1, 0, NULL, '$2y$10$cKXrfN.iRUyDnkxXqnjuu.9i.RzdKZppgQUJE3w9x.3UWYQovCjnC', 'student', '1277', NULL, NULL, '2020-11-02 09:31:25', '2020-11-02 09:31:25'),
+(1256, 'امنيه على  احمد  محمد على', '30106262200946', '30106262200946', '30106262200946', 1, 0, NULL, '$2y$10$LaO3HSwM4cGarimxSe7fP.WeqwSxjDFNeWl2awVwQIWQB9pwAehFi', 'student', '1278', NULL, NULL, '2020-11-02 09:31:25', '2020-11-02 09:31:25'),
+(1257, 'اميمه ايمن محمد عويس', '30108112201025', '30108112201025', '30108112201025', 1, 0, NULL, '$2y$10$6c3D81oIxSzH0koOgrlsHOtxJm8OEEwk9bb8UzkrThdAs/Rd6DAfe', 'student', '1279', NULL, NULL, '2020-11-02 09:31:26', '2020-11-02 09:31:26'),
+(1258, 'اية  مصطفي  محمد بدوي', '30102262300848', '30102262300848', '30102262300848', 1, 0, NULL, '$2y$10$xv8VTIERocsaCpDLTKQlv.As.8zUIbbSbB0eqm2XJv3pWzrwSMJBW', 'student', '1280', NULL, NULL, '2020-11-02 09:31:26', '2020-11-02 09:31:26'),
+(1259, 'اية فتحي عبدالعزيز عثمان', '30011042200367', '30011042200367', '30011042200367', 1, 0, NULL, '$2y$10$4vVh5SANyv1yLUVoYf7Rgu1x/Z0NDtdLvOBpf5dBF2WTIL/V/eBGe', 'student', '1281', NULL, NULL, '2020-11-02 09:31:26', '2020-11-02 09:31:26'),
+(1260, 'اية ماهر محمد جلال', '30105202200665', '30105202200665', '30105202200665', 1, 0, NULL, '$2y$10$5W2k/MLMfGjkrWAVH0xdWOIKo8KfnN71z/bsJ8dBdHXoJ/DomeOwi', 'student', '1282', NULL, NULL, '2020-11-02 09:31:27', '2020-11-02 09:31:27'),
+(1261, 'اية محمد ذكي عطا الله', '30104042200527', '30104042200527', '30104042200527', 1, 0, NULL, '$2y$10$ZSoQpLKEeHMw/wOBnXIb/OtC1iS9MwxzqticQqn8HKvivf0l7SeTa', 'student', '1283', NULL, NULL, '2020-11-02 09:31:27', '2020-11-02 09:31:27'),
+(1262, 'اية محمد عبدالحليم محمد', '30103312201168', '30103312201168', '30103312201168', 1, 0, NULL, '$2y$10$mOdZ6SOO4.aXto0LEg/xW..53bi6ar0qPuI6LhfVO/dI6d65t33CK', 'student', '1284', NULL, NULL, '2020-11-02 09:31:28', '2020-11-02 09:31:28'),
+(1263, 'ايمان  محمد عبدالواحد سيد', '30106282402022', '30106282402022', '30106282402022', 1, 0, NULL, '$2y$10$beo417WUBaYDPJJmbLJGzuv2miXdHIJOV6C3mFe7ftSLaJkewLDla', 'student', '1285', NULL, NULL, '2020-11-02 09:31:28', '2020-11-02 09:31:28'),
+(1264, 'ايمان ابراهيم صلاح عبدالحميد', '30104252201666', '30104252201666', '30104252201666', 1, 0, NULL, '$2y$10$m6i6Bpj7CwOvtbpEiIOemuFs4iuvjt5LQtbaxt8EEuQxgMBJxo5Om', 'student', '1286', NULL, NULL, '2020-11-02 09:31:28', '2020-11-02 09:31:28'),
+(1265, 'ايمان احمد نشأت محمد الشطلاوي', '30101101600829', '30101101600829', '30101101600829', 1, 0, NULL, '$2y$10$sUMPFJDA3LxhSeNeJeLCceKsQhsfNGYGQGjuzuEP1vERt.W0Vvlja', 'student', '1287', NULL, NULL, '2020-11-02 09:31:29', '2020-11-02 09:31:29'),
+(1266, 'ايمان حسن محمود  حسن', '30001222201064', '30001222201064', '30001222201064', 1, 0, NULL, '$2y$10$FHWtXJYN6B7WH/8JgZMWBeh2Y6M6nPWtxOsPs1PrGVJEoD3m2XcLC', 'student', '1288', NULL, NULL, '2020-11-02 09:31:29', '2020-11-02 09:31:29'),
+(1267, 'ايمان طه عويس يوسف', '30107242201144', '30107242201144', '30107242201144', 1, 0, NULL, '$2y$10$8MsfTmRZNwZL12G8kqeise7wZ8D1IiTeE3knOftcY/1NJWikFaFsW', 'student', '1289', NULL, NULL, '2020-11-02 09:31:29', '2020-11-02 09:31:29'),
+(1268, 'ايناس حسين علي عثمان', '30003232201324', '30003232201324', '30003232201324', 1, 0, NULL, '$2y$10$zPtnjmjQ0y0egNZVMzj9v.AYUPatyy3UM1t6f8q5Y99ndDslrlrWq', 'student', '1290', NULL, NULL, '2020-11-02 09:31:30', '2020-11-02 09:31:30'),
+(1269, 'ايه احمد محمد محمد', '30108122301125', '30108122301125', '30108122301125', 1, 0, NULL, '$2y$10$Hn2DmApLBPbrDc64pAxfden1BS.DSajnTB99xcLMPkFR8.T5fr1tq', 'student', '1291', NULL, NULL, '2020-11-02 09:31:30', '2020-11-02 09:31:30'),
+(1270, 'ايه الله ابراهيم عبدالرازق حسين', '30107272300287', '30107272300287', '30107272300287', 1, 0, NULL, '$2y$10$OaDhEWN8vDCfpe3SXkGDXuS9FPzNEe/hT45vnQghTDeb7EmR2kzKW', 'student', '1292', NULL, NULL, '2020-11-02 09:31:30', '2020-11-02 09:31:30'),
+(1271, 'ايه جمال شحاته عثمان', '30203032200063', '30203032200063', '30203032200063', 1, 0, NULL, '$2y$10$plQALXDQNl3sruWG29xE3.xGjR9mi7Bbfd/HOALg0EQYPwcZLPjKG', 'student', '1293', NULL, NULL, '2020-11-02 09:31:30', '2020-11-02 09:31:30'),
+(1272, 'ايه جمال محمد محمد حسن', '30105212200345', '30105212200345', '30105212200345', 1, 0, NULL, '$2y$10$.DEwo8272tyCGhCH9LcU6OmCD2tlBpE7m/klN4kuhanA5KSXxZipi', 'student', '1294', NULL, NULL, '2020-11-02 09:31:31', '2020-11-02 09:31:31'),
+(1273, 'ايه عبدالتواب السيد رياض', '30009262301429', '30009262301429', '30009262301429', 1, 0, NULL, '$2y$10$xAwnIYOJ925vBgPTJsl5gOAFK5s7rIBM8X6baNJGe8VwH369Ks3Je', 'student', '1295', NULL, NULL, '2020-11-02 09:31:31', '2020-11-02 09:31:31'),
+(1274, 'ايه عبدالمنعم عبدالعظيم محمد', '30107222200982', '30107222200982', '30107222200982', 1, 0, NULL, '$2y$10$suMgRC2elFBydcvDtBhv7egx6/wenH5.cDOx61fbl5hrkMlPAYVxe', 'student', '1296', NULL, NULL, '2020-11-02 09:31:31', '2020-11-02 09:31:31'),
+(1275, 'بثينه عبد الدايم عبد التواب سليمان', '30105132201065', '30105132201065', '30105132201065', 1, 0, NULL, '$2y$10$n05xisGysWAGZ8rPSc9jf.HWZLj/cYmdu9IpPSbACC8.NwjcfrEY.', 'student', '1297', NULL, NULL, '2020-11-02 09:31:32', '2020-11-02 09:31:32'),
+(1276, 'بركسام جمال قدوس ابراهيم', '30008062600085', '30008062600085', '30008062600085', 1, 0, NULL, '$2y$10$gxbS6Y.ESG6d1MPSoixCkOwm45jYs8ACb4wUaZv5K3XS93pBfBxei', 'student', '1298', NULL, NULL, '2020-11-02 09:31:32', '2020-11-02 09:31:32'),
+(1277, 'بسام رضا نجيب حنا', '30002062402757', '30002062402757', '30002062402757', 1, 0, NULL, '$2y$10$PmTvgXE5m3jYPRyUkPuH8uL2zNgp.CGY/r2M8TZPtLC2Kl6haYJRO', 'student', '1299', NULL, NULL, '2020-11-02 09:31:32', '2020-11-02 09:31:32'),
+(1278, 'بسمة طارق محمد محمد', '30107092201248', '30107092201248', '30107092201248', 1, 0, NULL, '$2y$10$wn2aPT.uoy4MhcjCvOZN5Oa6pteQDuB5bNxww7GczB3HD0GeA0uea', 'student', '1300', NULL, NULL, '2020-11-02 09:31:33', '2020-11-02 09:31:33'),
+(1279, 'بيتر سامى عبدالله فانوش', '30108292200153', '30108292200153', '30108292200153', 1, 0, NULL, '$2y$10$Jbj5IPkp7CPobZZM3ucxxeLAD99l0GjS5JdIR/0CaW4A2ZEnlojbm', 'student', '1301', NULL, NULL, '2020-11-02 09:31:33', '2020-11-02 09:31:33'),
+(1280, 'بيشوي سلامة سلامة عبدالسيد', '30007202201953', '30007202201953', '30007202201953', 1, 0, NULL, '$2y$10$/UBthN9zufnODZEIwRoHUe7tVkwjBkp7Exo9B5cUL5H093pddlfji', 'student', '1302', NULL, NULL, '2020-11-02 09:31:34', '2020-11-02 09:31:34'),
+(1281, 'تقي سعيد صادق سيدعلي', '29911182200109', '29911182200109', '29911182200109', 1, 0, NULL, '$2y$10$dqx6yC2qwfOH1l3PPRXaGe9GU8AVIWK/Flfn.apD8I.4VGVhazOCG', 'student', '1303', NULL, NULL, '2020-11-02 09:31:34', '2020-11-02 09:31:34'),
+(1282, 'تقي عبدالرحمن مصطفي عيد احمد', '30101202302624', '30101202302624', '30101202302624', 1, 0, NULL, '$2y$10$aV10V2qm4Q1RBG56Z/8ir.qTir28nOg.cFusJhItwF92fmK/ivLWW', 'student', '1304', NULL, NULL, '2020-11-02 09:31:35', '2020-11-02 09:31:35'),
+(1283, 'تيسير عبدالعظيم ابراهيم محمد', '30109172403588', '30109172403588', '30109172403588', 1, 0, NULL, '$2y$10$SZNiwLBaFZLDMkLC.TiiW.flJolhzNnZtJYLLSr98y6jYnfaxc2zS', 'student', '1305', NULL, NULL, '2020-11-02 09:31:35', '2020-11-02 09:31:35'),
+(1284, 'جرجس صلاح مرجان مشرقي', '30006202600657', '30006202600657', '30006202600657', 1, 0, NULL, '$2y$10$sp6XiU5H.TT77pZa5HxSa.a0/lve35HbWv7s898OhslwlhkiNlvQK', 'student', '1306', NULL, NULL, '2020-11-02 09:31:35', '2020-11-02 09:31:35'),
+(1285, 'جني محمد عبدالعزيز علواني', '30111262200567', '30111262200567', '30111262200567', 1, 0, NULL, '$2y$10$4/eshrxeB.NaZWYhHlFjGuBVnWY7O1MSS3TYf1QxLE6fP3.RnEJbO', 'student', '1307', NULL, NULL, '2020-11-02 09:31:36', '2020-11-02 09:31:36'),
+(1286, 'جهاد احمد محمد رشاد', '30104032402806', '30104032402806', '30104032402806', 1, 0, NULL, '$2y$10$p6ntLI0JmWViINDvkXH6nehqmCkcF3v4fzkzl94z5cl8D5XTdblzm', 'student', '1308', NULL, NULL, '2020-11-02 09:31:36', '2020-11-02 09:31:36'),
+(1287, 'جوزيف جمال استمالك عبدالشهيد', '30111162400518', '30111162400518', '30111162400518', 1, 0, NULL, '$2y$10$jnuZkUy0H3R1aZAoqTXiQ.7tX5yc/SKjJquXT24Gqd6uTGq5NWEDe', 'student', '1309', NULL, NULL, '2020-11-02 09:31:37', '2020-11-02 09:31:37'),
+(1288, 'حاتم محمد زكريا عبود', '30109212200375', '30109212200375', '30109212200375', 1, 0, NULL, '$2y$10$5NYAnHtJxX5J0Gt4UCOCK.sf1B9bH04A8oBZ5w5qP1ebXfNmDqYS2', 'student', '1310', NULL, NULL, '2020-11-02 09:31:37', '2020-11-02 09:31:37'),
+(1289, 'حازم علاء عبدالكريم علي', '30102012607794', '30102012607794', '30102012607794', 1, 0, NULL, '$2y$10$Ek0QgWxKBciMlhCJ1RovBuW.4TY3vAqWy1HRU6asqPHAUGsktBGI2', 'student', '1311', NULL, NULL, '2020-11-02 09:31:37', '2020-11-02 09:31:37'),
+(1290, 'حسناء محمد علي طه الحميلي', '30109162201367', '30109162201367', '30109162201367', 1, 0, NULL, '$2y$10$bh2Li2Quw7IZXLH9Q5Et7Ofg7lcAKlj0uqnUWhSnzjls39kZHOgHC', 'student', '1312', NULL, NULL, '2020-11-02 09:31:38', '2020-11-02 09:31:38'),
+(1291, 'حماس ماهر محمد جودة', '30106122200326', '30106122200326', '30106122200326', 1, 0, NULL, '$2y$10$5oz2g/CobiZfid7en6M.BOx.2u8KAdRy60OUNThhr4GtjWZOgGXyy', 'student', '1313', NULL, NULL, '2020-11-02 09:31:38', '2020-11-02 09:31:38'),
+(1292, 'حمزه عشري حمزه عبدالحفيظ', '30005108800832', '30005108800832', '30005108800832', 1, 0, NULL, '$2y$10$0x2P2vIuYy1coQBOrkPvaOiEN.FpDyD9Uq5p5fwcwYvI2PqPqtRiG', 'student', '1314', NULL, NULL, '2020-11-02 09:31:38', '2020-11-02 09:31:38'),
+(1293, 'خالد شعبان عبدالله حسن', '30107112201134', '30107112201134', '30107112201134', 1, 0, NULL, '$2y$10$617LdrFgqzPESezCVhtDwu7exrnvOHCaOClkuxFr/j0oklKH/ra.y', 'student', '1315', NULL, NULL, '2020-11-02 09:31:39', '2020-11-02 09:31:39'),
+(1294, 'خديجه عبدالرازق عبدالعليم السنوسى', '29912302300508', '29912302300508', '29912302300508', 1, 0, NULL, '$2y$10$wGe3Y/gfsc6WKT0oLehBwef0dd5z9STcF0Ns.rx/jD3ybw6UbyVZq', 'student', '1316', NULL, NULL, '2020-11-02 09:31:39', '2020-11-02 09:31:39'),
+(1295, 'داليا محمد السيد علي', '30105192300224', '30105192300224', '30105192300224', 1, 0, NULL, '$2y$10$liz0WY8bMDJz6Z8BxWJwyuBoz7LAo.W1oHhqkKwynqxe7IwPgthZC', 'student', '1317', NULL, NULL, '2020-11-02 09:31:39', '2020-11-02 09:31:39'),
+(1296, 'دعاء  ابراهيم محمد احمد', '30105252301446', '30105252301446', '30105252301446', 1, 0, NULL, '$2y$10$0bqOjiYKwLk7I7qQWd8U7uHsWYQVCZHUeNsSEjOTUl7lQBU23lTxC', 'student', '1318', NULL, NULL, '2020-11-02 09:31:39', '2020-11-02 09:31:39'),
+(1297, 'دينا ربيع احمد تمام', '30101132200985', '30101132200985', '30101132200985', 1, 0, NULL, '$2y$10$3P3vBeXcybuoFa7E4tBTZOD419.fxRPVlwbSEa.rQkxoEonaXpDqS', 'student', '1319', NULL, NULL, '2020-11-02 09:31:40', '2020-11-02 09:31:40'),
+(1298, 'رانيا رجب رمضان حسن', '30010122200965', '30010122200965', '30010122200965', 1, 0, NULL, '$2y$10$HVaZgtPF3K8fp/K9AhC8kegNLWtgmROhDlbUdcq5hhPNzkWHrjNki', 'student', '1320', NULL, NULL, '2020-11-02 09:31:40', '2020-11-02 09:31:40'),
+(1299, 'رانيا رمضان سعد محمود', '30109152400523', '30109152400523', '30109152400523', 1, 0, NULL, '$2y$10$3DKOMiWvDeimAZvfHdEd3es867p0UpHssuU6ZfuNyo.0nnbyJ8N0i', 'student', '1321', NULL, NULL, '2020-11-02 09:31:40', '2020-11-02 09:31:40'),
+(1300, 'رحاب علاءالدين حسين عباس', '30003282200922', '30003282200922', '30003282200922', 1, 0, NULL, '$2y$10$/uCmT9BhPL6IPFI8ClaBJOfFZ3/UMtYNX3HjkSS4WImYgtC9Bcraq', 'student', '1322', NULL, NULL, '2020-11-02 09:31:41', '2020-11-02 09:31:41'),
+(1301, 'رحمه نجيب محسب احمد', '30104252400286', '30104252400286', '30104252400286', 1, 0, NULL, '$2y$10$wmFUKsx6IxoJ2A3RJfYnL./b0pBLzXE4J7SZTNFNxkNIIWn327O72', 'student', '1323', NULL, NULL, '2020-11-02 09:31:41', '2020-11-02 09:31:41'),
+(1302, 'رضوي جميل عادل عبدالعال سليمان', '30110202200103', '30110202200103', '30110202200103', 1, 0, NULL, '$2y$10$fvvdM8Dk60.fnEfsJXekROhnxdfIUSs/CqDoL4KnFPq78T7ZTs/.q', 'student', '1324', NULL, NULL, '2020-11-02 09:31:41', '2020-11-02 09:31:41'),
+(1303, 'رنا عبدالله احمد عبدالله', '30102102200642', '30102102200642', '30102102200642', 1, 0, NULL, '$2y$10$8tHrzLI8EjjCWCv2YC7q1egCc9qpP0xcKIuGIhP1W8d060lQNmbJy', 'student', '1325', NULL, NULL, '2020-11-02 09:31:42', '2020-11-02 09:31:42'),
+(1304, 'رنا محسن عبدالفتاح محمد', '30009012306867', '30009012306867', '30009012306867', 1, 0, NULL, '$2y$10$UkKGkYCzSSEKCgrl0qt61uQW7MeWTdRyzzWfr8I9ZkqD1zfTyqvny', 'student', '1326', NULL, NULL, '2020-11-02 09:31:42', '2020-11-02 09:31:42'),
+(1305, 'رواء سرور عبدالتواب احمد', '30012142201642', '30012142201642', '30012142201642', 1, 0, NULL, '$2y$10$.UvwYJMSuzxlkB.gLiTAJe5vQTWX0/ToXSkUeb/vR5l1vTnJD5otu', 'student', '1327', NULL, NULL, '2020-11-02 09:31:42', '2020-11-02 09:31:42'),
+(1306, 'روان احمد عبدالعزيز السيد', '30109302200803', '30109302200803', '30109302200803', 1, 0, NULL, '$2y$10$UcdEmdiEk05wA9uVBsYpju5W2zaCl3FvKZFfLhfT0eK6t/kQ3zTZ2', 'student', '1328', NULL, NULL, '2020-11-02 09:31:42', '2020-11-02 09:31:42'),
+(1307, 'رودينة ياسر رجب مصطفي', '30106132300485', '30106132300485', '30106132300485', 1, 0, NULL, '$2y$10$2j7ol.6ykO.e.V.9.6rcs.f3Wmk/6Sl6hvdUp28EP/v0GQBxamRdu', 'student', '1329', NULL, NULL, '2020-11-02 09:31:43', '2020-11-02 09:31:43'),
+(1308, 'ريم محمد عبداللطيف امين', '30106022200868', '30106022200868', '30106022200868', 1, 0, NULL, '$2y$10$ZdMvyAqkxMtbs3ZaaGlAR.PSQB12fmagRfNLctx2DBvJBRJkBUPH6', 'student', '1330', NULL, NULL, '2020-11-02 09:31:43', '2020-11-02 09:31:43'),
+(1309, 'ريم معوض عبدالحميد معوض', '30010192300703', '30010192300703', '30010192300703', 1, 0, NULL, '$2y$10$bHDO7fYnwQnNSzWsDI6ZEeo.PBTT4VKXlG188YTsT0WpOlzzMsHN6', 'student', '1331', NULL, NULL, '2020-11-02 09:31:43', '2020-11-02 09:31:43'),
+(1310, 'ريهام  عصام  احمد احمد', '30109022200301', '30109022200301', '30109022200301', 1, 0, NULL, '$2y$10$6JfUtOhK9xc4J9wxrM27oOOFFlezQ3GTg.BXznRc5SpEh5wQ6LI22', 'student', '1332', NULL, NULL, '2020-11-02 09:31:44', '2020-11-02 09:31:44'),
+(1311, 'ريهام وليد جمعة علي', '30102012206145', '30102012206145', '30102012206145', 1, 0, NULL, '$2y$10$k6FLYBEeGrPHZz3s4RZbE.aNNDKcqgdYidTt5a4huj2pm99g.Cmhq', 'student', '1333', NULL, NULL, '2020-11-02 09:31:44', '2020-11-02 09:31:44'),
+(1312, 'زينب  عمادالدين شحاته محمد', '30109302200765', '30109302200765', '30109302200765', 1, 0, NULL, '$2y$10$wR/K9myLScajKm.kwwVUJO29n/jRo.GPtKmzT7/rmWxb4fiJkPYsS', 'student', '1334', NULL, NULL, '2020-11-02 09:31:44', '2020-11-02 09:31:44'),
+(1313, 'سارة جمال محمد عبدالله', '30010152300484', '30010152300484', '30010152300484', 1, 0, NULL, '$2y$10$p7Ph8kQKuakiWwEHZDFpK.iwnlstiIgOB3yP1z8X89nSjDOfO7wR6', 'student', '1335', NULL, NULL, '2020-11-02 09:31:45', '2020-11-02 09:31:45'),
+(1314, 'سارة محمد سعيد محمد', '30112242401821', '30112242401821', '30112242401821', 1, 0, NULL, '$2y$10$9mWtdVK4j02nP878EwcCMO/H94YZetr8zsO62fMKzG82duRBvRmcm', 'student', '1336', NULL, NULL, '2020-11-02 09:31:45', '2020-11-02 09:31:45'),
+(1315, 'ساره جمال عبدالعظيم محمد', '30111072201109', '30111072201109', '30111072201109', 1, 0, NULL, '$2y$10$xYjQ7lBz2Mc/bBrVVIeC4.akJB5/UrPCB8bPxA7gGcgNEVx.1sqiS', 'student', '1337', NULL, NULL, '2020-11-02 09:31:46', '2020-11-02 09:31:46'),
+(1316, 'سلمى  سيد اسماعيل  عجاب', '30010182301043', '30010182301043', '30010182301043', 1, 0, NULL, '$2y$10$tnvdt19VhfoX3wIm4TQvcuQI/OPACk7eyBB3bvOhSA8ZxxaAzvHRi', 'student', '1338', NULL, NULL, '2020-11-02 09:31:46', '2020-11-02 09:31:46'),
+(1317, 'سلمى عماد فاروق محمد', '30105132201588', '30105132201588', '30105132201588', 1, 0, NULL, '$2y$10$QTOHqbK4VQk1ukavMDyCVuGxaKx1W66rO5AdKChwRtX.0v.FfGXTe', 'student', '1339', NULL, NULL, '2020-11-02 09:31:46', '2020-11-02 09:31:46'),
+(1318, 'سلمي محمد عمر عبدالمقصود', '30111141203046', '30111141203046', '30111141203046', 1, 0, NULL, '$2y$10$QXVxHCaINq3dIqsk/0Z1ve6lJb5BQH6qRhSxPPpcEMp90vdzBIGrK', 'student', '1340', NULL, NULL, '2020-11-02 09:31:47', '2020-11-02 09:31:47'),
+(1319, 'سلوي سامي زناتي عرابي', '30105022201744', '30105022201744', '30105022201744', 1, 0, NULL, '$2y$10$LFqcgHAP2Kd4sY93FPIhYuoqY3jNzeCBt3x1KY4U/HREMmpIjmEOu', 'student', '1341', NULL, NULL, '2020-11-02 09:31:47', '2020-11-02 09:31:47'),
+(1320, 'سما احمد محمد صلاح', '30107112201444', '30107112201444', '30107112201444', 1, 0, NULL, '$2y$10$4Q26pSwaV1gheqq/iENvAe8e1Y450/9Ew5FgLY/4WVvr6x0Dz7K46', 'student', '1342', NULL, NULL, '2020-11-02 09:31:47', '2020-11-02 09:31:47'),
+(1321, 'سماح عبد الغفار محمود عبد الله', '30109282300164', '30109282300164', '30109282300164', 1, 0, NULL, '$2y$10$EKQ/6vq4j07CqHw6u20Uwemj4SNcBcOhfc483ATiNFnevPyfqiVRe', 'student', '1343', NULL, NULL, '2020-11-02 09:31:48', '2020-11-02 09:31:48'),
+(1322, 'سهيلة احمد هلال عبدالعال', '30105122201822', '30105122201822', '30105122201822', 1, 0, NULL, '$2y$10$Ke3AyIqZaN9JWM3K0xAT/ulpn/kex4SZwjyW3fuGeQFzHIEpJKcma', 'student', '1344', NULL, NULL, '2020-11-02 09:31:48', '2020-11-02 09:31:48'),
+(1323, 'سهيلة حسن مرسي حسان', '30105262200664', '30105262200664', '30105262200664', 1, 0, NULL, '$2y$10$SHn8A4ETS.CWoHAIyPLtzu6/6Ok9n/u5MNUqEVIwzngBwdRqvY8Me', 'student', '1345', NULL, NULL, '2020-11-02 09:31:48', '2020-11-02 09:31:48'),
+(1324, 'سهيلة محمد جودة حسب الله', '30109092200465', '30109092200465', '30109092200465', 1, 0, NULL, '$2y$10$KdDmacJKRo0CMBbHhtoKE.n856aDFRTZX1UO4nNTalFGAIrEmIUiK', 'student', '1346', NULL, NULL, '2020-11-02 09:31:49', '2020-11-02 09:31:49'),
+(1325, 'سهيلة نبيل ابوغدية حافظ', '30107242401623', '30107242401623', '30107242401623', 1, 0, NULL, '$2y$10$uTy1QANmnIqd7G9YJjmnou5IkNc2E9tb9h5F4.eoD24n/3yEvDHBC', 'student', '1347', NULL, NULL, '2020-11-02 09:31:49', '2020-11-02 09:31:49'),
+(1326, 'سوتي سامي خليل غبور', '30110262300263', '30110262300263', '30110262300263', 1, 0, NULL, '$2y$10$49u5xfUEw4QnX/N7VnqHK.TV5AiDXBHAhBkNoNDRNVWRWcfPMlwo6', 'student', '1348', NULL, NULL, '2020-11-02 09:31:50', '2020-11-02 09:31:50'),
+(1327, 'سيد هاشم سيد محمد', '30110012203114', '30110012203114', '30110012203114', 1, 0, NULL, '$2y$10$PPG/.Z7X//R4ZC/G9SAEz.7OzDH46X2/0Bm3PzRAQSX4W9RAaeBqm', 'student', '1349', NULL, NULL, '2020-11-02 09:31:50', '2020-11-02 09:31:50'),
+(1328, 'سيف الله محمد  عبدالمجيد احمد', '30010260102877', '30010260102877', '30010260102877', 1, 0, NULL, '$2y$10$kUsYo62LkCokZR1I35lEEeHC56CDpk2jaV6mDp8fO2yF5Kg./3wBK', 'student', '1350', NULL, NULL, '2020-11-02 09:31:50', '2020-11-02 09:31:50'),
+(1329, 'شروق حمدي عبدالله صالح', '30106112300985', '30106112300985', '30106112300985', 1, 0, NULL, '$2y$10$bVof4OOpKQAsQ16TZUHj8OY42j5sWW.ot/jycwB5P8tGiZeOHGrui', 'student', '1351', NULL, NULL, '2020-11-02 09:31:50', '2020-11-02 09:31:50'),
+(1330, 'شروق محمد ذكي محمد', '30107012207445', '30107012207445', '30107012207445', 1, 0, NULL, '$2y$10$heZ9/jH5XyIOalq5iHsGB.AFUG4s4VSAY7M1JY1sLZ7ZYbtOBafOa', 'student', '1352', NULL, NULL, '2020-11-02 09:31:51', '2020-11-02 09:31:51'),
+(1331, 'شروق محمد عجمى قاسم', '30203242200708', '30203242200708', '30203242200708', 1, 0, NULL, '$2y$10$mpR1cu3fxoI2H/3Oagu8iObDZC.KbZydpQLM0CZMqLtxgOnPVH0V2', 'student', '1353', NULL, NULL, '2020-11-02 09:31:51', '2020-11-02 09:31:51'),
+(1332, 'شروق ناصر على  اسماعيل', '30109122301504', '30109122301504', '30109122301504', 1, 0, NULL, '$2y$10$b.StlPDiTh/XZZIvaCGwi.WFEEYXCoo/c9utA9J30cnwDBQYWTHoq', 'student', '1354', NULL, NULL, '2020-11-02 09:31:51', '2020-11-02 09:31:51'),
+(1333, 'شمس عبدالتواب عبدالجليل عبدالحكيم', '30105042200728', '30105042200728', '30105042200728', 1, 0, NULL, '$2y$10$FAJOzPxHe4zfyQSwSMsoyO8mp6C1bzxja0Z8u1t5fCC8Hcl5bDZF6', 'student', '1355', NULL, NULL, '2020-11-02 09:31:52', '2020-11-02 09:31:52'),
+(1334, 'شهد احمد عبدالرءوف محمد', '30106012201084', '30106012201084', '30106012201084', 1, 0, NULL, '$2y$10$1hL059U3XHCYbe4YkYF0v.3w1IaEjsT94c8rOSs47YdS1.dIE4LWm', 'student', '1356', NULL, NULL, '2020-11-02 09:31:52', '2020-11-02 09:31:52'),
+(1335, 'شهد احمد محمود عبدالحميد', '30109282201522', '30109282201522', '30109282201522', 1, 0, NULL, '$2y$10$TWkIZoxo6iBHwvDIl/tsduA4IVQmTjHwTg77ysY7qGJLPOhZo5T6K', 'student', '1357', NULL, NULL, '2020-11-02 09:31:52', '2020-11-02 09:31:52'),
+(1336, 'شهد عادل يونس محمد', '30108142200546', '30108142200546', '30108142200546', 1, 0, NULL, '$2y$10$7db3aozaqG5ePD2ETV09q.NwkEIqBUOkCLpLDwD.S52iCrcE5NzM2', 'student', '1358', NULL, NULL, '2020-11-02 09:31:53', '2020-11-02 09:31:53'),
+(1337, 'شهد عويس علي عبدالحميد', '30102052200085', '30102052200085', '30102052200085', 1, 0, NULL, '$2y$10$GfMAfmV6/ie5fDG0qufro.Gb0n/se.2FsOBpWF4VVTl11NBDs1Lba', 'student', '1359', NULL, NULL, '2020-11-02 09:31:53', '2020-11-02 09:31:53'),
+(1338, 'شهد محمد ياسين شحاتة', '30109072200906', '30109072200906', '30109072200906', 1, 0, NULL, '$2y$10$CA6Ft8iQXGPisqtYoHCTB.gy9TLB8KlWzI9ztfQPHbQ0CVQ/QGOGu', 'student', '1360', NULL, NULL, '2020-11-02 09:31:54', '2020-11-02 09:31:54'),
+(1339, 'شيماء عبدالعال محمد فوزي', '30103122301344', '30103122301344', '30103122301344', 1, 0, NULL, '$2y$10$4KERpk31IK6mhg4og6BVReNxxMmLFlxkTolY6WDaRA25qXEhn.2Ae', 'student', '1361', NULL, NULL, '2020-11-02 09:31:54', '2020-11-02 09:31:54'),
+(1340, 'صفاء عوض احمد محمد', '29912122702705', '29912122702705', '29912122702705', 1, 0, NULL, '$2y$10$ePk.Ou5/X0ICmMfhpLIVX.dthZK880b2O3hDf/NSUlYaxtTl3t2zG', 'student', '1362', NULL, NULL, '2020-11-02 09:31:54', '2020-11-02 09:31:54'),
+(1341, 'صلاح محمد  صلاح  الدين', '30004262200337', '30004262200337', '30004262200337', 1, 0, NULL, '$2y$10$CM44awB0FC7jVPfpIIhbDOlkskdzXT1bMlM.PmlZJVraBKyLynU9W', 'student', '1363', NULL, NULL, '2020-11-02 09:31:55', '2020-11-02 09:31:55'),
+(1342, 'صموئيل عادل عزمي ابراهيم', '30203022301619', '30203022301619', '30203022301619', 1, 0, NULL, '$2y$10$AW4YQwBThmyvboeDhgh2su/4l7cyn/b9O8JB.GENmDOowOLRSlPWK', 'student', '1364', NULL, NULL, '2020-11-02 09:31:55', '2020-11-02 09:31:55'),
+(1343, 'عبدالرحمن خالد جمال شعبان', '30202092301695', '30202092301695', '30202092301695', 1, 0, NULL, '$2y$10$9PnbDMoKKLJogDVMMM0aE.j6.a0hXu.kY00w02p0pegiOSpuJXS4.', 'student', '1365', NULL, NULL, '2020-11-02 09:31:55', '2020-11-02 09:31:55'),
+(1344, 'عبدالرحمن رشدي حسن محمد', '30201012213492', '30201012213492', '30201012213492', 1, 0, NULL, '$2y$10$XOeRDYIgfNbCn4YYbyjR8.E1SflIo3JbCn5yyN.DKIaIbUs0Y096u', 'student', '1366', NULL, NULL, '2020-11-02 09:31:56', '2020-11-02 09:31:56'),
+(1345, 'عبدالرحمن عصام علي احمد', '30104122200633', '30104122200633', '30104122200633', 1, 0, NULL, '$2y$10$DZhq7r60pW4LNB9kKgdJIeZQrRONChaLDIIH.yYGF5/LL313XYqWO', 'student', '1367', NULL, NULL, '2020-11-02 09:31:56', '2020-11-02 09:31:56'),
+(1346, 'عبدالرحمن على  محمد احمد', '30110012205397', '30110012205397', '30110012205397', 1, 0, NULL, '$2y$10$5x8WGEr0SHufm.UV5HlsfOrBqBjKbo4swQjO/7rgL/HBGAyPSQSSy', 'student', '1368', NULL, NULL, '2020-11-02 09:31:56', '2020-11-02 09:31:56'),
+(1347, 'عبدالرحمن محمد شاهين عبدالقادر', '30203222401472', '30203222401472', '30203222401472', 1, 0, NULL, '$2y$10$YV0VUDumf4e/hFYbSq52gORNPP0n4BDKB8ndPOUPTSJk6ylXM1bKC', 'student', '1369', NULL, NULL, '2020-11-02 09:31:57', '2020-11-02 09:31:57'),
+(1348, 'عبدالرحمن محمود عبدالرحمن محمود', '30202092200155', '30202092200155', '30202092200155', 1, 0, NULL, '$2y$10$jGGjbZKckfWskdmpFI3qaeIJUuoqi944HP60Nz1tp8VY7zZtSXuBW', 'student', '1370', NULL, NULL, '2020-11-02 09:31:57', '2020-11-02 09:31:57'),
+(1349, 'عبدالله ربيع رشاد محمود', '30010222300495', '30010222300495', '30010222300495', 1, 0, NULL, '$2y$10$Im77Z45H3p.XAznH7lcCO.gSFrcj2VrLVcOSjtU2.hBpMtOx3QBSC', 'student', '1371', NULL, NULL, '2020-11-02 09:31:57', '2020-11-02 09:31:57'),
+(1350, 'علا احمد عبدالحى عبدالصادق', '30101122301082', '30101122301082', '30101122301082', 1, 0, NULL, '$2y$10$nwh55lkLPMoR3/y5kvubu.zIj9NwNJn1NGKKj.Yw68T2tai/iTAwG', 'student', '1372', NULL, NULL, '2020-11-02 09:31:58', '2020-11-02 09:31:58'),
+(1351, 'علا عيد احمد محمد', '30010152201761', '30010152201761', '30010152201761', 1, 0, NULL, '$2y$10$9.3Fm9s835HM147fzpWWa.u1RBLbj9eVLmQTx8JZ4YEJwZqcYhwOq', 'student', '1373', NULL, NULL, '2020-11-02 09:31:58', '2020-11-02 09:31:58'),
+(1352, 'علاء سمير سيد محمود', '30103122201196', '30103122201196', '30103122201196', 1, 0, NULL, '$2y$10$6UrVx1B51GiwZ96diwQCTuJA8NiOHbh9BLOkEAVEw1RZUdqewN3Nu', 'student', '1374', NULL, NULL, '2020-11-02 09:31:59', '2020-11-02 09:31:59'),
+(1353, 'علاء عيد سيد حسين', '30011022201138', '30011022201138', '30011022201138', 1, 0, NULL, '$2y$10$ezciPRHOo5wjc7dVVZWfqeR10ldWz3KvMQq5VIKHpqqPlTdxdrM0e', 'student', '1375', NULL, NULL, '2020-11-02 09:31:59', '2020-11-02 09:31:59'),
+(1354, 'علياء عماد علي نجيب', '30106112201146', '30106112201146', '30106112201146', 1, 0, NULL, '$2y$10$hpaFj6JNqrCTOHXXuaGlrOHmv8mFlb49s5bnx2eqsRLNHX8vy8.KS', 'student', '1376', NULL, NULL, '2020-11-02 09:32:00', '2020-11-02 09:32:00'),
+(1355, 'عمار عويس عبدالعزيز عبدالجيد', '30104212200454', '30104212200454', '30104212200454', 1, 0, NULL, '$2y$10$BYtrecpicPeBXgYZC6C6WuAAxUGKVgZM3HpuBOhxALQ32MWQvKqse', 'student', '1377', NULL, NULL, '2020-11-02 09:32:00', '2020-11-02 09:32:00'),
+(1356, 'عمار محمود ابراهيم احمد', '30103112200051', '30103112200051', '30103112200051', 1, 0, NULL, '$2y$10$Iy7Ucx4FucoOGNKcUlR3Nu6mwULFUHxlLzIc1khJ9ar3kNiAxmqaa', 'student', '1378', NULL, NULL, '2020-11-02 09:32:00', '2020-11-02 09:32:00'),
+(1357, 'عمر مصطفي ادريس محمود', '30202118800792', '30202118800792', '30202118800792', 1, 0, NULL, '$2y$10$wY1XBTxKVXEnMyiwEKTOxuUkBfEIitxLrbmFrwksP25VIlK2wXcdG', 'student', '1379', NULL, NULL, '2020-11-02 09:32:01', '2020-11-02 09:32:01'),
+(1358, 'عنان محسن محمود مصطفي', '30105102202725', '30105102202725', '30105102202725', 1, 0, NULL, '$2y$10$oSet.V3hn57NYqCzVeyFy.d5nfse.XtdchHYpSOrGu3dIUN4NWaDy', 'student', '1380', NULL, NULL, '2020-11-02 09:32:01', '2020-11-02 09:32:01'),
+(1423, 'إيناس احمد فؤاد علي', '30005132402104', '30005132402104', '30005132402104', 1, 0, NULL, '$2y$10$3twU8i0Mrt7h4IImbw3fgO5JW8HId..4iZ1m/A1LXPvqBkiIrHSkq', 'student', '1445', NULL, NULL, '2020-11-02 09:47:50', '2020-11-02 09:47:50'),
+(1424, 'احمد عصام الدين عبد التواب -', '29912102200495', '29912102200495', '29912102200495', 1, 0, NULL, '$2y$10$pFKDV4UJU4YULC7ZsPs3Yu2NTW4ijbKeMOrGqe9QBvCTCqIjFrvk6', 'student', '1446', NULL, NULL, '2020-11-02 09:47:50', '2020-11-02 09:47:50'),
+(1425, 'ادهم احمد محمد فرج', '29910182201052', '29910182201052', '29910182201052', 1, 0, NULL, '$2y$10$kJGZJvzRbf00Jqg46j3QleHPgnxDSl.TAvHq/gFKI/A2WKgIYYVr2', 'student', '1447', NULL, NULL, '2020-11-02 09:47:50', '2020-11-02 09:47:50'),
+(1426, 'اروي سعد سيد احمد', '30005162201286', '30005162201286', '30005162201286', 1, 0, NULL, '$2y$10$YPbsNv2c4T/FxMz65ocIoOnYEtNPw8/FVDkMUWezmMt4YgnYJ0vlS', 'student', '1448', NULL, NULL, '2020-11-02 09:47:50', '2020-11-02 09:47:50'),
+(1427, 'اسامه خليل عبد العظيم -', '30103082200191', '30103082200191', '30103082200191', 1, 0, NULL, '$2y$10$Al9hps7zJrXba4.KnAQanOHbafN1y9rXw2/2UwN59XRdx797OY3S.', 'student', '1449', NULL, NULL, '2020-11-02 09:47:51', '2020-11-02 09:47:51'),
+(1428, 'اسراء طه احمد سيد', '29912222200529', '29912222200529', '29912222200529', 1, 0, NULL, '$2y$10$oKhEfUGiNm9kEqOSjxNmce.bOoNnh4fgqf/n/7DR.s/V2usIYl/k6', 'student', '1450', NULL, NULL, '2020-11-02 09:47:51', '2020-11-02 09:47:51'),
+(1429, 'اسراء محمود سيد احمد', '29811112200948', '29811112200948', '29811112200948', 1, 0, NULL, '$2y$10$MM5UUBeJwmaUUDePdfjNF.mCcTCMOZEUJYz4LAkvom50nxwRYmgbW', 'student', '1451', NULL, NULL, '2020-11-02 09:47:51', '2020-11-02 09:47:51'),
+(1430, 'الاء ربيع خليفة عبد الله', '30007092201928', '30007092201928', '30007092201928', 1, 0, NULL, '$2y$10$.VZMseI0.mmEEvRUZUZkjeRYm0AsQpDahSf9yVTCc4mFrn9VMUILK', 'student', '1452', NULL, NULL, '2020-11-02 09:47:52', '2020-11-02 09:47:52'),
+(1431, 'الاء فتحي محمد محمد', '29912142200846', '29912142200846', '29912142200846', 1, 0, NULL, '$2y$10$nJvTg0GBglE.WZU.YlVXxuhTTVKooZI12vST9kERKbh/QI403o5Pm', 'student', '1453', NULL, NULL, '2020-11-02 09:47:52', '2020-11-02 09:47:52'),
+(1432, 'الحسين احمد عبدالعظيم محمد', '29908162403177', '29908162403177', '29908162403177', 1, 0, NULL, '$2y$10$DNfMt0OkVdgoP9isBHZSIeRV0xaK5i1HiJW.ohpE1hG4RLB2hkOSe', 'student', '1454', NULL, NULL, '2020-11-02 09:47:52', '2020-11-02 09:47:52'),
+(1433, 'اماني عادل سيد -', '30009252201183', '30009252201183', '30009252201183', 1, 0, NULL, '$2y$10$kBmf2XkmhtefsO5MIjk9guptk1JmOxbtgjFRhJWYqWfYp9Htxv0ZS', 'student', '1455', NULL, NULL, '2020-11-02 09:47:52', '2020-11-02 09:47:52'),
+(1434, 'اميره احمد كيلاني شعبان', '29707012412687', '29707012412687', '29707012412687', 1, 0, NULL, '$2y$10$oTyaGLOFQvUdzRbnL6OJmukZiwWfmkVfj6x8Xmv1CjCZh8n2jxaA.', 'student', '1456', NULL, NULL, '2020-11-02 09:47:53', '2020-11-02 09:47:53'),
+(1435, 'ايمان عيد جمعه حامد', '30002102201601', '30002102201601', '30002102201601', 1, 0, NULL, '$2y$10$UY3dwsL3aMdRnODeV95N4Om/iWz6rAIHD/2gmdWSd483SJBwCiVfG', 'student', '1457', NULL, NULL, '2020-11-02 09:47:53', '2020-11-02 09:47:53'),
+(1436, 'ايه نزيه خلف حسان', '30003102404088', '30003102404088', '30003102404088', 1, 0, NULL, '$2y$10$BHbMPLEvWNphRQFz/QVF4eeo9iHkrQ3kQg13xEXBCA9KyEdKrL7be', 'student', '1458', NULL, NULL, '2020-11-02 09:47:53', '2020-11-02 09:47:53'),
+(1437, 'باسل ايمن صلاح محمد', '29911262200754', '29911262200754', '29911262200754', 1, 0, NULL, '$2y$10$hy3pp1kOYtwq4Uf/8fCiDup8iosSSf10W/S54r4Lnni7i/aeVSRI.', 'student', '1459', NULL, NULL, '2020-11-02 09:47:53', '2020-11-02 09:47:53'),
+(1438, 'دينا ربيع اسماعيل علي', '30004122401804', '30004122401804', '30004122401804', 1, 0, NULL, '$2y$10$HF9UPwXa0WAK.oayeCnzh.RjX8ry6Eo0aq7BC32kDemSvy/6twUJS', 'student', '1460', NULL, NULL, '2020-11-02 09:47:54', '2020-11-02 09:47:54'),
+(1439, 'رائد عمر عبد الرازق عبد الوهاب', '30008152200892', '30008152200892', '30008152200892', 1, 0, NULL, '$2y$10$KfgKO/eIL.AdPnVxApymtuTTHdD1ApUc4rZvmKbKI8SAI94ypf4/a', 'student', '1461', NULL, NULL, '2020-11-02 09:47:54', '2020-11-02 09:47:54'),
+(1440, 'روضه عماد الدين احمد -', '30004042200468', '30004042200468', '30004042200468', 1, 0, NULL, '$2y$10$pXB.X2hnUAKZ8ItoEoGYxOVE53GNSSpR2YRGuQq215TmrBzy4KZmy', 'student', '1462', NULL, NULL, '2020-11-02 09:47:54', '2020-11-02 09:47:54'),
+(1441, 'روفيدة ايهاب فوزي فهمي', '30001232201089', '30001232201089', '30001232201089', 1, 0, NULL, '$2y$10$QVbhkvzolpmOQARX/1vrw.Rb/hkD.et/aa1eBK9OUlq58OtnOXyj6', 'student', '1463', NULL, NULL, '2020-11-02 09:47:55', '2020-11-02 09:47:55'),
+(1442, 'ريم رائد محمد طه', '30007102202987', '30007102202987', '30007102202987', 1, 0, NULL, '$2y$10$IF.5RF0HcUjTe9nfSAkB3.U.Cl/gwarztePE.CsfLLrBBUFNY1UQ6', 'student', '1464', NULL, NULL, '2020-11-02 09:47:55', '2020-11-02 09:47:55'),
+(1443, 'زهوة خالد سعد احمد', '29912203100041', '29912203100041', '29912203100041', 1, 0, NULL, '$2y$10$QZq4jhapdZiGx5GlK1ckZuZM1OJZIQgTwCOeITq7Xn59hbeWRZo0m', 'student', '1465', NULL, NULL, '2020-11-02 09:47:55', '2020-11-02 09:47:55'),
+(1444, 'زياد احمد شعبان -', '30008202201038', '30008202201038', '30008202201038', 1, 0, NULL, '$2y$10$SVgq6yt4YtQqk5NsvOVlG.aMCWZbPkfZt1MQMpyJjeeRLkeLut92u', 'student', '1466', NULL, NULL, '2020-11-02 09:47:56', '2020-11-02 09:47:56'),
+(1445, 'سارة أحمد قرني ذكي', '30008122202947', '30008122202947', '30008122202947', 1, 0, NULL, '$2y$10$LgR7Uy82KZwzbnfO5VSi7eLhuWt7rkluPdKlwiWo7l16YjmaYQvs.', 'student', '1467', NULL, NULL, '2020-11-02 09:47:56', '2020-11-02 09:47:56'),
+(1446, 'سارة معتمد رمضان عبدالعظيم', '30110258800987', '30110258800987', '30110258800987', 1, 0, NULL, '$2y$10$PuNRWU5URf4sUrwfgumHZ.PfaogJQeDwKGnpnxRt0q9of3vXItoj6', 'student', '1468', NULL, NULL, '2020-11-02 09:47:56', '2020-11-02 09:47:56'),
+(1447, 'سلمي احمد محمد -', '29908242100469', '29908242100469', '29908242100469', 1, 0, NULL, '$2y$10$EhQYYOS8X/e7NWGl/8.EUu78IkeyRJ8tDVZ84nBaSQwqfh7sfjeXe', 'student', '1469', NULL, NULL, '2020-11-02 09:47:57', '2020-11-02 09:47:57'),
+(1448, 'سهيلة اشرف حنفي سيد', '30012122200186', '30012122200186', '30012122200186', 1, 0, NULL, '$2y$10$9pfEtnx6iytyvLqQu98TCOKxrYO7m1iLfME1w1tp01xwxyeRwfBge', 'student', '1470', NULL, NULL, '2020-11-02 09:47:57', '2020-11-02 09:47:57'),
+(1449, 'سهيله ناصر محمد علي', '30010010209463', '30010010209463', '30010010209463', 1, 0, NULL, '$2y$10$pm37i8RDSYOk9NGxiVX1S.XZQuuL4e5qv6wtR8XZdBs5hMQV41TeS', 'student', '1471', NULL, NULL, '2020-11-02 09:47:57', '2020-11-02 09:47:57'),
+(1450, 'شريف  حمدي جمال فؤاد', '30103132401177', '30103132401177', '30103132401177', 1, 0, NULL, '$2y$10$zh92/V2.AB9t/A/VLOSKv.OMlbewiiI1uM6unokmvx0HQfYDjJA3S', 'student', '1472', NULL, NULL, '2020-11-02 09:47:58', '2020-11-02 09:47:58'),
+(1451, 'شهد محمد علي محمد', '30005072201287', '30005072201287', '30005072201287', 1, 0, NULL, '$2y$10$ROLd1el4wg6VKLOBwbxcPeVV0BVwFAezq151rw5XdlNtUygFSt5pC', 'student', '1473', NULL, NULL, '2020-11-02 09:47:58', '2020-11-02 09:47:58'),
+(1452, 'طيبة نادي عبد الحميد طلب', '30005152201644', '30005152201644', '30005152201644', 1, 0, NULL, '$2y$10$b/k3EeTJqZVjTlVN.P0ldudoUJWbRZkVAWRyI6yqKma/E9WtSenYu', 'student', '1474', NULL, NULL, '2020-11-02 09:47:58', '2020-11-02 09:47:58'),
+(1453, 'عادل اشرف السيد بيومي خالد', '30010072300696', '30010072300696', '30010072300696', 1, 0, NULL, '$2y$10$tnWwtXxbiom8aw48H6jXwezNxV.y74TiwxBP5luk4r/Xp0t.ta9zO', 'student', '1475', NULL, NULL, '2020-11-02 09:47:58', '2020-11-02 09:47:58'),
+(1454, 'عبد الرحمن محمد سيد -', '30101012208079', '30101012208079', '30101012208079', 1, 0, NULL, '$2y$10$OydDZsoNJy.oZ6c9UefUW.IFQQ7VfMUB4AZmWJ/JaH6V75Rhe06Ny', 'student', '1476', NULL, NULL, '2020-11-02 09:47:59', '2020-11-02 09:47:59'),
+(1455, 'عبد الرحمن محمود صادق -', '30005152301754', '30005152301754', '30005152301754', 1, 0, NULL, '$2y$10$kE0Z8szzwmnrZqf0TFzEyOGwHnTzsPwEtTfnGLHZqTDSv.s35zZmC', 'student', '1477', NULL, NULL, '2020-11-02 09:47:59', '2020-11-02 09:47:59'),
+(1456, 'عبدالله احمد عبدالتواب اسماعيل', '30003012300976', '30003012300976', '30003012300976', 1, 0, NULL, '$2y$10$8SPrJWzcjgnKdEp40S6jxOZb1Bo9mXhAYq.IEF8siaNU0oQbhLSx6', 'student', '1478', NULL, NULL, '2020-11-02 09:47:59', '2020-11-02 09:47:59'),
+(1457, 'علي نادي حسن علي', '30003022201399', '30003022201399', '30003022201399', 1, 0, NULL, '$2y$10$KpLVRWL6Ypac175T5GjiNOS.2OqhJOQek4SBAD/9DZKcOn8Hyf8Ya', 'student', '1479', NULL, NULL, '2020-11-02 09:48:00', '2020-11-02 09:48:00'),
+(1458, 'علياء هشام مصطفي ابوطالب', '30008162401063', '30008162401063', '30008162401063', 1, 0, NULL, '$2y$10$q1zn7wv.19zuluRDs1IDQeXU3gkw.PaqYQ8qLlJAE8sn2NoMQ.vgm', 'student', '1480', NULL, NULL, '2020-11-02 09:48:00', '2020-11-02 09:48:00'),
+(1459, 'عمرو  عبدالمنعم عبدالرازق -', '30012252200056', '30012252200056', '30012252200056', 1, 0, NULL, '$2y$10$KNdvUatQE7DTeBhijUONYu1ywNAFkl6WejK9PKRYq5lcAvR6B9RJG', 'student', '1481', NULL, NULL, '2020-11-02 09:48:00', '2020-11-02 09:48:00'),
+(1460, 'كريم عصام جلال محمد', '30001118800215', '30001118800215', '30001118800215', 1, 0, NULL, '$2y$10$DDE0BZeEhFNVSJ6.0763A.GY0A1arUMx.NIWiTIBlzSkNCamcnjfS', 'student', '1482', NULL, NULL, '2020-11-02 09:48:00', '2020-11-02 09:48:00'),
+(1461, 'مازن طارق علي البكري', '30007232201192', '30007232201192', '30007232201192', 1, 0, NULL, '$2y$10$4UXLFEI4dvpYgbNKi6rpGeXyrMhab9WyBWGWMmZiU.RCUFTqR1m92', 'student', '1483', NULL, NULL, '2020-11-02 09:48:01', '2020-11-02 09:48:01'),
+(1462, 'محمد  احمد علي هارون', '30012272200516', '30012272200516', '30012272200516', 1, 0, NULL, '$2y$10$CIetnq5YaEfChSThnaoUmOZfXIYjkBnes7dgQlZ8oTtb5hPqq/kSG', 'student', '1484', NULL, NULL, '2020-11-02 09:48:01', '2020-11-02 09:48:01'),
+(1463, 'محمد  جمعه عبدالعاطي جوده', '30003318800735', '30003318800735', '30003318800735', 1, 0, NULL, '$2y$10$G0E4Wgs1WFrIBKtZhe7Oc.O5P1gZ9BwoOFLyOmlVQiLuDRzpiC7fu', 'student', '1485', NULL, NULL, '2020-11-02 09:48:02', '2020-11-02 09:48:02'),
+(1464, 'محمد  حامد سيد حامد', '29810022200233', '29810022200233', '29810022200233', 1, 0, NULL, '$2y$10$fwZVGaa0RL1lqZHjHc6apuI1AsEj8F7h3uhdfmXxKoZLvogTsd3lW', 'student', '1486', NULL, NULL, '2020-11-02 09:48:02', '2020-11-02 09:48:02'),
+(1465, 'محمد ابراهيم رجب -', '30008172200473', '30008172200473', '30008172200473', 1, 0, NULL, '$2y$10$UTQLp.M4PUaIt6IRz/b/IOtLhbt8wkuYdLURTH2XM2KuJo3SLHjHC', 'student', '1487', NULL, NULL, '2020-11-02 09:48:02', '2020-11-02 09:48:02'),
+(1466, 'محمد احمد سيد مهدي', '29910262200138', '29910262200138', '29910262200138', 1, 0, NULL, '$2y$10$R2F7wNTreuHt.QftlnjgYOoSylLzJTLS6bvFyDB0ANeTnTsd9k5OK', 'student', '1488', NULL, NULL, '2020-11-02 09:48:02', '2020-11-02 09:48:02'),
+(1467, 'محمد امير معوض ابراهيم', '30007312300094', '30007312300094', '30007312300094', 1, 0, NULL, '$2y$10$GOQFL.2H4b/.KjmiXmGTLOUKy/tqZm3I/LbHiHAjg62BjB6gPVadO', 'student', '1489', NULL, NULL, '2020-11-02 09:48:03', '2020-11-02 09:48:03'),
+(1468, 'محمد عبد السلام حسن -', '29903212202052', '29903212202052', '29903212202052', 1, 0, NULL, '$2y$10$BqhE0YB6dXWeOP.S6.vbze./8iGqJ3O64joKk1hvpqGbxraT17AOq', 'student', '1490', NULL, NULL, '2020-11-02 09:48:03', '2020-11-02 09:48:03'),
+(1469, 'محمد ممدوح محمود عبد الفتاح', '30003028800359', '30003028800359', '30003028800359', 1, 0, NULL, '$2y$10$qqdd6L4HM3ilavsaHt5LDuwEXYwu2E6CFmgNg9DxZnOxnPv.w1oy2', 'student', '1491', NULL, NULL, '2020-11-02 09:48:04', '2020-11-02 09:48:04'),
+(1470, 'محمود جابر عطيه احمد', '30004082200037', '30004082200037', '30004082200037', 1, 0, NULL, '$2y$10$N/qNC5Yx1FjU7eh2bBZ//uAGzHSUSThNQMqJqg6e6V0D4ZDRpajXi', 'student', '1492', NULL, NULL, '2020-11-02 09:48:04', '2020-11-02 09:48:04'),
+(1471, 'مريم  اشرف محمد محمود', '30103112201864', '30103112201864', '30103112201864', 1, 0, NULL, '$2y$10$5is217X1FaN/J5ZV6XLncuPUl/k.Hy94NalsnpG8VZ2ehW.Y0bBOu', 'student', '1493', NULL, NULL, '2020-11-02 09:48:04', '2020-11-02 09:48:04'),
+(1472, 'منار اشرف شعبان محمود', '29908292201169', '29908292201169', '29908292201169', 1, 0, NULL, '$2y$10$GASBKPeO/WEOWoKiKKASnO/tSj32jEzHBDxO0KBnxG2aBbk/LSnBC', 'student', '1494', NULL, NULL, '2020-11-02 09:48:05', '2020-11-02 09:48:05'),
+(1473, 'منار حمدي عبدالحميد -', '30001302400645', '30001302400645', '30001302400645', 1, 0, NULL, '$2y$10$0zR.n3jDKYsq0e43ssNPKOFrfDzsiYdb5mMgHpkACJFjYG1ikqnMG', 'student', '1495', NULL, NULL, '2020-11-02 09:48:05', '2020-11-02 09:48:05'),
+(1474, 'نادين محمد عبدالقادر احمد', '30002242300421', '30002242300421', '30002242300421', 1, 0, NULL, '$2y$10$eamDK2.LXZ/VIKxJycCUte5iIt.gGgygACetlREzBC7OU.lbYNPpu', 'student', '1496', NULL, NULL, '2020-11-02 09:48:05', '2020-11-02 09:48:05'),
+(1475, 'ندي احمد عبد الرحمن سيد', '30005182200189', '30005182200189', '30005182200189', 1, 0, NULL, '$2y$10$PIOCevDCxxMPbwTyG8Z5QeANt8eWMSuA8M11vIeRjqjy1na5HwpaO', 'student', '1497', NULL, NULL, '2020-11-02 09:48:06', '2020-11-02 09:48:06'),
+(1476, 'ندي جمال احمد محمد', '30006162201223', '30006162201223', '30006162201223', 1, 0, NULL, '$2y$10$coHW3xDoSTzwz6lc.ArRU.Y3S8xaHoJYV.TV2PBE4zREdZm/VBdeO', 'student', '1498', NULL, NULL, '2020-11-02 09:48:06', '2020-11-02 09:48:06'),
+(1477, 'ندي علي حسين ابراهيم', '30008212200501', '30008212200501', '30008212200501', 1, 0, NULL, '$2y$10$FNumr7QrvARSAIkKY.SYLu2Vrv8swWtRYzOp7mEKkK0WeiPUpUgaa', 'student', '1499', NULL, NULL, '2020-11-02 09:48:06', '2020-11-02 09:48:06'),
+(1478, 'ندى محمد عبدالستار -', '30005052201345', '30005052201345', '30005052201345', 1, 0, NULL, '$2y$10$QkWW9q47WX9l5dUAFYgg9OTQTI4DZ2pbsqAwhvPETxqpQbs/r8fkC', 'student', '1500', NULL, NULL, '2020-11-02 09:48:07', '2020-11-02 09:48:07'),
+(1479, 'نسيبة محمود محمد محمد', '30007162202129', '30007162202129', '30007162202129', 1, 0, NULL, '$2y$10$sl.Q4k3SvnuHIxC7eKTyE.YHe5OqOHEGSze1F5hnGVN1Ge/L9aDHO', 'student', '1501', NULL, NULL, '2020-11-02 09:48:07', '2020-11-02 09:48:07'),
+(1480, 'نهي محمد فهيم -', '29802212201641', '29802212201641', '29802212201641', 1, 0, NULL, '$2y$10$iDi3cVgFY4MkV7FkrkICKOr2Ija5suBsK4MMm3Q5VWL4tS4wX2cye', 'student', '1502', NULL, NULL, '2020-11-02 09:48:07', '2020-11-02 09:48:07'),
+(1481, 'نورهان عبد المنعم وزير احمد', '29911102200561', '29911102200561', '29911102200561', 1, 0, NULL, '$2y$10$Pc4MDAa5Iq3K6IFDRqZJDOYXtun5TZHDcKqY7Moi4RhOVWu.ef7X2', 'student', '1503', NULL, NULL, '2020-11-02 09:48:08', '2020-11-02 09:48:08'),
+(1482, 'نورهان محمد حمد الله -', '30005202202787', '30005202202787', '30005202202787', 1, 0, NULL, '$2y$10$x9gxaT4SSD5bT0HT0oWo7uEYVe0VTQ8GN7BwjR9aHZE5zG/o12G/m', 'student', '1504', NULL, NULL, '2020-11-02 09:48:08', '2020-11-02 09:48:08'),
+(1483, 'هاله علي سيد حسن', '30007012206428', '30007012206428', '30007012206428', 1, 0, NULL, '$2y$10$VpnQOqhdFyq.NZu6bXCpUODSvgZECwIlYa6kYwjQJFqYCn40kTofq', 'student', '1505', NULL, NULL, '2020-11-02 09:48:08', '2020-11-02 09:48:08'),
+(1484, 'هدير مصطفي محمد محمد', '30002122200342', '30002122200342', '30002122200342', 1, 0, NULL, '$2y$10$MC7HzqL61/Vq/IFS0b.Za.Iz98irRou/PwvRWb16DqBEQTZP6.56q', 'student', '1506', NULL, NULL, '2020-11-02 09:48:08', '2020-11-02 09:48:08'),
+(1485, 'ياسمين عطاء ايوب عبداللطيف', '29909012307362', '29909012307362', '29909012307362', 1, 0, NULL, '$2y$10$zhHg2/0skKXNfhlYY/.oHeQeBg8zbKs0A1GMTl/7dGLZltAyhvlrS', 'student', '1507', NULL, NULL, '2020-11-02 09:48:09', '2020-11-02 09:48:09'),
+(1486, 'يوسف  محمد حامد احمد', '30009112200659', '30009112200659', '30009112200659', 1, 0, NULL, '$2y$10$hHpUPjKy4Xq8elE22vTOheMz5iMSftNb6rqBMk3RVM9YXXj4JjOXS', 'student', '1508', NULL, NULL, '2020-11-02 09:48:09', '2020-11-02 09:48:09'),
+(1513, 'د. هاجر الحداد', '01091093981', '01091093981', '01091093981', 1, 0, NULL, '$2y$10$z/c.gy5rdfh6FZWaO5N7AeAe9.DyNxZ0qI/aHCVkjH/InLY4moCwK', 'doctor', '40', NULL, NULL, '2020-11-02 10:38:32', '2020-11-02 10:38:32'),
+(1514, 'د. فريد على', '01001369125', '01001369125', '01001369125', 1, 0, NULL, '$2y$10$8Yxvv3rqhSUP.QTDFr1Vvu73pRQR7YfU/kNxtDa1QCSOyY3/oxVm6', 'doctor', '41', NULL, NULL, '2020-11-02 10:38:32', '2020-11-02 10:38:32'),
+(1515, 'د. سامح جمال', '01099002236', '01099002236', '01099002236', 1, 0, NULL, '$2y$10$SE.nqw1AVBwUBJBShOqs7uoaQSguE5pyyzZ2pvX7iW8PGnpqzxlxW', 'doctor', '42', NULL, NULL, '2020-11-02 10:38:33', '2020-11-02 10:38:33'),
+(1516, 'د. دعاء حمدى', '01062274667', '01062274667', '01062274667', 1, 0, NULL, '$2y$10$0BUr7ajjv94W0GirFqOyU.IgGUABO8r/wPiFMrzNXneTB5ypkT95y', 'doctor', '43', NULL, NULL, '2020-11-02 10:38:33', '2020-11-02 10:38:33'),
+(1517, 'أ.م.د. كريم أحمد', '01272285609', '01272285609', '01272285609', 1, 0, NULL, '$2y$10$N.f8pNx9u/HjHisaF1xr9.VvDSzuomzseBtKf9O4eyv9N7rzyJT7C', 'doctor', '44', NULL, NULL, '2020-11-02 10:38:33', '2020-11-02 10:38:33'),
+(1518, 'د. عاشور', '01140417941', '01140417941', '01140417941', 1, 0, NULL, '$2y$10$Egfy6q12O14b5MITE/HM0Oo3Jt.cMLynE9qWI9j9d9p4Khu26J4iy', 'doctor', '45', NULL, NULL, '2020-11-02 10:38:33', '2020-11-02 10:38:33'),
+(1519, 'د. إيناس الكردى', '01288195946', '01288195946', '01288195946', 1, 0, NULL, '$2y$10$X54y1sVTQ8nic7suxgb5pODj7wijLho4Y0X9eAoORE25oknCOn1MG', 'doctor', '46', NULL, NULL, '2020-11-02 10:38:34', '2020-11-02 10:38:34'),
+(1520, 'أ.م.د. هبة عبد الحليم', '01093529258', '01093529258', '01093529258', 1, 0, NULL, '$2y$10$IsA9WIZhtFt8dfpvIRGs1uGDKndlFrKqQeO3vyvMBkfRX94cS81Jm', 'doctor', '47', NULL, NULL, '2020-11-02 10:38:34', '2020-11-02 10:38:34'),
+(1521, 'أ.م.د. رحاب يوسف', '01143955586', '01143955586', '01143955586', 1, 0, NULL, '$2y$10$38zGe6UL5t7SQmdshiRT5enSlIkmvlROST.d.GkCMfx56gNR5C58m', 'doctor', '48', NULL, NULL, '2020-11-02 10:38:34', '2020-11-02 10:38:34'),
+(1522, 'د. عاطف فرج الله', '01146405970', '01146405970', '01146405970', 1, 0, NULL, '$2y$10$RQLfcWkjcmW0sExv4roXOeAaWdD/EdJScv//A8qK7ypJAkq1bK0w.', 'doctor', '49', NULL, NULL, '2020-11-02 10:38:34', '2020-11-02 10:38:34'),
+(1523, 'أ.م.د. ميرفت حسين', '01225750730', '01225750730', '01225750730', 1, 0, NULL, '$2y$10$7C0fUepKw3yL4AhkAtew4u6HxIXNdNqNNKrZW9WlHNvIQ/fz/CyT.', 'doctor', '50', NULL, NULL, '2020-11-02 10:38:35', '2020-11-02 10:38:35'),
+(1524, 'أ.م.د. حمدى محمود', '01000122247', '01000122247', '01000122247', 1, 0, NULL, '$2y$10$K.Wciqe4v6ryvTu5oF2FIeabxFavm0QxKcGwbnvUwMdCdbVzWTm1q', 'doctor', '51', NULL, NULL, '2020-11-02 10:38:35', '2020-11-02 10:38:35'),
+(1525, 'أ.م.د. محمد سيد قايد', '01091666404', '01091666404', '01091666404', 1, 0, NULL, '$2y$10$I43H7IyF27K2QB/e3QiHMe3tw/fVKTCP9V5USEhM8A6SNJi5nc5Bm', 'doctor', '52', NULL, NULL, '2020-11-02 10:38:35', '2020-11-02 10:38:35'),
+(1526, 'د. دعاء شبل', '01009561621', '01009561621', '01009561621', 1, 0, NULL, '$2y$10$rTK60NRKWJrnG3WjWYoLq.mq1sVVHh6Ww2VosZc05AiHjHUXcIOSy', 'doctor', '53', NULL, NULL, '2020-11-02 10:38:36', '2020-11-02 10:38:36'),
+(1527, 'د. عمر القلعاوى', '01014446311', '01014446311', '01014446311', 1, 0, NULL, '$2y$10$F7AK5hpedoctHiKkfRol4ud8K6Rot2DJMtfwBf5AsfvsVrhbOhxP6', 'doctor', '54', NULL, NULL, '2020-11-02 10:38:36', '2020-11-02 10:38:36'),
+(1528, 'أ.م.د. حسام مفتاح', '01003543364', '01003543364', '01003543364', 1, 0, NULL, '$2y$10$pgCeKIYrXLrhYbn8rSpYc.L5LCcLPsZEMUdUKaKYfl3EuDkDlBtdO', 'doctor', '55', NULL, NULL, '2020-11-02 10:38:36', '2020-11-02 10:38:36'),
+(1529, 'د. محمد العربى', '01061014143', '01061014143', '01061014143', 1, 0, NULL, '$2y$10$t6JjngvN7H3qx0vY7HaWK.xkkkb6wQYuJ0JRFHUewk1LQMQi4i27.', 'doctor', '56', NULL, NULL, '2020-11-02 10:38:37', '2020-11-02 10:38:37'),
+(1530, 'د. أحمد عنتر', '01002325970', '01002325970', '01002325970', 1, 0, NULL, '$2y$10$L6VB0hd1YcUHGQZyAZBaXeFFNupu58ovwq3QcF7nXKEI6fO7ZoLPu', 'doctor', '57', NULL, NULL, '2020-11-02 10:38:37', '2020-11-02 10:38:37'),
+(1531, 'أ.م.د. خالد عدلى', '01004879295', '01004879295', '01004879295', 1, 0, NULL, '$2y$10$JePUFgZOpZTSF/CwHKo1CewoHP1BWcBAyIiEDKoktxhcSvJT3LMWi', 'doctor', '58', NULL, NULL, '2020-11-02 10:38:37', '2020-11-02 10:38:37'),
+(1532, 'د. عمرو عبد العزيز', '01021264641', '01021264641', '01021264641', 1, 0, NULL, '$2y$10$jNFg0MmvrePEXX3a3niU/OgpIwmMqszTsLye3/6zA0OTyYD.KXa/m', 'doctor', '59', NULL, NULL, '2020-11-02 10:38:37', '2020-11-02 10:38:37'),
+(1538, 'احمد محمد احمد محمد', '30206102200197', '30206102200197', '30206102200197', 1, 0, NULL, '$2y$10$egrxMXhyHtW1IB.v1zDqJuArWym8v9wRdibBhB9yepFXZSLeuiDFu', 'student', '1512', NULL, NULL, '2020-11-07 04:35:22', '2020-11-07 04:35:22');
+INSERT INTO `users` (`id`, `name`, `username`, `email`, `phone`, `active`, `account_confirm`, `email_verified_at`, `password`, `type`, `fid`, `remember_token`, `api_token`, `created_at`, `updated_at`) VALUES
+(1540, 'std test', 'std test', 'std1@gmail.com', '0114454475', 1, 0, NULL, '$2y$10$i3D1IQegRyTpkUPt5mmTiuUpwL04Zs3meG8ikR/wPfGE/KtaHdxSe', 'student', '1514', NULL, NULL, '2020-11-07 05:01:35', '2020-11-09 09:50:07'),
+(1542, 'test 2', 'test2', 'test2@admin.com', '01234567890', 1, 0, NULL, '$2y$10$G.DK.8U3dNkM80VB7H6uauvY99bj89R1wAKccA.fKMNMo1zLLkug2', 'doctor', '67', NULL, NULL, '2020-11-25 09:50:03', '2020-11-25 09:50:03');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `admins`
+-- Indexes for table `lms_admins`
 --
-ALTER TABLE `admins`
+ALTER TABLE `lms_admins`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `admins_username_unique` (`username`),
   ADD UNIQUE KEY `admins_phone_unique` (`phone`),
   ADD UNIQUE KEY `admins_email_unique` (`email`);
 
 --
--- Indexes for table `assignments`
+-- Indexes for table `lms_assignments`
 --
-ALTER TABLE `assignments`
+ALTER TABLE `lms_assignments`
   ADD PRIMARY KEY (`id`),
   ADD KEY `assignments_lesson_id_foreign` (`lesson_id`);
 
 --
--- Indexes for table `departments`
+-- Indexes for table `lms_courses`
 --
-ALTER TABLE `departments`
+ALTER TABLE `lms_courses`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `subjects_doc_id_foreign` (`doc_id`);
+
+--
+-- Indexes for table `lms_departments`
+--
+ALTER TABLE `lms_departments`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `doctors`
+-- Indexes for table `lms_doctors`
 --
-ALTER TABLE `doctors`
+ALTER TABLE `lms_doctors`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `doctors_username_unique` (`username`),
   ADD UNIQUE KEY `doctors_email_unique` (`email`),
   ADD UNIQUE KEY `doctors_phone_unique` (`phone`);
 
 --
--- Indexes for table `lessons`
+-- Indexes for table `lms_doctor_courses`
 --
-ALTER TABLE `lessons`
+ALTER TABLE `lms_doctor_courses`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `lms_lessons`
+--
+ALTER TABLE `lms_lessons`
   ADD PRIMARY KEY (`id`),
   ADD KEY `lessons_sbj_id_foreign` (`sbj_id`);
 
 --
--- Indexes for table `levels`
+-- Indexes for table `lms_levels`
 --
-ALTER TABLE `levels`
+ALTER TABLE `lms_levels`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `login_histories`
+-- Indexes for table `lms_login_histories`
 --
-ALTER TABLE `login_histories`
+ALTER TABLE `lms_login_histories`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `lms_notifications`
+--
+ALTER TABLE `lms_notifications`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `lms_problems`
+--
+ALTER TABLE `lms_problems`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `lms_settings`
+--
+ALTER TABLE `lms_settings`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `lms_students`
+--
+ALTER TABLE `lms_students`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `students_username_unique` (`username`),
+  ADD UNIQUE KEY `students_email_unique` (`email`),
+  ADD UNIQUE KEY `students_phone_unique` (`phone`);
+
+--
+-- Indexes for table `lms_student_assignments`
+--
+ALTER TABLE `lms_student_assignments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `student_assignments_student_id_foreign` (`student_id`),
+  ADD KEY `student_assignments_assign_id_foreign` (`assign_id`);
+
+--
+-- Indexes for table `lms_student_subjects`
+--
+ALTER TABLE `lms_student_subjects`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `student_subjects_student_id_foreign` (`student_id`),
+  ADD KEY `student_subjects_subject_id_foreign` (`subject_id`);
+
+--
+-- Indexes for table `lms_translations`
+--
+ALTER TABLE `lms_translations`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `translations_key_unique` (`key`);
 
 --
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `notifications`
---
-ALTER TABLE `notifications`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -5775,51 +5865,6 @@ ALTER TABLE `role_user`
   ADD KEY `role_user_role_id_foreign` (`role_id`);
 
 --
--- Indexes for table `settings`
---
-ALTER TABLE `settings`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `students`
---
-ALTER TABLE `students`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `students_username_unique` (`username`),
-  ADD UNIQUE KEY `students_email_unique` (`email`),
-  ADD UNIQUE KEY `students_phone_unique` (`phone`);
-
---
--- Indexes for table `student_assignments`
---
-ALTER TABLE `student_assignments`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `student_assignments_student_id_foreign` (`student_id`),
-  ADD KEY `student_assignments_assign_id_foreign` (`assign_id`);
-
---
--- Indexes for table `student_subjects`
---
-ALTER TABLE `student_subjects`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `student_subjects_student_id_foreign` (`student_id`),
-  ADD KEY `student_subjects_subject_id_foreign` (`subject_id`);
-
---
--- Indexes for table `subjects`
---
-ALTER TABLE `subjects`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `subjects_doc_id_foreign` (`doc_id`);
-
---
--- Indexes for table `translations`
---
-ALTER TABLE `translations`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `translations_key_unique` (`key`);
-
---
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -5833,58 +5878,106 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `admins`
+-- AUTO_INCREMENT for table `lms_admins`
 --
-ALTER TABLE `admins`
+ALTER TABLE `lms_admins`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `assignments`
+-- AUTO_INCREMENT for table `lms_assignments`
 --
-ALTER TABLE `assignments`
+ALTER TABLE `lms_assignments`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `departments`
+-- AUTO_INCREMENT for table `lms_courses`
 --
-ALTER TABLE `departments`
+ALTER TABLE `lms_courses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+
+--
+-- AUTO_INCREMENT for table `lms_departments`
+--
+ALTER TABLE `lms_departments`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `doctors`
+-- AUTO_INCREMENT for table `lms_doctors`
 --
-ALTER TABLE `doctors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+ALTER TABLE `lms_doctors`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
--- AUTO_INCREMENT for table `lessons`
+-- AUTO_INCREMENT for table `lms_doctor_courses`
 --
-ALTER TABLE `lessons`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+ALTER TABLE `lms_doctor_courses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `levels`
+-- AUTO_INCREMENT for table `lms_lessons`
 --
-ALTER TABLE `levels`
+ALTER TABLE `lms_lessons`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `lms_levels`
+--
+ALTER TABLE `lms_levels`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `login_histories`
+-- AUTO_INCREMENT for table `lms_login_histories`
 --
-ALTER TABLE `login_histories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
+ALTER TABLE `lms_login_histories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
+
+--
+-- AUTO_INCREMENT for table `lms_notifications`
+--
+ALTER TABLE `lms_notifications`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `lms_problems`
+--
+ALTER TABLE `lms_problems`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `lms_settings`
+--
+ALTER TABLE `lms_settings`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `lms_students`
+--
+ALTER TABLE `lms_students`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1515;
+
+--
+-- AUTO_INCREMENT for table `lms_student_assignments`
+--
+ALTER TABLE `lms_student_assignments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `lms_student_subjects`
+--
+ALTER TABLE `lms_student_subjects`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2776;
+
+--
+-- AUTO_INCREMENT for table `lms_translations`
+--
+ALTER TABLE `lms_translations`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=414;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT for table `notifications`
---
-ALTER TABLE `notifications`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -5899,62 +5992,46 @@ ALTER TABLE `roles`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `settings`
---
-ALTER TABLE `settings`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `students`
---
-ALTER TABLE `students`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1515;
-
---
--- AUTO_INCREMENT for table `student_assignments`
---
-ALTER TABLE `student_assignments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `student_subjects`
---
-ALTER TABLE `student_subjects`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2771;
-
---
--- AUTO_INCREMENT for table `subjects`
---
-ALTER TABLE `subjects`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
-
---
--- AUTO_INCREMENT for table `translations`
---
-ALTER TABLE `translations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=414;
-
---
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1542;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1543;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `assignments`
+-- Constraints for table `lms_assignments`
 --
-ALTER TABLE `assignments`
-  ADD CONSTRAINT `assignments_lesson_id_foreign` FOREIGN KEY (`lesson_id`) REFERENCES `lessons` (`id`) ON DELETE CASCADE;
+ALTER TABLE `lms_assignments`
+  ADD CONSTRAINT `assignments_lesson_id_foreign` FOREIGN KEY (`lesson_id`) REFERENCES `lms_lessons` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `lessons`
+-- Constraints for table `lms_courses`
 --
-ALTER TABLE `lessons`
-  ADD CONSTRAINT `lessons_sbj_id_foreign` FOREIGN KEY (`sbj_id`) REFERENCES `subjects` (`id`) ON DELETE CASCADE;
+ALTER TABLE `lms_courses`
+  ADD CONSTRAINT `subjects_doc_id_foreign` FOREIGN KEY (`doc_id`) REFERENCES `lms_doctors` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `lms_lessons`
+--
+ALTER TABLE `lms_lessons`
+  ADD CONSTRAINT `lessons_sbj_id_foreign` FOREIGN KEY (`sbj_id`) REFERENCES `lms_courses` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `lms_student_assignments`
+--
+ALTER TABLE `lms_student_assignments`
+  ADD CONSTRAINT `student_assignments_assign_id_foreign` FOREIGN KEY (`assign_id`) REFERENCES `lms_assignments` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `student_assignments_student_id_foreign` FOREIGN KEY (`student_id`) REFERENCES `lms_students` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `lms_student_subjects`
+--
+ALTER TABLE `lms_student_subjects`
+  ADD CONSTRAINT `student_subjects_student_id_foreign` FOREIGN KEY (`student_id`) REFERENCES `lms_students` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `student_subjects_subject_id_foreign` FOREIGN KEY (`subject_id`) REFERENCES `lms_courses` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `permission_role`
@@ -5974,26 +6051,6 @@ ALTER TABLE `permission_user`
 --
 ALTER TABLE `role_user`
   ADD CONSTRAINT `role_user_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `student_assignments`
---
-ALTER TABLE `student_assignments`
-  ADD CONSTRAINT `student_assignments_assign_id_foreign` FOREIGN KEY (`assign_id`) REFERENCES `assignments` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `student_assignments_student_id_foreign` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `student_subjects`
---
-ALTER TABLE `student_subjects`
-  ADD CONSTRAINT `student_subjects_student_id_foreign` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `student_subjects_subject_id_foreign` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `subjects`
---
-ALTER TABLE `subjects`
-  ADD CONSTRAINT `subjects_doc_id_foreign` FOREIGN KEY (`doc_id`) REFERENCES `doctors` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

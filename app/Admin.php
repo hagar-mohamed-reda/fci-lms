@@ -10,6 +10,7 @@ class Admin extends Model
 {
     use LaratrustUserTrait;
     use Notifiable;
+    protected $table = "lms_admins";
 
     /**
      * The attributes that are mass assignable.

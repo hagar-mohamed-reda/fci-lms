@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subject extends Model
 {
+    protected $table = "lms_courses";
+
     protected $guarded = [];
 
     protected $fillable = [

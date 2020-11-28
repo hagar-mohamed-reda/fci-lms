@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Assignment extends Model
 {
     protected $guarded = [];
+    protected $table = "lms_assignments";
 
     protected $fillable = [
         'name', 'start_date','end_date','lesson_id', 'pdf_quest','pdf_anss','doc_id','sbj_id'

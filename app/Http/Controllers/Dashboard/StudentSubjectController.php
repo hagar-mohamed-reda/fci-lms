@@ -85,12 +85,30 @@ class StudentSubjectController extends Controller
             'student_id' => 'required',
         ]);
 
-        $request_data = $request->all();
+        $stdSubjs = StudentSubject::all();
 
-        StudentSubject::create($request_data);
+        $std = Student::find($request->student_id);
+        $sbj = Subject::find($request->subject_id);
 
-        session()->flash('success', __('site.added_successfully'));
-        return redirect()->route('dashboard.subjects.index');
+        //if($stdSubjs){
+        //if($std->stdSbjs()->exists() && $sbj->stdSbjs()->exists()){
+        if(StudentSubject::where('student_id','=', $request->student_id)
+                    ->where('subject_id', '=', $request->subject_id)
+                    ->exists()
+        ){
+            notify()->error("this student already exists","Error","topRight");
+            return redirect()->back();
+            //return redirect()->route('dashboard.students.index');
+        }else{
+            $request_data = $request->all();
+
+            StudentSubject::create($request_data);
+
+            session()->flash('success', __('site.added_successfully'));
+            return redirect()->route('dashboard.subjects.index');
+        }
+
+
     }
 
     /**

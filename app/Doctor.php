@@ -14,6 +14,7 @@ class Doctor extends Model
 
     protected $guarded = [];
 
+    protected $table = "lms_doctors";
 
     protected $fillable = [
         'name',

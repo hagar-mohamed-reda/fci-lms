@@ -38,7 +38,7 @@
                                 <!--input type="submit" value="upload"-->
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" style="position: relative">
                                 <label>@lang('site.start_date')*</label>
                                 <input type="date" name="start_date" class="form-control" value="<?php
                                                                                                     //$dt = date("Y-m-d");
@@ -46,7 +46,7 @@
                                                                                                     echo date('Y-m-d'); ?>">
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" style="position: relative">
                                 <label>@lang('site.end_date')*</label>
                                 <input type="date" name="end_date" class="form-control" value="<?php
                                                                                                 $dt = date("Y-m-d");

@@ -9,7 +9,7 @@ class Department extends Model
 {
     use SoftDeletes;
 
-    protected $table = "departments";
+    protected $table = "lms_departments";
 
     protected $fillable = [
         'name', 'level_id', 'notes'

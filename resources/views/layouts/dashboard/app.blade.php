@@ -114,6 +114,18 @@
                 color: white;
                 font-size: 19px;
             }
+            input[type="date"]::-webkit-calendar-picker-indicator {
+            background: transparent;
+            bottom: 0;
+            color: transparent;
+            cursor: pointer;
+            height: auto;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: auto;
+            }
 
 
         </style>
@@ -185,7 +197,7 @@ desired effect
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
-          <li class="dropdown messages-menu">
+          {{-- <li class="dropdown messages-menu">
             <!-- Menu toggle button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
@@ -195,7 +207,7 @@ desired effect
               <li class="header">You have 4 messages</li>
               <li>
                 <!-- inner menu: contains the messages -->
-                <ul class="menu">
+                {{-- <ul class="menu">
                   <li><!-- start message -->
                     <a href="#">
                       <div class="pull-left">
@@ -212,16 +224,16 @@ desired effect
                     </a>
                   </li>
                   <!-- end message -->
-                </ul>
+                </ul> --
                 <!-- /.menu -->
               </li>
               <li class="footer"><a href="#">See All Messages</a></li>
             </ul>
-          </li>
+          </li> --}}
           <!-- /.messages-menu -->
 
           <!-- Notifications Menu -->
-          <li class="dropdown notifications-menu">
+          {{-- <li class="dropdown notifications-menu">
             <!-- Menu toggle button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
@@ -242,7 +254,7 @@ desired effect
               </li>
               <li class="footer"><a href="#">View all</a></li>
             </ul>
-          </li>
+          </li> --}}
           <!-- Tasks Menu -->
           <li class="dropdown tasks-menu">
             <!-- Menu Toggle Button -->
