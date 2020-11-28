@@ -33,7 +33,7 @@
                                 <input type="text" name="name" class="form-control" value="{{old('name')}}">
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" style="position: relative">
                                 <label>@lang('site.date')*</label>
                                 <input type="date" name="date" class="form-control datePicker" value="<?php
                                                                                                         //$dt = date("Y-m-d");

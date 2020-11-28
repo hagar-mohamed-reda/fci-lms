@@ -11,7 +11,7 @@ class LoginHistory extends Model
      *
      * @var type
      */
-    protected $table = "login_histories";
+    protected $table = "lms_login_histories";
 
     /**
      * The attributes that are mass assignable.

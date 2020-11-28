@@ -52,7 +52,7 @@ class SubjectController extends Controller
         dd($test);*/
         //dd(auth()->user()->type);
         if(auth()->user()->type == 'admin' || auth()->user()->type == 'super_admin'){
-            $doctors = DB::select("SELECT * FROM doctors");
+            $doctors = DB::select("SELECT * FROM lms_doctors");
             //dd($doctors);
             $subjects = Subject::when($request->search, function ($q) use ($request){
                 return $q->where('name', 'like', '%'. $request->search . '%')
@@ -67,7 +67,7 @@ class SubjectController extends Controller
         elseif(auth()->user()->type == 'doctor' || auth()->user()->type == 'student'){
 
             $stdSbs = StudentSubject::all();
-            $doctors = DB::select("SELECT * FROM doctors");
+            $doctors = DB::select("SELECT * FROM lms_doctors");
             //dd($doctor_id);
 
             $subjects = Subject::when($request->search, function ($q) use ($request){

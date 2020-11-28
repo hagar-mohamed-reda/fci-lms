@@ -553,6 +553,7 @@
                                 position: 'topCenter',
                             });
                             $('#chphoneform')[0].reset();
+                            location.reload(true);
                         }
                     },
                     error : function(){

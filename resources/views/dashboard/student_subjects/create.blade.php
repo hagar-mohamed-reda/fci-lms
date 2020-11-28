@@ -43,7 +43,7 @@
 
                             <div class="form-group">
                                 <label>@lang('site.students')*</label>
-                                <select name="student_id" class="form-control select2-js">
+                                <select name="student_id" class="form-control select2-js" {{--multiple=""--}}>
                                     <option value="">@lang('site.students')</option>
                                     @foreach ($students as $student)
                                         <option value="{{$student->id}}" {{old('student_id') == $student->id ? 'selected' : ''}}>{{$student->name}}</option>

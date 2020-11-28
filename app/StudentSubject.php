@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class StudentSubject extends Model
 {
     protected $guarded = [];
+    protected $table = "lms_student_subjects";
 
     protected $fillable = [
         'subject_id', 'student_id',
