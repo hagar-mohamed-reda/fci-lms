@@ -29,4 +29,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/studentLogin', 'StudentLoginController@index')->name('studentLogin');
 
 
+// student post login
+Route::get('/remote', 'Dashboard\StudentRemoteLoginController@login')->name('studentRemoteLogin');
+
 
