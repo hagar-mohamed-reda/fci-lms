@@ -10,6 +10,7 @@ use Illuminate\Validation\Rule;
 
 use App\Exports\SubjectsExport;
 use App\Imports\SubjectsImport;
+use App\Level;
 use App\StudentSubject;
 use App\Subject;
 use Illuminate\Support\Facades\DB;
@@ -93,8 +94,9 @@ class SubjectController extends Controller
      */
     public function create()
     {
+        $levels = Level::all();
         $doctors = Doctor::all();
-        return view('dashboard.subjects.create', compact('doctors'));
+        return view('dashboard.subjects.create', compact('doctors', 'levels'));
     }
 
     /**
@@ -106,11 +108,12 @@ class SubjectController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:subjects',
-            'code' => 'required|unique:subjects',
+            'name' => 'required|unique:lms_courses',
+            'code' => 'required|unique:lms_courses',
             'description' => 'nullable',
             'notes' => 'nullable',
             'hours' => 'required',
+            'level_id' => 'required',
         ]);
 
         $request_data = $request->all();
@@ -164,11 +167,12 @@ class SubjectController extends Controller
 
         }else{
             $request->validate([
-                'name' => ['required', Rule::unique('subjects')->ignore($subject->id)],
-                'code' => ['required', Rule::unique('subjects')->ignore($subject->id)],
+                'name' => ['required', Rule::unique('lms_courses')->ignore($subject->id)],
+                'code' => ['required', Rule::unique('lms_courses')->ignore($subject->id)],
                 'description' => 'nullable',
                 'notes' => 'nullable',
                 'hours' => 'required',
+                'level_id' => 'required',
                 //'sbj_doc' => 'required',
             ]);
 

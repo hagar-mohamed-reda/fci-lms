@@ -115,9 +115,9 @@ class DoctorController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'email' => 'required|unique:doctors',
-            'username' => 'required|unique:doctors',
-            'phone' => 'required|unique:doctors',
+            'email' => 'required|unique:lms_doctors',
+            'username' => 'required|unique:lms_doctors',
+            'phone' => 'required|unique:lms_doctors',
 
             'password' => 'required|confirmed',
             //'permissions' => 'required|min:1',
@@ -185,9 +185,9 @@ class DoctorController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => ['required', Rule::unique('doctors')->ignore($doctor->id)],
-            'username' => ['required', Rule::unique('doctors')->ignore($doctor->id)],
-            'phone' => ['required', Rule::unique('doctors')->ignore($doctor->id)],
+            'email' => ['required', Rule::unique('lms_doctors')->ignore($doctor->id)],
+            'username' => ['required', Rule::unique('lms_doctors')->ignore($doctor->id)],
+            'phone' => ['required', Rule::unique('lms_doctors')->ignore($doctor->id)],
             'active' => 'required',
         ]);
 

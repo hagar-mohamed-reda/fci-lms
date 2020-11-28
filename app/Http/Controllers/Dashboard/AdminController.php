@@ -75,9 +75,9 @@ class AdminController extends Controller
         $request->validate([
             'name' => 'required',
             //'last_name' => 'required',
-            'email' => ['required', Rule::unique('admins')->ignore($admin->id)],
-            'username' => ['required', Rule::unique('admins')->ignore($admin->id)],
-            'phone' => ['required', Rule::unique('admins')->ignore($admin->id)],
+            'email' => ['required', Rule::unique('lms_admins')->ignore($admin->id)],
+            'username' => ['required', Rule::unique('lms_admins')->ignore($admin->id)],
+            'phone' => ['required', Rule::unique('lms_admins')->ignore($admin->id)],
             'password' => 'required|confirmed',
             //'permissions' => 'required|min:1',
 
