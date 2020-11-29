@@ -18,6 +18,13 @@
                 <div class="box box-primary">
 
                     <div class="box-header">
+                        <h3 class="box-title">
+                            @foreach ($docSubjects as $index=>$docSubject)
+                            @if ($docSubject->subjects['id'] == $_GET['sbj_id'])
+                            {{$docSubject->subjects['name']}} =>
+                            @endif
+                            @endforeach
+                        </h3>
                         <h3 class="box-title">@lang('site.assign_doc')</h3>
                     </div>
 
