@@ -30,6 +30,13 @@
             <li><a href="{{route('dashboard.students.index')}}"><i class="fa fa-users"></i><span>@lang('site.students')</span></a></li>
         @endif
 
+        @if (auth()->user()->type == 'admin')
+            <li><a href="{{url('/dashboard/complains/student-problem')}}"><i class="fa fa-users"></i><span>@lang('site.student_problems')</span></a></li>
+        @endif
+        @if (auth()->user()->type == 'admin')
+            <li><a href="{{url('/dashboard/complains/doctor-problem')}}"><i class="fa fa-users"></i><span>@lang('site.doctor_problems')</span></a></li>
+        @endif
+
 
         @if (auth()->user()->hasPermission('read_levels'))
             <li><a href="{{route('dashboard.levels.index')}}"><i class="fa fa-level-up"></i><span>@lang('site.levels')</span></a></li>

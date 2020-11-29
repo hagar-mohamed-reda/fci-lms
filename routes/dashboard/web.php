@@ -21,10 +21,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'lo
             Route::post("complain/store", "dashboard\ComplainController@store");
 
             Route::get("complains/student-problem", "ComplainController@student");
-            Route::get("complains/doctor-problem", "dComplainController@doctor");
+            Route::get("complains/doctor-problem", "ComplainController@doctor");
             Route::get("student-problem/data", "ComplainController@getDataStudent");
             Route::get("doctor-problem/data", "ComplainController@getDataDoctor");
             Route::post("update/{problem}", "ComplainController@update");
+
             //department and level routes
             Route::resource('departments', 'DepartmentController')->except(['show']);
             Route::resource('levels', 'LevelController')->except(['show']);
@@ -90,12 +91,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'lo
             //user routes
             Route::resource('users', 'UserController')->except(['show']);
 
-            
-            // register doctor to course 
+
+            // register doctor to course
             Route::get('course/assign/{course}', 'SubjectController@assign')->name('assignDoctorToCourseView');
             Route::post('course/assign/{course}', 'SubjectController@performAssign')->name('assignDoctorToCourse');
-            
-            // register student to course 
+
+            // register student to course
             Route::get('course/students', 'StudentSubjectController@getStudents')->name('courseStudentData');
             Route::post('course/student-assign', 'StudentSubjectController@performAssign')->name('assignStudentToCourse');
 
