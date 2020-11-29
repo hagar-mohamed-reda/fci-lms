@@ -32,7 +32,7 @@
                                 <div class="col-md-4">
                                     <select name="sbj_id" id="subjects" class="form-control select2-js">
                                         <option value="">@lang('site.subjects')</option>
-                                        {{-- @foreach ($subjects as $subject)
+                                        @foreach ($subjects as $subject)
                                         @if ($subject->doc_id == auth()->user()->fid && auth()->user()->hasRole('doctor') || auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin'))
                                         <option value="{{$subject->id}}" {{request()->sbj_id == $subject->id ? 'selected' : ''}}>{{$subject->name}}</option>
                                         @endif
@@ -43,7 +43,7 @@
                                                 @endif
                                                 @endforeach
                                             @endif
-                                        @endforeach --}}
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Doctor;
+use App\DoctorCourse;
 use App\Exports\DoctorsExport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -56,7 +57,8 @@ class DoctorController extends Controller
 
             return FacadesDataTables::eloquent($doctors)
             ->addColumn('subjects', function(Doctor $doctor){
-                return Subject::where('doc_id', $doctor->id )->count();
+                //return Subject::where('doc_id', $doctor->id )->count();
+                return DoctorCourse::where('doctor_id', $doctor->id )->count();
 
             })->addColumn('action', function(Doctor $doctor){
 
@@ -115,9 +117,9 @@ class DoctorController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'email' => 'required|unique:lms_doctors',
-            'username' => 'required|unique:lms_doctors',
-            'phone' => 'required|unique:lms_doctors',
+            'email' => 'required|unique:doctors',
+            'username' => 'required|unique:doctors',
+            'phone' => 'required|unique:doctors',
 
             'password' => 'required|confirmed',
             //'permissions' => 'required|min:1',
@@ -185,9 +187,9 @@ class DoctorController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => ['required', Rule::unique('lms_doctors')->ignore($doctor->id)],
-            'username' => ['required', Rule::unique('lms_doctors')->ignore($doctor->id)],
-            'phone' => ['required', Rule::unique('lms_doctors')->ignore($doctor->id)],
+            'email' => ['required', Rule::unique('doctors')->ignore($doctor->id)],
+            'username' => ['required', Rule::unique('doctors')->ignore($doctor->id)],
+            'phone' => ['required', Rule::unique('doctors')->ignore($doctor->id)],
             'active' => 'required',
         ]);
 

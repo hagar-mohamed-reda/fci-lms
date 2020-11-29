@@ -60,6 +60,24 @@ class StudentAssignmentController extends Controller
         return view('dashboard.student_assignments.create', compact('assignments', 'students'));
     }
 
+    //function to get assignmts by lesson fillter
+    public function get_by_lesson(Request $request)
+    {
+        //abort_unless(\Gate::allows('city_access'), 401);
+
+        if (!$request->lesson_id) {
+            $html = '<option value="">'.trans('site.assignments').'</option>';
+        } else {
+            $html = '';
+            $assignments = Assignment::where('lesson_id', $request->lesson_id)->get();
+            foreach ($assignments as $assignment) {
+                $html .= '<option value="'.$assignment->id.'">'.$assignment->name.'</option>';
+            }
+        }
+
+        return response()->json(['html' => $html]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

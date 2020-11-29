@@ -59,6 +59,23 @@ class AssignmentController extends Controller
         return view('dashboard.assignments.create', compact('lessons'));
     }
 
+    //function to get lessons by subject fillter
+    public function get_by_subject(Request $request)
+    {
+        //abort_unless(\Gate::allows('city_access'), 401);
+
+        if (!$request->sbj_id) {
+            $html = '<option value="">'.trans('site.lessons').'</option>';
+        } else {
+            $html = '';
+            $lessons = Lesson::where('sbj_id', $request->sbj_id)->get();
+            foreach ($lessons as $lesson) {
+                $html .= '<option value="'.$lesson->id.'">'.$lesson->name.'</option>';
+            }
+        }
+
+        return response()->json(['html' => $html]);
+    }
     /**
      * Store a newly created resource in storage.
      *

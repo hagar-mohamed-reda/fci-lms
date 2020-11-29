@@ -30,16 +30,16 @@
                             {{--
                             <div class="form-group">
                                 <label>@lang('site.subjects')*</label>
-                                <select name="subject_id" class="form-control">
+                                <select name="course_id" class="form-control">
                                     <option value="">@lang('site.subjects')</option>
                                     @foreach ($subjects as $subject)
-                                        <option value="{{$subject->id}}" {{old('subject_id') == $subject->id ? 'selected' : ''}}>{{$subject->name}}</option>
+                                        <option value="{{$subject->id}}" {{old('course_id') == $subject->id ? 'selected' : ''}}>{{$subject->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
                             --}}
 
-                            <input type="hidden" name="subject_id" value={{$_GET['sbj_id']}}>
+                            <input type="hidden" name="course_id" value={{$_GET['sbj_id']}}>
 
                             <div class="form-group">
                                 <label>@lang('site.students')*</label>

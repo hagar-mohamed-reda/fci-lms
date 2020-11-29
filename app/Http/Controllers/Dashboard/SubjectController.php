@@ -53,7 +53,7 @@ class SubjectController extends Controller
         dd($test);*/
         //dd(auth()->user()->type);
         if(auth()->user()->type == 'admin' || auth()->user()->type == 'super_admin'){
-            $doctors = DB::select("SELECT * FROM lms_doctors");
+            $doctors = DB::select("SELECT * FROM doctors");
             //dd($doctors);
             $subjects = Subject::when($request->search, function ($q) use ($request){
                 return $q->where('name', 'like', '%'. $request->search . '%')
@@ -68,7 +68,7 @@ class SubjectController extends Controller
         elseif(auth()->user()->type == 'doctor' || auth()->user()->type == 'student'){
 
             $stdSbs = StudentSubject::all();
-            $doctors = DB::select("SELECT * FROM lms_doctors");
+            $doctors = DB::select("SELECT * FROM doctors");
             //dd($doctor_id);
 
             $subjects = Subject::when($request->search, function ($q) use ($request){
@@ -108,9 +108,8 @@ class SubjectController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:lms_courses',
-            'code' => 'required|unique:lms_courses',
-            'description' => 'nullable',
+            'name' => 'required|unique:courses',
+            'code' => 'required|unique:courses',
             'notes' => 'nullable',
             'hours' => 'required',
             'level_id' => 'required',
@@ -167,9 +166,8 @@ class SubjectController extends Controller
 
         }else{
             $request->validate([
-                'name' => ['required', Rule::unique('lms_courses')->ignore($subject->id)],
-                'code' => ['required', Rule::unique('lms_courses')->ignore($subject->id)],
-                'description' => 'nullable',
+                'name' => ['required', Rule::unique('courses')->ignore($subject->id)],
+                'code' => ['required', Rule::unique('courses')->ignore($subject->id)],
                 'notes' => 'nullable',
                 'hours' => 'required',
                 'level_id' => 'required',

@@ -183,6 +183,8 @@ return [
     "edit_grade"        => 'تعديل الدرجة',
     "grade"        => 'الدرجة',
     "save"        => 'حفظ',
+    ///////
+    "subjs_assigned_to_doctors"        => 'المقررات المسجلة الي الدكاترة',
 
 
 

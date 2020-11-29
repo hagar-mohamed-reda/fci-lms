@@ -52,7 +52,7 @@ class StudentSubjectController extends Controller
             return $q->where('id', 'like', '%'. $request->search . '%');
 
         })->when($request->sbj_id, function ($q) use ($request){
-          return $q->where('subject_id', 'like', '%'. $request->sbj_id . '%');
+          return $q->where('course_id', 'like', '%'. $request->sbj_id . '%');
 
         })->latest()->get();
 
@@ -81,19 +81,13 @@ class StudentSubjectController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'subject_id' => 'required',
+            'course_id' => 'required',
             'student_id' => 'required',
         ]);
 
-        $stdSubjs = StudentSubject::all();
 
-        $std = Student::find($request->student_id);
-        $sbj = Subject::find($request->subject_id);
-
-        //if($stdSubjs){
-        //if($std->stdSbjs()->exists() && $sbj->stdSbjs()->exists()){
         if(StudentSubject::where('student_id','=', $request->student_id)
-                    ->where('subject_id', '=', $request->subject_id)
+                    ->where('course_id', '=', $request->course_id)
                     ->exists()
         ){
             notify()->error("this student already exists","Error","topRight");

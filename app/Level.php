@@ -9,7 +9,7 @@ class Level extends Model
 {
     use SoftDeletes;
 
-    protected $table = "lms_levels";
+    protected $table = "levels";
 
     protected $fillable = [
         'name'

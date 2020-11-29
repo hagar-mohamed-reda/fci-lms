@@ -24,7 +24,7 @@
 
                                 @if(auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin'))
                                 <div class="col-md-4">
-                                    <select name="doc_id" class="form-control  select2-js">
+                                    <select name="doc_id" id="doctors" class="form-control  select2-js">
                                         <option value="">@lang('site.doctors')</option>
                                         @foreach ($doctors as $doctor)
                                             <option value="{{$doctor->id}}" {{request()->doc_id == $doctor->id ? 'selected' : ''}}>{{$doctor->name}}</option>
@@ -34,7 +34,7 @@
                                 @endif
 
                                 <div class="col-md-4">
-                                    <select name="lesson_id" class="form-control  select2-js">
+                                    <select name="sbj_id" id="subjects" class="form-control  select2-js">
                                         <option value="">@lang('site.subjects')</option>
                                         @foreach ($subjects as $subject)
                                             @if ($subject->doc_id == auth()->user()->fid && auth()->user()->hasRole('doctor') || auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin'))
@@ -54,7 +54,7 @@
                             <br>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <select name="lesson_id" class="form-control  select2-js">
+                                    <select name="lesson_id" id="lessons" class="form-control  select2-js">
                                         <option value="">@lang('site.lessons')</option>
                                         @foreach ($lessons as $lesson)
                                             @if ($lesson->doc_id == auth()->user()->fid && auth()->user()->hasRole('doctor') || auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin'))
@@ -228,6 +228,24 @@
 @section('scripts')
     <script>
         $(function(){
+            $("#doctors").change(function(){
+                $.ajax({
+                    url: "{{ route('subjects.get_by_doctor') }}?doc_id=" + $(this).val(),
+                    method: 'GET',
+                    success: function(data) {
+                        $('#subjects').html(data.html);
+                    }
+                });
+            });
+            $("#subjects").change(function(){
+                $.ajax({
+                    url: "{{ route('lessons.get_by_subject') }}?sbj_id=" + $(this).val(),
+                    method: 'GET',
+                    success: function(data) {
+                        $('#lessons').html(data.html);
+                    }
+                });
+            });
             $('#assigntable').DataTable({
             "pageLength": 5,
             "dom" : 'lBfrtip',

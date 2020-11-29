@@ -52,10 +52,10 @@
                                 </select>
                             </div>
 
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label>@lang('site.description')</label>
                                 <input type="text" name="description" class="form-control" value="{{old('description')}}">
-                            </div>
+                            </div> --}}
 
                             <div class="form-group">
                                 <label>@lang('site.notes')</label>

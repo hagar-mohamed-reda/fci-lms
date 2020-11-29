@@ -14,7 +14,7 @@ class Doctor extends Model
 
     protected $guarded = [];
 
-    protected $table = "lms_doctors";
+    protected $table = "doctors";
 
     protected $fillable = [
         'name',
@@ -35,13 +35,17 @@ class Doctor extends Model
         'password', 'remember_token',
     ];
 
-    public function subjects(){
-        return $this->hasMany(Subject::class, 'doc_id');
-    }
+    // public function subjects(){
+    //     return $this->hasMany(Subject::class, 'doc_id');
+    // }
     public function lessons(){
         return $this->hasMany(Lesson::class, 'doc_id');
     }
     public function assignments(){
         return $this->hasMany(Assignment::class, 'doc_id');
+    }
+
+    public function docSubjs(){
+        return $this->hasMany(DoctorCourse::class, 'doctor_id');
     }
 }

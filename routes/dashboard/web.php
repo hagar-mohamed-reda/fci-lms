@@ -13,6 +13,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'lo
             Route::post('doctors/import', 'DoctorController@import')->name('doctors.import');
             Route::post('doctors/data', 'DoctorController@getDocData')->name('doctors.data');
 
+            Route::resource('doctor_courses', 'DoctorCourseController')->except(['show']);
+
 
             //department and level routes
             Route::resource('departments', 'DepartmentController')->except(['show']);
@@ -94,6 +96,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'lo
        Route::post('std/changeActive/{id}', 'StudentController@changeActive');
        Route::post('stdAssign/addGrade/{id}', 'StudentAssignmentController@addGrade');
        Route::get('subjects/get_by_doctor', 'LessonController@get_by_doctor')->name('subjects.get_by_doctor');
+       Route::get('lessons/get_by_subject', 'AssignmentController@get_by_subject')->name('lessons.get_by_subject');
+       Route::get('assigns/get_by_lesson', 'StudentAssignmentController@get_by_lesson')->name('assigns.get_by_lesson');
 
 
 

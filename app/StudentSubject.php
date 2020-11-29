@@ -10,11 +10,11 @@ class StudentSubject extends Model
     protected $table = "student_courses";
 
     protected $fillable = [
-        'subject_id', 'student_id',
+        'course_id', 'student_id',
     ];
 
     public function subjects(){
-        return $this->belongsTo(Subject::class,'subject_id');
+        return $this->belongsTo(Subject::class,'course_id');
     }
 
     public function students(){

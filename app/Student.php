@@ -12,7 +12,7 @@ class Student extends Model
     use Notifiable;
 
     protected $guarded = [];
-    protected $table = "lms_students";
+    protected $table = "students";
 
     /*protected $casts = [
         'phone' => 'array'

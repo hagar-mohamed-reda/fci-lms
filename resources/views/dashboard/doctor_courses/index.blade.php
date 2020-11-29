@@ -67,7 +67,7 @@
                                 <tbody>
                                     @foreach ($stdSubjects as $index=>$stdSubject)
                                         @foreach ($subjects as $subject)
-                                            @if ($stdSubject->course_id == $subject->id && auth()->user()->type == 'doctor' && $subject->doc_id == auth()->user()->fid)
+                                            @if ($stdSubject->subject_id == $subject->id && auth()->user()->type == 'doctor' && $subject->doc_id == auth()->user()->fid)
                                             <tr>
                                                 {{-- <td>{{ $index + 1}}</td> --}}
                                                 <td>{{ $stdSubject->students['name']}}</td>

@@ -78,12 +78,13 @@
                                     @foreach ($subjects as $index=>$subject)
                                     {{--dd($subject->doc_id)--}}
 
-                                    @if ($subject->doc_id == auth()->user()->fid && auth()->user()->type == 'doctor'  || auth()->user()->type == 'super_admin' || auth()->user()->type == 'admin' )
+                                    @if ($subject->docSubjs()->where('doctor_id', auth()->user()->fid)->exists()  && auth()->user()->type == 'doctor'  || auth()->user()->type == 'super_admin' || auth()->user()->type == 'admin' )
                                     <tr>
                                         {{-- <td>{{ $subject->id}}</td> --}}
                                         <td>{{ $subject->name}}</td>
                                         <td>{{ $subject->code}}</td>
-                                        <td>{{ $subject->doctor['name']}}</td>
+                                        <td>{{ implode(" , ", $subject->doctors()->pluck('name')->toArray())}}</td>
+                                        {{-- <td>{{ $subject->docSubjs()}}</td> --}}
                                         <td>{{ $subject->lessons->count()}} <a href="{{route('dashboard.lessons.index', [ 'doc_id' => $subject->doc_id, 'sbj_id' => $subject->id ])}}" class="btn btn-info btn-sm">@lang('site.show')</a> </td>
 
                                         @if(auth()->user()->type == 'doctor'  || auth()->user()->type == 'super_admin' || auth()->user()->type == 'admin' )
@@ -97,7 +98,8 @@
 
                                         <td>
                                             @if (auth()->user()->hasPermission('update_subjects'))
-                                                <a href=" {{ route('dashboard.subjects.edit', [$subject->id, 'udoc'=>0])}}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
+                                                {{-- <a href=" {{ route('dashboard.subjects.edit', [$subject->id, 'udoc'=>0])}}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a> --}}
+                                                <a href=" {{ route('dashboard.subjects.edit', [$subject->id])}}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
                                             @endif
                                             @if (auth()->user()->hasPermission('delete_subjects'))
                                                 <form action="{{route('dashboard.subjects.destroy', $subject->id)}}" method="POST" style="display: inline-block">
@@ -113,7 +115,8 @@
                                             @endif
 
                                             @if (auth()->user()->hasPermission('update_subjects'))
-                                                <a href=" {{ route('dashboard.subjects.edit', [$subject->id, 'udoc'=>1])}}" class="btn btn-primary btn-sm mt-2"><i class="fa fa-edit"></i> @lang('site.assign_doc')</a>
+                                                {{-- <a href=" {{ route('dashboard.subjects.edit', [$subject->id, 'udoc'=>1])}}" class="btn btn-primary btn-sm mt-2"><i class="fa fa-edit"></i> @lang('site.assign_doc')</a> --}}
+                                                <a href=" {{ route('dashboard.doctor_courses.create', ['sbj_id' => $subject->id])}}" class="btn btn-primary btn-sm mt-2"><i class="fa fa-edit"></i> @lang('site.assign_doc')</a>
                                             @endif
 
                                             @if (auth()->user()->hasPermission('create_lessons'))
@@ -130,12 +133,13 @@
                                     @if (auth()->user()->type == 'student')
 
                                     @foreach ($stdSbs as $stdSb)
-                                    @if($stdSb->subject_id == $subject->id && $stdSb->student_id == auth()->user()->fid)
+                                    @if($stdSb->course_id == $subject->id && $stdSb->student_id == auth()->user()->fid)
                                     <tr>
                                         {{-- <td>{{ $subject->id}}</td> --}}
                                         <td>{{ $subject->name}}</td>
                                         <td>{{ $subject->code}}</td>
-                                        <td>{{ $subject->doctor['name']}}</td>
+                                        {{-- <td>{{ $subject->doctor['name']}}</td> --}}
+                                        <td>{{ implode(" , ", $subject->doctors()->pluck('name')->toArray())}}</td>
                                         <td>{{ $subject->lessons->count()}} <a href="{{route('dashboard.lessons.index', [ 'doc_id' => $subject->doc_id, 'sbj_id' => $subject->id ])}}" class="btn btn-info btn-sm">@lang('site.show')</a> </td>
 
 

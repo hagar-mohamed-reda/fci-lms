@@ -18,7 +18,6 @@ class CreateSubjectsTable extends Migration
             $table->unsignedBigInteger('doc_id')->nullable();
             $table->string('name');
             $table->string('code');
-            $table->string('description')->nullable();
             $table->integer('hours');
             $table->string('notes')->nullable();
             $table->integer('sbj_num')->default(1);

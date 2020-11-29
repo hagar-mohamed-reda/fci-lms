@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Doctor;
+use App\DoctorCourse;
 use App\Lesson;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -52,6 +53,24 @@ class LessonController extends Controller
     {
         $subjects = Subject::all();
         return view('dashboard.lessons.create', compact('subjects'));
+    }
+
+    public function get_by_doctor(Request $request)
+    {
+        //abort_unless(\Gate::allows('city_access'), 401);
+
+        if (!$request->doc_id) {
+            $html = '<option value="">'.trans('site.subjects').'</option>';
+        } else {
+            $html = '';
+            // $subjects = Subject::where('doc_id', $request->doc_id)->get();
+            $docCourses = DoctorCourse::where('doctor_id', $request->doc_id)->get();
+            foreach ($docCourses as $docCourse) {
+                $html .= '<option value="'.$docCourse->subjects['id'].'">'.$docCourse->subjects['name'].'</option>';
+            }
+        }
+
+        return response()->json(['html' => $html]);
     }
 
     public function fileCreate()

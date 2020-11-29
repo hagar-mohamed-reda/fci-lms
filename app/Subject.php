@@ -11,15 +11,19 @@ class Subject extends Model
     protected $guarded = [];
 
     protected $fillable = [
-        'name', 'code','doc_id','description','hours','notes','level_id'
+        'name', 'code','hours','notes','level_id'
     ];
 
-    public function doctor(){
-        return $this->belongsTo(Doctor::class, 'doc_id');
-    }
+    // public function doctor(){
+    //     return $this->belongsTo(Doctor::class, 'doc_id');
+    // }
 
     public function lessons(){
         return $this->hasMany(Lesson::class, 'sbj_id');
+    }
+
+    public function docSubjs(){
+        return $this->hasMany(DoctorCourse::class, 'course_id');
     }
 
     /*public function students(){
@@ -28,9 +32,12 @@ class Subject extends Model
     }*/
 
     public function stdSbjs(){
-        return $this->hasMany(StudentSubject::class,'subject_id');
+        return $this->hasMany(StudentSubject::class,'course_id');
     }
 
+    public function doctors() {
+        return Doctor::whereIn('id', $this->docSubjs()->pluck('doctor_id')->toArray());
+    }
     /*public function ordersRegist(){
         return $this->belongsToMany(OrderRegist::class,'subject_id','order_id');
     }*/
