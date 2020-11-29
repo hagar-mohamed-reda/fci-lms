@@ -14,9 +14,17 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'lo
             Route::post('doctors/data', 'DoctorController@getDocData')->name('doctors.data');
 
             Route::resource('doctor_courses', 'DoctorCourseController')->except(['show']);
-            Route::resource('complains', 'ComplainController')->except(['show']);
+            //Route::resource('complains', 'ComplainController')->except(['show']);
 
+            // problem routes
+            Route::resource('complains', 'dashboard\ComplainController')->except(['show']);
+            Route::post("complain/store", "dashboard\ComplainController@store");
 
+            Route::get("complains/student-problem", "ComplainController@student");
+            Route::get("complains/doctor-problem", "dComplainController@doctor");
+            Route::get("student-problem/data", "ComplainController@getDataStudent");
+            Route::get("doctor-problem/data", "ComplainController@getDataDoctor");
+            Route::post("update/{problem}", "ComplainController@update");
             //department and level routes
             Route::resource('departments', 'DepartmentController')->except(['show']);
             Route::resource('levels', 'LevelController')->except(['show']);

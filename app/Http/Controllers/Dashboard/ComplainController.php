@@ -14,7 +14,9 @@ class ComplainController extends Controller
 {
     public function student()
     {
-        return view("dashboard.student_problem.index");
+        $stdProblems = Problem::where('type', 'student');
+
+        return view("dashboard.student_problem.index",compact('stdProblems'));
     }
 
     /**
