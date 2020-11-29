@@ -33,6 +33,9 @@ Route::get('/studentLogin', 'StudentLoginController@index')->name('studentLogin'
 Route::get('/remote', 'Dashboard\StudentRemoteLoginController@login')->name('studentRemoteLogin');
 
 // problem routes
+Route::resource('dashboard/complains', 'dashboard\ComplainController')->except(['show']);
+Route::post("dashboard/complain/store", "dashboard\ComplainController@store");
+
 Route::get("dashboard/student-problem", "dashboard\ComplainController@student");
 Route::get("dashboard/doctor-problem", "dashboard\ComplainController@doctor");
 Route::get("dashboard/student-problem/data", "dashboard\ComplainController@getDataStudent");

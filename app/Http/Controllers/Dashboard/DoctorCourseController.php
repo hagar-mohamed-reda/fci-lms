@@ -51,7 +51,7 @@ class DoctorCourseController extends Controller
                     ->where('course_id', '=', $request->course_id)
                     ->exists()
         ){
-            notify()->error("this doctor already exists","Error","topRight");
+            notify()->error(trans('site.this_doctor_already_exists'),"Error","topRight");
             return redirect()->back();
             //return redirect()->route('dashboard.students.index');
         }else{

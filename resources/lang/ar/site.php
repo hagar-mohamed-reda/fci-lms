@@ -188,6 +188,9 @@ return [
     ///////
     "subjs_assigned_to_doctors"        => 'المقررات المسجلة الي الدكاترة',
     "can_not_delete_related_items"        => 'هذا العنصر مرتبط بعناصر اخرى ولا يمكن حذفه',
+    "this_student_already_exists"        => 'هذا الطالب مسجل بالفعل',
+    "this_doctor_already_exists"        => 'هذا الدكتور مسجل بالفعل',
+    "your_problem_sent_to_admin"        => 'تم إرسال شكوتك إلي الأدمن بنجاح',
 
 
 
