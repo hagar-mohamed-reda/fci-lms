@@ -183,8 +183,11 @@ return [
     "edit_grade"        => 'تعديل الدرجة',
     "grade"        => 'الدرجة',
     "save"        => 'حفظ',
+    "your_problem"        => 'شكوتك',
+    "back"        => 'رجوع',
     ///////
     "subjs_assigned_to_doctors"        => 'المقررات المسجلة الي الدكاترة',
+    "can_not_delete_related_items"        => 'هذا العنصر مرتبط بعناصر اخرى ولا يمكن حذفه',
 
 
 

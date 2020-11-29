@@ -240,7 +240,7 @@ class DoctorController extends Controller
             {
                 //session()->flash('danger', 'Unable to delete user with Value.');
                 //session()->flash('error', __('site.unable_to_delete'));
-                notify()->error("Can not delete this item it has related relations","Error","topRight");
+                notify()->error(trans('site.can_not_delete_related_items'),"Error","topRight");
                 return redirect()->route('dashboard.doctors.index');
 
                 //abort('Resource cannot be deleted due to existence of related resources.');

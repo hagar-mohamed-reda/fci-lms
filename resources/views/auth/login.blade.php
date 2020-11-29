@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div>
-            <div class="login-box">
+            <div class="">
                 <div class="login-logo" style="text-align: center;">
                     <img style="border-radius: 45px" src="{{ asset('dashboard/images/login/22222222222.png') }}" class="w3-center w3-round"  width="90px" >
                     <br>
@@ -21,15 +21,15 @@
                             <br>
                             <center>
                                 <div class="btn-group" role="group" aria-label="..." style="display: inline-block">
-                                    <button type="button" class="btn btn-default doclogslid" onclick="$('.auth-container, .auth-card').slideUp(500);$('.doctor-container, .doctor-login-card').slideDown(500)" >@lang('site.doctor')</button>
-                                   <button type="button" class="btn btn-default adlogslid" onclick="$('.auth-container, .auth-card').slideUp(500);$('.admin-container, .admin-login-card').slideDown(500)" >@lang('site.admin')</button>
+                                    <button type="button" class="btn btn-default doclogslid" onclick="$('.auth-container, .admin-log-card, .problem-card').slideUp(500);$('.doctor-container, .doc-log-card').slideDown(500)" >@lang('site.doctor')</button>
+                                   <button type="button" class="btn btn-default adlogslid" onclick="$('.auth-container, .doc-log-card , .problem-card').slideUp(500);$('.admin-container, .admin-log-card').slideDown(500)" >@lang('site.admin')</button>
                                </div>
                                <br>
                                <p class="logtext" style="margin-top:10px "></p>
 
                             </center>
 
-                            <form method="POST" action="{{ route('login') }}">
+                            <form method="POST" action="{{ route('login') }}" class="doc-log-card">
                                 @csrf
 
                                     <div class="form-group has-feedback">
@@ -70,11 +70,133 @@
                                                 {{-- {{ __('Forgot Your Password?') }} --
                                                 @lang('site.forgot-password')
                                             </a> --}}
+                                            {{-- <div class="w3-col l6 m6 s12" >
+                                                <a href="#"
+                                                onclick="$('.log-card').slideUp(500);$('.{{-- $type --}-forget-card').slideDown(500)"
+                                                 >{{ __('forget password') }}</a>
+                                            </div> --}}
                                         @endif
+                            </form>
+
+                            <form method="POST" action="{{ route('login') }}" class="admin-log-card" style="display: none">
+                                @csrf
+
+                                    <div class="form-group has-feedback">
+                                        <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="@lang('site.phone-or-email-or-username')">
+                                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+
+                                    <div class="form-group has-feedback">
+                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="@lang('site.password')">
+                                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+
+                                        <button type="submit" class="btn btn-primary btn-block btn-flat">
+                                            {{-- {{ __('Login') }} --}} @lang('site.sign-in')
+                                        </button>
+
+                                        {{-- <div class="social-auth-links text-center mb-3">
+                                            <a href="#" class="btn btn-block btn-success btn-flat">
+                                               @lang('site.register')
+                                            </a>
+
+                                          </div> --}}
+
+                                        @if (Route::has('password.request'))
+                                            {{-- <a class="btn btn-link" href="#{{-- route('password.request') --">
+                                                {{-- {{ __('Forgot Your Password?') }} --
+                                                @lang('site.forgot-password')
+                                            </a> --}}
+                                            {{-- <div class="w3-col l6 m6 s12" >
+                                                <a href="#"
+                                                onclick="$('.log-card').slideUp(500);$('.{{-- $type --}-forget-card').slideDown(500)"
+                                                 >{{ __('forget password') }}</a>
+                                            </div> --}}
+                                        @endif
+                            </form>
+
+                            <form action="{{ url('/') }}/dashboard/forget-password" autocomplete="off" class="auth-card {{-- $type --}}-forget-card" method="post" style="display: none">
+                                {{ csrf_field() }}
+                                <p class="login-box-msg text-center">{{ __('your new password will send to you in sms code') }}</p>
+                                {{-- <input   type="hidden" name="type" value="{{ $type }}" > --}}
+                                <div class="form-group has-feedback">
+                                    <label>{{ __('phone') }}</label>
+                                    <input required="" type="text" name="phone" autocomplete="off" class="form-control" placeholder="{{ __('phone') }}">
+                                    <span class="glyphicon glyphicon-phone form-control-feedback"></span>
+                                </div>
+                                <br>
+                                <div class="">
+                                    <!-- /.col -->
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn-block btn-flat">{{ __('submit') }}</button>
+                                        <button
+                                        type="button"
+                                        onclick="$('.auth-card').slideUp(500);$('.-login-card').slideDown(500)"
+                                        class="btn btn-default btn-block btn-flat">{{ __('back') }}</button>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                            </form>
+
+                            <form action="{{ url('/') }}/dashboard/complain/store" class="problem-card" method="post" style="display: none">
+                                {{ csrf_field() }}
+                                <div class="form-group has-feedback">
+                                    {{-- <label>{{ __("i'm a ") }}</label> --}}
+                                    <select name="type" class="form-control" required  onchange="this.value == 'student'? $('.complaint-code-student').show(300).find('input').attr('required', 'required') : $('.complaint-code-student').hide(300).find('input').removeAttr('required')" >
+                                        <option value="student">{{ __('site.student') }}</option>
+                                        <option value="doctor">{{ __('site.doctor') }}</option>
+                                    </select>
+                                    {{-- <span class="glyphicon glyphicon-user form-control-feedback"></span> --}}
+                                </div>
+                                <div class="form-group has-feedback complaint-code-student">
+                                    {{-- <label>{{ __('site.code') }}</label> --}}
+                                    <input required=""  type="text" name="code" class="form-control" placeholder="{{ __('site.code') }}">
+                                    {{-- <span class="fa fa-barcode form-control-feedback"></span> --}}
+                                </div>
+                                <div class="form-group has-feedback">
+                                    {{-- <label>{{ __('site.name') }}</label> --}}
+                                    <input required="" type="text" name="name" class="form-control" placeholder="{{ __('site.name') }}">
+                                    {{-- <span class="fa fa-user form-control-feedback"></span> --}}
+                                </div>
+                                <div class="form-group has-feedback">
+                                    {{-- <label>{{ __('phone') }}</label> --}}
+                                    <input required="" type="text" name="phone" class="form-control" placeholder="{{ __('site.phone') }}">
+                                    {{-- <span class="glyphicon glyphicon-phone form-control-feedback"></span> --}}
+                                </div>
+                                <div class="form-group has-feedback">
+                                    <label>{{ __('site.your_problem') }}</label>
+                                    <textarea required class="form-control" name="notes" ></textarea>
+                                    {{-- <span class="fa fa-edit form-control-feedback"></span> --}}
+                                </div>
+                                <br>
+                                <div class="">
+                                    <!-- /.col -->
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn-block btn-flat">{{ __('site.send') }}</button>
+
+                                        <button
+                                        type="button"
+                                        onclick="$('.problem-card').slideUp(500);$('.doc-log-card').slideDown(500)"
+                                        class="btn btn-success btn-block btn-flat">{{ __('site.back') }}</button>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
                             </form>
                             <br>
 
-                                <p class="login-box-msg" style="color: red;font-size:17px">@lang('site.login-not4') <i class="fa fa-frown-o" style="padding: 5px"></i> </p>
+                                <p class="login-box-msg" style="color: red;font-size:17px; cursor: pointer;" onclick="$('.auth-container, .doc-log-card, .admin-log-card').slideUp(500);$('.problem-card').slideDown(500)">@lang('site.login-not4') <i class="fa fa-frown-o" style="padding: 5px"></i> </p>
 
                     </div>
                 </div><!--end card -->

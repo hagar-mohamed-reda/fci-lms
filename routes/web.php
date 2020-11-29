@@ -32,4 +32,9 @@ Route::get('/studentLogin', 'StudentLoginController@index')->name('studentLogin'
 // student post login
 Route::get('/remote', 'Dashboard\StudentRemoteLoginController@login')->name('studentRemoteLogin');
 
-
+// problem routes
+Route::get("dashboard/student-problem", "dashboard\ComplainController@student");
+Route::get("dashboard/doctor-problem", "dashboard\ComplainController@doctor");
+Route::get("dashboard/student-problem/data", "dashboard\ComplainController@getDataStudent");
+Route::get("dashboard/doctor-problem/data", "dashboard\ComplainController@getDataDoctor");
+Route::post("dashboard/problem/update/{problem}", "dashboard\ComplainController@update");

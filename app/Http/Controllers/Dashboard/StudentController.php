@@ -207,9 +207,9 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        if ($student->stdSbjs()->exists() || $student->stdAssign()->exists())
+        if ($student->stdAssign()->exists())
             {
-                notify()->error("Can not delete this item it has related relations","Error","topRight");
+                notify()->error(trans('site.can_not_delete_related_items'),"Error","topRight");
                 return redirect()->route('dashboard.students.index');
 
             }else{

@@ -301,7 +301,7 @@ class LessonController extends Controller
     {
         if ($lesson->assignments()->exists())
             {
-                notify()->error("Can not delete this item it has related relations","Error","topRight");
+                notify()->error(trans('site.can_not_delete_related_items'),"Error","topRight");
                 return redirect()->route('dashboard.lessons.index');
 
             }else{

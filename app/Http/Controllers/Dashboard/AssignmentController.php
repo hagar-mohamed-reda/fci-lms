@@ -197,7 +197,7 @@ class AssignmentController extends Controller
         if ($assignment->stdAssign()->exists())
             {
 
-                notify()->error("Can not delete this item it has related relations","Error","topRight");
+                notify()->error(trans('site.can_not_delete_related_items'),"Error","topRight");
                 return redirect()->route('dashboard.assignments.index');
 
             }else{

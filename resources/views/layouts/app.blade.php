@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="rtl">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -53,6 +53,9 @@
             background: rgb(255, 255, 255);
             padding: 20px;
             border-top: 0px;
+        }
+        .has-feedback label~.form-control-feedback {
+            top: 25px;
         }
     </style>
 </head>

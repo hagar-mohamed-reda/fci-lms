@@ -18,14 +18,14 @@
                 <div class="box box-primary">
 
                     <div class="box-header">
-                        {{-- <h3 class="box-title">
-                            @foreach ($docSubjects as $index=>$docSubject)
-                            @if ($docSubject->subjects['id'] == $_GET['sbj_id'])
-                            {{$docSubject->subjects['name']}} =>
+                        <h3 class="box-title">
+                            @foreach ($subjects as $index=>$subject)
+                            @if ($subject->id == $_GET['sbj_id'])
+                            {{$subject->name}} =>
                             @endif
                             @endforeach
-                        </h3> --}}
-                        <h3 class="box-title">@lang('site.add')</h3>
+                        </h3>
+                        <h3 class="box-title">@lang('site.add_std_to_sbj')</h3>
                     </div>
 
                     <div class="box-body">
