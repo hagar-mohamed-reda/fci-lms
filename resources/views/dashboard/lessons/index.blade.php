@@ -20,7 +20,7 @@
                             <div class="row">
                                 @if(auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin'))
                                 <div class="col-md-4">
-                                    <select name="doc_id" class="form-control select2-js">
+                                    <select name="doc_id" id="doctors" class="form-control select2-js">
                                         <option value="">@lang('site.doctors')</option>
                                         @foreach ($doctors as $doctor)
                                             <option value="{{$doctor->id}}" {{request()->doc_id == $doctor->id ? 'selected' : ''}}>{{$doctor->name}}</option>
@@ -30,9 +30,9 @@
                                 @endif
 
                                 <div class="col-md-4">
-                                    <select name="sbj_id" class="form-control select2-js">
+                                    <select name="sbj_id" id="subjects" class="form-control select2-js">
                                         <option value="">@lang('site.subjects')</option>
-                                        @foreach ($subjects as $subject)
+                                        {{-- @foreach ($subjects as $subject)
                                         @if ($subject->doc_id == auth()->user()->fid && auth()->user()->hasRole('doctor') || auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin'))
                                         <option value="{{$subject->id}}" {{request()->sbj_id == $subject->id ? 'selected' : ''}}>{{$subject->name}}</option>
                                         @endif
@@ -43,7 +43,7 @@
                                                 @endif
                                                 @endforeach
                                             @endif
-                                        @endforeach
+                                        @endforeach --}}
                                     </select>
                                 </div>
                             </div>
@@ -276,6 +276,16 @@
 @endsection
 @section('scripts')
 <script>
+    $("#doctors").change(function(){
+            $.ajax({
+                url: "{{ route('subjects.get_by_doctor') }}?doc_id=" + $(this).val(),
+                method: 'GET',
+                success: function(data) {
+                    $('#subjects').html(data.html);
+                }
+            });
+    });
+
     function showView(src){
         $('#showvideo video').attr('src', src);
     }

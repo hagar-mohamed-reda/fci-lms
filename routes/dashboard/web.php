@@ -93,6 +93,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'lo
        Route::post('profile/changphone/{id}', 'UserController@changePhone');
        Route::post('std/changeActive/{id}', 'StudentController@changeActive');
        Route::post('stdAssign/addGrade/{id}', 'StudentAssignmentController@addGrade');
+       Route::get('subjects/get_by_doctor', 'LessonController@get_by_doctor')->name('subjects.get_by_doctor');
 
 
 

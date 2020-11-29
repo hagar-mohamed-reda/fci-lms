@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Translation extends Model
 {
-    protected $table = "lms_translations";
+    protected $table = "translations";
 
     protected $fillable = [
         'key',
