@@ -10,6 +10,9 @@ use App\Http\Controllers\Controller;
 use App\Imports\StdSbjImport;
 use App\Exports\StdSbjExport;
 use Maatwebsite\Excel\Facades\Excel;
+use DataTables;
+use DB;
+use Yajra\DataTables\Facades\DataTables as FacadesDataTables;
 
 class StudentSubjectController extends Controller
 {
@@ -138,6 +141,66 @@ class StudentSubjectController extends Controller
     {
         //
     }
+    
+    /**
+     * return all student for register course
+     * 
+     */
+    public function getStudents() {
+        $query = Student::query();
+        $course = Subject::find(request()->course_id);
+        
+        return FacadesDataTables::eloquent($query)
+                        ->addColumn('action', function(Student $student) use ($course) {
+                            return view("dashboard.subjects.student_register_action", compact("student", "course"));
+                        }) 
+                        ->addColumn('level', function(Student $student) {
+                            return optional($student->level)->name;
+                        }) 
+                        ->addColumn('department', function(Student $student) {
+                            return optional($student->department)->name;
+                        }) 
+                        ->rawColumns(['action'])
+                        ->toJson();
+    }
+    
+    /**
+     * assign doctor view.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function performAssign(Request $request)
+    {
+        $course = Subject::find($request->course_id);
+         
+        if (!$course)
+            return [
+                "status" => 0,
+                "message" => __('error')
+            ];
+        
+        // remove old
+        $course->stdSbjs()->delete();
+         
+        // add new
+        $counter = 0;
+        foreach($request->student_id as $student) { 
+            if ($request->assign[$counter] == 1) { 
+                StudentSubject::create([
+                    "course_id" => $course->id,
+                    "student_id" => $student
+                ]);
+            }
+            
+            $counter ++;
+        } 
+        
+        return [
+            "status" => 1,
+            "message" => __('done')
+        ];
+    }
+    
 
     /**
      * Remove the specified resource from storage.

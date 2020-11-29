@@ -27,7 +27,6 @@
 
   <!-- Theme style -->
 
-
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
@@ -49,6 +48,8 @@
           <link rel="stylesheet" href="{{ asset('dashboard/css/fontbasic.css') }}">
         @endif
 
+          <link rel="stylesheet" href="{{ url('/css/w3.css') }}">
+          <link rel="stylesheet" href="{{ url('/css/switch.css') }}">
         <style>
             .mr-2{
                 margin-right: 5px;
@@ -391,11 +392,13 @@ desired effect
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.bootstrap.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script>
+    <script src="{{ url('/js/formajax.js') }}"></script>
     @include('vendor.lara-izitoast.toast')
 
 @yield('scripts')
 
 <script>
+
 
     $(document).ready(function () {
 
@@ -445,7 +448,7 @@ desired effect
     $(document).ready(function() {
         $('.select2-js').select2();
     });
-</script>
+</script>  
 
 
 </body>
