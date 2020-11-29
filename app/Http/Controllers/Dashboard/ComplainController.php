@@ -24,7 +24,8 @@ class ComplainController extends Controller
      */
     public function doctor()
     {
-        return view("dashboard.doctor_problem.index");
+        $docProblems = Problem::where('type', 'doctor');
+        return view("dashboard.doctor_problem.index",compact('docProblems'));
     }
     /**
      * return json data
@@ -144,7 +145,14 @@ class ComplainController extends Controller
      */
     public function index()
     {
-        //
+        /*
+        $docProblems = Problem::where('type', 'doctor');
+        return view("dashboard.doctor_problem.index",compact('docProblems'));
+        */
+
+        $stdProblems = Problem::where('type', 'student');
+        return view("dashboard.student_problem.index",compact('stdProblems'));
+
     }
 
     /**
