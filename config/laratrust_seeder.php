@@ -14,6 +14,9 @@ return [
             'regist' => 'c,r,u,d',
             'admins' => 'c,r,u,d',
             'users' => 'c,r,u,d',
+            'complains' => 'r,u,d',
+            'student-problem' => 'r,u,d',
+            'doctor-problem' => 'r,u,d',
         ],
         'admin' => [
             'doctors' => 'c,r,u,d',
@@ -27,6 +30,10 @@ return [
             'regist' => 'c,r,u,d',
             'admins' => 'c,r,u,d',
             'users' => 'c,r,u,d',
+            'complains' => 'r,u,d',
+            'student-problem' => 'r,u,d',
+            'doctor-problem' => 'r,u,d',
+
         ],
         'doctor' => [
             'subjects' => 'r',

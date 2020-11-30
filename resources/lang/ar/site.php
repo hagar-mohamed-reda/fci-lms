@@ -185,9 +185,24 @@ return [
     "save"        => 'حفظ',
     "your_problem"        => 'شكوتك',
     "back"        => 'رجوع',
+    "type"        => 'النوع',
+    "problem"        => 'الشكوى',
+    "status"        => 'الحالة',
+    "employee"        => 'الموظف',
+    "employee_comment"        => 'تعليق الموظف',
+    "doctor_problems"        => 'شكاوى الدكاتره',
+    "student_problems"        => 'شكاوى الطلاب',
+    "change_status"        => 'تغيير الحالة',
+    "success"        => 'نجاح',
+    "warning"        => 'تحذير',
+    "error"        => 'فشل',
+    "write_comment"        => 'اكتب تعليق',
     ///////
     "subjs_assigned_to_doctors"        => 'المقررات المسجلة الي الدكاترة',
     "can_not_delete_related_items"        => 'هذا العنصر مرتبط بعناصر اخرى ولا يمكن حذفه',
+    "this_student_already_exists"        => 'هذا الطالب مسجل بالفعل',
+    "this_doctor_already_exists"        => 'هذا الدكتور مسجل بالفعل',
+    "your_problem_sent_to_admin"        => 'تم إرسال شكوتك إلي الأدمن بنجاح',
 
 
 

@@ -93,7 +93,7 @@ class StudentSubjectController extends Controller
                     ->where('course_id', '=', $request->course_id)
                     ->exists()
         ){
-            notify()->error("this student already exists","Error","topRight");
+            notify()->error(trans('site.this_student_already_exists'),"Error","topRight");
             return redirect()->back();
             //return redirect()->route('dashboard.students.index');
         }else{

@@ -15,6 +15,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="{{ asset('css/iziToast.css') }}" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -126,6 +127,8 @@
     <script src="{{ asset('dashboard/js/bootstrap.min.js')}}"></script>
     <script src="{{ asset('dashboard/plugins/icheck/icheck.min.js') }}"></script>
     <script src="{{ asset('dashboard/plugins/ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('js/iziToast.js') }}"></script>
+    @include('vendor.lara-izitoast.toast')
 
     <script>
         $(function(){

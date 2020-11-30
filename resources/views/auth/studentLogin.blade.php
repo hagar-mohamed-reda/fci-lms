@@ -21,7 +21,7 @@
                             <br>
                             <p class="login-box-msg">@lang('site.login-not3')</p>
 
-                            <form method="POST" action="{{ route('login') }}">
+                            <form method="POST" action="{{ route('login') }}" class="std-log-card">
                                 @csrf
 
                                     <div class="form-group has-feedback">
@@ -64,9 +64,54 @@
                                             </a> --}}
                                         @endif
                             </form>
+
+                            <form action="{{ url('/') }}/dashboard/complain/store" class="problem-card" method="post" style="display: none">
+                                {{ csrf_field() }}
+                                <div class="form-group has-feedback">
+                                    {{-- <label>{{ __("i'm a ") }}</label> --}}
+                                    <select name="type" class="form-control" required  onchange="this.value == 'student'? $('.complaint-code-student').show(300).find('input').attr('required', 'required') : $('.complaint-code-student').hide(300).find('input').removeAttr('required')" >
+                                        <option value="student">{{ __('site.student') }}</option>
+                                        <option value="doctor">{{ __('site.doctor') }}</option>
+                                    </select>
+                                    {{-- <span class="glyphicon glyphicon-user form-control-feedback"></span> --}}
+                                </div>
+                                <div class="form-group has-feedback complaint-code-student">
+                                    {{-- <label>{{ __('site.code') }}</label> --}}
+                                    <input required=""  type="text" name="code" class="form-control" placeholder="{{ __('site.code') }}">
+                                    {{-- <span class="fa fa-barcode form-control-feedback"></span> --}}
+                                </div>
+                                <div class="form-group has-feedback">
+                                    {{-- <label>{{ __('site.name') }}</label> --}}
+                                    <input required="" type="text" name="name" class="form-control" placeholder="{{ __('site.name') }}">
+                                    {{-- <span class="fa fa-user form-control-feedback"></span> --}}
+                                </div>
+                                <div class="form-group has-feedback">
+                                    {{-- <label>{{ __('phone') }}</label> --}}
+                                    <input required="" type="text" name="phone" class="form-control" placeholder="{{ __('site.phone') }}">
+                                    {{-- <span class="glyphicon glyphicon-phone form-control-feedback"></span> --}}
+                                </div>
+                                <div class="form-group has-feedback">
+                                    <label>{{ __('site.your_problem') }}</label>
+                                    <textarea required class="form-control" name="notes" ></textarea>
+                                    {{-- <span class="fa fa-edit form-control-feedback"></span> --}}
+                                </div>
+                                <br>
+                                <div class="">
+                                    <!-- /.col -->
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn-block btn-flat">{{ __('site.send') }}</button>
+
+                                        <button
+                                        type="button"
+                                        onclick="$('.problem-card').slideUp(500);$('.std-log-card').slideDown(500)"
+                                        class="btn btn-success btn-block btn-flat">{{ __('site.back') }}</button>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                            </form>
                             <br>
 
-                                <p class="login-box-msg" style="color: red;font-size:17px">@lang('site.login-not4') <i class="fa fa-frown-o" style="padding: 5px"></i> </p>
+                            <p class="login-box-msg" style="color: red;font-size:17px; cursor: pointer;" onclick="$('.auth-container, .std-log-card').slideUp(500);$('.problem-card').slideDown(500)">@lang('site.login-not4') <i class="fa fa-frown-o" style="padding: 5px"></i> </p>
 
                     </div>
                 </div><!--end card -->

@@ -24,7 +24,8 @@ class ComplainController extends Controller
      */
     public function doctor()
     {
-        return view("dashboard.doctor_problem.index");
+        $docProblems = Problem::where('type', 'doctor');
+        return view("dashboard.doctor_problem.index",compact('docProblems'));
     }
     /**
      * return json data
@@ -115,7 +116,7 @@ class ComplainController extends Controller
 
         $problem = Problem::create($request->all());
 
-        notify()->error("your problem sent to admin","success","topRight");
+        notify()->success(trans('site.your_problem_sent_to_admin'),"Success","topRight");
         //return redirect($redirect . "?status=1&msg=" . __('your complaint sent to admin'));
         return redirect()->back();
     }
@@ -144,7 +145,14 @@ class ComplainController extends Controller
      */
     public function index()
     {
-        //
+        /*
+        $docProblems = Problem::where('type', 'doctor');
+        return view("dashboard.doctor_problem.index",compact('docProblems'));
+        */
+
+        $stdProblems = Problem::where('type', 'student');
+        return view("dashboard.student_problem.index",compact('stdProblems'));
+
     }
 
     /**
