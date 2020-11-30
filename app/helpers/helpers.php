@@ -1,6 +1,5 @@
 <?php
-
-namespace App\helpers;
+ 
 
 use App\Translation;
 
@@ -91,3 +90,30 @@ if (!function_exists('randamToken')) {
 
 }
 
+
+if (!function_exists('randColor')) {
+
+    function randColor() {
+        $colors = [
+            "w3-red",
+            "w3-pink",
+            "w3-green",
+            "w3-blue",
+            "w3-purple",
+            "w3-deep-purple",
+            "w3-indigo",
+            "w3-light-blue",
+            "w3-cyan",
+            "w3-aqua",
+            "w3-teal",
+            "w3-lime",
+            "w3-light-green",
+            "w3-orange",
+            "w3-blue-gray",
+            "w3-brown",
+        ];
+
+        return $colors[array_rand($colors)];
+    }
+
+}

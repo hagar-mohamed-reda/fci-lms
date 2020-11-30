@@ -41,4 +41,12 @@ class Subject extends Model
     /*public function ordersRegist(){
         return $this->belongsToMany(OrderRegist::class,'subject_id','order_id');
     }*/
+    
+    public function hasDoctor($doctorId) {
+        return DoctorCourse::where('doctor_id', $doctorId)->where('course_id', $this->id)->exists()? true : false;
+    }
+    
+    public function hasStudent($studentId) {
+        return StudentSubject::where('student_id', $studentId)->where('course_id', $this->id)->exists()? true : false;
+    }
 }

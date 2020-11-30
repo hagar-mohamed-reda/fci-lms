@@ -81,6 +81,14 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'lo
             //user routes
             Route::resource('users', 'UserController')->except(['show']);
 
+            
+            // register doctor to course 
+            Route::get('course/assign/{course}', 'SubjectController@assign')->name('assignDoctorToCourseView');
+            Route::post('course/assign/{course}', 'SubjectController@performAssign')->name('assignDoctorToCourse');
+            
+            // register student to course 
+            Route::get('course/students', 'StudentSubjectController@getStudents')->name('courseStudentData');
+            Route::post('course/student-assign', 'StudentSubjectController@performAssign')->name('assignStudentToCourse');
 
 
 

@@ -13,6 +13,7 @@ use App\Imports\SubjectsImport;
 use App\Level;
 use App\StudentSubject;
 use App\Subject;
+use App\DoctorCourse;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -201,6 +202,48 @@ class SubjectController extends Controller
         }
 
     }
+    
+    
+    /**
+     * assign doctor view.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function assign(Subject $course)
+    {
+        return view('dashboard.subjects.doctor-register', compact('course'));
+    }
+    
+    
+    /**
+     * assign doctor view.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function performAssign(Subject $course, Request $request)
+    {
+        // remove old
+        $course->docSubjs()->delete();
+        
+        // add new
+        $counter = 0;
+        foreach($request->doctor_id as $doctor) {
+            if ($request->assign[$counter] == 1) {
+                DoctorCourse::create([
+                    "course_id" => $course->id,
+                    "doctor_id" => $doctor
+                ]);
+            }
+            
+            $counter ++;
+        } 
+        
+        return [
+            "status" => 1,
+            "message" => __('done')
+        ];
+    }
+    
 
     /**
      * Remove the specified resource from storage.
