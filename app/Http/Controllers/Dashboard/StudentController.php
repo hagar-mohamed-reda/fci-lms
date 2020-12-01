@@ -54,6 +54,24 @@ class StudentController extends Controller
         return view('dashboard.students.index', compact('students'));
     }
 
+    public function get_by_level(Request $request)
+    {
+        //abort_unless(\Gate::allows('city_access'), 401);
+
+        if (!$request->level_id) {
+            $html = '<option value="">'.trans('site.departments').'</option>';
+        } else {
+            $html = '';
+            // $subjects = Subject::where('doc_id', $request->doc_id)->get();
+            $departments = Department::where('level_id', $request->level_id)->get();
+            foreach ($departments as $department) {
+                $html .= '<option value="'.$department->level_id.'">'.$department->name.'</option>';
+            }
+        }
+
+        return response()->json(['html' => $html]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

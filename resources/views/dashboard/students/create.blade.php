@@ -39,7 +39,7 @@
 
                             <div class="form-group">
                                 <label>@lang('site.level')*</label>
-                                <select name="level_id" class="form-control select2-js" id="levelselect">
+                                <select name="level_id" class="form-control select2-js" id="levels">
                                     <option value="">@lang('site.level')</option>
                                     @foreach ($levels as $level)
                                         <option value="{{$level->id}}" {{old('level_id') == $level->id ? 'selected' : ''}}>{{$level->name}}</option>
@@ -67,7 +67,7 @@
 
                             <div class="form-group">
                                 <label>@lang('site.department')*</label>
-                                <select name="department_id" class="form-control  select2-js" id="departselect">
+                                <select name="department_id" class="form-control  select2-js" id="departs">
                                     <option value="">@lang('site.department')</option>
                                     @foreach ($departments as $department)
                                         <option class="departoption" style="display: none" data-level="{{$department->level_id}}" value="{{$department->id}}" {{old('department_id') == $department->id ? 'selected' : ''}}>
@@ -183,5 +183,20 @@
 
 
     </div>
+
+@endsection
+
+@section('scripts')
+<script>
+    $("#levels").change(function(){
+        $.ajax({
+            url: "{{ route('departs.get_by_level') }}?level_id=" + $(this).val(),
+            method: 'GET',
+            success: function(data) {
+                $('#departs').html(data.html);
+            }
+        });
+    });
+</script>
 
 @endsection
