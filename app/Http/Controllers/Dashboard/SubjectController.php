@@ -134,8 +134,9 @@ class SubjectController extends Controller
      */
     public function edit(Subject $subject)
     {
+        $levels = Level::all();
         $doctors = Doctor::all();
-        return view('dashboard.subjects.edit', compact('subject','doctors'));
+        return view('dashboard.subjects.edit', compact('subject','doctors','levels'));
     }
 
     public function editdoc(Subject $subject)
@@ -202,8 +203,8 @@ class SubjectController extends Controller
         }
 
     }
-    
-    
+
+
     /**
      * assign doctor view.
      *
@@ -213,8 +214,8 @@ class SubjectController extends Controller
     {
         return view('dashboard.subjects.doctor-register', compact('course'));
     }
-    
-    
+
+
     /**
      * assign doctor view.
      *
@@ -224,7 +225,7 @@ class SubjectController extends Controller
     {
         // remove old
         $course->docSubjs()->delete();
-        
+
         // add new
         $counter = 0;
         foreach($request->doctor_id as $doctor) {
@@ -234,16 +235,16 @@ class SubjectController extends Controller
                     "doctor_id" => $doctor
                 ]);
             }
-            
+
             $counter ++;
-        } 
-        
+        }
+
         return [
             "status" => 1,
             "message" => __('done')
         ];
     }
-    
+
 
     /**
      * Remove the specified resource from storage.

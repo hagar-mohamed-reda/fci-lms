@@ -41,6 +41,16 @@
                             </div>
 
                             <div class="form-group">
+                                <label>@lang('site.level')*</label>
+                                <select name="level_id" class="form-control select2-js">
+                                    <option value="">@lang('site.level')</option>
+                                    @foreach ($levels as $level)
+                                        <option value="{{$level->id}}" {{$subject->level_id == $level->id ? 'selected' : ''}}>{{$level->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group">
                                 <label>@lang('site.hours')*</label>
                                 <input type="number" name="hours" class="form-control" value="{{ $subject->hours }}">
                             </div>

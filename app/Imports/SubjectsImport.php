@@ -15,7 +15,7 @@ class SubjectsImport implements ToModel
     public function model(array $row)
     {
         return new Subject([
-            'doc_id' => $row[0],
+            'level_id' => $row[0],
             'name' => $row[1],
             'code' => $row[2],
             'hours' => $row[3],

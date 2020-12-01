@@ -22,4 +22,8 @@ class Level extends Model
     public function departments() {
         return $this->hasMany("App\Department", "level_id");
     }
+
+    public function subjects() {
+        return $this->hasMany("App\Subject", "level_id");
+    }
 }

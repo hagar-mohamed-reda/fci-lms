@@ -67,6 +67,7 @@
                 <th>@lang('site.hours')</th>
                 <th>@lang('site.notes')</th>
                 @endif
+                <th>@lang('site.level')</th>
 
                 @if(auth()->user()->hasRole('doctor')  || auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin'))
                 <th>@lang('site.action')</th>
@@ -92,6 +93,8 @@
                 <td>{{ $subject->hours}}</td>
                 <td>{{ $subject->notes}}</td>
                 @endif
+                <td>{{ $subject->level['name']}}</td>
+
 
 
                 @if(auth()->user()->hasRole('doctor')  || auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin'))
@@ -111,16 +114,16 @@
                     @endif
 
                     @if (auth()->user()->hasPermission('create_regist'))
-                    <a 
+                    <a
                         onclick="reloadData('{{ $subject->id }}')"
                         data-toggle="modal" data-target="#studentRegister"
-                        href="#" 
+                        href="#"
                         class="btn btn-warning btn-sm mt-2"><i class="fa fa-edit"></i> @lang('site.add_std_to_sbj')</a>
                     @endif
 
                     @if (auth()->user()->hasPermission('update_subjects'))
                     {{-- <a href=" {{ route('dashboard.subjects.edit', [$subject->id, 'udoc'=>1])}}" class="btn btn-primary btn-sm mt-2"><i class="fa fa-edit"></i> @lang('site.assign_doc')</a> --}}
-                    <a href="#" 
+                    <a href="#"
                        data-toggle="modal" data-target="#doctorRegister"
                        onclick="loadDoctorRegister('{{ route('dashboard.assignDoctorToCourseView', $subject->id) }}')"
                        class="btn btn-primary btn-sm mt-2"><i class="fa fa-edit"></i> @lang('site.assign_doc')</a>
@@ -148,6 +151,7 @@
                 {{-- <td>{{ $subject->doctor['name']}}</td> --}}
                 <td>{{ implode(" , ", $subject->doctors()->pluck('name')->toArray())}}</td>
                 <td>{{ $subject->lessons->count()}} <a href="{{route('dashboard.lessons.index', [ 'doc_id' => $subject->doc_id, 'sbj_id' => $subject->id ])}}" class="btn btn-info btn-sm">@lang('site.show')</a> </td>
+                <td>{{ $subject->level['name']}}</td>
 
 
             </tr>
@@ -284,7 +288,7 @@
                                 <th>{{ __('code') }}</th>
                                 <th>{{ __('name') }}</th>
                                 <th>{{ __('level') }}</th>
-                                <th>{{ __('department') }}</th> 
+                                <th>{{ __('department') }}</th>
                             </tr>
                         </thead>
                         <tbody>
