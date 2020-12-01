@@ -131,6 +131,13 @@ class StudentController extends Controller
             'active' => 'required',
 
             'password' => 'required|confirmed',
+
+            'level_id' => 'required',
+            'department_id' => 'nullable',
+            'code' => 'required||unique:students',
+            'national_id' => 'required',
+            'set_number' => 'required',
+            'account_confirm' => 'required',
             //'permissions' => 'required|min:1',
 
         ]);
@@ -276,6 +283,12 @@ class StudentController extends Controller
         $std = Student::find($id);
 
         $std->update([
+            "active" => $request->active
+        ]);
+
+        $user = User::where('fid',$id);
+
+        $user->update([
             "active" => $request->active
         ]);
 
