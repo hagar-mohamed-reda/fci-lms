@@ -126,6 +126,22 @@
                                             @endif
                                         </td>
 
+                                        @if(auth()->user()->hasRole('doctor'))
+                                        <td>
+                                            @if (auth()->user()->hasPermission('update_lessons'))
+                                                <a href=" {{ route('dashboard.lessons.edit', $lesson->id)}}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
+                                            @endif
+                                            @if (auth()->user()->hasPermission('delete_lessons'))
+                                                <form action="{{route('dashboard.lessons.destroy', $lesson->id)}}" method="POST" style="display: inline-block">
+                                                    {{ csrf_field() }}
+                                                    {{ method_field('delete')}}
+                                                    <button type="submit" class="btn btn-danger delete btn-sm"><i class="fa fa-trash"></i> @lang('site.delete')</button>
+                                                </form>
+                                            @endif
+
+                                        </td>
+                                        @endif
+
                                     </tr>
                                     @endforeach
                                 </tbody>
