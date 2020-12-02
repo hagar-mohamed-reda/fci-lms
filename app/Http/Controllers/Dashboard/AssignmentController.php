@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Assignment;
 use App\Doctor;
+use App\DoctorCourse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Lesson;
 use App\StudentSubject;
 use App\Subject;
+use Auth;
 
 class AssignmentController extends Controller
 {
@@ -26,26 +28,45 @@ class AssignmentController extends Controller
      */
     public function index(Request $request)
     {
-        $stdSbs = StudentSubject::all();
-        $subjects = Subject::all();
-        $doctors =Doctor::all();
+        $stdSbsIds = []; // id of courses of student of doctors
 
-        $lessons = Lesson::all();
-        $assignments = Assignment::when($request->search, function ($q) use ($request){
-            return $q->where('name', 'like', '%'. $request->search . '%');
+        if (Auth::user()->type == 'doctor')
+            $stdSbsIds =  DoctorCourse::where('doctor_id', Auth::user()->fid)->pluck('course_id')->toArray();
 
-        })->when($request->lesson_id, function ($q) use ($request){
-          return $q->where('lesson_id', 'like', '%'. $request->lesson_id . '%');
+        else if (Auth::user()->type == 'student')
+            $stdSbsIds =  StudentSubject::where('student_id', Auth::user()->fid)->pluck('course_id')->toArray();
 
-        })->when($request->sbj_id, function ($q) use ($request){
-            return $q->where('sbj_id', 'like', '%'. $request->sbj_id . '%');
 
-          })->when($request->doc_id, function ($q) use ($request){
-            return $q->where('doc_id', 'like', '%'. $request->doc_id . '%');
+        $subjects = Subject::where(function($q) use($stdSbsIds) {
+            if (Auth::user()->type != 'admin')
+                $q->whereIn('id', $stdSbsIds);
+        })->get();
 
-            })->latest()->get();
+        $doctors = Doctor::all();
+        $lessons = Lesson::where(function($q) use($stdSbsIds) {
+            if (Auth::user()->type != 'admin')
+                $q->whereIn('sbj_id', $stdSbsIds);
+        })->get();
+        $query = Assignment::query();
 
-        return view('dashboard.assignments.index', compact('assignments','lessons','stdSbs','subjects', 'doctors'));
+        // select lessons of courses of student or doctor
+        $query->whereIn('sbj_id', $stdSbsIds);
+
+        if ($request->search)
+            $query->where('name', 'like', '%'. $request->search . '%');
+
+        if ($request->sbj_id > 0)
+            $query->where('sbj_id', 'like', '%'. $request->sbj_id . '%');
+
+        if ($request->lesson_id > 0)
+            $query->where('lesson_id', 'like', '%'. $request->lesson_id . '%');
+
+        if ($request->doc_id > 0)
+            $query->where('doc_id', 'like', '%'. $request->doc_id . '%');
+
+        $assignments = $query->latest()->get();
+
+        return view('dashboard.assignments.index', compact('assignments','lessons', 'subjects', 'doctors'));
     }
 
     /**

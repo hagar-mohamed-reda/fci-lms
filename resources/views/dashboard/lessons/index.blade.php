@@ -33,16 +33,7 @@
                                     <select name="sbj_id" id="subjects" class="form-control select2-js">
                                         <option value="">@lang('site.subjects')</option>
                                         @foreach ($subjects as $subject)
-                                        @if ($subject->doc_id == auth()->user()->fid && auth()->user()->hasRole('doctor') || auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin'))
                                         <option value="{{$subject->id}}" {{request()->sbj_id == $subject->id ? 'selected' : ''}}>{{$subject->name}}</option>
-                                        @endif
-                                            @if (auth()->user()->hasRole('student'))
-                                                @foreach ($stdSbs as $stdSb)
-                                                @if($stdSb->subject_id == $subject->id && $stdSb->student_id == auth()->user()->fid)
-                                                <option value="{{$subject->id}}" {{request()->sbj_id == $subject->id ? 'selected' : ''}}>{{$subject->name}}</option>
-                                                @endif
-                                                @endforeach
-                                            @endif
                                         @endforeach
                                     </select>
                                 </div>
@@ -92,11 +83,9 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($lessons as $index=>$lesson)
-                                    @if ($lesson->doc_id == auth()->user()->fid && auth()->user()->hasRole('doctor') || auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin'))
                                     <tr>
-                                        {{-- <td>{{ $lesson->id}}</td> --}}
                                         <td>{{ $lesson->name}}</td>
-                                        <td>{{ $lesson->subject['name']}}</td>
+                                        <td>{{ optional($lesson->subject)->name}}</td>
 
                                         <td>
                                             @if (isset($lesson->pptx_file))
@@ -131,94 +120,18 @@
                                             @endif
                                         </td>
                                         <td>
-                                            {{ $lesson->assignments->count()}} <a href="{{route('dashboard.assignments.index', ['sbj_id' => $lesson->sbj_id, 'lesson_id' => $lesson->id ])}}" class="btn btn-success btn-sm">@lang('site.show_lesson_assignments')</a>
+                                            {{ optional($lesson->assignments)->count()}} <a href="{{route('dashboard.assignments.index', ['sbj_id' => $lesson->sbj_id, 'lesson_id' => $lesson->id ])}}" class="btn btn-success btn-sm">@lang('site.show_lesson_assignments')</a>
                                             @if (auth()->user()->hasPermission('create_assignments'))
                                                 <a href=" {{route('dashboard.assignments.create',['sbj_id' => $lesson->sbj_id, 'lesson_id' => $lesson->id])}}" class="btn btn-warning btn-sm"><i class="fa fa-plus"></i> @lang('site.add_assignment')</a>
                                             @endif
                                         </td>
-                                        {{--<td>
-                                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#sbjTable">@lang('site.show_subj_table')</button>
-                                            {{--<a href="{{ asset('dashboard/files/myposProject.pdf') }}">@lang('site.show_subj_table')</a>}}
-                                        </td>--}}
-                                        @if(auth()->user()->hasRole('doctor'))
-                                        <td>
-                                            @if (auth()->user()->hasPermission('update_lessons'))
-                                                <a href=" {{ route('dashboard.lessons.edit', $lesson->id)}}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
-                                            @endif
-                                            @if (auth()->user()->hasPermission('delete_lessons'))
-                                                <form action="{{route('dashboard.lessons.destroy', $lesson->id)}}" method="POST" style="display: inline-block">
-                                                    {{ csrf_field() }}
-                                                    {{ method_field('delete')}}
-                                                    <button type="submit" class="btn btn-danger delete btn-sm"><i class="fa fa-trash"></i> @lang('site.delete')</button>
-                                                </form>
-                                            @endif
-
-                                        </td>
-                                        @endif
-                                    </tr>
-                                    @endif
-
-                                    @if (auth()->user()->hasRole('student'))
-                                    @foreach ($stdSbs as $stdSb)
-                                    @if($stdSb->subject_id == $lesson->sbj_id && $stdSb->student_id == auth()->user()->fid)
-                                    <tr>
-                                        {{-- <td>{{ $lesson->id}}</td> --}}
-                                        <td>{{ $lesson->name}}</td>
-                                        <td>{{ $lesson->subject['name']}}</td>
-
-                                        <td>
-                                            @if (isset($lesson->pptx_file))
-                                            <a href="lessons/pptxfile/download/{{$lesson->pptx_file}}" class="btn btn-info btn-sm"><i class="fa fa-download"></i> @lang('site.download')</a>
-                                            @else
-                                            __
-                                            @endif
-                                        </td>
-
-                                        <td>
-                                            @if (isset($lesson->pdf_file))
-                                                {{-- <a href="lessons/pdffiles/{{$lesson->id}}" class="btn btn-primary btn-sm"><i class="fa fa-show"></i> @lang('site.show')</a> --}}
-                                                <a href="lessons/pdffile/download/{{$lesson->pdf_file}}" class="btn btn-info btn-sm"><i class="fa fa-download"></i> @lang('site.download')</a>
-                                            @else
-                                                __
-                                            @endif
-                                        </td>
-
-                                        <td>
-                                            @if (isset($lesson->youtube_link))
-                                            <a class="btn btn-warning btn-sm" href="{{$lesson->youtube_link}}" target="_blank">@lang('site.show')</a>
-                                            @else
-                                            __
-                                            @endif
-                                        </td>
-
-                                        <td>
-                                            @if (isset($lesson->mp4_file))
-                                            <a data-toggle="modal" data-target="#showvideo" onclick="showView('{{url("/uploads/lessons" . "/" . $lesson->mp4_file)}}')" class="btn btn-primary btn-sm"> @lang('site.show')</a>
-                                            @else
-                                            __
-                                            @endif
-                                        </td>
-                                        <td>
-                                            {{ $lesson->assignments->count()}} <a href="{{route('dashboard.assignments.index', ['sbj_id' => $lesson->sbj_id, 'lesson_id' => $lesson->id ])}}" class="btn btn-success btn-sm">@lang('site.show_lesson_assignments')</a>
-                                            @if (auth()->user()->hasPermission('create_assignments'))
-                                                <a href=" {{route('dashboard.assignments.create',['sbj_id' => $lesson->sbj_id, 'lesson_id' => $lesson->id])}}" class="btn btn-warning btn-sm"><i class="fa fa-plus"></i> @lang('site.add_assignment')</a>
-                                            @endif
-                                        </td>
-                                        {{--<td>
-                                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#sbjTable">@lang('site.show_subj_table')</button>
-                                            {{--<a href="{{ asset('dashboard/files/myposProject.pdf') }}">@lang('site.show_subj_table')</a>}}
-                                        </td>--}}
 
                                     </tr>
-                                    @endif
-                                    @endforeach
-
-                                    @endif
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
-                            {{-- {{$lessons->appends(request()->query())->links()}} --}}
+
                         @else
                             <h2>@lang('site.no_data_found')</h2>
                         @endif

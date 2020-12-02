@@ -12,6 +12,7 @@ use App\Subject;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\Storage;
 use Imagick;
+use Auth;
 class LessonController extends Controller
 {
     public function __construct(){
@@ -29,19 +30,38 @@ class LessonController extends Controller
      */
     public function index(Request $request)
     {
-        $stdSbs = StudentSubject::all();
-        $subjects = Subject::all();
+        $stdSbsIds = []; // id of courses of student of doctors
+
+        if (Auth::user()->type == 'doctor')
+            $stdSbsIds =  DoctorCourse::where('doctor_id', Auth::user()->fid)->pluck('course_id')->toArray();
+
+        else if (Auth::user()->type == 'student')
+            $stdSbsIds =  StudentSubject::where('student_id', Auth::user()->fid)->pluck('course_id')->toArray();
+
+
+        $subjects = Subject::where(function($q) use($stdSbsIds) {
+            if (Auth::user()->type != 'admin')
+                $q->whereIn('id', $stdSbsIds);
+        })->get();
+
         $doctors = Doctor::all();
-        $lessons = Lesson::when($request->search, function ($q) use ($request){
-            return $q->where('name', 'like', '%'. $request->search . '%');
+        $query = Lesson::query();
 
-        })->when($request->sbj_id, function ($q) use ($request){
-          return $q->where('sbj_id', 'like', '%'. $request->sbj_id . '%');
+        // select lessons of courses of student or doctor
+        $query->whereIn('sbj_id', $stdSbsIds);
 
-        })->when($request->doc_id, function ($q) use ($request){
-        })->latest()->get();
+        if ($request->search)
+            $query->where('name', 'like', '%'. $request->search . '%');
 
-        return view('dashboard.lessons.index', compact('lessons','subjects', 'stdSbs', 'doctors'));
+        if ($request->sbj_id > 0)
+            $query->where('sbj_id', 'like', '%'. $request->sbj_id . '%');
+
+        if ($request->doc_id > 0)
+            $query->where('doc_id', 'like', '%'. $request->doc_id . '%');
+
+        $lessons = $query->latest()->get();
+
+        return view('dashboard.lessons.index', compact('lessons', 'subjects', 'doctors'));
     }
 
     /**

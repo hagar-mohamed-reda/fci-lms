@@ -37,16 +37,7 @@
                                     <select name="sbj_id" id="subjects" class="form-control  select2-js">
                                         <option value="">@lang('site.subjects')</option>
                                         @foreach ($subjects as $subject)
-                                            @if ($subject->doc_id == auth()->user()->fid && auth()->user()->hasRole('doctor') || auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin'))
                                             <option value="{{$subject->id}}" {{request()->sbj_id == $subject->id ? 'selected' : ''}}>{{$subject->name}}</option>
-                                            @endif
-                                            @if (auth()->user()->hasRole('student'))
-                                                @foreach ($stdSbs as $stdSb)
-                                                @if($stdSb->subject_id == $subject->id && $stdSb->student_id == auth()->user()->fid)
-                                                <option value="{{$subject->id}}" {{request()->sbj_id == $subject->id ? 'selected' : ''}}>{{$subject->name}}</option>
-                                                @endif
-                                                @endforeach
-                                            @endif
                                         @endforeach
                                     </select>
                                 </div>
@@ -57,16 +48,7 @@
                                     <select name="lesson_id" id="lessons" class="form-control  select2-js">
                                         <option value="">@lang('site.lessons')</option>
                                         @foreach ($lessons as $lesson)
-                                            @if ($lesson->doc_id == auth()->user()->fid && auth()->user()->hasRole('doctor') || auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin'))
-                                            <option value="{{$lesson->id}}" {{request()->lesson_id == $lesson->id ? 'selected' : ''}}>{{$lesson->name}}</option>
-                                            @endif
-                                            @if (auth()->user()->hasRole('student'))
-                                                @foreach ($stdSbs as $stdSb)
-                                                @if($stdSb->subject_id == $lesson->sbj_id && $stdSb->student_id == auth()->user()->fid)
-                                                <option value="{{$lesson->id}}" {{request()->lesson_id == $lesson->id ? 'selected' : ''}}>{{$lesson->name}}</option>
-                                                @endif
-                                                @endforeach
-                                            @endif
+                                        <option value="{{$lesson->id}}" {{request()->lesson_id == $lesson->id ? 'selected' : ''}}>{{$lesson->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -109,7 +91,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($assignments as $index=>$assignment)
-                                    @if ($assignment->doc_id == auth()->user()->fid && auth()->user()->hasRole('doctor') || auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin'))
+                                    @if (auth()->user()->hasRole('doctor') || auth()->user()->hasRole('admin'))
                                     <tr>
                                         {{-- <td>{{ $assignment->id}}</td> --}}
                                         <td>{{ $assignment->name}}</td>
@@ -150,8 +132,7 @@
                                     @endif
 
                                     @if (auth()->user()->hasRole('student'))
-                                    @foreach ($stdSbs as $stdSb)
-                                    @if($stdSb->subject_id == $assignment->sbj_id && $stdSb->student_id == auth()->user()->fid)
+
                                     <tr>
                                         {{-- <td>{{ $assignment->id}}</td> --}}
                                         <td>{{ $assignment->name}}</td>
@@ -162,10 +143,6 @@
                                         </td>
                                         <td>{{ $assignment->start_date}}</td>
                                         <td>{{ $assignment->end_date}}</td>
-                                        {{--<td>
-                                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#sbjTable">@lang('site.show_subj_table')</button>
-                                            {{--<a href="{{ asset('dashboard/files/myposProject.pdf') }}">@lang('site.show_subj_table')</a>}}
-                                        </td>--}}
 
 
                                         <td>
@@ -180,14 +157,12 @@
 
                                     </tr>
                                     @endif
-                                    @endforeach
 
-                                    @endif
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
-                            {{-- {{$assignments->appends(request()->query())->links()}} --}}
+
                         @else
                             <h2>@lang('site.no_data_found')</h2>
                         @endif
