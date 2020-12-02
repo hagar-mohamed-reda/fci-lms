@@ -55,6 +55,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'lo
 
             //lesson routes
             Route::resource('lessons', 'LessonController');
+            Route::get('lessons/index', 'LessonController@index');
             Route::get('lessons/files/create', 'LessonController@fileCreate');
             //Route::post('lessons/files', 'LessonController@fileStore');
 
