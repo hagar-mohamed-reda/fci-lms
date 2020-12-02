@@ -54,7 +54,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'lo
             Route::post('subjects/import', 'SubjectController@import')->name('subjects.import');
 
             //lesson routes
-            Route::resource('lessons', 'LessonController')->except(['show']);
+            Route::resource('lessons', 'LessonController');
             Route::get('lessons/files/create', 'LessonController@fileCreate');
             //Route::post('lessons/files', 'LessonController@fileStore');
 
