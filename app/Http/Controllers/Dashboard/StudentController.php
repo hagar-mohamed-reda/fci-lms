@@ -237,6 +237,12 @@ class StudentController extends Controller
         $request_data = $request->except(['password', 'password_confirmation', 'permissions']);
         $request_data['password'] = bcrypt($request->password);
 
+        if ($request_data['active'] == 'on')
+            $request_data['active'] = 1;
+        else
+        $request_data['active'] = 0;
+
+
 
         $student = Student::create($request_data);
         $student->attachRole('student');
@@ -290,6 +296,11 @@ class StudentController extends Controller
 
         $request_data = $request->except(['permissions']);
         //$request_data['phone'] = array_filter($request->phone);
+
+        if ($request_data['active'] == 'on')
+            $request_data['active'] = 1;
+        else
+            $request_data['active'] = 0;
 
         $student->update($request_data);
 
