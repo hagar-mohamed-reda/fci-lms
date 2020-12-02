@@ -59,6 +59,10 @@ class Student extends Model
         return $this->belongsTo(Level::class, 'level_id');
     }
 
+    public function user(){
+        return $this->hasOne(User::class, 'fid');
+    }
+
     public function department(){
         return $this->belongsTo(Department::class, 'department_id');
     }

@@ -179,6 +179,71 @@ class StudentController extends Controller
     }
 
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeApi(Request $request)
+    {
+        //add doctor to user table
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users',
+            'username' => 'required|unique:users',
+            'phone' => 'required|unique:users',
+            'active' => 'required',
+
+            'password' => 'required|confirmed',
+            //'permissions' => 'required|min:1',
+
+        ]);
+        $request_data = $request->except(['password', 'password_confirmation', 'permissions']);
+        $request_data['password'] = bcrypt($request->password);
+        $request_data['type'] = 'student';
+        //$request_data['fid']  = $student->id;
+
+
+        $user = User::create($request_data);
+        $user->attachRole('student');
+        //$user->syncPermissions($request->permissions);
+
+        $request->validate([
+            'name' => 'required',
+            'level_id' => 'required',
+            'department_id' => 'nullable',
+            'code' => 'required||unique:students',
+            'email' => 'required|unique:students',
+            'username' => 'required|unique:students',
+            'phone' => 'required|unique:students',
+            'active' => 'required',
+            'account_confirm' => 'required',
+            'national_id' => 'required',
+            'set_number' => 'required',
+
+            'password' => 'required|confirmed',
+            //'permissions' => 'required|min:1',
+
+        ]);
+
+        $request_data = $request->except(['password', 'password_confirmation', 'permissions']);
+        $request_data['password'] = bcrypt($request->password);
+
+
+        $student = Student::create($request_data);
+        $student->attachRole('student');
+        $user->update(['fid'=>$student->id]);
+
+        //$student->syncPermissions($request->permissions);
+
+
+        return [
+            "status" => 0,
+            "message" => __('site.added_successfully')
+        ];
+    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -243,6 +308,56 @@ class StudentController extends Controller
 
         session()->flash('success', __('site.updated_successfully'));
         return redirect()->route('dashboard.students.index');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Student  $student
+     * @return \Illuminate\Http\Response
+     */
+    public function updateApi(Request $request, Student $student)
+    {
+        $request->validate([
+            'name' => 'required',
+            'level_id' => 'required',
+            'department_id' => 'required',
+            'code' => ['required', Rule::unique('students')->ignore($student->id)],
+            'email' => ['required', Rule::unique('students')->ignore($student->id)],
+            'username' => ['required', Rule::unique('students')->ignore($student->id)],
+            'phone' => ['required', Rule::unique('students')->ignore($student->id)],
+            'national_id' => 'required',
+            'set_number' => 'required',
+            'active' => 'required',
+
+        ]);
+
+        $request_data = $request->except(['permissions']);
+        //$request_data['phone'] = array_filter($request->phone);
+
+        $student->update($request_data);
+        $user = $student->user;
+
+        //update student in user table
+        $request->validate([
+            'name' => 'required',
+            //'last_name' => 'required',
+            'email' => 'required',
+            //'username' => 'required|unique:users',
+            'phone' => 'required',
+            'active' => 'required',
+
+        ]);
+
+        $request_data= $request->except(['permissions']);
+        optional($student->user)->update($request_data);
+
+
+        return [
+            "status" => 0,
+            "message" => __('site.updated_successfully')
+        ];
     }
 
     /**
