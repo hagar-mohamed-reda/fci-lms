@@ -6,6 +6,7 @@ use App\Subject;
 use App\StudentSubject;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Auth;
 
 use App\Imports\StdSbjImport;
 use App\Exports\StdSbjExport;
@@ -39,6 +40,30 @@ class StudentSubjectController extends Controller
         Excel::import(new StdSbjImport,request()->file('file'));
 
         return back();
+    }
+
+    public function getData() {
+        $query = StudentSubject::query();
+
+        if (Auth::user()->type == 'doctor')
+            $query->whereIn('course_id', Auth::user()->toDoctor()->docSubjs()->pluck('course_id')->toArray());
+
+        if (request()->course_id > 0)
+            $query->where('course_id', request()->course_id);
+
+
+        return FacadesDataTables::eloquent($query->latest())
+                        ->addColumn('action', function(StudentSubject $stdSubject) {
+                            return view("dashboard.student_subjects.action", compact("stdSubject"));
+                        })
+                        ->addColumn('student', function(StudentSubject $stdSubject) {
+                            return optional($stdSubject->students)->name;
+                        })
+                        ->addColumn('course', function(StudentSubject $stdSubject) {
+                            return optional($stdSubject->subjects)->name;
+                        })
+                        ->rawColumns(['action'])
+                        ->toJson();
     }
 
     /**
@@ -141,29 +166,29 @@ class StudentSubjectController extends Controller
     {
         //
     }
-    
+
     /**
      * return all student for register course
-     * 
+     *
      */
     public function getStudents() {
         $query = Student::query();
         $course = Subject::find(request()->course_id);
-        
+
         return FacadesDataTables::eloquent($query)
                         ->addColumn('action', function(Student $student) use ($course) {
                             return view("dashboard.subjects.student_register_action", compact("student", "course"));
-                        }) 
+                        })
                         ->addColumn('level', function(Student $student) {
                             return optional($student->level)->name;
-                        }) 
+                        })
                         ->addColumn('department', function(Student $student) {
                             return optional($student->department)->name;
-                        }) 
+                        })
                         ->rawColumns(['action'])
                         ->toJson();
     }
-    
+
     /**
      * assign doctor view.
      *
@@ -172,35 +197,35 @@ class StudentSubjectController extends Controller
     public function performAssign(Request $request)
     {
         $course = Subject::find($request->course_id);
-         
+
         if (!$course)
             return [
                 "status" => 0,
                 "message" => __('error')
             ];
-        
+
         // remove old
         $course->stdSbjs()->delete();
-         
+
         // add new
         $counter = 0;
-        foreach($request->student_id as $student) { 
-            if ($request->assign[$counter] == 1) { 
+        foreach($request->student_id as $student) {
+            if ($request->assign[$counter] == 1) {
                 StudentSubject::create([
                     "course_id" => $course->id,
                     "student_id" => $student
                 ]);
             }
-            
+
             $counter ++;
-        } 
-        
+        }
+
         return [
             "status" => 1,
             "message" => __('done')
         ];
     }
-    
+
 
     /**
      * Remove the specified resource from storage.

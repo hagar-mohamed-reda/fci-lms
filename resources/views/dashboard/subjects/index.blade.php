@@ -277,7 +277,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title text-center"> </h4>
             </div>
-            <div class="modal-body html-place">
+            <div class="modal-body html-place table-responsive">
                 <form class="form" method="post" action="{{ route('dashboard.assignStudentToCourse') }}" >
                     @csrf
                     <input name="course_id" type="hidden" id="courseStudent"  >

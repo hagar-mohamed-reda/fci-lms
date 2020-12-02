@@ -38,12 +38,10 @@
                     </div>
 
                     <div class="box-body">
-                        @if ($students->count() > 0)
                         <div class="table-responsive">
                             <table class="table table-hover" id="studenttable">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
                                         <th>@lang('site.name')</th>
                                         <th>@lang('site.username')</th>
                                         <th>@lang('site.set_number')</th>
@@ -52,71 +50,18 @@
                                         <th>@lang('site.email')</th>
                                         <th>@lang('site.level')</th>
                                         <th>@lang('site.department')</th>
-                                        {{--<th>@lang('site.add_orderRegist')</th>--}}
                                         <th>@lang('site.phone')</th>
                                         <th>@lang('site.active')</th>
                                         <th>@lang('site.account_confirm')</th>
-                                        {{--<th>@lang('site.image')</th>--}}
                                         <th>@lang('site.action')</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($students as $index=>$student)
-                                    <tr>
-                                        <td>{{ $index + 1}}</td>
-                                        <td>{{ $student->name}}</td>
-                                        <td>{{ $student->username}}</td>
-                                        <td>{{ $student->set_number}}</td>
-                                        <td>{{ $student->national_id}}</td>
-                                        <td>{{ $student->code}}</td>
-                                        <td>{{ $student->email}}</td>
-                                        <td>{{ $student->level['name']}}</td>
-                                        <td>{{ $student->department['name']}}</td>
-                                        {{--<td><a href="{{route('dashboard.student_subjects.create')}}" class="btn btn-primary">@lang('site.add_orderRegist')</a></td>--}}
-                                        <td>{{ is_array($student->phone) ? implode($student->phone, '-') : $student->phone }}</td>
-                                        <td>
-                                            <div class="form-group">
-                                                <div class="custom-control custom-switch material-switch">
-                                                    <input
-                                                    type="checkbox"
-                                                    class="custom-control-input checkinp"
-                                                    id="studentSwitch{{$student->id}}" {{ $student->active == 1? 'checked' : ''}} value="{{ $student->active == 1? '1' : '0'}}" name="active"
-                                                    onchange="this.checked? this.value = 1 : this.value = 0" sid="{{$student->id}}">
-                                                    <label class="custom-control-label" for="studentSwitch{{$student->id}}"></label>
-                                                    {{-- onclick="changeActive({{$student->id}},this.value)" --}}
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            @if ($student->account_confirm == 0)
-                                                @lang('site.no')
-                                            @else
-                                                @lang('site.yes')
-                                            @endif
 
-                                        </td>
-                                        {{--<td><img src="{{ $student->image_path }}" style="width: 80px;" class="img-thumbnail" alt=""></td>--}}
-                                        <td>
-                                            @if (auth()->user()->hasPermission('update_students'))
-                                                <a href=" {{ route('dashboard.students.edit', $student->id)}}" ><i class="fa fa-edit" style="color: orange"></i></a>
-                                            @endif
-                                            @if (auth()->user()->hasPermission('delete_students'))
-                                                <form action="{{route('dashboard.students.destroy', $student->id)}}" method="POST" style="display: inline-block">
-                                                    {{ csrf_field() }}
-                                                    {{ method_field('delete')}}
-                                                    <button type="submit" class="delete" style="background-color: white; border: none"><i class="fa fa-trash" style="color: red"></i></button>
-                                                </form>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
-                            {{-- {{ $students->appends(request()->query())->links() }} --}}
-                        @else
-                            <h2>@lang('site.no_data_found')</h2>
-                        @endif
+
                     </div>
 
                 </div>
@@ -182,15 +127,41 @@
 @endsection
 @section('scripts')
 <script>
-    $(function(){
-
-        $('#studenttable').DataTable({
-         "pageLength": 10,
-         "dom" : 'lBfrtip',
-         "buttons" : [
-            'copy', 'csv', 'excel', 'pdf','print',
-            ]
+    var studentRegisterDatatable = null;
+    function setStudentRegisterDataTable() {
+        var url = "{{ route('dashboard.students.studentDatatable') }}";
+        studentRegisterDatatable = $('#studenttable').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "pageLength": 5,
+                dom: 'Bfrtip',
+                buttons: [
+                        'copyHtml5',
+                        'excelHtml5',
+                        'csvHtml5',
+                        'pdfHtml5'
+                ],
+                "sorting": [0, 'DESC'],
+                "ajax": url,
+                "columns":[
+                { "data": "name" },
+                { "data": "username" },
+                { "data": "set_number" },
+                { "data": "national_id" },
+                { "data": "code" },
+                { "data": "email" },
+                { "data": "level_id" },
+                { "data": "department_id" },
+                { "data": "phone" },
+                { "data": "active" },
+                { "data": "account_confirm" },
+                { "data": "action" }
+                ]
         });
+    }
+
+    $(function(){
+        setStudentRegisterDataTable();
 
 
             $('.checkinp').on('change', function (){

@@ -41,6 +41,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'lo
             Route::resource('students', 'StudentController')->except(['show']);
             Route::resource('students.ordersRegist', 'Student\OrderRegistController')->except(['show']);
             Route::get('students/export', 'StudentController@export')->name('students.export');
+            Route::get('students/datatable', 'StudentController@getData')->name('students.studentDatatable');
             Route::get('importExportView', 'StudentController@importExportView');
             Route::post('students/import', 'StudentController@import')->name('students.import');
 
@@ -76,6 +77,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'lo
 
             //student with subject routes
             Route::resource('student_subjects', 'StudentSubjectController')->except(['show']);
+            Route::get('student_subjects/data', 'StudentSubjectController@getData')->name('studentRegisterDatatable');
             Route::get('student_subjects/export', 'StudentSubjectController@export')->name('student_subjects.export');
             Route::get('importExportView', 'StudentSubjectController@importExportView');
             Route::post('student_subjects/import', 'StudentSubjectController@import')->name('student_subjects.import');

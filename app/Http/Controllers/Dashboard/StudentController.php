@@ -13,6 +13,7 @@ use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
+use Yajra\DataTables\Facades\DataTables as FacadesDataTables;
 
 class StudentController extends Controller
 {
@@ -39,6 +40,33 @@ class StudentController extends Controller
         Excel::import(new StudentsImport,request()->file('file'));
 
         return back();
+    }
+
+    public function getData() {
+        $query = Student::query();
+        //$course = Subject::find(request()->course_id);
+
+        return FacadesDataTables::eloquent($query->latest())
+                        ->addColumn('action', function(Student $student) {
+                            $type = "action";
+                            return view("dashboard.students.action", compact("student", "type"));
+                        })
+                        ->editColumn('level_id', function(Student $student) {
+                            return optional($student->level)->name;
+                        })
+                        ->editColumn('department_id', function(Student $student) {
+                            return optional($student->department)->name;
+                        })
+                        ->editColumn('active', function(Student $student) {
+                            $type = "active";
+                            return view("dashboard.students.action", compact("student", "type"));
+                        })
+                        ->editColumn('account_confirm', function(Student $student) {
+                            $type = "account_confirm";
+                            return view("dashboard.students.action", compact("student", "type"));
+                        })
+                        ->rawColumns(['action', 'active', 'account_confirm'])
+                        ->toJson();
     }
     /**
      * Display a listing of the resource.

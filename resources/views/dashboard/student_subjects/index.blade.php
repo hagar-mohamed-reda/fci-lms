@@ -23,7 +23,7 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <select name="sbj_id" class="form-control select2-js">
+                                    <select name="sbj_id" class="form-control select2-js course_id">
                                         <option value="">@lang('site.subjects')</option>
                                         @foreach ($subjects as $subject)
                                         @if ($subject->doc_id == auth()->user()->fid && auth()->user()->hasRole('doctor')  || auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin'))
@@ -34,7 +34,7 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> @lang('site.search')</button>
+                                    <button type="button" onclick="reloadData($('.course_id').val())" class="btn btn-primary"><i class="fa fa-search"></i> @lang('site.search')</button>
 
                                     {{--@if (auth()->user()->hasPermission('create_regist'))
                                         <a href=" {{route('dashboard.student_subjects.create')}}" class="btn btn-success"><i class="fa fa-plus"></i> @lang('site.add')</a>
@@ -51,81 +51,19 @@
                     </div>
 
                     <div class="box-body">
-                        @if ($stdSubjects->count() > 0)
                         <div class="table-responsive">
                             <table class="table table-hover" id="stdSbjTable">
                                 <thead>
                                     <tr>
-                                        {{-- <th>#</th> --}}
                                         <th>@lang('site.std_name')</th>
                                         <th>@lang('site.sbj_name')</th>
-                                        @if(auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin'))
                                         <th>@lang('site.action')</th>
-                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($stdSubjects as $index=>$stdSubject)
-                                        @foreach ($subjects as $subject)
-                                            @if ($stdSubject->course_id == $subject->id && auth()->user()->type == 'doctor' && $subject->doc_id == auth()->user()->fid)
-                                            <tr>
-                                                {{-- <td>{{ $index + 1}}</td> --}}
-                                                <td>{{ $stdSubject->students['name']}}</td>
-                                                <td>{{ $stdSubject->subjects['name']}}</td>
-                                                {{--<td>
-                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#sbjTable">@lang('site.show_subj_table')</button>
-                                                    {{--<a href="{{ asset('dashboard/files/myposProject.pdf') }}">@lang('site.show_subj_table')</a>}}
-                                                </td>--}}
-                                                @if(auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin'))
-                                                <td>
-                                                    {{--@if (auth()->user()->hasPermission('update_regist'))
-                                                        <a href=" {{ route('dashboard.student_subjects.edit', $stdSubject->id)}}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
-                                                    @endif--}}
-                                                    @if (auth()->user()->hasPermission('delete_regist'))
-                                                        <form action="{{route('dashboard.student_subjects.destroy', $stdSubject->id)}}" method="POST" style="display: inline-block">
-                                                            {{ csrf_field() }}
-                                                            {{ method_field('delete')}}
-                                                            <button type="submit" class="btn btn-danger delete btn-sm"><i class="fa fa-trash"></i> @lang('site.delete')</button>
-                                                        </form>
-                                                    @endif
-
-                                                </td>
-                                                @endif
-                                            </tr>
-                                            @endif
-                                        @endforeach
-                                        @if (auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin'))
-                                        <tr>
-                                            {{-- <td>{{ $index + 1}}</td> --}}
-                                            <td>{{ $stdSubject->students['name']}}</td>
-                                            <td>{{ $stdSubject->subjects['name']}}</td>
-                                            {{--<td>
-                                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#sbjTable">@lang('site.show_subj_table')</button>
-                                                {{--<a href="{{ asset('dashboard/files/myposProject.pdf') }}">@lang('site.show_subj_table')</a>}}
-                                            </td>--}}
-                                            <td>
-                                                {{--@if (auth()->user()->hasPermission('update_regist'))
-                                                    <a href=" {{ route('dashboard.student_subjects.edit', $stdSubject->id)}}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
-                                                @endif--}}
-                                                @if (auth()->user()->hasPermission('delete_regist'))
-                                                    <form action="{{route('dashboard.student_subjects.destroy', $stdSubject->id)}}" method="POST" style="display: inline-block">
-                                                        {{ csrf_field() }}
-                                                        {{ method_field('delete')}}
-                                                        <button type="submit" class="btn btn-danger delete btn-sm"><i class="fa fa-trash"></i> @lang('site.delete')</button>
-                                                    </form>
-                                                @endif
-
-                                            </td>
-                                        </tr>
-                                        @endif
-                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
-                            {{-- {{$stdSubjects->appends(request()->query())->links()}} --}}
-                        @else
-                            <h2>@lang('site.no_data_found')</h2>
-                        @endif
                     </div>
 
                 </div>
@@ -192,15 +130,39 @@
 
 @section('scripts')
 <script>
-    $(function(){
-        $('#stdSbjTable').DataTable({
-            'order': [[ 1, 'desc' ]],
-            "dom" : 'lBfrtip',
-         "buttons" : [
-            'copy', 'csv', 'excel', 'pdf','print',
+    var studentRegisterDatatable = null;
+
+    function reloadData(course) {
+        $('#courseStudent').val(course);
+        //
+        var url = "{{ route('dashboard.studentRegisterDatatable') }}?course_id=" + course;
+        studentRegisterDatatable.ajax.url(url).load();
+    }
+
+    function setStudentRegisterDataTable() {
+    var url = "{{ route('dashboard.studentRegisterDatatable') }}?course_id=";
+    studentRegisterDatatable = $('#stdSbjTable').DataTable({
+    "processing": true,
+            "serverSide": true,
+            "pageLength": 20,
+            dom: 'Bfrtip',
+            buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+            ],
+            "sorting": [0, 'DESC'],
+            "ajax": url,
+            "columns":[
+            { "data": "student" },
+            { "data": "course" },
+            { "data": "action" }
             ]
-        });
     });
+    }
+
+    setStudentRegisterDataTable();
 
 </script>
 @endsection
