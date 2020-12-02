@@ -16,6 +16,7 @@ use App\Subject;
 use App\DoctorCourse;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Auth;
 
 
 class SubjectController extends Controller
@@ -67,8 +68,14 @@ class SubjectController extends Controller
             return view('dashboard.subjects.index', compact('subjects','doctors'));
         }
         elseif(auth()->user()->type == 'doctor' || auth()->user()->type == 'student'){
+            $stdSbsIds = []; // id of courses of student of doctors
 
-            $stdSbs = StudentSubject::all();
+            if (Auth::user()->type == 'doctor')
+                $stdSbsIds =  DoctorCourse::where('doctor_id', Auth::user()->fid)->pluck('course_id')->toArray();
+
+            else if (Auth::user()->type == 'student')
+                $stdSbsIds =  StudentSubject::where('student_id', Auth::user()->fid)->pluck('course_id')->toArray();
+
             $doctors = DB::select("SELECT * FROM doctors");
             //dd($doctor_id);
 
@@ -76,11 +83,10 @@ class SubjectController extends Controller
                 return $q->where('name', 'like', '%'. $request->search . '%')
                     ->orWhere('code', 'like', '%'. $request->search . '%');
 
-            })->get();
-            //$subjects = Subject::where('doc_id' ,'=',  $doctor_id );
-            //$subjects = $query->where('doc_id' ,'=',  $doctor_id);
-                        //dd($subjects);
-            return view('dashboard.subjects.index', compact('subjects','doctors','stdSbs'));
+            })
+            ->whereIn('id', $stdSbsIds)
+            ->get();
+            return view('dashboard.subjects.index', compact('subjects','doctors'));
 
         }else{
             return redirect()->back();

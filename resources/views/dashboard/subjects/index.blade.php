@@ -142,8 +142,7 @@
 
             @if (auth()->user()->type == 'student')
 
-            @foreach ($stdSbs as $stdSb)
-            @if($stdSb->course_id == $subject->id && $stdSb->student_id == auth()->user()->fid)
+
             <tr>
                 {{-- <td>{{ $subject->id}}</td> --}}
                 <td>{{ $subject->name}}</td>
@@ -155,8 +154,6 @@
 
 
             </tr>
-            @endif
-            @endforeach
 
             @endif
 
