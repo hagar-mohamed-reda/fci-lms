@@ -308,6 +308,21 @@
 
 @section('scripts')
 <script>
+
+
+    function searchDoctor(key) {
+        if (key.length <= 0)
+            return $(".doctor-list-item").show();
+
+        $(".doctor-list-item").hide();
+        $(".doctor-list-item").each(function(){
+            if ($(this).text().indexOf(key) >= 0) {
+                $(this).show();
+            }
+        });
+    }
+
+
     var studentRegisterDatatable = null;
     function loadDoctorRegister(url) {
     //$('#doctorRegister').modal('show');
