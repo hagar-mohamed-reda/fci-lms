@@ -45,6 +45,10 @@ class LessonController extends Controller
         })->get();
 
         $doctors = Doctor::all();
+
+        if (Auth::user()->type == 'admin')
+            $query = Lesson::all();
+
         $query = Lesson::query();
 
         // select lessons of courses of student or doctor

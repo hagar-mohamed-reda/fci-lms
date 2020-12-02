@@ -47,6 +47,10 @@ class AssignmentController extends Controller
             if (Auth::user()->type != 'admin')
                 $q->whereIn('sbj_id', $stdSbsIds);
         })->get();
+
+        if (Auth::user()->type == 'admin')
+            $query = Assignment::all();
+
         $query = Assignment::query();
 
         // select lessons of courses of student or doctor
