@@ -91,7 +91,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($assignments as $index=>$assignment)
-                                    @if (auth()->user()->hasRole('doctor') || auth()->user()->hasRole('admin'))
+                                    @if (auth()->user()->hasRole('doctor') || auth()->user()->hasRole('admin') || auth()->user()->hasRole('super_admin'))
                                     <tr>
                                         {{-- <td>{{ $assignment->id}}</td> --}}
                                         <td>{{ $assignment->name}}</td>

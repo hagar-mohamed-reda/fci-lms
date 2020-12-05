@@ -46,9 +46,6 @@ class LessonController extends Controller
 
         $doctors = Doctor::all();
 
-        if (Auth::user()->type == 'admin')
-            $query = Lesson::all();
-
         $query = Lesson::query();
 
         // select lessons of courses of student or doctor
@@ -64,6 +61,12 @@ class LessonController extends Controller
             $query->where('doc_id', 'like', '%'. $request->doc_id . '%');
 
         $lessons = $query->latest()->get();
+
+        if (Auth::user()->type == 'admin' || Auth::user()->type == 'super_admin')
+            $lessons = Lesson::all();
+            //$query->all();
+
+
 
         return view('dashboard.lessons.index', compact('lessons', 'subjects', 'doctors'));
     }

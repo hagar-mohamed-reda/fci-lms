@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
-  <title>كلية الحاسبات والذكاء الإصطناعي - المعلوماتية الطبية</title>
+  <title>المعهد العالي للسياحة والفنادق والحاسب الآلي السيوف - الإسكندرية</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -448,7 +448,7 @@ desired effect
     $(document).ready(function() {
         $('.select2-js').select2();
     });
-</script>  
+</script>
 
 
 </body>

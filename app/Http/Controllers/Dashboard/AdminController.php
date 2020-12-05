@@ -67,7 +67,6 @@ class AdminController extends Controller
         $request_data['type'] = 'admin';
         //$request_data['fid']  = $admin->id;
 
-
         $user = User::create($request_data);
         $user->attachRole('admin');
         //$user->syncPermissions($request->permissions);

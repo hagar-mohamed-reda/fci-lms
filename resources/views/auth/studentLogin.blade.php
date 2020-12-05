@@ -8,7 +8,9 @@
                 <div class="login-logo" style="text-align: center;">
                     <img style="border-radius: 45px" src="{{ asset('dashboard/images/login/22222222222.png') }}" class="w3-center w3-round"  width="90px" >
                     <br>
-                    <h1 style="color: #fff"  class="w3-text-white" ><b> @lang('site.fcis-medical')  </b></h1>
+                    {{-- <h1 style="color: #fff"  class="w3-text-white" ><b> @lang('site.fcis-medical')  </b></h1> --}}
+                    <h1 style="color: #fff"  class="w3-text-white" ><b> المعهد العالي للسياحة والفنادق والحاسب الألي السيوف - الإسكندرية  </b></h1>
+
                 </div>
 
                 <div class="login-box">

@@ -26,7 +26,7 @@ class DepartmentController extends Controller
     {
         $departments = Department::when($request->search, function ($q) use ($request){
             return $q->where('name', 'like', '%'. $request->search . '%');
-        })->latest()->paginate(6);
+        })->latest()->get();
 
         return view('dashboard.departments.index', compact('departments'));
 

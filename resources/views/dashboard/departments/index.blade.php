@@ -15,7 +15,7 @@
                 <div class="box box-primary">
 
                     <div class="box-header with-border">
-                        <h3 class="box-title" style="margin-bottom: 15px">@lang('site.departments') <small>{{$departments->total()}}</small> </h3>
+                        <h3 class="box-title" style="margin-bottom: 15px">@lang('site.departments') {{--<small>{{$departments->total()}}</small>--}} </h3>
                         <form action="{{ route('dashboard.departments.index')}}" method="GET">
                             <div class="row">
                                 <div class="col-md-4">
@@ -35,7 +35,8 @@
 
                     <div class="box-body">
                         @if ($departments->count() > 0)
-                            <table class="table table-hover">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="departsTable">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -68,7 +69,9 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{ $departments->appends(request()->query())->links() }}
+                        </div>
+
+                            {{-- {{ $departments->appends(request()->query())->links() }} --}}
                         @else
                             <h2>@lang('site.no_data_found')</h2>
                         @endif
@@ -79,6 +82,23 @@
             </section>
 
     </div>
+@endsection
 
-
+@section('scripts')
+    <script>
+        $(function(){
+            $('#departsTable').DataTable({
+                "pageLength": 5,
+                "dom" : 'lBfrtip',
+                "buttons" : [
+                    'copy', 'csv', 'excel', 'pdf','print',
+                ]
+                /*"ajax" : {
+                        "url" : "{{ url('dashboard/lessons/index') }}",
+                        "type": "PUT",
+                        data: {'_token':$('input[name=_token]').val()}
+                    },*/
+            });
+        });
+    </script>
 @endsection

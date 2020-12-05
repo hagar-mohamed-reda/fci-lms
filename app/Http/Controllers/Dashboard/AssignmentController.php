@@ -42,15 +42,14 @@ class AssignmentController extends Controller
                 $q->whereIn('id', $stdSbsIds);
         })->get();
 
-        $doctors = Doctor::all();
         $lessons = Lesson::where(function($q) use($stdSbsIds) {
             if (Auth::user()->type != 'admin')
                 $q->whereIn('sbj_id', $stdSbsIds);
         })->get();
 
-        if (Auth::user()->type == 'admin')
-            $query = Assignment::all();
 
+
+        $doctors = Doctor::all();
         $query = Assignment::query();
 
         // select lessons of courses of student or doctor
@@ -69,6 +68,13 @@ class AssignmentController extends Controller
             $query->where('doc_id', 'like', '%'. $request->doc_id . '%');
 
         $assignments = $query->latest()->get();
+
+
+        if (Auth::user()->type == 'admin' || Auth::user()->type == 'super_admin'){
+            $assignments = Assignment::all();
+            $subjects = Subject::all();
+            $lessons = Lesson::all();
+        }
 
         return view('dashboard.assignments.index', compact('assignments','lessons', 'subjects', 'doctors'));
     }
