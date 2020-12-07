@@ -175,6 +175,7 @@ return [
     "not_active"        => 'غير مفعل',
     "is_active"        => 'مفعل',
     "national_id"        => 'الرقم القومي',
+    "phone_or_national_id"        => 'الهاتف او الرقم القومي',
     "set_number"        => 'رقم الجلوس',
     "account_confirm"        => 'تأكيد معلومات الحساب',
     "hours"        => 'عدد الساعات',
