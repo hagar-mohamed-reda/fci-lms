@@ -84,16 +84,15 @@
                 {{-- <td>{{ $subject->id}}</td> --}}
                 <td>{{ $subject->name}}</td>
                 <td>{{ $subject->code}}</td>
-                <td>{{ implode(" , ", $subject->doctors()->pluck('name')->toArray())}}</td>
-                {{-- <td>{{ $subject->docSubjs()}}</td> --}}
-                <td>{{ $subject->lessons->count()}} <a href="{{route('dashboard.lessons.index', [ 'doc_id' => $subject->doc_id, 'sbj_id' => $subject->id ])}}" class="btn btn-info btn-sm">@lang('site.show')</a> </td>
+                <td>{{ implode(" , ", $subject->doctors()->pluck('name')->toArray())}}</td> 
+                <td>{{ optional($subject->lessons)->count()}} <a href="{{route('dashboard.lessons.index', [ 'doc_id' => $subject->doc_id, 'sbj_id' => $subject->id ])}}" class="btn btn-info btn-sm">@lang('site.show')</a> </td>
 
                 @if(auth()->user()->type == 'doctor'  || auth()->user()->type == 'super_admin' || auth()->user()->type == 'admin' )
-                <td>{{ $subject->stdSbjs->count()}} <a href="{{route('dashboard.student_subjects.index', ['sbj_id' => $subject->id ])}}" class="btn btn-info btn-sm">@lang('site.show')</a> </td>
+                <td>{{ optional($subject->stdSbjs)->count()}} <a href="{{route('dashboard.student_subjects.index', ['sbj_id' => $subject->id ])}}" class="btn btn-info btn-sm">@lang('site.show')</a> </td>
                 <td>{{ $subject->hours}}</td>
                 <td>{{ $subject->notes}}</td>
                 @endif
-                <td>{{ $subject->level['name']}}</td>
+                <td>{{ optional($subject->level)->name}}</td>
 
 
 
@@ -101,7 +100,7 @@
 
                 <td>
                     @if (auth()->user()->hasPermission('update_subjects'))
-                    {{-- <a href=" {{ route('dashboard.subjects.edit', [$subject->id, 'udoc'=>0])}}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a> --}}
+                    
                     <a href=" {{ route('dashboard.subjects.edit', [$subject->id])}}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
                     @endif
                     @if (auth()->user()->hasPermission('delete_subjects'))
@@ -122,7 +121,7 @@
                     @endif
 
                     @if (auth()->user()->hasPermission('update_subjects'))
-                    {{-- <a href=" {{ route('dashboard.subjects.edit', [$subject->id, 'udoc'=>1])}}" class="btn btn-primary btn-sm mt-2"><i class="fa fa-edit"></i> @lang('site.assign_doc')</a> --}}
+                    
                     <a href="#"
                        data-toggle="modal" data-target="#doctorRegister"
                        onclick="loadDoctorRegister('{{ route('dashboard.assignDoctorToCourseView', $subject->id) }}')"
