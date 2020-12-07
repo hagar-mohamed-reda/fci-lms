@@ -10,6 +10,8 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
   <!--bootstrap-->
+  <link rel="shortcut icon" href="{{ asset('dashboard/images/login/logo.jpg') }}" type="image/jpg">
+
     {{-- <link rel="stylesheet" href="{{ asset('dashboard/css/bootstrap.min.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('dashboard/datatable/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dashboard/css/bootstrap-switch.css') }}">
@@ -183,9 +185,9 @@ desired effect
     <!-- Logo -->
     <a href="index2.html" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>F</b>CAI</span>
+      <span class="logo-mini"><b>S</b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>FCAI</b></span>
+      <span class="logo-lg"><b>Seyouf</b></span>
     </a>
 
     <!-- Header Navbar -->

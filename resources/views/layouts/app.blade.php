@@ -12,6 +12,9 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
 
+    <link rel="shortcut icon" href="{{ asset('dashboard/images/login/logo.jpg') }}" type="image/jpg">
+
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -35,7 +38,7 @@
                 overflow: auto!important;
             }
             body {
-                background-image: url('{{ asset("dashboard/images/login/1398313.jpg") }}')!important;
+                background-image: url('{{ asset("dashboard/images/login/login2.jpg") }}')!important;
                 background-size: cover!important;
                 background-repeat: no-repeat!important;
             }

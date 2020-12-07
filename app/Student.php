@@ -67,6 +67,13 @@ class Student extends Model
         return $this->belongsTo(Department::class, 'department_id');
     }
 
+    public function lessons(){
+        return Lesson::whereIn('sbj_id', $this->stdSbjs()->pluck('course_id')->toArray());
+    }
+
+    public function assignments(){
+        return Assignment::whereIn('sbj_id', $this->stdSbjs()->pluck('course_id')->toArray());
+    }
     /*public function ordersRegits(){
         return $this->hasMany(OrderRegist::class,'student_id','order_id');
     }*/

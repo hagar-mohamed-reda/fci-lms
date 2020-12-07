@@ -352,7 +352,7 @@
                                 <li class="list-group-item">
                                 <b>@lang('site.subjects')</b>
                                     @if (auth()->user()->type == 'doctor')
-                                    <a class="float-right">  {{optional(optional(auth()->user()->toDoctor())->subjects)->count()}}</a>
+                                    <a class="float-right">  {{optional(optional(auth()->user()->toDoctor())->docSubjs())->count()}}</a>
                                     @endif
                                     @if (auth()->user()->type == 'student')
                                     <a class="float-right">  {{optional(optional(auth()->user()->toStudent())->stdSbjs)->count()}}</a>
@@ -364,12 +364,16 @@
                                     <a class="float-right"> {{optional(optional(auth()->user()->toDoctor())->lessons)->count()}}</a>
                                     @endif
                                     @if (auth()->user()->type == 'student')
+                                    <a class="float-right">  {{optional(optional(auth()->user()->toStudent())->lessons())->count()}}</a>
                                     @endif
                                 </li>
                                 <li class="list-group-item">
                                 <b>@lang('site.assignments')</b>
                                     @if (auth()->user()->type == 'doctor')
                                     <a class="float-right"> {{optional(optional(auth()->user()->toDoctor())->assignments)->count()}}</a>
+                                    @endif
+                                    @if (auth()->user()->type == 'student')
+                                    <a class="float-right">  {{optional(optional(auth()->user()->toStudent())->assignments())->count()}}</a>
                                     @endif
                                 </li>
                             </ul>

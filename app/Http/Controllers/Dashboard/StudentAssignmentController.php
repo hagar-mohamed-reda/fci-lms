@@ -27,6 +27,7 @@ class StudentAssignmentController extends Controller
         $subjects = Subject::all();
         $lessons = Lesson::all();
 
+    /*
         $stdAssignments = StudentAssignment::when($request->search, function ($q) use ($request){
             return $q->where('id', 'like', '%'. $request->search . '%');
 
@@ -43,6 +44,28 @@ class StudentAssignmentController extends Controller
                 return $q->where('doc_id', 'like', '%'. $request->doc_id . '%');
 
                 })->latest()->get();
+    */
+    $query = StudentAssignment::query();
+
+        // select lessons of courses of student or doctor
+        //$query->whereIn('sbj_id', $stdSbsIds);
+
+        if ($request->search)
+            $query->where('name', 'like', '%'. $request->search . '%');
+
+        if ($request->assign_id > 0)
+            $query->where('assign_id', 'like', '%'. $request->assign_id . '%');
+
+        if ($request->sbj_id > 0)
+            $query->where('sbj_id', 'like', '%'. $request->sbj_id . '%');
+
+        if ($request->lesson_id > 0)
+            $query->where('lesson_id', 'like', '%'. $request->lesson_id . '%');
+
+        if ($request->doc_id > 0)
+            $query->where('doc_id', 'like', '%'. $request->doc_id . '%');
+
+        $stdAssignments = $query->latest()->get();
 
         return view('dashboard.student_assignments.index', compact('assignments','stdAssignments', 'students', 'subjects', 'lessons', 'doctors'));
     }

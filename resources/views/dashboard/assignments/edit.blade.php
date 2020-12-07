@@ -18,7 +18,7 @@
                 <div class="box box-primary">
 
                     <div class="box-header">
-                        <h3 class="box-title">@lang('site.upload_anss')</h3>
+                        <h3 class="box-title">@lang('site.edit')</h3>
                     </div>
 
                     <div class="box-body">
@@ -39,12 +39,12 @@
                                 <!--input type="submit" value="upload"-->
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" style="position: relative">
                                 <label>@lang('site.start_date')</label>
                                 <input type="date" name="start_date" class="form-control" value="{{$assignment->start_date}}">
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" style="position: relative">
                                 <label>@lang('site.end_date')</label>
                                 <input type="date" name="end_date" class="form-control" value="{{$assignment->end_date}}">
                             </div>

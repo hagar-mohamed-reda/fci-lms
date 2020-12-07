@@ -40,7 +40,7 @@
 
                             <div class="form-group">
                                 <label>@lang('site.email') *</label>
-                                <input type="email" name="email" class="form-control" value="{{$doctor->email}}">
+                                <input type="text" name="email" class="form-control" value="{{$doctor->email}}">
                             </div>
 
 
