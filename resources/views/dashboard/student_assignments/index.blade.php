@@ -123,6 +123,7 @@
                                         <td>{{ $stdAssignment->assignments['name']}}</td>
                                         <td>
                                             {{--<a href="student_assignments/pdffiles/{{$stdAssignment->id}}" class="btn btn-primary btn-sm"><i class="fa fa-show"></i> @lang('site.show')</a>--}}
+                                            <a href="#" class="btn btn-primary btn-sm student-research-span" data-open='off' data-src="{{$stdAssignment->pdf_anss}}" {{--onclick="viewFile(this)"--}}><i class="fa fa-show"></i> @lang('site.show')</a>
                                             <a href="student_assignments/pdffile/download/{{$stdAssignment->pdf_anss}}" class="btn btn-info btn-sm"><i class="fa fa-download"></i> @lang('site.download')</a>
                                         </td>
                                         {{--<td>
@@ -216,6 +217,35 @@
 @section('scripts')
 <script>
     $(function(){
+
+        //function to oben the answer in new tab
+        $(document).on("click",".student-research-span",function() {
+
+        //function viewFile(div) {
+            console.log($(this));
+            var src = $(this).data('src');
+            $(this).attr('data-open', 'on');
+
+            return window.open("https://docs.google.com/viewerng/viewer?url="+src, '_blank');
+
+            var modal = document.createElement("div");
+            modal.className = "w3-modal w3-block nicescroll";
+            modal.style.zIndex = "10000000";
+            modal.style.paddingTop = "20px";
+
+            modal.innerHTML = "<center><div class='w3-animate-zoom' > " +
+                    '<iframe frameborder="0" scrolling="no" width="400" height="600" src="https://docs.google.com/viewerng/viewer?url=' + div.getAttribute("data-src") + '" ></iframe>'
+                    + "</div></center>  ";
+
+            modal.onclick = function () {
+                window.open('https://usefulangle.com', '_blank');
+                //modal.remove();
+            };
+
+            document.body.appendChild(modal);
+        });
+
+
         $("#doctors").change(function(){
             $.ajax({
                 url: "{{ route('subjects.get_by_doctor') }}?doc_id=" + $(this).val(),

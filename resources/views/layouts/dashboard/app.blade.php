@@ -10,7 +10,7 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
   <!--bootstrap-->
-  <link rel="shortcut icon" href="{{ asset('dashboard/images/login/logo.jpg') }}" type="image/jpg">
+  <link rel="shortcut icon" href="{{ asset('dashboard/images/login/logo.jpg') }}" type="image/png">
 
     {{-- <link rel="stylesheet" href="{{ asset('dashboard/css/bootstrap.min.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('dashboard/datatable/bootstrap.min.css') }}">
