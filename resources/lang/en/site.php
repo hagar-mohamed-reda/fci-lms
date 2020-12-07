@@ -163,7 +163,31 @@ return [
     "video"        => 'Video',
     "youtube_link_video"        => 'Link of youtube video',
     "upload_pc_video"        => 'Upload video from pc',
+    "add_grade"        => 'Add Grade',
+    "edit_grade"        => 'Edit Grade',
+    "grade"        => 'Grade',
 
+    "save"        => 'Save',
+    "your_problem"        => 'your problec',
+    "back"        => 'Back',
+    "type"        => 'Type',
+    "problem"        => 'Problem',
+    "status"        => 'Status',
+    "employee"        => 'Employee',
+    "employee_comment"        => 'Employee Comment',
+    "doctor_problems"        => 'Doctor Problems',
+    "student_problems"        => 'Student Problem',
+    "change_status"        => 'Change Status',
+    "success"        => 'Success',
+    "warning"        => 'Warning',
+    "error"        => 'Error',
+    "write_comment"        => 'Write Comment',
+    ///////
+    "subjs_assigned_to_doctors"        => 'Subjects assigned to doctors',
+    "can_not_delete_related_items"        => 'this item can not be deleted it related to another item',
+    "this_student_already_exists"        => 'this student already assigned',
+    "this_doctor_already_exists"        => 'this doctor already assigned',
+    "your_problem_sent_to_admin"        => 'your problem sent to admin successfully',
     ////////////////////the new words////////////////////
 
 
