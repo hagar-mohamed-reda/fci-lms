@@ -198,6 +198,7 @@ return [
     "warning"        => 'تحذير',
     "error"        => 'فشل',
     "write_comment"        => 'اكتب تعليق',
+    "please_open_the_file"        => 'برجاء فتح الملف اولا',
     ///////
     "subjs_assigned_to_doctors"        => 'المقررات المسجلة الي الدكاترة',
     "can_not_delete_related_items"        => 'هذا العنصر مرتبط بعناصر اخرى ولا يمكن حذفه',

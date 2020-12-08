@@ -121,7 +121,7 @@
                                         {{-- <td>{{ $stdAssignment->id}}</td> --}}
                                         <td>{{ $stdAssignment->students['name']}}</td>
                                         <td>{{ $stdAssignment->assignments['name']}}</td>
-                                        <td>
+                                        <td class="fileAnss">
                                             {{--<a href="student_assignments/pdffiles/{{$stdAssignment->id}}" class="btn btn-primary btn-sm"><i class="fa fa-show"></i> @lang('site.show')</a>--}}
                                             <a href="#" class="btn btn-primary btn-sm showFileOnline" data-open='off' data-src="{{'http://lms.seyouf.sphinxws.com/public/uploads/anssers/'.$stdAssignment->pdf_anss}}" {{--onclick="viewFile(this)"--}}><i class="fa fa-show"></i> @lang('site.show')</a>
                                             <a href="student_assignments/pdffile/download/{{$stdAssignment->pdf_anss}}" class="btn btn-info btn-sm"><i class="fa fa-download"></i> @lang('site.download')</a>
@@ -189,6 +189,7 @@
         </div>
         <div class="modal-body">
             <span id="form_result"></span>
+            <h1 style="text-align: center; display: none">@lang("site.please_open_the_file")</h1>
             <form action="" method="POST" id="grade_form">
                 @csrf
                 {{-- {{method_field('')}} --}}
@@ -220,29 +221,10 @@
 
         //function to oben the answer in new tab
         $(document).on("click",".showFileOnline",function() {
-
-        //function viewFile(div) {
             console.log($(this));
             var src = $(this).data('src');
             $(this).attr('data-open', 'on');
-
             return window.open("https://docs.google.com/viewerng/viewer?url="+src, '_blank');
-
-            var modal = document.createElement("div");
-            modal.className = "w3-modal w3-block nicescroll";
-            modal.style.zIndex = "10000000";
-            modal.style.paddingTop = "20px";
-
-            modal.innerHTML = "<center><div class='w3-animate-zoom' > " +
-                    '<iframe frameborder="0" scrolling="no" width="400" height="600" src="https://docs.google.com/viewerng/viewer?url=' + div.getAttribute("data-src") + '" ></iframe>'
-                    + "</div></center>  ";
-
-            modal.onclick = function () {
-                window.open('https://usefulangle.com', '_blank');
-                //modal.remove();
-            };
-
-            document.body.appendChild(modal);
         });
 
 
@@ -282,15 +264,37 @@
         });
 
         //add grade btn on click
-        $('.addGradBtn').on('click', function(){
-            var anssID = $(this).attr('anssID');
-            $('#hidden_id').val(anssID);
-            $('.modal-title').text('@lang("site.add_grade")');
-            $('#grade').val('');
+        $(document).on("click", ".addGradBtn", function(){
+            var opened = $(this).parent().parent().find('.fileAnss').find('.showFileOnline').attr('data-open');
+            if(opened == 'off'){
+                $('#modalGrade').modal('hide');
+                $('.modal-backdrop').hide();
+                //$(this).parent().parent().find('.fileAnss').find('.showFileOnline').data('dismiss', 'modal');
+                $('#modalGrade .modal-body h1').css('display', 'block');
+                $('#modalGrade .modal-body #grade_form').css('display', 'none');
+                /*iziToast.error({
+                    timeout: 6000,
+                    title: 'Error', message: '@lang("site.please_open_the_file")',
+                    position:'topCenter',
+                });*/
+            }else{
+                //$('#modalGrade .modal-body').html($('#grade_form'));
+                $('#modalGrade .modal-body h1').css('display', 'none');
+                $('#modalGrade .modal-body #grade_form').css('display', 'block');
+                $('#modalGrade').modal('show');
+                var anssID = $(this).attr('anssID');
+                $('#hidden_id').val(anssID);
+                $('.modal-title').text('@lang("site.add_grade")');
+                $('#grade').val('');
+            }
+
         });
+
 
         //add grade btn on click
         $('.editGradBtn').on('click', function(){
+            $('#modalGrade .modal-body h1').css('display', 'none');
+            $('#modalGrade .modal-body #grade_form').css('display', 'block');
             var anssID = $(this).attr('anssID');
             var anssGrade = $(this).attr('anssGrade');
 
