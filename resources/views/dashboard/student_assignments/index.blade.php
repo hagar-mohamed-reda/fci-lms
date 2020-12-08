@@ -123,7 +123,7 @@
                                         <td>{{ $stdAssignment->assignments['name']}}</td>
                                         <td>
                                             {{--<a href="student_assignments/pdffiles/{{$stdAssignment->id}}" class="btn btn-primary btn-sm"><i class="fa fa-show"></i> @lang('site.show')</a>--}}
-                                            <a href="#" class="btn btn-primary btn-sm student-research-span" data-open='off' data-src="{{'http://lms.seyouf.sphinxws.com/public/uploads/anssers/'.$stdAssignment->pdf_anss}}" {{--onclick="viewFile(this)"--}}><i class="fa fa-show"></i> @lang('site.show')</a>
+                                            <a href="#" class="btn btn-primary btn-sm showFileOnline" data-open='off' data-src="{{'http://lms.seyouf.sphinxws.com/public/uploads/anssers/'.$stdAssignment->pdf_anss}}" {{--onclick="viewFile(this)"--}}><i class="fa fa-show"></i> @lang('site.show')</a>
                                             <a href="student_assignments/pdffile/download/{{$stdAssignment->pdf_anss}}" class="btn btn-info btn-sm"><i class="fa fa-download"></i> @lang('site.download')</a>
                                         </td>
                                         {{--<td>
@@ -219,7 +219,7 @@
     $(function(){
 
         //function to oben the answer in new tab
-        $(document).on("click",".student-research-span",function() {
+        $(document).on("click",".showFileOnline",function() {
 
         //function viewFile(div) {
             console.log($(this));

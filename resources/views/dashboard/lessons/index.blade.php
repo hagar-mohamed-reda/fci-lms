@@ -89,6 +89,7 @@
 
                                         <td>
                                             @if (isset($lesson->pptx_file))
+                                            <a href="#" class="btn btn-primary btn-sm showFileOnline" data-open='off' data-src="{{'http://lms.seyouf.sphinxws.com/public/uploads/lessons/'.$lesson->pptx_file}}" {{--onclick="viewFile(this)"--}}><i class="fa fa-show"></i> @lang('site.show')</a>
                                             <a href="lessons/pptxfile/download/{{$lesson->pptx_file}}" class="btn btn-info btn-sm"><i class="fa fa-download"></i> @lang('site.download')</a>
                                             @else
                                             __
@@ -98,6 +99,7 @@
                                         <td>
                                             @if (isset($lesson->pdf_file))
                                                 {{-- <a href="lessons/pdffiles/{{$lesson->id}}" class="btn btn-primary btn-sm"><i class="fa fa-show"></i> @lang('site.show')</a> --}}
+                                                <a href="#" class="btn btn-primary btn-sm showFileOnline" data-open='off' data-src="{{'http://lms.seyouf.sphinxws.com/public/uploads/lessons/'.$lesson->pdf_file}}" {{--onclick="viewFile(this)"--}}><i class="fa fa-show"></i> @lang('site.show')</a>
                                                 <a href="lessons/pdffile/download/{{$lesson->pdf_file}}" class="btn btn-info btn-sm"><i class="fa fa-download"></i> @lang('site.download')</a>
                                             @else
                                                 __
@@ -205,6 +207,31 @@
 @endsection
 @section('scripts')
 <script>
+    //function to oben the answer in new tab
+    $(document).on("click",".showFileOnline",function() {
+            console.log($(this));
+            var src = $(this).data('src');
+            $(this).attr('data-open', 'on');
+
+            return window.open("https://docs.google.com/viewerng/viewer?url="+src, '_blank');
+
+            var modal = document.createElement("div");
+            modal.className = "w3-modal w3-block nicescroll";
+            modal.style.zIndex = "10000000";
+            modal.style.paddingTop = "20px";
+
+            modal.innerHTML = "<center><div class='w3-animate-zoom' > " +
+                    '<iframe frameborder="0" scrolling="no" width="400" height="600" src="https://docs.google.com/viewerng/viewer?url=' + div.getAttribute("data-src") + '" ></iframe>'
+                    + "</div></center>  ";
+
+            modal.onclick = function () {
+                window.open('https://usefulangle.com', '_blank');
+                //modal.remove();
+            };
+
+            document.body.appendChild(modal);
+    });
+
     $("#doctors").change(function(){
             $.ajax({
                 url: "{{ route('subjects.get_by_doctor') }}?doc_id=" + $(this).val(),
