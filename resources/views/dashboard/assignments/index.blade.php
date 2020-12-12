@@ -76,6 +76,7 @@
                                         <th>@lang('site.name')</th>
                                         <th>@lang('site.lesson_name')</th>
                                         <th>@lang('site.sbj_name')</th>
+                                        <th>@lang('site.doc_name')</th>
                                         <th>@lang('site.quest_file')</th>
                                         <th>@lang('site.start_date')</th>
                                         <th>@lang('site.end_date')</th>
@@ -98,6 +99,7 @@
                                         <td>{{ $assignment->name}}</td>
                                         <td>{{ $assignment->lesson['name']}}</td>
                                         <td>{{ $assignment->subjects['name']}}</td>
+                                        <td>{{ $assignment->doctor['name']}}</td>
                                         <td>
                                             {{--<a href="assignments/pdffiles/{{$assignment->id}}" class="btn btn-primary btn-sm"><i class="fa fa-show"></i> @lang('site.show')</a>--}}
                                             <a href="#" class="btn btn-primary btn-sm showFileOnline" data-open='off' data-src="{{'http://lms.seyouf.sphinxws.com/public/uploads/questions/'.$assignment->pdf_quest}}" {{--onclick="viewFile(this)"--}}><i class="fa fa-show"></i> @lang('site.show')</a>
@@ -141,6 +143,7 @@
                                         <td>{{ $assignment->name}}</td>
                                         <td>{{ $assignment->lesson['name']}}</td>
                                         <td>{{ $assignment->subjects['name']}}</td>
+                                        <td>{{ $assignment->doctor['name']}}</td>
                                         <td>
                                             {{--<a href="assignments/pdffiles/{{$assignment->id}}" class="btn btn-primary btn-sm"><i class="fa fa-show"></i> @lang('site.show')</a>--}}
                                             <a href="#" class="btn btn-primary btn-sm showFileOnline" data-open='off' data-src="{{'http://lms.seyouf.sphinxws.com/public/uploads/questions/'.$assignment->pdf_quest}}" {{--onclick="viewFile(this)"--}}><i class="fa fa-show"></i> @lang('site.show')</a>

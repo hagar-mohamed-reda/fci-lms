@@ -182,6 +182,7 @@ return [
     "warning"        => 'Warning',
     "error"        => 'Error',
     "report"        => 'Report',
+    "doc_name"        => 'Doctor Name',
     "select_subject_name"        => 'Select subject name',
     "report_student_assignments"        => 'Student answer report',
     "write_comment"        => 'Write Comment',

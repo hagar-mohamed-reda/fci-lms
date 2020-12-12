@@ -198,6 +198,7 @@ return [
     "warning"        => 'تحذير',
     "error"        => 'فشل',
     "report"        => 'تقرير',
+    "doc_name"        => 'إسم الدكتور',
     "select_subject_name"        => 'حدد اسم المقرر',
     "report_student_assignments"        => 'تقرير إجابات الطلاب',
     "write_comment"        => 'اكتب تعليق',

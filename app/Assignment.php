@@ -22,4 +22,8 @@ class Assignment extends Model
     public function subjects(){
         return $this->belongsTo(Subject::class,'sbj_id');
     }
+
+    public function doctor(){
+        return $this->belongsTo(Doctor::class, 'doc_id');
+    }
 }

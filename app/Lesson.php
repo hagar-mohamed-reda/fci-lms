@@ -20,4 +20,8 @@ class Lesson extends Model
     public function assignments(){
         return $this->hasMany(Assignment::class, 'lesson_id');
     }
+
+    public function doctor(){
+        return $this->belongsTo(Doctor::class, 'doc_id');
+    }
 }

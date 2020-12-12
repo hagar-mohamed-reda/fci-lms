@@ -69,6 +69,7 @@
                                         {{-- <th>#</th> --}}
                                         <th>@lang('site.name')</th>
                                         <th>@lang('site.sbj_name')</th>
+                                        <th>@lang('site.doc_name')</th>
                                         <th>@lang('site.file_one')</th>
                                         <th>@lang('site.file_two')</th>
                                         <th>@lang('site.youtube_link')</th>
@@ -86,6 +87,7 @@
                                     <tr>
                                         <td>{{ $lesson->name}}</td>
                                         <td>{{ optional($lesson->subject)->name}}</td>
+                                        <td>{{ optional($lesson->doctor)->name}}</td>
 
                                         <td>
                                             @if (isset($lesson->pptx_file))
