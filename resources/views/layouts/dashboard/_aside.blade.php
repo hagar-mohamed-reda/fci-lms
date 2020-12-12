@@ -62,6 +62,10 @@
             <li><a href="{{route('dashboard.student_assignments.index')}}"><i class="fa fa-users"></i><span>@lang('site.student_assignments')</span></a></li>
         @endif
 
+        @if (auth()->user()->type == 'doctor' || auth()->user()->type == 'admin')
+            <li><a href="{{route('dashboard.student_assignments.getReport')}}"><i class="fa fa-users"></i><span>@lang('site.report_student_assignments')</span></a></li>
+        @endif
+
         @if (auth()->user()->hasRole('admin' ) || auth()->user()->hasRole('super_admin' ))
             <li><a href="{{route('dashboard.student_subjects.index')}}"><i class="fa fa-th-list"></i><span>@lang('site.student_regist_subjects')</span></a></li>
         @endif

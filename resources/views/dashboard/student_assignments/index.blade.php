@@ -59,13 +59,7 @@
                                             @if ($lesson->doc_id == auth()->user()->fid && auth()->user()->hasRole('doctor') || auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin'))
                                             <option value="{{$lesson->id}}" {{request()->lesson_id == $lesson->id ? 'selected' : ''}}>{{$lesson->name}}</option>
                                             @endif
-                                            @if (auth()->user()->hasRole('student'))
-                                                @foreach ($stdSbs as $stdSb)
-                                                @if($stdSb->subject_id == $lesson->sbj_id && $stdSb->student_id == auth()->user()->fid)
-                                                <option value="{{$lesson->id}}" {{request()->lesson_id == $lesson->id ? 'selected' : ''}}>{{$lesson->name}}</option>
-                                                @endif
-                                                @endforeach
-                                            @endif
+
                                         @endforeach
                                     </select>
                                 </div>
@@ -103,6 +97,7 @@
                                         {{-- <th>#</th> --}}
                                         <th>@lang('site.std_name')</th>
                                         <th>@lang('site.assign_name')</th>
+                                        <th>@lang('site.sbj_name')</th>
                                         <th>@lang('site.pdf_anss')</th>
                                         <th>@lang('site.date')</th>
                                         <th>@lang('site.grade')</th>
@@ -120,6 +115,8 @@
                                         {{-- <td>{{ $stdAssignment->id}}</td> --}}
                                         <td>{{ $stdAssignment->students['name']}}</td>
                                         <td>{{ $stdAssignment->assignments['name']}}</td>
+                                        <td>{{ $stdAssignment->subjects['name']}}</td>
+
                                         <td class="fileAnss">
                                             {{--<a href="student_assignments/pdffiles/{{$stdAssignment->id}}" class="btn btn-primary btn-sm"><i class="fa fa-show"></i> @lang('site.show')</a>--}}
                                             <a href="#" class="btn btn-primary btn-sm showFileOnline" data-open='off' data-src="{{'http://lms.seyouf.sphinxws.com/public/uploads/anssers/'.$stdAssignment->pdf_anss}}" {{--onclick="viewFile(this)"--}}><i class="fa fa-show"></i> @lang('site.show')</a>

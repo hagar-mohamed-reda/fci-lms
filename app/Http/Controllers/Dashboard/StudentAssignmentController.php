@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Lesson;
 use App\Student;
 use App\Subject;
+use Auth;
 
 class StudentAssignmentController extends Controller
 {
@@ -20,6 +21,7 @@ class StudentAssignmentController extends Controller
      */
     public function index(Request $request)
     {
+
         $assignments = Assignment::all();
         $students = Student::all();
         $doctors = Doctor::all();
@@ -45,10 +47,14 @@ class StudentAssignmentController extends Controller
 
                 })->latest()->get();
     */
+    $stdAnss = [];
+    if (Auth::user()->type == 'doctor')
+            $stdAnss = StudentAssignment::where('doc_id',Auth::user()->fid)->pluck('doc_id')->toArray();
+
     $query = StudentAssignment::query();
 
         // select lessons of courses of student or doctor
-        //$query->whereIn('sbj_id', $stdSbsIds);
+        $query->whereIn('doc_id', $stdAnss);
 
         if ($request->search)
             $query->where('name', 'like', '%'. $request->search . '%');
@@ -67,7 +73,22 @@ class StudentAssignmentController extends Controller
 
         $stdAssignments = $query->latest()->get();
 
+        if (Auth::user()->type == 'admin' || Auth::user()->type == 'super_admin'){
+            $stdAssignments = StudentAssignment::all();
+        }
+
         return view('dashboard.student_assignments.index', compact('assignments','stdAssignments', 'students', 'subjects', 'lessons', 'doctors'));
+    }
+
+    //function to get report
+    public function getReport(Request $request){
+
+        $subjects = Subject::all();
+        $anssData = StudentAssignment::select('student_id', 'assign_id', 'sbj_id', 'doc_id','created_at', 'grade')
+                                    ->where('sbj_id', $request->sbj_id)->latest()->get();
+
+        return view('dashboard.student_assignments.report', compact('anssData', 'subjects'));
+
     }
 
     /**

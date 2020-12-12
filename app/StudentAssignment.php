@@ -20,4 +20,8 @@ class StudentAssignment extends Model
     public function students(){
         return $this->belongsTo(Student::class,'student_id');
     }
+
+    public function subjects(){
+        return $this->belongsTo(Subject::class,'sbj_id');
+    }
 }

@@ -75,6 +75,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'lo
             Route::resource('student_assignments', 'StudentAssignmentController')->except(['show']);
             Route::get('student_assignments/pdffiles/{id}', 'StudentAssignmentController@show_pdf');
             Route::get('student_assignments/pdffile/download/{pdf_file}', 'StudentAssignmentController@download_pdf');
+            Route::get('student_assignments/report', 'StudentAssignmentController@getReport')->name('student_assignments.getReport');
 
             //student with subject routes
             Route::resource('student_subjects', 'StudentSubjectController')->except(['show']);

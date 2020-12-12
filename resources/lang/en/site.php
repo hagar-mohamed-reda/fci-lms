@@ -181,6 +181,9 @@ return [
     "success"        => 'Success',
     "warning"        => 'Warning',
     "error"        => 'Error',
+    "report"        => 'Report',
+    "select_subject_name"        => 'Select subject name',
+    "report_student_assignments"        => 'Student answer report',
     "write_comment"        => 'Write Comment',
     ///////
     "subjs_assigned_to_doctors"        => 'Subjects assigned to doctors',

@@ -197,6 +197,9 @@ return [
     "success"        => 'نجاح',
     "warning"        => 'تحذير',
     "error"        => 'فشل',
+    "report"        => 'تقرير',
+    "select_subject_name"        => 'حدد اسم المقرر',
+    "report_student_assignments"        => 'تقرير إجابات الطلاب',
     "write_comment"        => 'اكتب تعليق',
     "please_open_the_file"        => 'برجاء فتح الملف اولا',
     ///////
