@@ -125,7 +125,7 @@
                                         </td>
                                         <td>
                                             {{ optional($lesson->assignments)->count()}} <a href="{{route('dashboard.assignments.index', ['sbj_id' => $lesson->sbj_id, 'lesson_id' => $lesson->id ])}}" class="btn btn-success btn-sm">@lang('site.show_lesson_assignments')</a>
-                                            @if (auth()->user()->hasPermission('create_assignments'))
+                                            @if (auth()->user()->hasPermission('create_assignments') && auth()->user()->fid == $lesson->doc_id)
                                                 <a href=" {{route('dashboard.assignments.create',['sbj_id' => $lesson->sbj_id, 'lesson_id' => $lesson->id])}}" class="btn btn-warning btn-sm"><i class="fa fa-plus"></i> @lang('site.add_assignment')</a>
                                             @endif
                                         </td>
