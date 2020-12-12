@@ -132,10 +132,10 @@
 
                                         @if(auth()->user()->hasRole('doctor'))
                                         <td>
-                                            @if (auth()->user()->hasPermission('update_lessons'))
+                                            @if (auth()->user()->hasPermission('update_lessons') && auth()->user()->fid == $lesson->doc_id)
                                                 <a href=" {{ route('dashboard.lessons.edit', $lesson->id)}}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
                                             @endif
-                                            @if (auth()->user()->hasPermission('delete_lessons'))
+                                            @if (auth()->user()->hasPermission('delete_lessons') && auth()->user()->fid == $lesson->doc_id)
                                                 <form action="{{route('dashboard.lessons.destroy', $lesson->id)}}" method="POST" style="display: inline-block">
                                                     {{ csrf_field() }}
                                                     {{ method_field('delete')}}

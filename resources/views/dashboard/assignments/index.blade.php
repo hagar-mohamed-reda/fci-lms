@@ -119,10 +119,10 @@
 
                                         @if(auth()->user()->hasRole('doctor'))
                                         <td>
-                                            @if (auth()->user()->hasPermission('update_assignments'))
+                                            @if (auth()->user()->hasPermission('update_assignments') && auth()->user()->fid == $assignment->doc_id)
                                                 <a href=" {{ route('dashboard.assignments.edit', $assignment->id)}}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
                                             @endif
-                                            @if (auth()->user()->hasPermission('delete_assignments'))
+                                            @if (auth()->user()->hasPermission('delete_assignments') && auth()->user()->fid == $assignment->doc_id)
                                                 <form action="{{route('dashboard.assignments.destroy', $assignment->id)}}" method="POST" style="display: inline-block">
                                                     {{ csrf_field() }}
                                                     {{ method_field('delete')}}
