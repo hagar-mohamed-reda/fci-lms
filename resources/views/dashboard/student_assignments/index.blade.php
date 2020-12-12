@@ -105,11 +105,10 @@
                                         <th>@lang('site.assign_name')</th>
                                         <th>@lang('site.pdf_anss')</th>
                                         <th>@lang('site.date')</th>
+                                        <th>@lang('site.grade')</th>
                                         <th>
                                             @if (auth()->user()->type == 'doctor')
                                                 @lang('site.action')
-                                            @else
-                                                @lang('site.grade')
                                             @endif
                                         </th>
                                     </tr>
@@ -136,22 +135,22 @@
                                             <td style="color: red">{{ $stdAssignment->created_at}} @lang('site.after_date')</td>
                                         @endif
                                         <td>
+                                            @if ($stdAssignment->grade > 0)
+                                                {{$stdAssignment->grade}}
+                                            @endif
+                                        </td>
+                                        <td>
                                             {{--@if (auth()->user()->hasPermission('update_stdassign'))
                                                 <a href=" {{ route('dashboard.student_assignments.edit', $stdSubject->id)}}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
                                             @endif--}}
                                             @if (auth()->user()->type == 'doctor')
                                                 @if ($stdAssignment->grade > 0)
                                                 <button class="btn btn-success btn-sm editGradBtn" data-toggle="modal" data-target="#modalGrade" anssID="{{$stdAssignment->id}}" anssGrade="{{$stdAssignment->grade}}">@lang('site.edit_grade')</button>
-                                                {{$stdAssignment->grade}}
                                                 @else
                                                 <button class="btn btn-primary btn-sm addGradBtn" data-toggle="modal" data-target="#modalGrade" anssID="{{$stdAssignment->id}}">@lang('site.add_grade')</button>
                                                 @endif
                                             @endif
-                                            @if (auth()->user()->type == 'super_admin' || auth()->user()->type == 'admin')
-                                                @if ($stdAssignment->grade > 0)
-                                                {{$stdAssignment->grade}}
-                                                @endif
-                                            @endif
+
                                             @if (auth()->user()->hasPermission('delete_stdassign'))
                                                 <form action="{{route('dashboard.student_assignments.destroy', $stdAssignment->id)}}" method="POST" style="display: inline-block">
                                                     {{ csrf_field() }}
