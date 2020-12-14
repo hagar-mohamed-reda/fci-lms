@@ -18,4 +18,8 @@ class Department extends Model
     public function level() {
         return $this->belongsTo("App\Level");
     }
+
+    public function students() {
+        return $this->hasMany("App\Student", "department_id");
+    }
 }

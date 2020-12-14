@@ -29,7 +29,8 @@ class DepartmentController extends Controller
         $query = Department::query();
 
         if ($request->search)
-            $query->where('name', 'like', '%'. $request->search . '%');
+            $query->where('name', 'like', '%'. $request->search . '%')
+                ->orWhere('level_id', 'like', '%'. $request->search . '%');
 
         if ($request->level_id > 0)
             $query->where('level_id', 'like', '%'. $request->level_id . '%');
@@ -132,8 +133,17 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
-        $department->delete();
-        session()->flash('success', __('site.deleted_successfully'));
-        return redirect()->route('dashboard.departments.index');
+        if ($department->students()->exists())
+            {
+                notify()->error("Can not delete this item it has related relations","Error","topRight");
+                return redirect()->route('dashboard.departments.index');
+
+            }else{
+                $department->delete();
+                session()->flash('success', __('site.deleted_successfully'));
+                return redirect()->route('dashboard.departments.index');
+            }
+
+
     }
 }

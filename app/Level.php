@@ -16,7 +16,7 @@ class Level extends Model
     ];
 
     public function students() {
-        return $this->hasMany("App\User", "level_id");
+        return $this->hasMany("App\Student", "level_id");
     }
 
     public function departments() {
