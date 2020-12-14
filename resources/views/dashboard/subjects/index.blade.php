@@ -84,11 +84,11 @@
                 {{-- <td>{{ $subject->id}}</td> --}}
                 <td>{{ $subject->name}}</td>
                 <td>{{ $subject->code}}</td>
-                <td>{{ implode(" , ", $subject->doctors()->pluck('name')->toArray())}}</td> 
+                <td>{{ implode(" , ", $subject->doctors()->pluck('name')->toArray())}}</td>
                 <td>{{ optional($subject->lessons)->count()}} <a href="{{route('dashboard.lessons.index', [ 'doc_id' => $subject->doc_id, 'sbj_id' => $subject->id ])}}" class="btn btn-info btn-sm">@lang('site.show')</a> </td>
 
                 @if(auth()->user()->type == 'doctor'  || auth()->user()->type == 'super_admin' || auth()->user()->type == 'admin' )
-                <td>{{ optional($subject->stdSbjs)->count()}} <a href="{{route('dashboard.student_subjects.index', ['sbj_id' => $subject->id ])}}" class="btn btn-info btn-sm">@lang('site.show')</a> </td>
+                <td>{{ optional($subject->stdSbjs)->count()}} <a href="{{route('dashboard.student_subjects.index', ['course_id' => $subject->id ])}}" onclick="reloadStdSbjData({{$subject->id}})" class="btn btn-info btn-sm">@lang('site.show')</a> </td>
                 <td>{{ $subject->hours}}</td>
                 <td>{{ $subject->notes}}</td>
                 @endif
@@ -100,7 +100,7 @@
 
                 <td>
                     @if (auth()->user()->hasPermission('update_subjects'))
-                    
+
                     <a href=" {{ route('dashboard.subjects.edit', [$subject->id])}}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
                     @endif
                     @if (auth()->user()->hasPermission('delete_subjects'))
@@ -121,7 +121,7 @@
                     @endif
 
                     @if (auth()->user()->hasPermission('update_subjects'))
-                    
+
                     <a href="#"
                        data-toggle="modal" data-target="#doctorRegister"
                        onclick="loadDoctorRegister('{{ route('dashboard.assignDoctorToCourseView', $subject->id) }}')"
@@ -277,7 +277,7 @@
                 <form class="form" method="post" action="{{ route('dashboard.assignStudentToCourse') }}" >
                     @csrf
                     <input name="course_id" type="hidden" id="courseStudent"  >
-                    <table class="table table-border" id="studentRegisterDataTable" >
+                    <table class="table table-border" id="subjectsDatatable" >
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -322,22 +322,30 @@
     }
 
 
-    var studentRegisterDatatable = null;
+    var subjectsDatatable = null;
     function loadDoctorRegister(url) {
     //$('#doctorRegister').modal('show');
     loadView(url, '#doctorRegister .html-place')
+    }
+
+    var studentRegisterDatatable = null;
+    function reloadStdSbjData(course) {
+        $('#courseStudent').val(course);
+        //
+        var url = "{{ route('dashboard.studentRegisterDatatable') }}?course_id=" + course;
+        studentRegisterDatatable.ajax.url(url).load();
     }
 
     function reloadData(course) {
         $('#courseStudent').val(course);
         //
         var url = "{{ route('dashboard.courseStudentData') }}?course_id=" + course;
-        studentRegisterDatatable.ajax.url(url).load();
+        subjectsDatatable.ajax.url(url).load();
     }
 
     function setStudentRegisterDataTable() {
     var url = "{{ route('dashboard.courseStudentData') }}?course_id=";
-    studentRegisterDatatable = $('#studentRegisterDataTable').DataTable({
+    subjectsDatatable = $('#subjectsDatatable').DataTable({
     "processing": true,
             "serverSide": true,
             "pageLength": 20,

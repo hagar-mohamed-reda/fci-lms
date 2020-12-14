@@ -26,7 +26,7 @@
                                     <select name="level_id" class="form-control select2-js" id="levels">
                                         <option value="">@lang('site.level')</option>
                                         @foreach ($levels as $level)
-                                            <option value="{{$level->id}}" {{old('level_id') == $level->id ? 'selected' : ''}}>{{$level->name}}</option>
+                                            <option value="{{$level->id}}" {{request()->level_id == $level->id ? 'selected' : ''}}>{{$level->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>

@@ -23,12 +23,19 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <select name="sbj_id" class="form-control select2-js course_id">
+                                    <select name="course_id" id="subjects" class="form-control select2-js course_id">
                                         <option value="">@lang('site.subjects')</option>
                                         @foreach ($subjects as $subject)
-                                        @if ($subject->doc_id == auth()->user()->fid && auth()->user()->hasRole('doctor')  || auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin'))
-                                            <option value="{{$subject->id}}" {{request()->sbj_id == $subject->id ? 'selected' : ''}}>{{$subject->name}}</option>
-                                        @endif
+                                            @if ($subject->docSubjs()->where('doctor_id', auth()->user()->fid)->exists() == auth()->user()->fid && auth()->user()->hasRole('doctor') || auth()->user()->hasRole('super_admin') || auth()->user()->hasRole('admin'))
+                                            <option value="{{$subject->id}}" {{request()->course_id == $subject->id ? 'selected' : ''}}>{{$subject->name}}</option>
+                                            @endif
+                                            {{-- @if (auth()->user()->hasRole('student'))
+                                                @foreach ($stdSbs as $stdSb)
+                                                @if($stdSb->subject_id == $subject->id && $stdSb->student_id == auth()->user()->fid)
+                                                <option value="{{$subject->id}}" {{request()->sbj_id == $subject->id ? 'selected' : ''}}>{{$subject->name}}</option>
+                                                @endif
+                                                @endforeach
+                                            @endif --}}
                                         @endforeach
                                     </select>
                                 </div>
@@ -138,31 +145,36 @@
         var url = "{{ route('dashboard.studentRegisterDatatable') }}?course_id=" + course;
         studentRegisterDatatable.ajax.url(url).load();
     }
+    /*$(function(){
+        reloadData($_GET['course_id']);
+    });*/
 
     function setStudentRegisterDataTable() {
-    var url = "{{ route('dashboard.studentRegisterDatatable') }}?course_id=";
-    studentRegisterDatatable = $('#stdSbjTable').DataTable({
-    "processing": true,
-            "serverSide": true,
-            "pageLength": 20,
-            dom: 'Bfrtip',
-            buttons: [
-                    'copyHtml5',
-                    'excelHtml5',
-                    'csvHtml5',
-                    'pdfHtml5'
-            ],
-            "sorting": [0, 'DESC'],
-            "ajax": url,
-            "columns":[
-            { "data": "student" },
-            { "data": "course" },
-            { "data": "action" }
-            ]
-    });
-    }
+        var url = "{{ route('dashboard.studentRegisterDatatable') }}?course_id=";
+        studentRegisterDatatable = $('#stdSbjTable').DataTable({
+        "processing": true,
+                "serverSide": true,
+                "pageLength": 20,
+                dom: 'Bfrtip',
+                buttons: [
+                        'copyHtml5',
+                        'excelHtml5',
+                        'csvHtml5',
+                        'pdfHtml5'
+                ],
+                "sorting": [0, 'DESC'],
+                "ajax": url,
+                "columns":[
+                { "data": "student" },
+                { "data": "course" },
+                { "data": "action" }
+                ]
+        });
+        }
 
     setStudentRegisterDataTable();
+
+
 
 </script>
 @endsection

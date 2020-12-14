@@ -76,13 +76,33 @@ class StudentSubjectController extends Controller
         $subjects = Subject::all();
         $students = Student::all();
 
-        $stdSubjects = StudentSubject::when($request->search, function ($q) use ($request){
+        $query = StudentSubject::query();
+
+        if ($request->search)
+            $query->where('name', 'like', '%'. $request->search . '%');
+
+        if ($request->assign_id > 0)
+            $query->where('assign_id', 'like', '%'. $request->assign_id . '%');
+
+        if ($request->course_id > 0)
+            $query->where('course_id', 'like', '%'. $request->course_id . '%');
+
+        if ($request->lesson_id > 0)
+            $query->where('lesson_id', 'like', '%'. $request->lesson_id . '%');
+
+        if ($request->doc_id > 0)
+            $query->where('doc_id', 'like', '%'. $request->doc_id . '%');
+
+        $stdSubjects = $query->latest()->get();
+
+
+        /*$stdSubjects = StudentSubject::when($request->search, function ($q) use ($request){
             return $q->where('id', 'like', '%'. $request->search . '%');
 
         })->when($request->sbj_id, function ($q) use ($request){
           return $q->where('course_id', 'like', '%'. $request->sbj_id . '%');
 
-        })->latest()->get();
+        })->latest()->get();*/
 
         return view('dashboard.student_subjects.index', compact('subjects','stdSubjects', 'students'));
     }
