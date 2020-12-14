@@ -21,6 +21,16 @@
                                 <div class="col-md-4">
                                     <input type="text" name="search" class="form-control" placeholder="@lang('site.search')" value="{{ request()->search}}">
                                 </div>
+
+                                <div class="col-md-4 form-group">
+                                    <select name="level_id" class="form-control select2-js" id="levels">
+                                        <option value="">@lang('site.level')</option>
+                                        @foreach ($levels as $level)
+                                            <option value="{{$level->id}}" {{old('level_id') == $level->id ? 'selected' : ''}}>{{$level->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
                                 <div class="col-md-4">
                                     <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> @lang('site.search')</button>
 

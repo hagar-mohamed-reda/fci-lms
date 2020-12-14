@@ -24,11 +24,25 @@ class DepartmentController extends Controller
      */
     public function index(Request $request)
     {
-        $departments = Department::when($request->search, function ($q) use ($request){
-            return $q->where('name', 'like', '%'. $request->search . '%');
-        })->latest()->get();
+        $levels = Level::all();
 
-        return view('dashboard.departments.index', compact('departments'));
+        $query = Department::query();
+
+        if ($request->search)
+            $query->where('name', 'like', '%'. $request->search . '%');
+
+        if ($request->level_id > 0)
+            $query->where('level_id', 'like', '%'. $request->level_id . '%');
+
+        $departments = $query->latest()->get();
+
+
+        /*$departments = Department::when($request->search, function ($q) use ($request){
+            return $q->where('name', 'like', '%'. $request->search . '%')
+                    ->orWhere('level_id', 'like', '%'. $request->level_id . '%');
+        })->latest()->get();*/
+
+        return view('dashboard.departments.index', compact('departments', 'levels'));
 
     }
 
