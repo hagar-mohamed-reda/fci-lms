@@ -81,6 +81,9 @@ class UserController extends Controller
                 'name' => $request->name,
             );
             $doc->update($form_data);
+            //return redirect()->back();
+            return response()->json(['success'=>'Data Updated Succefully']);
+
         }//end of if
 
         //if user is student
@@ -101,6 +104,9 @@ class UserController extends Controller
                 'name' => $request->name,
             );
             $std->update($form_data);
+            //return redirect()->back();
+            return response()->json(['success'=>'Data Updated Succefully']);
+
         }//end of if
 
         //if user is admin
@@ -121,11 +127,13 @@ class UserController extends Controller
                 'name' => $request->name,
             );
             $admin->update($form_data);
+            //return redirect()->back();
+            return response()->json(['success'=>'Data Updated Succefully']);
+
         }//end of if
 
         //session()->flash('success', __('site.updated_successfully'));
         //return redirect()->route('dashboard.index');
-        return response()->json(['success'=>'Data Updated Succefully']);
 
     }//end of change profile name function
 
@@ -148,7 +156,7 @@ class UserController extends Controller
         if(Hash::check($request->old_password, $user->password) ){
             if($request->password == $request->password_confirmation){
                 $user->update($request_data);
-                return response()->json(['success'=>'Data Updated Succefully']);
+                //return response()->json(['success'=>'Data Updated Succefully']);
             }else{
                 return response()->json(['errors' => 'حقل التاكيد غير متطابق' ]);
             }
@@ -257,6 +265,101 @@ class UserController extends Controller
 
     }//end of change password function
 
+    public function changeEmail(Request $request, $id){
+        $user = User::find($id);
+        $rules = array(
+            'email' => ['required', Rule::unique('users')->ignore($user->id)],
+        );
+        $request->validate([
+            'email' => ['required', Rule::unique('users')->ignore($user->id)],
+        ]);
+
+        $request_data = $request->all();
+
+        $error = Validator::make($request->all(), $rules);
+
+
+        if($error->fails()){
+            return response()->json(['errors' => $error->errors()->all()]);
+        }
+
+        $user->update($request_data);
+        //return response()->json(['success'=>'Data Updated Succefully']);
+
+        //if user is doctor
+        $docID = $user->fid;
+        if(auth()->user()->type == 'doctor'){
+            $doc = Doctor::find($docID);
+            $rules = array(
+                'email' => 'required',
+            );
+            $request->validate([
+                'email' => 'required',
+            ]);
+
+            $request_data = $request->all();
+
+            $error = Validator::make($request->all(), $rules);
+
+            if($error->fails()){
+                return response()->json(['errors' => $error->errors()->all()]);
+            }
+
+            $doc->update($request_data);
+            return response()->json(['success'=>'Data Updated Succefully']);
+
+        }//end of doctor type
+
+        //if user is student
+        if($user->type == 'student'){
+            $std = Student::find($user->fid);
+            $rules = array(
+                'email' => 'required',
+            );
+            $request->validate([
+                'email' => 'required',
+            ]);
+
+            $request_data = $request->all();
+
+            $error = Validator::make($request->all(), $rules);
+
+            if($error->fails()){
+                return response()->json(['errors' => $error->errors()->all()]);
+            }
+
+            $std->update($request_data);
+            return response()->json(['success'=>'Data Updated Succefully']);
+
+
+        }//end of student type
+
+        //if user is admin
+        if($user->type == 'admin'){
+            $admin = Admin::find($user->fid);
+            $rules = array(
+                'email' => 'required',
+            );
+            $request->validate([
+                'email' => 'required',
+            ]);
+
+            $request_data = $request->all();
+
+            $error = Validator::make($request->all(), $rules);
+
+            if($error->fails()){
+                return response()->json(['errors' => $error->errors()->all()]);
+            }
+
+            $admin->update($request_data);
+            return response()->json(['success'=>'Data Updated Succefully']);
+
+
+        }//end of admin type
+
+    }//end of change email function
+
     //function to change profile phone
     public function changePhone(Request $request, $id){
         $user = User::find($id);
@@ -293,6 +396,26 @@ class UserController extends Controller
                 'phone' => $request->new_phone,
             );
             $doctor->update($form_data);
+
+        }//end of doctor type
+
+        if($user->type == 'student'){
+            $std = Student::find($user->fid);
+
+            $form_data = array(
+                'phone' => $request->new_phone,
+            );
+            $std->update($form_data);
+
+        }//end of doctor type
+
+        if($user->type == 'admin'){
+            $admin = Admin::find($user->fid);
+
+            $form_data = array(
+                'phone' => $request->new_phone,
+            );
+            $admin->update($form_data);
 
         }//end of doctor type
         return response()->json(['success'=>'Data Updated Succefully']);

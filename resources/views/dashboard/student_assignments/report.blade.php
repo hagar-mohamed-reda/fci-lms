@@ -116,11 +116,28 @@
 <script>
     $(function(){
 
+        var buttonCommon = {
+            exportOptions: {
+                format: {
+                    body: function ( data, row, column, node ) {
+                        // Strip $ from salary column to make it numeric
+                        return column === 5 ?
+                            data.replace( /[$,]/g, '' ) :
+                            data;
+                    }
+                }
+            }
+        };
+
         $('#ansReportTable').DataTable({
          "pageLength": 10,
          "dom" : 'lBfrtip',
          "buttons" : [
-            'copy', 'csv', 'excel', 'pdf','print',
+            'copy', 'csv', 'excel',
+            $.extend( true, {}, buttonCommon, {
+                extend: 'pdfHtml5'
+            } )
+            ,'print',
             ]
         });
 

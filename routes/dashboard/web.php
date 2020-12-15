@@ -114,6 +114,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'lo
        //profile updates
        Route::post('profile/changname/{id}', 'UserController@changeName');
        Route::post('profile/changpass/{id}', 'UserController@changePass');
+       Route::post('profile/changemail/{id}', 'UserController@changeEmail');
        Route::post('profile/changphone/{id}', 'UserController@changePhone');
        Route::post('std/changeActive/{id}', 'StudentController@changeActive');
        Route::post('stdAssign/addGrade/{id}', 'StudentAssignmentController@addGrade');

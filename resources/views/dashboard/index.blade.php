@@ -255,7 +255,27 @@
                             <div class="tab-pane" id="password">
                                     <div class="box">
                                         <div class="box-body">
-                                        <form action="" method="POST" class="form-horizontal" id="chpassform">
+
+                                            <form action="" method="POST" class="form-horizontal" id="chemailform">
+                                                @csrf
+
+                                                <input type="hidden" name="id_hid" id="id_hid" value="{{auth()->user()->id}}">
+                                                <input type="hidden" name="action" id="action" value="Edit">
+
+                                                <div class="form-group">
+                                                    <label>@lang('site.enter_your_email') </label>
+                                                    <input type="email" name="email" class="form-control" placeholder="@lang('site.email')">
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                  <div>
+                                                    <button type="submit" class="btn btn-primary btn-block">@lang('site.send')</button>
+                                                  </div>
+                                                </div>
+                                            </form>
+
+                                        <form action="" method="POST" class="form-horizontal" id="chpassform" style="display: none">
                                             @csrf
 
                                             <div class="form-group">
@@ -459,6 +479,8 @@
                                 position: 'topCenter',
                             });
                             $('#chnameform')[0].reset();
+                            location.reload(true);
+
                         }
                     },
                     error : function(){
@@ -523,6 +545,60 @@
                     }
                 });
             });//end of cahnge password function
+
+            //function to change the email
+            $('#chemailform').on('submit', function(e){
+                e.preventDefault();
+                var token = $('meta[name="csrf-token"]').attr('content');
+                var user_id = $('#id_hid').val();
+
+                save_method = 'edit';
+                //$('input[name=_method]').val('PATCH');
+
+                console.log($(this).serialize());
+
+                $.ajax({
+                    //method:'POST',
+                    //header:{'X-CSRF-TOKEN': token},
+                    url : "{{ url('profile/changemail'). '/' }}" + user_id,
+                    type : "post",
+                    data : $(this).serialize(),
+                    dataType : "json",
+                    success : function(data){
+                        if(data.errors){
+                            //alert(data.errors);
+                            iziToast.error({
+                                timeout: 6000,
+                                title: 'Error', message: data.errors,
+                                position:'topCenter',
+                            });
+                            $('#chemailform')[0].reset();
+                        }
+                        if(data.success){
+                            //alert(data.success);
+                            iziToast.success({
+                                timeout: 6000, icon: 'fa fa-check-circle',
+                                title: 'Success', message: 'Data updated Successfully',
+                                position: 'topCenter',
+                            });
+                            $('#chemailform')[0].reset();
+                            $('#chemailform').css('display', 'none');
+                            $('#chpassform').css('display', 'block');
+
+                        }
+                    },
+                    error : function(){
+                        //alert('Error Data');
+                            iziToast.error({
+                                timeout: 6000,
+                                title: 'Error', message: ' البيانات غير صحيحةاو مستخدمه من قبل',
+                                position:'topCenter',
+                            });
+                            $('#chemailform')[0].reset();
+
+                    }
+                });
+            });//end of cahnge email function
 
             //function to change profile phone
             $('#chphoneform').on('submit', function(e){

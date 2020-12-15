@@ -233,7 +233,7 @@ class DoctorController extends Controller
      */
     public function destroy(Doctor $doctor)
     {
-        if ($doctor->subjects()->exists()
+        if ($doctor->docSubjs()->exists()
                 || $doctor->lessons()->exists()
                 || $doctor->assignments()->exists()
                 )

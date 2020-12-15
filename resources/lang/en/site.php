@@ -186,6 +186,7 @@ return [
     "select_subject_name"        => 'Select subject name',
     "report_student_assignments"        => 'Student answer report',
     "write_comment"        => 'Write Comment',
+    "enter_your_email"        => 'Enter your Email',
     ///////
     "subjs_assigned_to_doctors"        => 'Subjects assigned to doctors',
     "can_not_delete_related_items"        => 'this item can not be deleted it related to another item',
