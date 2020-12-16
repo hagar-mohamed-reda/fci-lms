@@ -312,7 +312,6 @@ class UserController extends Controller
                 return response()->json(['errors' => $error->errors()->all()]);
             }
             $doc->active_code = $user->active_code;
-            $doc->update($request_data);
 
             //echo "HTML Email Sent. Check your inbox.";
             $data = array('name'=>"Seyouf");
@@ -320,6 +319,8 @@ class UserController extends Controller
                 $message->to($doc->email)
                         ->subject('كود التفعيل : ' . $doc->active_code);
             });
+            $doc->update($request_data);
+
             //$message = 'كود التفعيل :' . $user->active_code;
             /*Mail::raw($message, function ($message) use ($request) {
                 $message->to($request->email)->send('كود التفعيل : ' . $user->active_code);
@@ -349,12 +350,12 @@ class UserController extends Controller
             //$std->update($request_data);
             $std->active_code = $user->active_code;
 
-            $std->update($request_data);
             $data = array('name'=>"Seyouf");
             Mail::send(['text'=>'mail'], $data, function($message) use ($std) {
                 $message->to($std->email)
                         ->subject('كود التفعيل : ' . $std->active_code);
             });
+            $std->update($request_data);
 
             return response()->json(['success'=>'Data Updated Succefully']);
 
@@ -379,13 +380,14 @@ class UserController extends Controller
                 return response()->json(['errors' => $error->errors()->all()]);
             }
             $admin->active_code = $user->active_code;
-            $admin->update($request_data);
 
             $data = array('name'=>"Seyouf");
             Mail::send(['text'=>'mail'], $data, function($message) use ($admin) {
                 $message->to($admin->email)
                         ->subject('كود التفعيل : ' . $admin->active_code);
             });
+            $admin->update($request_data);
+
             //$admin->update(['email'=>$request->email, 'active_code'=>$active_code]);
 
             return response()->json(['success'=>'Data Updated Succefully']);

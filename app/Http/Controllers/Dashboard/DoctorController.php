@@ -125,6 +125,12 @@ class DoctorController extends Controller
             $message->to($user->email)
                     ->subject('كود التفعيل : ' . $user->active_code);
         });*/
+
+        /*$data = array('name'=>"Seyouf");
+        Mail::send(['text'=>'mail'], $data, function($message) use ($user) {
+            $message->to($user->email)
+                    ->subject('كود التفعيل : ' . $user->active_code);
+        });*/
         //Mail::send(['text'=>'mail'])->to($uemail)->subject('كود التفعيل : ' .  $ucode);
 
         /*$message = 'كود التفعيل :' . $user->active_code;
