@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use SebastianBergmann\Environment\Console;
 use Validator;
+use Illuminate\Support\Facades\Mail;
+
 class UserController extends Controller
 {
     public function __construct(){
@@ -275,6 +277,8 @@ class UserController extends Controller
         ]);
 
         $request_data = $request->all();
+        //$active_code = rand(1,6);
+        //$request_data['active_code'] = str_random(4);
 
         $error = Validator::make($request->all(), $rules);
 
@@ -283,7 +287,10 @@ class UserController extends Controller
             return response()->json(['errors' => $error->errors()->all()]);
         }
 
+        //$user->update(['email'=>$request->email, 'active_code'=>$active_code]);
+        $user->active_code = str_random(4);
         $user->update($request_data);
+
         //return response()->json(['success'=>'Data Updated Succefully']);
 
         //if user is doctor
@@ -298,14 +305,24 @@ class UserController extends Controller
             ]);
 
             $request_data = $request->all();
-
+            //$request_data['active_code'] = str_random(4);
+            //$request_data['active_code'] = str_random(4);
             $error = Validator::make($request->all(), $rules);
 
             if($error->fails()){
                 return response()->json(['errors' => $error->errors()->all()]);
             }
-
+            $doc->active_code = $user->active_code;
             $doc->update($request_data);
+
+            //$message = 'كود التفعيل :' . $user->active_code;
+            Mail::to($doc->email)->send('كود التفعيل : ' . $doc->active_code);
+            /*Mail::raw($message, function ($message) use ($request) {
+                $message->to($request->email)->send('كود التفعيل : ' . $user->active_code);
+            });*/
+            //$doc->update(['email'=>$request->email, 'active_code'=>$active_code]);
+            //dd($active_code);
+
             return response()->json(['success'=>'Data Updated Succefully']);
 
         }//end of doctor type
@@ -321,14 +338,18 @@ class UserController extends Controller
             ]);
 
             $request_data = $request->all();
-
+            //$request_data['active_code'] = str_random(4);
             $error = Validator::make($request->all(), $rules);
 
             if($error->fails()){
                 return response()->json(['errors' => $error->errors()->all()]);
             }
 
+            //$std->update($request_data);
+            $std->active_code = $user->active_code;
+
             $std->update($request_data);
+
             return response()->json(['success'=>'Data Updated Succefully']);
 
 
@@ -345,14 +366,16 @@ class UserController extends Controller
             ]);
 
             $request_data = $request->all();
-
+            //$request_data['active_code'] = str_random(4);
             $error = Validator::make($request->all(), $rules);
 
             if($error->fails()){
                 return response()->json(['errors' => $error->errors()->all()]);
             }
-
+            $admin->active_code = $user->active_code;
             $admin->update($request_data);
+            //$admin->update(['email'=>$request->email, 'active_code'=>$active_code]);
+
             return response()->json(['success'=>'Data Updated Succefully']);
 
 
