@@ -16,6 +16,7 @@ use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 use DataTables;
 use Yajra\DataTables\Facades\DataTables as FacadesDataTables;
+use Illuminate\Support\Facades\Mail;
 
 class DoctorController extends Controller
 {
@@ -115,6 +116,22 @@ class DoctorController extends Controller
         $user = User::create($request_data);
         $user->attachRole('doctor');
 
+        $user->active_code = str_random(4);
+        $uemail = $user->email;
+        $ucode = $user->active_code;
+        
+        $data = array('name'=>"Seyouf");
+        Mail::send(['text'=>'mail'], $data, function($message) use ($user) {
+            $message->to($user->email)
+                    ->subject('كود التفعيل : ' . $user->active_code);
+        });
+        //Mail::send(['text'=>'mail'])->to($uemail)->subject('كود التفعيل : ' .  $ucode);
+
+        /*$message = 'كود التفعيل :' . $user->active_code;
+        Mail::send(['text'=>'mail'],$data, function ($message) use ($request) {
+            $message->to($request->email)->subject($message);
+        });*/
+
         $request->validate([
             'name' => 'required',
             'email' => 'required|unique:doctors',
@@ -145,6 +162,7 @@ class DoctorController extends Controller
 
         $doctor = Doctor::create($request_data);
         $doctor->attachRole('doctor');
+        $doctor->active_code = $user->active_code;
 
         $user->update(['fid'=>$doctor->id]);
         /*$doctor->attachPermission('read_students','read_subjects'

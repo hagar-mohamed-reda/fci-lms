@@ -274,6 +274,24 @@
                                                   </div>
                                                 </div>
                                             </form>
+                                            <form action="" method="POST" class="form-horizontal" id="actcodform" style="display: none">
+                                                @csrf
+
+                                                <input type="hidden" name="id_hid" id="id_hid" value="{{auth()->user()->id}}">
+                                                <input type="hidden" name="action" id="action" value="Edit">
+
+                                                <div class="form-group">
+                                                    <label>@lang('site.enter_sent_code') </label>
+                                                    <input type="text" name="sentcode" class="form-control" placeholder="@lang('site.active_code')">
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                  <div>
+                                                    <button type="submit" class="btn btn-primary btn-block">@lang('site.send')</button>
+                                                  </div>
+                                                </div>
+                                            </form>
 
                                         <form action="" method="POST" class="form-horizontal" id="chpassform" style="display: none">
                                             @csrf
@@ -583,18 +601,74 @@
                             });
                             $('#chemailform')[0].reset();
                             $('#chemailform').css('display', 'none');
+                            $('#actcodform').css('display', 'block');
+                            //$('#chpassform').css('display', 'block');
+
+                        }
+                    },
+                    error : function(errors){
+                        //alert('Error Data');
+                            iziToast.error({
+                                timeout: 6000,
+                                title: 'Error', message: errors,
+                                position:'topCenter',
+                            });
+                            $('#chemailform')[0].reset();
+
+                    }
+                });
+            });//end of cahnge email function
+
+            //function to change the email
+            $('#actcodform').on('submit', function(e){
+                e.preventDefault();
+                var token = $('meta[name="csrf-token"]').attr('content');
+                var user_id = $('#id_hid').val();
+
+                save_method = 'edit';
+                //$('input[name=_method]').val('PATCH');
+
+                console.log($(this).serialize());
+
+                $.ajax({
+                    //method:'POST',
+                    //header:{'X-CSRF-TOKEN': token},
+                    url : "{{ url('profile/chactcode'). '/' }}" + user_id,
+                    type : "post",
+                    data : $(this).serialize(),
+                    dataType : "json",
+                    success : function(data){
+                        if(data.errors){
+                            //alert(data.errors);
+                            iziToast.error({
+                                timeout: 6000,
+                                title: 'Error', message: data.errors,
+                                position:'topCenter',
+                            });
+                            $('#actcodform')[0].reset();
+                        }
+                        if(data.success){
+                            //alert(data.success);
+                            iziToast.success({
+                                timeout: 6000, icon: 'fa fa-check-circle',
+                                title: 'Success', message: 'كود التفعيل متطابق',
+                                position: 'topCenter',
+                            });
+                            $('#actcodform')[0].reset();
+                            $('#actcodform').css('display', 'none');
+                            //$('#actcodform').css('display', 'block');
                             $('#chpassform').css('display', 'block');
 
                         }
                     },
-                    error : function(){
+                    error : function(errors){
                         //alert('Error Data');
                             iziToast.error({
                                 timeout: 6000,
-                                title: 'Error', message: ' البيانات غير صحيحةاو مستخدمه من قبل',
+                                title: 'Error', message: 'كود التفعيل غير متطابق',
                                 position:'topCenter',
                             });
-                            $('#chemailform')[0].reset();
+                            $('#actcodform')[0].reset();
 
                     }
                 });
