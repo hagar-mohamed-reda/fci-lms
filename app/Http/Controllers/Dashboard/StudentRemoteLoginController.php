@@ -41,15 +41,15 @@ class StudentRemoteLoginController extends Controller {
     }
 
     public function redirectAsStudent(User $user) {
-        return redirect(route('dahboard.index'));
+        return redirect(route('dashboard.index'));
     }
 
     public function redirectAsDoctor(User $user) {
-        return redirect(route('dahboard.index'));
+        return redirect(route('dashboard.index'));
     }
 
     public function redirectAsAdmin(User $user) {
-        return redirect(route('dahboard.index'));
+        return redirect(route('dashboard.index'));
     }
 
 }
