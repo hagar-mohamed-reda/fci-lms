@@ -24,6 +24,7 @@ class Admin extends Model
         'email',
         'password',
         'active',
+        'active_code',
         'account_confirm'
     ];
 

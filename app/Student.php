@@ -29,6 +29,7 @@ class Student extends Model
         'level_id',
         'department_id',
         'active',
+        'active_code',
         'account_confirm',
         'set_number',
         'national_id',
