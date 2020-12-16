@@ -23,6 +23,7 @@ class Doctor extends Model
         'password',
         'phone',
         'active',
+        'active_code',
         'account_confirm'
     ];
 
