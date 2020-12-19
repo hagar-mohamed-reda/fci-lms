@@ -555,7 +555,7 @@
                         //alert('Error Data');
                             iziToast.error({
                                 timeout: 6000,
-                                title: 'Error', message: 'حقل التاكيد غير متطابق',
+                                title: 'Error', message: 'برجاء التاكد من حقل التأكيد',
                                 position:'topCenter',
                             });
                             $('#chpassform')[0].reset();

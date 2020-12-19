@@ -144,7 +144,7 @@ class UserController extends Controller
         $user = User::find($id);
         $rules = array(
             'old_password' => 'required',
-            'password' => 'required|confirmed',
+            //'password' => 'required|confirmed',
         );
         $request->validate([
             'old_password' => 'required',
@@ -175,7 +175,7 @@ class UserController extends Controller
             $doc = Doctor::find($user->fid);
             $rules = array(
                 'old_password' => 'required',
-                'password' => 'required|confirmed',
+                //'password' => 'required|confirmed',
             );
             $request->validate([
                 'old_password' => 'required',
@@ -207,7 +207,7 @@ class UserController extends Controller
             $std = Student::find($user->fid);
             $rules = array(
                 'old_password' => 'required',
-                'password' => 'required|confirmed',
+                //'password' => 'required|confirmed',
             );
             $request->validate([
                 'old_password' => 'required',
@@ -239,7 +239,7 @@ class UserController extends Controller
             $admin = Admin::find($user->fid);
             $rules = array(
                 'old_password' => 'required',
-                'password' => 'required|confirmed',
+                //'password' => 'required|confirmed',
             );
             $request->validate([
                 'old_password' => 'required',
@@ -249,7 +249,7 @@ class UserController extends Controller
             $request_data = $request->except(['password', 'password_confirmation']);
             $request_data['password'] = bcrypt($request->password);
 
-            $error = Validator::make($request->except(['password', 'password_confirmation']), $rules);
+            //$error = Validator::make($request->except(['password', 'password_confirmation']), $rules);
 
             if(Hash::check($request->old_password, $admin->password) ){
                 if($request->password == $request->password_confirmation){
