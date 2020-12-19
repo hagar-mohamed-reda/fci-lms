@@ -655,7 +655,7 @@
                             //alert(data.success);
                             iziToast.success({
                                 timeout: 6000, icon: 'fa fa-check-circle',
-                                title: 'Success', message: 'كود التفعيل متطابق',
+                                title: 'Success', message: 'كود التفعيل متطابق يمكنك تغيير كلمة المرور',
                                 position: 'topCenter',
                             });
                             $('#actcodform')[0].reset();
