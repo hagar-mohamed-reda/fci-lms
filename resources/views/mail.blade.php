@@ -1,2 +1,2 @@
-<h1>Hi,</h1>
-l<p>your activation code </p>
+<h>Hi, </h>
+<p>now you can change your password</p>
