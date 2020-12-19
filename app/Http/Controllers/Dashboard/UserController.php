@@ -289,7 +289,9 @@ class UserController extends Controller
         }
 
         $user->active_code = str_random(4);
-        $user->update($request_data);
+        $user->update([
+            "email" => $request->email
+        ]);
 
         //return response()->json(['success'=>'Data Updated Succefully']);
 
@@ -314,16 +316,18 @@ class UserController extends Controller
             $doc->active_code = $user->active_code;
 
             //echo "HTML Email Sent. Check your inbox.";
+            $doc->update([
+                "email" => $request->email
+            ]);
             $data = array('name'=>"Seyouf");
-            Mail::send(['text'=>'mail'], $data, function($message) use ($doc) {
-                $message->to($doc->email)
-                        ->subject('كود التفعيل : ' . $doc->active_code);
+            Mail::send(['text'=>'mail'], $data, function($message) use ($user) {
+                $message->to($user->email)
+                        ->subject('كود التفعيل : ' . $user->active_code);
             });
-            $doc->update($request_data);
 
-            //$message = 'كود التفعيل :' . $user->active_code;
-            /*Mail::raw($message, function ($message) use ($request) {
-                $message->to($request->email)->send('كود التفعيل : ' . $user->active_code);
+            /*$message = 'كود التفعيل :' . $user->active_code;
+            Mail::raw($message, function ($message) use ($user) {
+                $message->to($user->email)->send('كود التفعيل : ' . $user->active_code);
             });*/
 
             return response()->json(['success'=>'Data Updated Succefully']);
@@ -349,14 +353,14 @@ class UserController extends Controller
 
             //$std->update($request_data);
             $std->active_code = $user->active_code;
+            $std->update($request_data);
 
-            $data = array('name'=>"Seyouf");
+            /*$data = array('name'=>"Seyouf");
             Mail::send(['text'=>'mail'], $data, function($message) use ($std) {
                 $message->to($std->email)
                         ->subject('كود التفعيل : ' . $std->active_code);
             });
-            $std->update($request_data);
-
+            */
             return response()->json(['success'=>'Data Updated Succefully']);
 
 
@@ -380,13 +384,13 @@ class UserController extends Controller
                 return response()->json(['errors' => $error->errors()->all()]);
             }
             $admin->active_code = $user->active_code;
+            $admin->update($request_data);
 
-            $data = array('name'=>"Seyouf");
+            /*$data = array('name'=>"Seyouf");
             Mail::send(['text'=>'mail'], $data, function($message) use ($admin) {
                 $message->to($admin->email)
                         ->subject('كود التفعيل : ' . $admin->active_code);
-            });
-            $admin->update($request_data);
+            });*/
 
             //$admin->update(['email'=>$request->email, 'active_code'=>$active_code]);
 

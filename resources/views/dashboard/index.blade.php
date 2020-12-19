@@ -256,15 +256,15 @@
                                     <div class="box">
                                         <div class="box-body">
 
-                                            <form action="" method="POST" class="form-horizontal" id="chemailform">
+                                            <form action="" class="form-horizontal" id="chemailform">
                                                 @csrf
 
                                                 <input type="hidden" name="id_hid" id="id_hid" value="{{auth()->user()->id}}">
-                                                <input type="hidden" name="action" id="action" value="Edit">
+                                                {{-- <input type="hidden" name="action" id="action" value="Edit"> --}}
 
                                                 <div class="form-group">
                                                     <label>@lang('site.enter_your_email') </label>
-                                                    <input type="email" name="email" class="form-control" placeholder="@lang('site.email')">
+                                                    <input type="email" name="email" id="email" class="form-control" placeholder="@lang('site.email')">
                                                 </div>
 
 
@@ -569,9 +569,9 @@
                 e.preventDefault();
                 var token = $('meta[name="csrf-token"]').attr('content');
                 var user_id = $('#id_hid').val();
-
-                save_method = 'edit';
-                //$('input[name=_method]').val('PATCH');
+                var emailVal = $('#email').val();
+                //save_method = 'edit';
+                $('input[name=_method]').val('post');
 
                 console.log($(this).serialize());
 
@@ -580,7 +580,11 @@
                     //header:{'X-CSRF-TOKEN': token},
                     url : "{{ url('profile/changemail'). '/' }}" + user_id,
                     type : "post",
-                    data : $(this).serialize(),
+                    //data : $(this).serialize(),
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "email": emailVal
+                    },
                     dataType : "json",
                     success : function(data){
                         if(data.errors){
