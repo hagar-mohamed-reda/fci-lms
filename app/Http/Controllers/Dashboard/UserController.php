@@ -319,11 +319,20 @@ class UserController extends Controller
             $doc->update([
                 "email" => $request->email
             ]);
+
             $data = array('name'=>"Seyouf");
+            $message = 'كود التفعيل هو : ' . $user->active_code;
+            Mail::raw($message, function ($message) use ($user) {
+                $message->to($user->email)
+                        ->subject('مرحبا بك في أكاديمية السيوف');
+            });
+
+            /*$data = array('name'=>"Seyouf");
+            $message = 'كود التفعيل : ' . $user->active_code;
             Mail::send(['text'=>'mail'], $data, function($message) use ($user) {
                 $message->to($user->email)
                         ->subject('كود التفعيل : ' . $user->active_code);
-            });
+            });*/
 
             /*$message = 'كود التفعيل :' . $user->active_code;
             Mail::raw($message, function ($message) use ($user) {
@@ -360,10 +369,17 @@ class UserController extends Controller
             ]);
 
             $data = array('name'=>"Seyouf");
+            $message = 'كود التفعيل هو : ' . $user->active_code;
+            Mail::raw($message, function ($message) use ($user) {
+                $message->to($user->email)
+                        ->subject('مرحبا بك في أكاديمية السيوف');
+            });
+
+            /*$data = array('name'=>"Seyouf");
             Mail::send(['text'=>'mail'], $data, function($message) use ($user) {
                 $message->to($user->email)
                         ->subject('كود التفعيل : ' . $user->active_code);
-            });
+            });*/
 
             return response()->json(['success'=>'Data Updated Succefully']);
 
@@ -395,12 +411,17 @@ class UserController extends Controller
             ]);
 
             $data = array('name'=>"Seyouf");
-            Mail::send(['text'=>'mail'], $data, function($message) use ($user) {
+            $message = 'كود التفعيل هو : ' . $user->active_code;
+            Mail::raw($message, function ($message) use ($user) {
                 $message->to($user->email)
-                        ->subject('كود التفعيل : ' . $user->active_code);
+                        ->subject('مرحبا بك في أكاديمية السيوف');
             });
 
             /*$data = array('name'=>"Seyouf");
+            Mail::send(['text'=>'mail'], $data, function($message) use ($user) {
+                $message->to($user->email)
+                        ->subject('كود التفعيل : ' . $user->active_code);
+
             Mail::send(['text'=>'mail'], $data, function($message) use ($admin) {
                 $message->to($admin->email)
                         ->subject('كود التفعيل : ' . $admin->active_code);
