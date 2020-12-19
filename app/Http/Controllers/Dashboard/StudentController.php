@@ -145,11 +145,11 @@ class StudentController extends Controller
         $request_data['password'] = bcrypt($request->password);
         $request_data['type'] = 'student';
         //$request_data['fid']  = $student->id;
-        if ($request_data['active'] == 'on')
+        /*if ($request_data['active'] == 'on')
             $request_data['active'] = 1;
         else
         $request_data['active'] = 0;
-
+        */
 
         $user = User::create($request_data);
         $user->attachRole('student');
