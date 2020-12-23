@@ -297,8 +297,8 @@ desired effect
                 <img src="{{ asset('dashboard/img/avatar5.png') }} " class="img-circle" alt="User Image">
 
                 <p>
-                  {{ auth()->user()->name }} {{--auth()->user()->last_name--}} - Web Developer
-                  <small>Member since Nov. 2012</small>
+                  {{ auth()->user()->name }} {{--auth()->user()->last_name--}}
+                  {{--<small>Member since Nov. 2012</small>--}}
                 </p>
               </li>
               <!-- Menu Body -->
