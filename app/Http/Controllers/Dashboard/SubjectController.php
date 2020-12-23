@@ -59,10 +59,12 @@ class SubjectController extends Controller
             //dd($doctors);
             $subjects = Subject::when($request->search, function ($q) use ($request){
                 return $q->where('name', 'like', '%'. $request->search . '%')
-                    ->orWhere('code', 'like', '%'. $request->search . '%');
+                    ->orWhere('code', 'like', '%'. $request->search . '%')
+                    ->orWhere('id', 'like', '%'. $request->course_id . '%');
 
-            })->when($request->doc_id, function ($q) use ($request){
-            return $q->where('doc_id', 'like', '%'. $request->doc_id . '%');
+            })->when($request->doctor_id, function ($q) use ($request){
+            return $q->join('doctor_courses', 'courses.id', '=' , 'doctor_courses.course_id')
+                ->where('doctor_courses.doctor_id', 'like', '%'. $request->doctor_id . '%');
 
             })->get();
             return view('dashboard.subjects.index', compact('subjects','doctors'));

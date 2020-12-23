@@ -22,10 +22,10 @@
 
                         @if (auth()->user()->hasRole('super_admin'))
                         <div class="col-md-4">
-                            <select name="doc_id" class="form-control select2-js">
+                            <select name="doctor_id" class="form-control select2-js">
                                 <option value="">@lang('site.doctors')</option>
                                 @foreach ($doctors as $doctor)
-                                <option value="{{$doctor->id}}" {{request()->doc_id == $doctor->id ? 'selected' : ''}}>{{$doctor->name}}</option>
+                                <option value="{{$doctor->id}}" {{request()->doctor_id == $doctor->id ? 'selected' : ''}}>{{$doctor->name}}</option>
                                 @endforeach
                             </select>
                         </div>

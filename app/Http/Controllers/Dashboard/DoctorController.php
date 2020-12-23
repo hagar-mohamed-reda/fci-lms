@@ -59,7 +59,8 @@ class DoctorController extends Controller
             return FacadesDataTables::eloquent($doctors)
             ->addColumn('subjects', function(Doctor $doctor){
                 //return Subject::where('doc_id', $doctor->id )->count();
-                return DoctorCourse::where('doctor_id', $doctor->id )->count();
+                return DoctorCourse::where('doctor_id', $doctor->id )->count() .
+                    ' <a href="'.route("dashboard.subjects.index", ["doctor_id" => $doctor->id ]).'" class="btn btn-info btn-sm">'.__('site.show').'</a>';
 
             })->addColumn('action', function(Doctor $doctor){
 
@@ -70,7 +71,7 @@ class DoctorController extends Controller
                             <button type="submit" class="btn btn-danger delete btn-sm"><i class="fa fa-trash"></i>'. __('site.delete').'</button>
                         </form>';
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action', 'subjects'])
             ->toJson();
 
         //return DataTables::of(Doctor::query())->addColumn('subjects')->make(true);
