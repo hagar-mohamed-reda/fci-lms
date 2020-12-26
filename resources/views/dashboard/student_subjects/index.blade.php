@@ -58,6 +58,9 @@
                     </div>
 
                     <div class="box-body">
+                        @if (isset($_GET['course_id']))
+                        <input type="hidden" id="getCoursID" name="getCoursID" value="{{$_GET['course_id']}}">
+                        @endif
                         <div class="table-responsive">
                             <table class="table table-hover" id="stdSbjTable">
                                 <thead>
@@ -174,7 +177,11 @@
 
     setStudentRegisterDataTable();
 
+    var course_id= $('#getCoursID').val();
 
+    if(course_id > 0){
+        reloadData(course_id);
+    }
 
 </script>
 @endsection

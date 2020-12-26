@@ -42,14 +42,15 @@ class StudentSubjectController extends Controller
         return back();
     }
 
-    public function getData() {
+    public function getData(Request $request) {
         $query = StudentSubject::query();
 
         if (Auth::user()->type == 'doctor')
             $query->whereIn('course_id', Auth::user()->toDoctor()->docSubjs()->pluck('course_id')->toArray());
 
-        if (request()->course_id > 0)
-            $query->where('course_id', request()->course_id);
+        if ($request->course_id > 0)
+            $query->where('course_id', request()->course_id)
+                    ->orWhere('course_id', 'like', '%'. $request->course_id . '%');
 
 
         return FacadesDataTables::eloquent($query->latest())
