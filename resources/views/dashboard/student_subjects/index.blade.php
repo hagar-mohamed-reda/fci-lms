@@ -21,7 +21,6 @@
                                 <div class="col-md-4">
                                     <input type="text" name="search" class="form-control" placeholder="@lang('site.search')" value="{{ request()->search}}">
                                 </div>
-
                                 <div class="col-md-4">
                                     <select name="course_id" id="subjects" class="form-control select2-js course_id">
                                         <option value="">@lang('site.subjects')</option>
@@ -42,6 +41,7 @@
 
                                 <div class="col-md-4">
                                     <button type="button" onclick="reloadData($('.course_id').val())" class="btn btn-primary"><i class="fa fa-search"></i> @lang('site.search')</button>
+                                    <a id="showAll" class="btn btn-primary">show all</a>
 
                                     {{--@if (auth()->user()->hasPermission('create_regist'))
                                         <a href=" {{route('dashboard.student_subjects.create')}}" class="btn btn-success"><i class="fa fa-plus"></i> @lang('site.add')</a>
@@ -183,5 +183,28 @@
         reloadData(course_id);
     }
 
+    $('#showAll').on('click', function(){
+        $('#stdSbjTable').DataTable().destroy();
+        $('#stdSbjTable').DataTable({
+            //"pagingType": "full_numbers",
+            "lengthMenu": [[10, 25, 50, -1],[10, 25, 50, "All"]],
+            paging: false,
+            //aLengthMenu: [[25, 50, 100, 200, -1],[25, 50, 100, 200, "All"]],
+            //iDisplayLength: -1
+            /*"processing": true,
+            "serverSide": true,
+            */"pageLength": 20,
+            dom: 'Bfrtip',
+            buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+            ],
+            "sorting": [0, 'DESC'],
+            'iDisplayLength': 100
+        });
+        //table.pag.len(-1).Draw();
+    });
 </script>
 @endsection
